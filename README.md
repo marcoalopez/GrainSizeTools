@@ -1,8 +1,9 @@
 # GrainSizeTools
 
-*GrainSizeTools* is a free cross-platform script written in [Python][1] that provides a robust method to obtain a single measure of dynamically recrystallized grain size in deformed rocks. There is no need of prior knowledge of Python language to use the script and get the results. The script only requires the previous measurement of the grain sectional areas from a thin section. The aim of the script is to use this value in paleopiezometry and paleowattometry studies. A full paper describing the method applied by the script can be found here: http://www.solid-earth-discuss.net/6/3141/2014/sed-6-3141-2014.html . It is planned to extend the capabilities of the script in the future.
+*GrainSizeTools* is a free cross-platform script written in [Julia][1] that provides a robust method to obtain a single measure of dynamically recrystallized grain size in deformed rocks. There is no need of prior knowledge of Julia language to use the script and get the results. The script only requires the previous measurement of the grain sectional areas from a thin section. The aim of the script is to use this value in paleopiezometry and paleowattometry studies. A full paper describing the method applied by the script can be found here: http://www.solid-earth-discuss.net/6/3141/2014/sed-6-3141-2014.html . At the moment there is only a version of the script implemented in [Python][2], but it is planned to release a Julia version soon. Thank you for your patience.
 
-you can see a brief tutorial here: http://sourceforge.net/p/grainsizetools/wiki/Home/
+You can find the Python version of the script here: https://sourceforge.net/projects/grainsizetools/
+and a brief tutorial on the use of the script here: http://sourceforge.net/p/grainsizetools/wiki/Home/
 
 ### **Features**
 
@@ -18,4 +19,5 @@ you can see a brief tutorial here: http://sourceforge.net/p/grainsizetools/wiki/
 - The script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code.
 
  
-[1]: https://www.python.org/
+[1]: http://julialang.org/
+[2]: https://www.python.org/
