@@ -16,7 +16,7 @@ and a brief tutorial on the use of the script here: http://sourceforge.net/p/gra
 - It produces ready-to-publish number- and area-weighted grain size plots, allowing to save the graphical - -output as a bitmap or vector images
 - It returns the modal intervals and their central values in the number- and area-weighted approaches
 - The script implements several algorithms to estimate the optimal bin size of the histogram and the bandwidth of the Gaussian KDE
-- The script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code.
+- The script is organized in a modular way using functions, which facilitates to modify, reuse or extend the code.
 
  
 [1]: https://www.python.org/
