@@ -21,7 +21,7 @@ You can get a manual in pdf [here](http://figshare.com/articles/GrainSizeTools_s
 Table of contents
 -------------
 
-  * [Requirements]()
+  * [Requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
   * [A brief tutorial on how to use the script]()
   * [Installation]()
     * [Running the script]()
