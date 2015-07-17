@@ -1,4 +1,4 @@
-![](https://dl.dropboxusercontent.com/u/21191101/cabecera.png)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/05837e74bb371c34c5257e869bfd363c069b9c4d/FIGURES/header_fig.png?raw=true)
 
 [GrainSizeTools](https://sourceforge.net/projects/grainsizetools/) is a free open-source cross-platform script written in [Python][1] that provides a number of tools with the aim of characterizing the population of grain sizes in dynamically recrystallized mylonites. The script is suitable to use in paleopiezometry studies using different parameters as well as to derive the actual population of grain sizes from thin sections. The script requires the previous measurement of the grain sectional areas from a thin section. There is no need of previous knowledge of Python language to use the script and get the results. For advanced users, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code.
 
