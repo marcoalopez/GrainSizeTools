@@ -14,7 +14,7 @@ Features
 - It estimates the actual 3D populations of grains from the population of apparent (2D) grain sizes using a variant of the Scheil-Schwartz-Saltykov method to unfold the 2D population. Similar to what the *StripStar* script does.
 - It produces ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images.
 
-You can downloaded the script [here](http://figshare.com/articles/GrainSizeTools_script/1383130)
+You can download the script [here](http://figshare.com/articles/GrainSizeTools_script/1383130)
 
 You can get a manual in pdf [here](http://figshare.com/articles/GrainSizeTools_script_manual/1371025)
 
