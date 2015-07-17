@@ -11,7 +11,7 @@ Features
 - It returns the mean, the median and the area-weighted grain size of the apparent population of grain sizes.
 - It returns the peak of the frequency grain size via the Gaussian kernel density estimator and the central values of the modal intervals in the number- and area-weighted approaches
 - The script implements several algorithms to estimate the optimal bin size of the histogram and the bandwidth of the Gaussian KDE based on population features
-- It estimates the actual 3D populations of grains from the population of apparent (2D) grain sizes using a variant of the Scheil-Schwartz-Saltykov method to unfold the 2D population. Similar to the well-known *StripStar* script.
+- It estimates the actual 3D populations of grains from the population of apparent (2D) grain sizes using a variant of the Scheil-Schwartz-Saltykov method to unfold the 2D population. Similar to what the *StripStar* script does.
 - It produces ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images.
 
 You can downloaded the script here: http://figshare.com/articles/GrainSizeTools_script/1383130
