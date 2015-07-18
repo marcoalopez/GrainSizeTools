@@ -60,4 +60,7 @@ Estimates the actual 3D populations of grains from the population of apparent (2
 >**Returns**:
 > The bin size, the frequencies (probabilities) of the different classes and a plot containing two subplots: i) the distribution of the actual grain size population according to the Scheil-Schwartz-Saltykov method and ii) the volume cumulative distribution function. The array with the frequencies are normalized such that the integral over the range is 1 (i.e. the frequencies obtained in each class is divided by the bin size). Note that the sum of these values will not be equal to 1 unless bins of unity width are chosen.
 
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
+[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
+
 ----------

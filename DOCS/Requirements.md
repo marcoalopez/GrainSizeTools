@@ -5,6 +5,9 @@ The scripts requires [Python][1] 2.7.x or 3.4.x and the scientific libraries [*N
 
 Since the approach of the script is based on the estimation of the grain sectional areas from thin sections, it is necessary to measure in advance the areas of the grains and store them in a text file to use the script and derive the grain size. To measure the grain sectional areas, we highly encourage you to use the [*ImageJ*][8] program or similar since there are public-domain java-based image processing programs widely used for scientific research that runs on Windows, Mac OS X and Linux platforms. The aim of this text is not to describe how to measure the grain areas with the *ImageJ* application but how to treat the data obtained from these applications. If you are not familiarized with the *ImageJ* application don't worry, there are many tutorials on the web. Just search the terms *'ImageJ'* and *'areas'* in your favorite search engine and you will find your answers.
 
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
+[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
+
 [1]: https://www.python.org/
 [2]: http://www.numpy.org/
 [3]: http://www.scipy.org/

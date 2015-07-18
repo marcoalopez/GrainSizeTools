@@ -15,3 +15,5 @@ Lopez-Sanchez MA and Llana-Funez S (2015) [An evaluation of different measures o
 Scott DW (1992) [Multivariate Density Estimation: Theory, Practice, and Visualization.](http://eu.wiley.com/WileyCDA/WileyTitle/productCd-0471547700.html) John Wiley & Sons, New York, Chicester
 
 Silverman BW (1986) [Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability](http://ned.ipac.caltech.edu/level5/March02/Silverman/Silver_contents.html), Chapman and Hall, London.
+
+[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)

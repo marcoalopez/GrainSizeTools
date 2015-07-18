@@ -171,4 +171,7 @@ As an example if we have two data sets and we want to merge the areas and the di
 
 Note that in this example we merged the original data sets into a two new variables named ```AllAreas``` and ```AllDiameters``` respectively. This means that we do not overwrite any of the original data sets and we can used later if required.
 
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)
+[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
+
 ----------
