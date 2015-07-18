@@ -29,12 +29,12 @@ Table of contents
     * [Obtaining a single value of grain size (paleopiezometry)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-a-single-value-of-grain-size-paleopiezometry-studies)
     * [Derive the actual 3D population of grains](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-population-of-grains)
       * [Other methods of interest](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#other-methods-of-interest)
-  * [Specifications of main functions in the GrainSizeTools script]()
-    * [importdata]()
-    * [calc_diameters]()
-    * [find_grain_size]()
-    * [derive3D]()
-  * [References]()
+  * [Specifications of main functions in the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)
+    * [importdata](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#importdata-filepath)
+    * [calc_diameters](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#calc_diameters-areas-addperimeter--0)
+    * [find_grain_size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#find_grain_size-areas-diameters-binsize--fd)
+    * [derive3D](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#derive3d-diameters-numbins10)
+  * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
   
 Citation guidelines
 -------------
