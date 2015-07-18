@@ -6,7 +6,7 @@ A brief tutorial on how to use the script
 
 ### *Running the script*
 
-Once the required software is installed in your system (see requirements above) and the script downloaded, the first thing is to open the script in a Python editor such as the Canopy editor -if you installed the Enthought Canpopy package-, the IDLE -the Python default editor- or the Spyder editor -a scientific Python development environment that comes with the Anaconda package-. Then, to use the script, it is necessary to run the code. For this, if you are in the Canopy environment just click on the play green icon or go to the *Run* menu and click on “Run file” (Fig. 1). If you open the script in the IDLE, just press F5 or go to Run menu and click “Run module” (Fig. 1).
+Once the required software is installed in your system (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)) and the script downloaded, the first thing is to open the script in a Python editor such as the Canopy editor -if you installed the Enthought Canpopy package-, the IDLE -the Python default editor- or the Spyder editor -a scientific Python development environment that comes with the Anaconda package-. Then, to use the script, it is necessary to run the code. For this, if you are in the Canopy environment just click on the play green icon or go to the *Run* menu and click on “Run file” (Fig. 1). If you open the script in the IDLE, just press F5 or go to Run menu and click “Run module” (Fig. 1).
 
 ![Figure 1. Run a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.jpg)
 *Figure 1. Run a script in the Canopy editor (left) and in the IDLE editor (right)*
