@@ -16,8 +16,6 @@ Features
 
 You can download the script [here](http://figshare.com/articles/GrainSizeTools_script/1383130)
 
-You can get a manual in pdf [here](http://figshare.com/articles/GrainSizeTools_script_manual/1371025)
-
 Documentation
 -------------
 Take a look at the [documentation table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md). You can also get a manual in pdf format [here](http://figshare.com/articles/GrainSizeTools_script_manual/1371025), which makes it readily available for offline reading.
