@@ -62,7 +62,7 @@ To load the data set into memory we will use the ```importdata``` function. To i
 >>> areas = importdata('C:/yourFileLocation/nameOfTheFile.txt')
 ```
 
-where ```areas``` is just a name for the Python object in which the data could be stored into memory, this is also known as a variable. This will allow us to manipulate the data set of areas when required. Any name can be used to create a variable. As an example, in the case that the data set to load were the diameters of grains instead of the areas, it would be useful to call the variable ```diameters```, or if you want to load several files with different data sets of areas you can named ```areas1```, ```areas2``` and so on. In Python variable names can contain upper- and lowercase letters, digits and the special character _. However, variable names cannot start with a digit. ```importdata``` is the function responsible for loading the data into the variable. Between the parentheses, the file location path in the OS in quotes (single or double). To avoid problems, it is advisable to use forward slash or double backslashes to define the filePath (e.g. "C:/yourfilelocation.../nameofthefile.txt") instead of single backslash. Once the data set is loaded, the data can be simply viewed by invoking the name of the variable in the Python shell and pressing the enter key, as follows:
+where ```areas``` is just a name for the Python object in which the data could be stored into memory, this is also known as a variable. This will allow us to manipulate the data set of areas when required. Any name can be used to create a variable. As an example, in the case that the data set to load were the diameters of grains instead of the areas, it would be useful to call the variable ```diameters```, or if you want to load several files with different data sets of areas you can named ```areas1```, ```areas2``` and so on. In Python, variable names can contain upper- and lowercase letters, digits and the special character _. However, variable names cannot start with a digit. ```importdata``` is the function responsible for loading the data into the variable. Between the parentheses, the file location path in the OS in quotes (single or double). To avoid problems, it is advisable to use forward slash or double backslashes to define the filePath (e.g. "C:/yourfilelocation.../nameofthefile.txt") instead of single backslash. Once the data set is loaded, the data can be simply viewed by invoking the name of the variable in the Python shell and pressing the enter key, as follows:
 
 ```python
 >>> areas
@@ -82,7 +82,7 @@ A useful method to check if all data is properly loaded is to verify is the size
 
 This will return the number of items in the variable declared within the parenthesis.
 
-The **second step** is to convert the areas into diameters via the equivalent circular diameter. For this, it was implemented a function named ```calc_diameters``` (please, note that in you are using a version of the script previous to v.0.1.1, the function is named ```calcDiameters``` instead). To invoke the function we write in the shell:
+The **second step** is to convert the areas into diameters via the equivalent circular diameter. For this, it was implemented a function named ```calc_diameters```. To invoke the function we write in the shell:
 
 ```python
 >>> diameters = calc_diameters(areas)
@@ -102,7 +102,7 @@ or just
 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 is added. If the parameter ```addPerimeters``` is not declared within the function, as in the first example, it is assumed that no perimeter correction is needed. 
 
-Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate a single value of grain size for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D population of grain sizes from the population of apparent 2D grain sizes using the Scheil-Schwartz-Saltykov algorithm (**new in version 0.3!**). 
+Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate a single value of grain size for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D population of grain sizes from the population of apparent 2D grain sizes using the Scheil-Schwartz-Saltykov algorithm.
 
 ### *Obtaining a single value of grain size (paleopiezometry studies)*
 
@@ -128,14 +128,14 @@ for and *ad hoc* bin size (in this example set to ten). The user-defined bin siz
 
 After pressing the enter key, the function will return a number of different values of grain size typically used in paleopiezometry studies, including the mean, the median, the area-weighted mean and the frequency peak grain sizes (see details in [Lopez-Sanchez and Llana-Fúnez 2015][11]). Others parameters of interest such as the bin size estimated (indicating the method used in the estimation) and the bandwidth used for the Gaussian kernel density estimator according to the Silverman rule (Silverman 1986) are also provided. As stated in [Lopez-Sanchez and Llana-Fúnez 2015][11], a minimum of 433 measured grains are needed to yield consistent results, although we recommended to measure at least 965 if possible.
 
-Furthermore, a new window with the number and area weighted plots appear (Fig. 4), showing the location of the different grain sizes estimated. The advantages and disadvantages of these plots are explained in [Lopez-Sanchez and Llana-Fúnez 2015][11]. You can save the plots by clicking the floppy disk icon and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you need to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon and choose the subplot you want to modify. A new window appear with several options available.
+Then, a new window with the number and area weighted plots appear (Fig. 4), showing the location of the different grain sizes estimated. The advantages and disadvantages of these plots are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015][11]. You can save the plots by clicking the floppy disk icon and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you need to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon and choose the subplot you want to modify. A new window appear with several options available.
 
 ![Figure 4. Number- and area-weighted plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)
 *Figure 4. Number- and area-weighted plots*
 
 ### *Derive the actual 3D population of grains*
 
-To derive the actual 3D population of grain sizes using the Scheil-Schwartz-Saltykov algorithm, we need to invoke the function ```derive3D```as follows:
+To derive the actual 3D population of grain sizes using the Scheil-Schwartz-Saltykov method, we need to invoke the function ```derive3D```as follows:
 
 ```python
 >>> derive3D(diameters, numbins=15)
@@ -145,7 +145,7 @@ The inputs are an array with the apparent diameters of the grains and the number
 ![Figure 5. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)
 *Figure 5. Derived 3D grain size distribution and volume-weighted cumulative grain size distribution*
 
-Regarding the number of bins/classes, it depends on a number of factors such as the length or the features of the data set and, therefore, there is no best number of bins. Due to the nature of the Saltykov method, the larger the bin size, the better the numerical stability of the method. In contrast, the smaller the bin size, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the smallest possible bin size (i.e. the best resolution) that produces stable results. Previous works using the Scheil-Schwartz-Saltykov algorithm proposed -based on experience- to use between 10 to 20 classes (e.g. Exner 1972) or even fewer than ten classes (e.g. Higgins 2000). So far, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) from a particular population of apparent diameters. Hence, the only way to proceed is to use a strategy of trial and error to find which is the maximum number of classes that produces a consistent result. In figure 6 (**under construction**), we try to explain what a consistent result looks like in the case of a dynamic recrystallized mylonite. As a last cautionary note, to unfold the distribution of apparent diameters into the actual 3D distribution applying a Saltykov-type method/algorithm, large samples are required (n ~ 1000 or larger) to generally obtain consistent results.
+Regarding the number of bins/classes, it depends on a number of factors, such as the length or the features of the data set, and, therefore, there is no best number of bins. Due to the nature of the Saltykov method, the larger the bin size, the better the numerical stability of the method. In contrast, the smaller the bin size, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the smallest possible bin size (i.e. the best resolution) that produces stable results. Based on experience, previous works using the Scheil-Schwartz-Saltykov method proposed to use between 10 to 20 classes (e.g. Exner 1972) or even fewer than ten classes (e.g. Higgins 2000). So far, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) from a particular population of apparent diameters. Hence, the only way to proceed is to use a strategy of trial and error to find which is the maximum number of classes that produces a consistent result. In figure 6 (**under construction**), we try to explain what a consistent result looks like in the case of a dynamic recrystallized mylonite. As a last cautionary note, to unfold the distribution of apparent diameters into the actual 3D distribution applying a Saltykov-type method/algorithm, large samples are required (n ~ 1000 or larger) to generally obtain consistent results.
 
 #### *Other methods of interest*
 
