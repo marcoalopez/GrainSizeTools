@@ -1,6 +1,6 @@
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/05837e74bb371c34c5257e869bfd363c069b9c4d/FIGURES/header_fig.png?raw=true)
 
-[GrainSizeTools](https://sourceforge.net/projects/grainsizetools/) is a free open-source cross-platform script written in [Python][1] that provides a number of tools with the aim of characterizing the population of grain sizes in dynamically recrystallized mylonites. The script is suitable to use in paleopiezometry studies using different parameters as well as to derive the actual population of grain sizes from thin sections. The script requires the previous measurement of the grain sectional areas from a thin section. There is **no need** of previous knowledge of Python language to use the script and get the results (see the step-by-step manual). For advanced users, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
+[GrainSizeTools](https://sourceforge.net/projects/grainsizetools/) is a free open-source cross-platform script written in [Python][1] that provides a number of tools with the aim of characterizing the grain size and the population of grain sizes in dynamically recrystallized mylonites. The script is suitable to use in paleopiezometry studies using different grain size measures as well as to derive the actual population of grain sizes from thin sections. The script only requires the previous measurement of the grain sectional areas from a thin section. There is **no need** of previous knowledge of Python language to use the script and get the results (see documentation). For advanced users, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
 Features
 -------------
@@ -18,33 +18,23 @@ You can download the script [here](http://figshare.com/articles/GrainSizeTools_s
 
 You can get a manual in pdf [here](http://figshare.com/articles/GrainSizeTools_script_manual/1371025)
 
-Table of contents
+Documentation
 -------------
+Take a look at the [documentation table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md). You can also get a manual in pdf format [here](http://figshare.com/articles/GrainSizeTools_script_manual/1371025), which makes it readily available for offline reading.
 
-  * [Requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
-  * [A brief tutorial on how to use the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
-    * [Running the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#running-the-script)
-    * [Organization of the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#organization-of-the-script)
-    * [Using the script to estimate the grain size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-derive-grain-size)
-    * [Obtaining a single value of grain size (paleopiezometry)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-a-single-value-of-grain-size-paleopiezometry-studies)
-    * [Derive the actual 3D population of grains](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-population-of-grains)
-      * [Other methods of interest](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#other-methods-of-interest)
-  * [Specifications of main functions in the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)
-    * [importdata](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#importdata-filepath)
-    * [calc_diameters](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#calc_diameters-areas-addperimeter--0)
-    * [find_grain_size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#find_grain_size-areas-diameters-binsize--fd)
-    * [derive3D](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#derive3d-diameters-numbins10)
-  * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
-  
+
 Citation guidelines
 -------------
 
-###Software reference
+####Software reference
 Lopez-Sanchez, Marco A. (2015): GrainSizeTools script. figshare. http://dx.doi.org/10.6084/m9.figshare.1383130
 
-###Technique reference: Peak grain size based on Gaussian KDE
+####Technique reference: Peak grain size based on Gaussian KDE
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies. Solid Earth 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
+License
+-------------
+see [GNU Library or Lesser General Public License version 3.0 (LGPLv3)](https://github.com/marcoalopez/GrainSizeTools/blob/master/license.txt)
 
 
 
