@@ -47,7 +47,7 @@ def calc_diameters(areas, addPerimeter = 0):
 
 Briefly, the name following the Python keyword ```def``` - in this example ```calc_diameters```- is the function name. Within the parentheses following the function name are the formal parameter/s of the function -the input/s-. In this case there are two inputs, the array with the areas of the grains measured and the perimeter needed to correct the size of the grains. The text between the triple quotation marks provide information about the function, which in this case describes the conditions that must be met by the users and the output obtained. Below this, there is the code block.
 
-The names of the Python functions defined in the script are intuitive and self-explanatory. To obtain the results, it is only necessary to use four of all the functions implemented within the script (specifically, the first four). For function details, see the section **"Specifications of main functions in the GrainSizeTools script"**.
+The names of the Python functions defined in the script are intuitive and self-explanatory. To obtain the results, it is only necessary to use four of all the functions implemented within the script (specifically, the first four). For function details, see the section [Specifications of main functions in the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
 ### *Using the script to derive grain size*
 
