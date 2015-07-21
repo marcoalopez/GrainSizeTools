@@ -28,7 +28,7 @@ Citation guidelines
 Lopez-Sanchez, Marco A. (2015): GrainSizeTools script. figshare. http://dx.doi.org/10.6084/m9.figshare.1383130
 
 ####Technique reference: Peak grain size based on Gaussian KDE
-Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies. Solid Earth 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
+Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies. *Solid Earth* 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
 License
 -------------
