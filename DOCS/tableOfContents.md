@@ -20,3 +20,4 @@ Please, browse through the table of contents.
     * [find_grain_size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#find_grain_size-areas-diameters-binsize--fd)
     * [derive3D](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#derive3d-diameters-numbins10)
   * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
+  * [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
