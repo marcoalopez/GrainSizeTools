@@ -7,7 +7,7 @@ Please, browse through the table of contents.
   * [Getting started: A brief tutorial on how to use the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
     * [Running the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#running-the-script)
     * [Organization of the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#organization-of-the-script)
-    * [Using the script to estimate the grain size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-derive-grain-size)
+    * [Using the script to estimate the grain size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-estimate-the-grain-size)
     * [Obtaining a single value of grain size (paleopiezometry)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-a-single-value-of-grain-size-paleopiezometry-studies)
     * [Derive the actual 3D population of grains](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-population-of-grains)
       * [Other methods of interest](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#other-methods-of-interest)
