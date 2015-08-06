@@ -1,4 +1,4 @@
-A brief tutorial on how to use the script
+Getting Started: A brief tutorial on how to use the script
 -------------
 
 > **Note**
