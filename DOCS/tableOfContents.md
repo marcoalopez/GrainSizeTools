@@ -1,13 +1,10 @@
-Getting started
+Table of contents
 -------------
 
 Please, browse through the table of contents.
 
-### Table of contents
-
-
   * [Requirements and installation](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
-  * [A brief tutorial on how to use the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
+  * [Getting started: A brief tutorial on how to use the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
     * [Running the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#running-the-script)
     * [Organization of the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#organization-of-the-script)
     * [Using the script to estimate the grain size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-derive-grain-size)
