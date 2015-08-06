@@ -7,6 +7,6 @@ This script is targeted at anyone who want to: i) obtain a single measure of gra
 
 ***Does the script works in Python 2.7.x and 3.4.x?***
 
-The code was written to run on both versions. So, the short answer is YES. However, the script has only been thoroughly tested on Python 2.7.x. If you run into any problem using the script with Python 3.4.x (or also 2.7.x) please let us know (see an email address here: http://bit.ly/marcoCV ). Feedback from users is always welcome and important to us to develop a better script.
+The code was written to run on both versions. So, the short answer is YES. However, the script has only been thoroughly tested on Python 2.7.x. If you run into any problem using the script with Python 3.4.x (or also 2.7.x) please let us know (see an email address here: http://marcoalopez.github.io/ ). Feedback from users is always welcome and important to us to develop a better script.
 
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
