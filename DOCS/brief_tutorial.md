@@ -49,7 +49,7 @@ Briefly, the name following the Python keyword ```def``` - in this example ```ca
 
 The names of the Python functions defined in the script are intuitive and self-explanatory. To obtain the results, it is only necessary to use four of all the functions implemented within the script (specifically, the first four). For function details, see the section [Specifications of main functions in the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
-### *Using the script to derive grain size*
+### *Using the script to calculate a single measure of grain size*
 
 The **first step** is to load the stored data. It is assumed that previously to this step, it was calculated the sectional areas using an image analysis software and save the results as a txt or csv file (Fig. 3).
 
