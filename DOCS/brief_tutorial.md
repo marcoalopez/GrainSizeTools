@@ -13,7 +13,7 @@ Once the required software is installed in your system (see [requirements](https
 
 The following statement will appear in the Python shell (Fig. 2):
 ```python
-Welcome to the GrainSizeTools script v. 0.3
+Welcome to the GrainSizeTools script v. x.x
 See release notes in the Readme.txt file
 ```
 ![Figure 2. The python editor and the python shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_example.jpg)
@@ -51,18 +51,22 @@ The names of the Python functions defined in the script are intuitive and self-e
 
 ### *Using the script to estimate the grain size*
 
-The **first step** is to load the stored data. It is assumed that previously to this step, it was calculated the sectional areas using an image analysis software and save the results as a txt or csv file (Fig. 3).
+The **first step** is to load the stored data. It is assumed that previously to this step, the sectional areas of the grains was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). 
 
 ![Figure 3. Format of the txt file](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg)
 *Figure 3. Format of the txt file*
 
-To load the data set into memory we will use the ```importdata``` function. To invoke this function we write in the Python shell:
+As you can see in figure 3, from the *ImageJ* application we obtain a file with information in a tabular (spreadsheet-like) form. At this point, we will need to extract the information corresponding to the column named 'Areas', which is the one that contains the necessary information required by the script.  To do this and load the data into memory we will use the ```importdata``` function. To invoke this function we write in the Python shell:
 
 ```python
->>> areas = importdata('C:/yourFileLocation/nameOfTheFile.txt')
+>>> areas = importdata('C:/yourFileLocation/nameOfTheFile.csv', type = 'csv')
 ```
 
-where ```areas``` is just a name for the Python object in which the data could be stored into memory, this is also known as a variable. This will allow us to manipulate the data set of areas when required. Any name can be used to create a variable. As an example, in the case that the data set to load were the diameters of grains instead of the areas, it would be useful to call the variable ```diameters```, or if you want to load several files with different data sets of areas you can named ```areas1```, ```areas2``` and so on. In Python, variable names can contain upper- and lowercase letters, digits and the special character _. However, variable names cannot start with a digit. ```importdata``` is the function responsible for loading the data into the variable. Between the parentheses, the file location path in the OS in quotes (single or double). To avoid problems, it is advisable to use forward slash or double backslashes to define the filePath (e.g. "C:/yourfilelocation.../nameofthefile.txt") instead of single backslash. Once the data set is loaded, the data can be simply viewed by invoking the name of the variable in the Python shell and pressing the enter key, as follows:
+where ```areas``` is just a name for the Python object in which the data could be stored into memory, this is also known as a variable. This will allow us to manipulate the data of areas when required. Almost any name can be used to create a variable. As an example, in the case that the data set to load were the diameters of grains instead of the areas, it would be useful to call the variable ```diameters```, or if you want to load several files belonging to different data sets of areas you can name them ```areas1```, ```areas2``` and so on. In Python, variable names can contain upper- and lowercase letters, digits and the special character _. However, variable names cannot start with a digit.  ```importdata``` is the function responsible for loading the data into the variable. Between the parentheses, the file location path in the OS in quotes (single or double). To avoid problems, it is advisable to use forward slash or double backslashes to define the filePath (e.g. "C:/yourfilelocation.../nameofthefile.txt") instead of single backslashes. This function assumes by default that you saved the datasets as txt files. In case you stored the data sets in csv form, it is neccesary to also define the type (as in the example above). Once you press the Enter key, the function ```importdata``` will automatically obtain the information corresponding for the areas of the grains. To check that everything is ok, the function will also return the first rows of the dataset readed and some values of the array extracted.
+
+> **Note**: In case you extracted manually the information of the areas of the grains and then stored in a txt or csv file (i.e. no spreadsheet-like) (Fig. 4), you can use the method ```np.loadfromtxt()``` as follows to load the data into a variable: ```areas = np.loadfromtxt('C:/yourFileLocation/nameOfTheFile.txt')```.
+
+The data stored in a variable can be viewed at any time by invoking the name of the variable in the Python shell and pressing the enter key, as follows:
 
 ```python
 >>> areas
@@ -74,7 +78,7 @@ we would obtain (as a random example):
 >>> array([99.6535, 41.9045, ..., 79.5712, 119.777])
 ```
 
-A useful method to check if all data is properly loaded is to verify is the size of the data set is correct. This can be checked using the Python built-in method ```len``` as follows:
+A useful method to check if all data is properly loaded is to verify is the lenght of the data set is correct. This can be checked using the Python built-in method ```len``` as follows:
 
 ```python
 >>> len(areas)
