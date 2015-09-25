@@ -51,20 +51,20 @@ The names of the Python functions defined in the script are intuitive and self-e
 
 ### *Using the script to estimate the grain size*
 
-The **first step** is to load the data. It is assumed that previously to this step, the sectional areas of the grains was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). 
+The **first step** is to load the stored data. It is assumed that previously to this step, the sectional areas of the grains was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). 
 
 ![Figure 3. Format of the txt file](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg)
 *Figure 3. Format of the txt file*
 
-As you can see in figure 3, we obtain a file with data in a tabular (spreadsheet-like) form from the *ImageJ* application. This means that we will need to extract the information corresponding to the column named 'Areas', which is the one that contains the necessary information required by the script.  To do this we will use the ```importdata``` function implemented within the script. To invoke this function we write in the Python shell:
+As you can see in figure 3, from the *ImageJ* application we obtain a file with information in a tabular (spreadsheet-like) form. At this point, we will need to extract the information corresponding to the column named 'Areas', which is the one that contains the necessary information required by the script.  To do this and load the data into memory we will use the ```importdata``` function. To invoke this function we write in the Python shell:
 
 ```python
 >>> areas = importdata('C:/yourFileLocation/nameOfTheFile.csv', type = 'csv')
 ```
 
-where ```areas``` is just a name for the Python object in which the data could be stored into memory, also known as a variable. This will allow us to later manipulate the areas of the grains when required. Almost any name can be used to create a variable in Python. As an example, if you want to load several files belonging to different data sets, you can name them ```areas1```, ```areas2``` or ```areas_sample1``` , ```areas_sample2``` and so on. Variable names can contain upper- and lowercase letters, digits and the special character '_', but cannot start with a digit.  ```importdata``` is the function responsible for loading the data into the variable. Between the parentheses, is the file location path in the OS in quotes (single or double) and the type of the file to be readed. To avoid problems, it is advisable to use forward slash or double backslashes to define the filePath (e.g. "C:/yourfilelocation.../nameofthefile.txt") instead of single backslashes. This function assumes by default that you saved the datasets as txt files. In case you stored the data sets in txt form (Fig. 3a), it is not neccesary to define the type since the ```importdata``` function assumes that type of file by default. In contrast, if you want to read a csv file you have to specified the type (as in the example above). Once you press the Enter key, the function ```importdata``` will automatically obtain the information corresponding for the areas of the grains. To check that everything is ok, the function will also return the first rows of the dataset readed and the firts and last values of the variable stored.
+where ```areas``` is just a name for the Python object in which the data could be stored into memory, this is also known as a variable. This will allow us to manipulate the data of areas when required. Almost any name can be used to create a variable. As an example, in the case that the data set to load were the diameters of grains instead of the areas, it would be useful to call the variable ```diameters```, or if you want to load several files belonging to different data sets of areas you can name them ```areas1```, ```areas2``` and so on. In Python, variable names can contain upper- and lowercase letters, digits and the special character _. However, variable names cannot start with a digit.  ```importdata``` is the function responsible for loading the data into the variable. Between the parentheses, the file location path in the OS in quotes (single or double). To avoid problems, it is advisable to use forward slash or double backslashes to define the filePath (e.g. "C:/yourfilelocation.../nameofthefile.txt") instead of single backslashes. This function assumes by default that you saved the datasets as txt files. In case you stored the data sets in csv form, it is neccesary to also define the type (as in the example above). Once you press the Enter key, the function ```importdata``` will automatically obtain the information corresponding for the areas of the grains. To check that everything is ok, the function will also return the first rows of the dataset readed and some values of the array extracted.
 
-> **Note**: In case you extracted manually the information of the areas of the grains and then stored in a txt or csv file (i.e. without a spreadsheet-like form; Fig. 4), you can use the method ```np.genfromtxt()``` to load the data into a variable as follows: ```areas = np.loadfromtxt('C:/yourFileLocation/nameOfTheFile.txt')```.
+> **Note**: In case you extracted manually the information of the areas of the grains and then stored in a txt or csv file (i.e. no spreadsheet-like) (Fig. 4), you can use the method ```np.loadfromtxt()``` as follows to load the data into a variable: ```areas = np.loadfromtxt('C:/yourFileLocation/nameOfTheFile.txt')```.
 
 The data stored in a variable can be viewed at any time by invoking the name of the variable in the Python shell and pressing the enter key, as follows:
 
@@ -77,6 +77,14 @@ we would obtain (as a random example):
 ```python
 >>> array([99.6535, 41.9045, ..., 79.5712, 119.777])
 ```
+
+A useful method to check if all data is properly loaded is to verify is the lenght of the data set is correct. This can be checked using the Python built-in method ```len``` as follows:
+
+```python
+>>> len(areas)
+```
+
+This will return the number of items in the variable declared within the parenthesis.
 
 The **second step** is to convert the areas into diameters via the equivalent circular diameter. For this, it was implemented a function named ```calc_diameters```. To invoke the function we write in the shell:
 
@@ -122,9 +130,9 @@ to use the Scott rule (note that the name is in quotes and that the first letter
 
 for and *ad hoc* bin size (in this example set to ten). The user-defined bin size can be of type integer or float (*i.e.* an irrational number).
 
-After pressing the enter key, the function will return a number of different measures of grain size typically used in paleopiezometry studies, including the mean, the median, the area-weighted mean and the frequency peak grain sizes (see details in [Lopez-Sanchez and Llana-Fúnez 2015][11]). Others parameters of interest such as the bin size estimated (indicating the method used in the estimation) and the bandwidth used for the Gaussian kernel density estimator according to the Silverman rule (Silverman 1986) are also provided. As stated in [Lopez-Sanchez and Llana-Fúnez 2015][11], a minimum of 433 measured grains are needed to yield consistent results, although we recommended to measure at least 965 if possible.
+After pressing the enter key, the function will return a number of different values of grain size typically used in paleopiezometry studies, including the mean, the median, the area-weighted mean and the frequency peak grain sizes (see details in [Lopez-Sanchez and Llana-Fúnez 2015][11]). Others parameters of interest such as the bin size estimated (indicating the method used in the estimation) and the bandwidth used for the Gaussian kernel density estimator according to the Silverman rule (Silverman 1986) are also provided. As stated in [Lopez-Sanchez and Llana-Fúnez 2015][11], a minimum of 433 measured grains are needed to yield consistent results, although we recommended to measure at least 965 if possible.
 
-Also, a new window with the number and area weighted plots appear (Fig. 4), showing the location of the different grain sizes estimated. The advantages and disadvantages of these plots are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015][11]. You can save the plots by clicking the floppy disk icon and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you need to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon and choose the subplot you want to modify. A new window appear with several options available.
+Then, a new window with the number and area weighted plots appear (Fig. 4), showing the location of the different grain sizes estimated. The advantages and disadvantages of these plots are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015][11]. You can save the plots by clicking the floppy disk icon and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you need to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon and choose the subplot you want to modify. A new window appear with several options available.
 
 ![Figure 4. Number- and area-weighted plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)
 *Figure 4. Number- and area-weighted plots*
@@ -136,7 +144,7 @@ To derive the actual 3D population of grain sizes using the Scheil-Schwartz-Salt
 ```python
 >>> derive3D(diameters, numbins=15)
 ```
-The inputs are an array with the apparent diameters of the grains and the number of bins/classes of the histogram. If the number of bins is not declared is set to ten by default. To define the number of classes, the user can use any positive integer value. However, it is advisable to choose a number between 5 and 20 (see below for details). After pressing the enter key, the function will return the bin size estimated and an array with the normalized frequencies of the different classes. Also, a new window with two plots appear (Fig 5). On the left, the estimated 3D grain size distribution in a form of the histogram and, on the right, a volume-weighted cumulative density plot. The latter allow the user to estimate by eyeballing which percentage of volume is occupied by a defined range of grain sizes.
+The inputs are an array with the apparent diameters of the grains and the number of bins/classes of the histogram. If the number of bins is not declared is set to ten by default. To define the number of classes, the user can use any positive integer value. However, it is advisable to choose a number between 5 and 20 (see below for details). After pressing the enter key, the function will return the bin size estimated and an array with the normalized frequencies of the different classes. Also, a new window with two plots appear (Fig 5). On the left, the derived 3D grain size distribution in a form of the histogram and, on the right, a volume-weighted cumulative density plot. The latter allow the user to estimate by eyeballing which percentage of volume is occupied by a defined range of grain sizes.
 
 ![Figure 5. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)
 *Figure 5. Derived 3D grain size distribution and volume-weighted cumulative grain size distribution*
@@ -151,12 +159,9 @@ Regarding the number of bins/classes, it depends on a number of factors, such as
 **Calculate the standard deviation of an array stored**
 ```>>> std(*the name of the variable*)```
 
-**See the lenght of an array stored**
-```>>> len(*the name of the variable*)```
-
 **Merge two or more data sets**
 
-A useful *Numpy* method to merge two or more data sets is called ```hstack()```, which stack arrays in sequence as follows:
+A useful *Numpy* method to merge two or more data sets is called ```hstack```, which stack arrays in sequence as follows:
 
 ```>>> np.hstack((*Name of the array1*, *name of the Array2*,...))```
 
@@ -164,11 +169,11 @@ A useful *Numpy* method to merge two or more data sets is called ```hstack()```,
 
 As an example if we have two data sets and we want to merge the areas and the diameters estimated in a single variable we write into the Python shell (variable names are just a random example):
 
-```>>> all_areas = np.hstack((areas1, areas2))```
-```>>> all_diameters = np.hstack((diameters1, diameters2))```
+```>>> AllAreas = np.hstack((areas1, areas2))```
+```>>> AllDiameters = np.hstack((diameters1, diameters2))```
 
 
-Note that in this example we merged the original data sets into two new variables named ```all_areas``` and ```all_diameters``` respectively. This means that we do not overwrite any of the original data sets and we can used later if required.
+Note that in this example we merged the original data sets into a two new variables named ```AllAreas``` and ```AllDiameters``` respectively. This means that we do not overwrite any of the original data sets and we can used later if required.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
