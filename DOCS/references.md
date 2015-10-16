@@ -8,9 +8,13 @@ Freedman D and Diaconis P (1981) [On the histogram as a density estimator: L2 th
 
 Heilbronner R and Bruhn D (1998) [The influence of three-dimensional grain size distributions on the rheology of polyphase rocks.](http://www.sciencedirect.com/science/article/pii/S0191814198000108) *Journal of Structural Geology* 20, 695–705
 
-Higgins MD (2000) [Measurement of crystal size distributions.](http://ammin.geoscienceworld.org/content/85/9/1105.short) *American Mineralogist* 85, 1105-1116
+Higgins MD (2000) [Measurement of crystal size distributions.](http://ammin.geoscienceworld.org/content/85/9/1105.short) *American Mineralogist* 85, 1105-1116. doi: [10.2138/am-2000-8-901](http://dx.doi.org/10.2138/am-2000-8-901)
 
 Lopez-Sanchez MA and Llana-Funez S (2015) [An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies](http://bit.ly/1ND45Sw). *Solid Earth* 6, 475-495. doi: [10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
+
+Lopez-Sanchez MA and Llana-Fúnez S (submitted) [Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations](). To be submitted
+
+Saltykov SA (1967) [The determination of the size distribution of particles in an opaque material from a measurment of the size distribution of their secions](http://link.springer.com/chapter/10.1007%2F978-3-642-88260-9_31). In: Elias, H. (Ed.), *Proceedings of the Second International Congress for STEREOLOGY*. Springer Berlin Heidelberg, Berlin, Heidelberg, pp. 163–173. doi: [10.1007/978-3-642-88260-9_31](http://dx.doi.org/10.1007/978-3-642-88260-9_31)
 
 Scott DW (1992) [Multivariate Density Estimation: Theory, Practice, and Visualization.](http://eu.wiley.com/WileyCDA/WileyTitle/productCd-0471547700.html) John Wiley & Sons, New York, Chicester
 
