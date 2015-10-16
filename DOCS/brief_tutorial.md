@@ -80,7 +80,7 @@ In case you need to skip the first lines because there is a names or other infor
 ```
 In this case, the parameter ```skip_header = 1``` means that the first line in the txt file is not considered. You can define any number of lines to skip.
 
-![Figure 4. Format of the txt file](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg)
+<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg" width="350">
 *Figure 4. A txt file without spreadsheet-like form*
 
 > **Tip**: If you locate the GrainSizeTools script in the same location as the data files, it is no longer neccesary to specify the file location in the OS but just the name of the file to be loaded. For example:
@@ -123,7 +123,7 @@ or just
 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 is added. If the parameter ```addPerimeters``` is not declared within the function, as in the first example, it is assumed that no perimeter correction is needed.
 
-![Figure 5. Example of perimeter correction](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png)
+<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="500">
 *Figure 5. Example of perimeter correction. The figure shows the boundaries (in white) between three grains in a grain boundary map. The squares are the pixels of the image. The boundaries are two pixel wide approximately. If, for example, each pixel corresponds to 1 micron, we need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
 Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate a single value of grain size (1D grain size measure) for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D population of grain sizes from the population of apparent 2D grain sizes using the Scheil-Schwartz-Saltykov method (Saltykov, 1967) or the two-step method (Lopez-Sanchez and Llana-Fúnez, *submitted*).
