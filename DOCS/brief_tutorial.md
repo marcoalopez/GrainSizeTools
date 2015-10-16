@@ -57,7 +57,7 @@ The names of the Python functions defined in the script are intuitive and self-e
 
 #### Loading the data
 
-The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to obtain this, take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](). 
+The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to obtain this, take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md). 
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://dl.dropboxusercontent.com/u/21191101/figure_imageJ_files.png)
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, a txt file. At right, the csv (comma-separated) version*
