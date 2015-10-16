@@ -59,7 +59,7 @@ The names of the Python functions defined in the script are intuitive and self-e
 
 The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to obtain this, take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md). 
 
-![Figure 3. Tabular-like files obtaining from the ImageJ app](https://dl.dropboxusercontent.com/u/21191101/figure_imageJ_files.png)
+![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, a txt file. At right, the csv (comma-separated) version*
 
 As you can see in figure 3, we obtain a file with data in a tabular (spreadsheet-like) form from the *ImageJ* application. This means that we will need to extract the information corresponding to the column named 'Area', which is the one that contains the necessary information required by the script. To do this, the script implements a function named ```importdata``` that automatically extract this data for us (*Note: this feature has been implemented in the version 1.0 of the script, therefore, the v.1.0 or higher is required*). To invoke this function we write in the Python shell:
@@ -123,7 +123,7 @@ or just
 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 is added. If the parameter ```addPerimeters``` is not declared within the function, as in the first example, it is assumed that no perimeter correction is needed.
 
-![Figure 5. Example of perimeter correction](https://dl.dropboxusercontent.com/u/21191101/Fig_PS_pixels.png)
+![Figure 5. Example of perimeter correction](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png)
 *Figure 5. Example of perimeter correction. The figure shows the boundaries (in white) between three grains in a grain boundary map. The squares are the pixels of the image. The boundaries are two pixel wide approximately. If, for example, each pixel corresponds to 1 micron, we need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
 Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate a single value of grain size (1D grain size measure) for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D population of grain sizes from the population of apparent 2D grain sizes using the Scheil-Schwartz-Saltykov method (Saltykov, 1967) or the two-step method (Lopez-Sanchez and Llana-Fúnez, *submitted*).

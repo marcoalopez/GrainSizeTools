@@ -23,7 +23,7 @@ The number of techniques that make possible the transition from a raw image to a
 
 Once the grain segmentation is done, especially when the grain segmentation was performed by manual outlining using a vector-graphics application, it is crucial to ensure that at the actual pixel resolution the grain boundaries have a width of 2 or more pixels (Fig. 2). This will prevent the formation of undesirable artifacts since at the moment in which two black pixels belonging to two different grains are adjacent to each other, both grains will be considered the same grain by the image analysis software. 
 
-![Figure 2. Detail of grain boundaries in a grain boundary map](https://dl.dropboxusercontent.com/u/21191101/Fig_PS_pixels.png)
+![Figure 2. Detail of grain boundaries in a grain boundary map](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png)
 *Figure 2. Detail of grain boundaries in a grain boundary map. The figure shows the boundaries (in white) between three grains in a grain boundary map. The squares represent the pixels in the image. The boundaries are two pixels wide approximately.*
 
 ### *Measuring the areas of the grain profiles*
