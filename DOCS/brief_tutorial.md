@@ -194,7 +194,7 @@ Note that in this case we include a new parameter named ```fit``` and set it to 
 ```
 When the ```initial_guess``` parameter is set to ```True```, the script will ask you about the new guess values for the shape and scale parameters (it also indicates which are the default ones). Based on our experience, a useful strategy is to let the shape value in its default value (1.2) and decrease the scale value every five units until the fitting procedure yield a coherent result (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
 
-![Figure 8. Two-step method plots](https://dl.dropboxusercontent.com/u/21191101/two-step_method.png)
+![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)
 *Figure 8. Plots obtained by the two step method. At left, an example with the log-normal population well fitted to the datapoints. The shadow zone is the trust region at a 3-sigma level for the fitting procedure. At right, an example of a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the datapoints and the line representing the best fitting*
 
 #### *Other general methods of interest*

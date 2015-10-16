@@ -10,7 +10,7 @@ This step-by-step tutorial assumes that you have installed in the system the Ima
 
 Grain size studies in rocks are usually based on measures performed in thin sections (2D data) through image analysis. Since the methods implemented in the GrainSizeTools script are based on the measure of the areas of the grain profiles, our final aim is to obtain a grain boundary map (Fig. 1) from the thin section, on which we will carry out the corresponding measures.
 
-![Figure 1. An example of a grain boundary map]()
+![Figure 1. An example of a grain boundary map](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/GBmap.png)
 *Figure 1. An example of a grain boundary map*
 
 Nowadays, these measures are mostly made on digital images made by pixels (e.g. Heilbronner and Barret 2014), also known as raster graphics image. You can obtain some information on raster graphics [here](https://en.wikipedia.org/wiki/Raster_graphics). For example, in a 8-bit grayscale image (the most widely used type of grayscale image), each pixel contains information about its location in the image (its x and y coordinates) and its 'gray' value in a range that goes from 0 (white) to 256 (black) (i.e. it allows 256 different gray intensities). In the case of a grain boundary map (Fig. 1), it is a binary image where only two possible values exist, 0 for white pixels and 1 for black pixels.
@@ -34,22 +34,22 @@ Once the grain segmentation is done, especially when the grain segmentation was 
 
 3) Then, it is necessary to set the scale of the image. Go to ```Analize>Set Scale```. A new window will appear (Fig. 3). To set the scale, you need to know the size of a feature, such as the width of the image, or the size of an object or a previously applied scale bar and its distance in pixels. The size of the image in pixels can be check in the upper left corner of the window containing the image, it is the numbers within the parentheses. To use a particular object of the image as scale the procedure is: i) Use the line selection tool in the tool bar (Fig. 3) to draw a line along the length of the feature or scale bar; ii) do to ```Analize>Set Scale```; iii) the distance of the drawn line in pixels appears on the upper box, so enter the dimension of the object/scale bar in the 'known distance' box and set the units in the 'Unit length' box; iv) do not check 'Global' unless you want all your images to have this calibration and click ok. Now, you can check in the upper left corner of the window the size of the image in microns (millimeters or whatever) and in pixels.
 
-![Figure 3. Set scale menu](https://dl.dropboxusercontent.com/u/21191101/Set%20scale.png)
+![Figure 3. Set scale menu](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Set%20scale.png)
 *Figure 3. At left, the Set Scale window. At right, the ImageJ menu and tool bars. The line selection tool is the fifth element from the left (which is actually selected)*
 
 4) Then, it is necessary to set the measurements to be done. For this, go to ```Analize>Set Measurements``` and a new window will appear. Make sure that 'Area' is selected. You can also set at the bottom of the window the desired number of decimal places. Click ok.
 
 5) To measure the areas of our grain profiles we need to go to ```Analize>Analize Particles```. A new window appears with different options (Fig. 4). The first two are for establishing certain conditions to exclude anything that is not an object of interest in the image. The first one is based on the size of the objects in pixels by establishing a range of size. We usually set a minimum of 4 pixels to rule out possible artifacts hard to detect by the eye in the image (this ultimately depends on the quality and the nature of your grain boundary map) and the maximum to infinity. The second option is based on the roundness of the object (the grains in our case). We usually leave the default range values 0.00-1.00, but again this depends on your data and your purpose. For example, the roundness parameter could be useful to discard non-recrystallized grains. Just below, the 'show' drop-down menu allows the user to obtain different types of images when the particle analysis is done. We usually set this to 'Outlines' to obtain an image with all the grains measured outlined and numbered, which can be useful later to check the data set. Finally, the user can choose between different options. In our case, it is just necessary to select 'Display results'. Click ok.
 
-![Figure 4. Analize Particles menu](https://dl.dropboxusercontent.com/u/21191101/AnalizeParticles.png)
+![Figure 4. Analize Particles menu](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/AnalizeParticles.png)
 *Figure 3. Analize particles window showing the different options*
 
 6) After a while, a number of different windows will appear. At least, one containing the results of the measures (Fig. 5) and other containing the image with the outlined and numbered grains. Note that the numbers displayed within the grains in the image generated by the ImageJ correspond to the values showed in the first (unnamed) column of the results. To save the image go to the ImageJ menubar, click on ```File>Save As```, and choose the file type you prefer (we encouraging you to use PNG or TIFF for such type of image). To save the results we have different options. In the menubar of the window containing the results, go first to ```Results>Options```  and a new window will appear (Fig. 6). In the third line you can choose to save the results as a text (.txt), csv comma-separated (.csv) or excel (.xls) file types. We encourage you to choose either *txt* or *csv* since both are widely supported formats to exchange tabular data. Regarding the 'Results Table Options' at the bottom, make sure that at least 'Save column headers' are selected since this headers will be used later by the GrainSizeTools script to extract the data from the column 'Area'. Finally, in the same window go to ```File>Save As``` and choose a name for the file. That's it.
 
-![Figure 5. The results window](https://dl.dropboxusercontent.com/u/21191101/Fig_imageJ_results.png)
+![Figure 5. The results window](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_imageJ_results.png)
 *Figure 4. The results windows showing all the measures done on the grains by the ImageJ application.*
 
-![Figure 6. ImageJ I/O options window](https://dl.dropboxusercontent.com/u/21191101/Fig_ImageJ_IOoptions.png)
+![Figure 6. ImageJ I/O options window](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_ImageJ_IOoptions.png)
 *Figure 5. ImageJ I/O options window.*
 
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
