@@ -2,7 +2,11 @@ Getting Started: A step-by-step tutorial on how to use the script
 -------------
 
 > **Note**
+<<<<<<< HEAD
 > This step-by-step tutorial assumes that you do not know anything about Python programming language. This means that it is no necessary a prior knowledge of Python language to use the script and get the results. Just follow the instructions.
+=======
+> This simple tutorial assumes that you do not know anything about Python programming language. This means that it is no necessary a prior knowledge of Python language to use this script and get the results. Just follow the instructions.
+>>>>>>> origin/master
 
 ### *Running the script*
 
