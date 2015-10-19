@@ -1,7 +1,7 @@
 A brief tutorial on how to measure the grain profile areas with ImageJ
 -------------
 
-**Important note:** This step-by-step tutorial assumes that you have installed in the system the ImageJ software. If this is not the case go [here](http://imagej.nih.gov/ij/) to download and install the application. You can also install different flavours of the ImageJ app (see [here](http://fiji.sc/ImageJ) for a summary) that will work in a similar way. As a cautionary note, this tutorial is not a detailed tutorial on image analysis using ImageJ at all. This is just a quick step-by-step tutorial to obtain the areas of the grain profiles in a thin section to later use the GrainSizeTools script to study the grain size population. If you are really interested in image analysis (e.g. grain segmentation techniques, etc.) you should have a look at the list of references at the end of this tutorial.
+**Important note:** This step-by-step tutorial assumes that you have installed in the system the ImageJ software. If this is not the case go [here](http://imagej.nih.gov/ij/) to download and install the application. You can also install different flavours of the ImageJ app (see [here](http://fiji.sc/ImageJ) for a summary) that will work in a similar way. As a cautionary note, this is not a detailed tutorial on image analysis using ImageJ at all. This is just a quick step-by-step tutorial to obtain the areas of the grain profiles in a thin section to later use the GrainSizeTools script. If you are really interested in image analysis (e.g. grain segmentation techniques, etc.) you should have a look at the list of references at the end of this tutorial.
 
 ### *Previous considerations on the Grain Boundary Maps*
 
