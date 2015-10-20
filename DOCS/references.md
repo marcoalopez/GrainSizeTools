@@ -20,5 +20,5 @@ Scott DW (1992) [Multivariate Density Estimation: Theory, Practice, and Visualiz
 
 Silverman BW (1986) [Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability](http://ned.ipac.caltech.edu/level5/March02/Silverman/Silver_contents.html), Chapman and Hall, London.
 
-[next](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)  
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
