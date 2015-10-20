@@ -39,7 +39,7 @@ Lopez-Sanchez, Marco A. (2015): GrainSizeTools script. figshare. http://dx.doi.o
 ***Frequency peak grain size based on Gaussian KDE***  
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies. *Solid Earth* 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
-***The two-step method***  
+***Two-step method***  
 Lopez-Sanchez MA and Llana-Fúnez (2015) Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations. To submit soon.
 
 License
