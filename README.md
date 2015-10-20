@@ -32,7 +32,7 @@ Take a look at the [table of contents](https://github.com/marcoalopez/GrainSizeT
 Citation guidelines
 -------------
 
-####Software reference
+####Script reference
 Lopez-Sanchez, Marco A. (2015): GrainSizeTools script. figshare. http://dx.doi.org/10.6084/m9.figshare.1383130
 
 ####Technique references:
