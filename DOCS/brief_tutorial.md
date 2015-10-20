@@ -16,7 +16,7 @@ The following statement will appear in the Python shell (Fig. 2):
 Welcome to the GrainSizeTools script v. 1.0
 See release notes in the Readme.txt file
 ```
-![Figure 2. The Python editor and the Python shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_example.jpg)
+![Figure 2. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_example.jpg)
 *Figure 2. The Python editor and the Python shell in the Enthought Canopy environment*
 
 ### *Organization of the script*
@@ -53,14 +53,14 @@ To sum up, the name following the Python keyword ```def``` - in this example ```
 
 The names of the Python functions defined in the script are intuitive and self-explanatory. To get the results, it is only necessary to use four (and usually less than four) of all the functions implemented within the script. For details, you can take a look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
-### *Using the script to estimate different grain size parameters*
+### *Using the script to estimate grain size features*
 
 #### Loading the data
 
 The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to obtain this, take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md). 
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)
-*Figure 3. Tabular-like files obtaining from the ImageJ app. At left, a txt file. At right, the csv (comma-separated) version*
+*Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the txt file. At right, the csv (comma-separated) version*
 
 As you can see in figure 3, we obtain a file with data in a tabular (spreadsheet-like) form from the *ImageJ* application. This means that we will need to extract the information corresponding to the column named 'Area', which is the one that contains the necessary information required by the script. To do this, the script implements a function named ```importdata``` that automatically extract this data for us (*Note: this feature has been implemented in the version 1.0 that it will be released soon*). To invoke this function we write in the Python shell:
 
@@ -88,7 +88,7 @@ In this case, the parameter ```skip_header = 1``` means that the first line in t
 >>> areas = importdata('nameOfTheFile.csv', type = 'csv')
 ```
 
-The data stored in any variable can be viewed at any time by invoking the name of the variable in the Python shell and pressing the Enter key, as follows:
+The data stored in any variable can be viewed at any time by invoking the name of the variable in the Python shell and pressing the Enter key, as follows (as a random example):
 
 ```python
 >>> areas
@@ -126,7 +126,7 @@ This example means that for each apparent diameter calculated from the sectional
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="500">
 *Figure 5. Example of perimeter correction. The figure shows the boundaries (in white) between three grains in a grain boundary map. The squares are the pixels of the image. The boundaries are two pixel wide approximately. If, for example, each pixel corresponds to 1 micron, we need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
-Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate a single value of grain size (1D grain size measure) for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D population of grain sizes from the population of apparent 2D grain sizes using the Scheil-Schwartz-Saltykov method (Saltykov, 1967) or the two-step method (Lopez-Sanchez and Llana-Fúnez, *submitted*).
+Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate a single value of grain size (1D grain size measure) for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D population of grain sizes from the population of apparent grain sizes using the Scheil-Schwartz-Saltykov method (Saltykov, 1967) or the two-step method (Lopez-Sanchez and Llana-Fúnez, *submitted*).
 
 #### *Obtaining a single 1D value of grain size (paleopiezometry studies)*
 
@@ -148,7 +148,7 @@ note that the name is in quotes with both letters capitalized or
 >>> find_grain_size(areas, diameters, binsize = 10.0)
 ```
 
-for a user-defined bin size (in this example set to ten). The user-defined bin size can be of type integer or float (*i.e.* an irrational number). Freedman-Diaconis rule is a better option compared to Scott rule when it is suspect that there are outliers in the population of grain profile sizes.
+to set a user-defined bin size (in this example set to ten). The user-defined bin size can be of type integer or float (*i.e.* an irrational number). Freedman-Diaconis rule is a better option compared to Scott rule when it is suspect that there are outliers in the population of grain profile sizes.
 
 After pressing the Enter key, the function will return a number of different 1D measures of grain size typically used in paleopiezometry studies, including the mean, the median, the area-weighted mean and the frequency peak grain sizes (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Also, other parameters of interest are also provided, such as the bin size estimated (indicating the method used in the estimation) and the bandwidth used for the Gaussian kernel density estimator according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), a minimum of 433 measured grain profiles are needed to yield consistent results, although we recommended to measure at least 965 if possible.
 
@@ -207,7 +207,7 @@ When the ```initial_guess``` parameter is set to ```True```, the script will ask
 
 **Merging data sets**
 
-A useful *Numpy* method to merge two or more data sets is called ```hstack()```, which stack arrays in sequence as follows (*Note the use of double parenthesis*):
+A useful *Numpy* method to merge two or more data sets is called ```hstack()```, which stack arrays in sequence as follows (*note the use of double parenthesis*):
 
 ```python
 >>> np.hstack((name of the array1, name of the Array2,...))
@@ -220,9 +220,14 @@ As an example if we have two different data sets and we want to merge the areas 
 >>> all_diameters = np.hstack((diameters1, diameters2))
 ```
 
-Note that in this example we merged the original data sets into two new variables named ```all_areas``` and ```all_diameters``` respectively. This means that we do not overwrite any of the original variables and we can used later if required.
+Note that in this example we merged the original data sets into two new variables named ```all_areas``` and ```all_diameters``` respectively. This means that we do not overwrite any of the original variables and we can used later if required. In contrast, if you use a variable name already defined:
 
-[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)
+```python
+>>> areas1 = np.hstack((areas1, areas2))
+```
+The variable ```areas1``` is now a new array with the values of the two data sets, and the original data set stored in the variable ```areas1``` no longer exists since numpy arrays are mutable Python objects.
+
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
 
 ----------
