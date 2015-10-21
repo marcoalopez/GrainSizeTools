@@ -16,7 +16,7 @@ The following statement will appear in the Python shell (Fig. 2):
 Welcome to the GrainSizeTools script v. 1.0
 See release notes in the Readme.txt file
 ```
-![Figure 2. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_example.jpg)
+![Figure 2. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_env.png)
 *Figure 2. The Python editor and the Python shell in the Enthought Canopy environment*
 
 ### *Organization of the script*
