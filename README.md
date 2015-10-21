@@ -4,7 +4,8 @@
 
 Screenshots
 -------------
-![Figure 1. Screenshots (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots_fig-01.png)
+![Figure 1. Screenshots (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots_fig-01.png)  
+[enlarge image](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots_fig-01.png)
 
 Features
 -------------
