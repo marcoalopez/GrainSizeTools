@@ -74,7 +74,7 @@ In case you previously extracted manually the information of the areas of the gr
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt')
 ```
-In case you need to skip the first lines because there is a names or other information instead of the values:
+In case you need to skip the first lines because there is a text or other information instead of the values:
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt', skip_header = 1)
 ```
