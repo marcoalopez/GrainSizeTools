@@ -18,6 +18,9 @@ Please, browse through the table of contents.
     * [calc_diameters](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#calc_diameters-areas-addperimeter--0)
     * [find_grain_size](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#find_grain_size-areas-diameters-binsize--scott)
     * [derive3D](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#derive3d-diameters-numbins10-set_limitnone-fitfalse-initial_guessfalse)
+  * [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
   * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
   * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
-  * [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
+    * [Who this script is for?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
+    * [Does the script works with Python 2.7.x and 3.4.x?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
+  

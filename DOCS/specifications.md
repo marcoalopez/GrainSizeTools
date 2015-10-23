@@ -50,8 +50,8 @@ Estimate different 1D measures of grain size from a population of apparent diame
 ####**derive3D** (*diameters, numbins=10, set_limit=None, fit=False, initial_guess=False*)
 Estimates the actual population of diameters from a population of apparent diameters obtained from a thin section. It uses two approaches:
         
-i) the standard Saltykov method (Saltykov 1967; Underwood 1970)
-ii) the two-step method (Lopez-Sanchez and Llana-Funez, submitted).
+i) the standard Saltykov method (Saltykov 1967; Underwood 1970)  
+ii) the two-step method (Lopez-Sanchez and Llana-Funez, submitted)
     
 The Saltykov method is optimal to estimate the volume of particular grain fraction as well as to obtain a qualitative view of the appearance of the actual 3D grain size population, either in uni- or multimodal populations. The two-step method is aimed at quantitatively estimating the actual 3D population of grain size. It is only valid for unimodal populations (*i.e.* completely recrystallized rocks) and returns the shape and scale values that describe the log-normal population of grain sizes as well as a plot.
 
@@ -76,6 +76,6 @@ The Saltykov method is optimal to estimate the volume of particular grain fracti
 > In the case of the Saltykov method: The bin size, the frequencies (probabilities) of the different classes and a plot containing two subplots: i) the distribution of the actual grain size population according to the Scheil-Schwartz-Saltykov method and ii) the volume-weighted cumulative distribution. The frequencies are normalized such that the integral over the range is 1. Note that the sum of these values will not be equal to 1 unless bins of unity width are chosen. In the case of the two-step method: The estimated optimal shape and scale values and the precision of the estimation at a 3-sigma level. Also a plot containing the unfolded population using the Saltykov method and the best fitted log-normal density function and its trust region.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
-[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
+[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 
 ----------
