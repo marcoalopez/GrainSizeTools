@@ -83,15 +83,15 @@ In this case, the parameter ```skip_header = 1``` means that the first line in t
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg" width="350">  
 *Figure 4. A txt file without spreadsheet-like form*
 
-> **Tip**: If you need to load a large number of data sets, you probably prefer not having to specify all the absolute file paths for all your stored data sets. Python establishes by default a current working directory in which all the files can be accessed directly by specifying the name of the file or the folder and the name of the file (*i.e.* a relative path). For example, if your current working directory is ```c:/user/yourname```, this means that for all the files stored within this directory you no longer need to specify this part of the file path. For example, to load a csv file named 'my_sample.csv' that it is stored in that location you just need write:
+> **Tip**: If you need to load a large number of data sets, you probably prefer not having to specify all the absolute file paths for all your stored data sets. Python establishes by default a current working directory in which all the files can be accessed directly by specifying the name of the file (or a sub-folder and the name of the file; *i.e.* a relative path). For example, if your current working directory is ```c:/user/yourname```, this means that for all the files stored within this directory you no longer need to specify this part of the file path. For example, to load a csv file named 'my_sample.csv' that it is stored in that location you just need to write:
 > ```python
 >>> areas = importdata('my_sample.csv', type = 'csv')
 ```
->  In case the file 'my_sample.csv' were stored in ```c:/user/yourname/my_samples``` will write:
+>  In the case that the file 'my_sample.csv' were stored in ```c:/user/yourname/my_samples``` we will write:
 > ```python
 >>> areas = importdata('my_samples/my_sample.csv', type = 'csv')
 ``` 
-> and so on. You can retrieve your current working directory by typing in the shell ```os.getcwd()```. Furthermore, you can change the current working directory to another path using the function ```os.chdir('new default path')```. Note that the file path defined within the parentheses is in quotes. This also works when using the ```np.genfromtxt``` method.
+> and so on. You can retrieve your current working directory by typing in the shell ```os.getcwd()```. Furthermore, you can change the current working directory to another path using the function ```os.chdir('new default path')```. Note that the new file path defined within the parentheses is in quotes. This also works when using the ```np.genfromtxt``` method.
 
 The data stored in any variable can be viewed at any time by invoking the name of the variable in the Python shell and pressing the Enter key, as follows (as a random example):
 
