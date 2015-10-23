@@ -67,8 +67,5 @@ Herwegh, M., 2000. A new technique to automatically quantify microstructures of 
 
 > This paper uses digital backscatter electron images on previously treated samples to distinguish between two mineral phases. The author uses the NIH Image and the LGB method for the grain segmentation.
 
-
-
-[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
-
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
