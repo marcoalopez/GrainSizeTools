@@ -23,7 +23,7 @@ Download
 
 You can download the script at the following sites:  
 https://github.com/marcoalopez/GrainSizeTools/releases  
-http://figshare.com/articles/GrainSizeTools_script/1383130
+http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/files/?source=navbar
 
 ***Important: version 1.0 will be released soon. Stay tuned.***
