@@ -75,7 +75,7 @@ The Saltykov method is optimal to estimate the volume of particular grain fracti
 >**Returns**:  
 > In the case of the Saltykov method: The bin size, the frequencies (probabilities) of the different classes and a plot containing two subplots: i) the distribution of the actual grain size population according to the Scheil-Schwartz-Saltykov method and ii) the volume-weighted cumulative distribution. The frequencies are normalized such that the integral over the range is 1. Note that the sum of these values will not be equal to 1 unless bins of unity width are chosen. In the case of the two-step method: The estimated optimal shape and scale values and the precision of the estimation at a 3-sigma level. Also a plot containing the unfolded population using the Saltykov method and the best fitted log-normal density function and its trust region.
 
-[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 
 ----------
