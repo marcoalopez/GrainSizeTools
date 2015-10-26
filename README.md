@@ -14,7 +14,7 @@ Features at a glance
 - It allows to calculate the apparent diameters of the grain profiles from their sectional areas via the equivalent circular diameter. It also allows to correct the diameters calculated by adding the perimeter of the grains.
 - It allows to easily estimate different 1D grain sizes for paleopiezometry studies, including the mean, the median, the area-weighted mean and the frequency peak grain sizes of the apparent population of grain sizes.
 - It implements several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on the population features.
-- It allows to estimate the actual 3D populations of grains from the population of apparent (2D) grain sizes using a variant of the Scheil-Schwartz-Saltykov method to unfold the apparent grain size population. Similar to what the *StripStar* script does. It also returns an estimation of the volume of a particular grain fraction defined by the user.
+- It allows to estimate the actual 3D populations of grains from the population of apparent (2D) grain sizes using a variant of the Saltykov method to unfold the apparent grain size population. Similar to what the *StripStar* script does. It also returns an estimation of the volume of a particular grain fraction defined by the user.
 - In the case of completely dynamically recrystallized samples, it also allows to estimate the best-fit log-normal probability density function to the 3D population of grain sizes by estimating the best-fit optimal shape and scale parameters using a experimental method called the two-step method (Lopez-Sanchez and Llana-Fúnez, to submit soon).
 - It produces a number of different ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images. The script include the following plots: i) the number- and area-weighted population of apparent grain sizes, ii) the frequency and volume-weighted cumulative frequency curve of the derived 3D grain size population, and iii) the best-fit log-normal probability density function with errors.
 
@@ -24,6 +24,7 @@ Download
 You can download the script at the following sites:  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130
+https://sourceforge.net/projects/grainsizetools/files/?source=navbar
 
 ***Important: version 1.0 will be released soon. Stay tuned.***
 
@@ -44,7 +45,7 @@ Lopez-Sanchez, Marco A. (2015): GrainSizeTools script. figshare. http://dx.doi.o
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies. *Solid Earth* 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
 ***Two-step method***  
-Lopez-Sanchez MA and Llana-Fúnez (2015) Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations. *To submit soon*.
+Lopez-Sanchez MA and Llana-Fúnez Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations. *To submit soon*.
 
 Licenses
 -------------
