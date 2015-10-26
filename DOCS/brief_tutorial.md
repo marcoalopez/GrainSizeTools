@@ -9,7 +9,7 @@ Getting Started: A step-by-step tutorial on how to use the script
 Once the required software is installed in your system (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)) and the script downloaded, the first thing is to open the script in a Python editor, such as the Canopy editor -if you installed the Enthought Canopy package-, the IDLE -the Python default editor- or the Spyder editor -a scientific Python development environment that comes with the Anaconda package-, and run the code. For this, if you are in the Canopy or the Spyder editor just click on the play green icon or go to the *Run* menu and click on “Run file” (Fig. 1). If you open the script in the IDLE, just press F5 or go to the *Run menu* and click on “Run module” (Fig. 1).
 
 ![Figure 1. Runnig a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.jpg)  
-*Figure 1. Runnig a script in the Enthought's Canopy editor (left) and the IDLE (right)*
+*Figure 1. Runnig a script in the Enthought's Canopy editor (left) and the IDLE (right).*
 
 The following statement will appear in the Python shell (Fig. 2):
 ```
@@ -18,7 +18,7 @@ See release notes in the Readme.txt file
 Your current working directory is C:\Users\yourname
 ```
 ![Figure 2. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_env.png)  
-*Figure 2. The Python editor and the Python shell in the Enthought Canopy environment*
+*Figure 2. The Python editor and the Python shell in the Enthought Canopy environment.*
 
 ### *Organization of the script*
 
@@ -61,7 +61,7 @@ The names of the Python functions defined in the script are intuitive and self-e
 The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to obtain this, take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md). 
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
-*Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the txt file. At right, the csv (comma-separated) version*
+*Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the txt file. At right, the csv (comma-separated) version.*
 
 As you can see in figure 3, we obtain a file with data in a tabular (spreadsheet-like) form from the *ImageJ* application. This means that we will need to extract the information corresponding to the column named 'Area', which is the one that contains the necessary information required by the script. To do this, the script implements a function named ```importdata``` that automatically extract this data for us (*Note: this feature has been implemented in the version 1.0 that it will be released soon*). To invoke this function we write in the Python shell:
 
@@ -82,7 +82,7 @@ In case you need to skip the first lines because there is a text or other inform
 In this case, the parameter ```skip_header = 1``` means that the first line in the txt file is not considered. You can define any number of lines to skip.
 
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg" width="350">  
-*Figure 4. A txt file without spreadsheet-like form*
+*Figure 4. A txt file without spreadsheet-like form.*
 
 > **Tip**: If you need to load a large number of data sets, you probably prefer not having to specify the absolute file paths of all your stored data sets. Python establishes by default a current working directory in which all the files can be accessed directly by specifying the name of the file (or a sub-folder and the name of the file; *i.e.* a relative path). For example, if your current working directory is ```c:/user/yourname```, this means that for all the files stored within this directory you no longer need to specify this part of the file path. For example, to load a csv file named 'my_sample.csv' that it is stored in that location you just need to write:
 
@@ -162,7 +162,7 @@ After pressing the Enter key, the function will return a number of different 1D 
 In addition, a new window with the number and area weighted plots appear (Fig. 6), showing the location of the different grain sizes estimated respect to the population of apparent grain sizes. The advantages and disadvantages of these plots are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). You can save the plots by clicking in the floppy disk icon (Fig. 6) and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you need to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon (Fig. 6) and choose the subplot you want to modify. A new window appears with several options available.
 
 ![Figure 6. Number- and area-weighted plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
-*Figure 6. Number- and area-weighted plots returned by the find_grain_size function*
+*Figure 6. Number- and area-weighted plots returned by the find_grain_size function.*
 
 #### *Derive the actual 3D population of grains*
 
@@ -184,7 +184,7 @@ Since the Saltykov method is based on the discretization of the grain size popul
 In the example above, we set the grain fraction to 40 microns, which means that the script will return an estimation of the volume occupied by all the grain fractions less or equal to 40 microns within the entire population. As a cautionary note, if we use a different number of bins/classes (in this random example set at 12), we will obtain slighly different results. This is normal due to the inaccuracies of the method involved. In any event, as Lopez-Sanchez and Llana-Fúnez (*submitted*) showed, the differences between the volume estimations using the typical range of number of classes (from 10 to 20) are less than 5%, which means that to stay safe we should always take an error margin of 5% in the volume estimations. 
 
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
-*Figure 7. Derived 3D grain size distribution and volume-weighted cumulative grain size distribution using the Saltykov method*
+*Figure 7. Derived 3D grain size distribution and volume-weighted cumulative grain size distribution using the Saltykov method.*
 
 Regarding the number of bins/classes, it depends on a number of factors, such as the length and the features of the data set, and, therefore, there is no best number of bins. Due to the nature of the Saltykov method, the larger the bin size (or the smaller the number of classes), the better the numerical stability of the method. In contrast, the smaller the bin size, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works using the Scheil-Schwartz-Saltykov method proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the data set seems that it can be used up to 20 classes without problem (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez *submitted*). So far, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size). Hence, the only way to find which is the maximum number of classes that produces a consistent result is to use a strategy of trial and error . As a last cautionary note, to unfold the distribution of apparent grain diameters into the actual 3D distribution applying a Saltykov-type method/algorithm, large samples are required (n ~ 1000 or larger) to generally obtain consistent results even when using a small number of classes.
 
@@ -202,7 +202,7 @@ Note that in this case we include a new parameter named ```fit``` and set it to 
 When the ```initial_guess``` parameter is set to ```True```, the script will ask you about the new guess values for the shape and scale parameters (it also indicates which are the default ones). Based on our experience, a useful strategy is to let the shape value in its default value (1.2) and decrease the scale value every five units until the fitting procedure yield a coherent result (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
 
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
-*Figure 8. Plots obtained by the two step method. At left, an example with the log-normal population well fitted to the datapoints. The shadow zone is the trust region at a 3-sigma level for the fitting procedure. At right, an example of a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the datapoints and the line representing the best fitting*
+*Figure 8. Plots obtained by the two step method. At left, an example with the log-normal population well fitted to the datapoints. The shadow zone is the trust region at a 3-sigma level for the fitting procedure. At right, an example of a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the datapoints and the line representing the best fitting.*
 
 #### *Other general methods of interest*
 
@@ -220,7 +220,7 @@ A useful *Numpy* method to merge two or more data sets is called ```hstack()```,
 >>> np.hstack((name of the array1, name of the Array2,...))
 ```
 
-As an example if we have two different data sets and we want to merge the areas and the diameters estimated in a single variable we write into the Python shell (variable names are just a random examples):
+As an example if we have two different data sets and we want to merge the areas and the diameters estimated in a single variable we write into the Python shell (variable names are just random examples):
 
 ```python
 >>> all_areas = np.hstack((areas1, areas2))
