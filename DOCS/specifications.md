@@ -6,27 +6,27 @@ Automatically extracts the data corresponding to the areas of grain profiles fro
 
 > **Parameters:**
 > 
-> ***filePath***: *string*
+> ***filePath***: *string*  
 > The file location in the OS in quotes.
 >
-> ***type***: *string; optional*
+> ***type***: *string; optional*  
 > The type of the file, either 'txt' or 'csv'
 > 
-> **Returns**:
-> A numpy array with the areas of the grain profilel.
+> **Returns**:  
+> A numpy array with the areas of the grain profiles.
 
 ####**calc_diameters** (*areas, addPerimeter = 0*)
 Calculate the diameters from the sectional areas via the equivalent circular diameter assuming that the grains have near-equant shapes.
 
 > **Parameters:**
 > 
-> ***areas***: *array_like*
+> ***areas***: *array_like*  
 > The sectional areas of the grains.
 > 
-> ***addPerimeter***: *integer or float; optional*
+> ***addPerimeter***: *integer or float; optional*  
 > Correct the diameters estimated from the areas by adding the perimeter of the grain. If *addPerimeter* is not declared it is considered 0.
 
->**Returns**:
+>**Returns**:  
 > A numpy array with the diameters of the grains.
 
 ####**find_grain_size** (*areas, diameters, binsize = 'Scott'*)
@@ -34,17 +34,17 @@ Estimate different 1D measures of grain size from a population of apparent diame
 
 > **Parameters:**
 > 
-> ***areas***: *array_like*
+> ***areas***: *array_like*  
 > The areas of the grain profiles.
 > 
-> ***diameters***: *array_like*
+> ***diameters***: *array_like*  
 > The apparent diameters of the grains.
 > 
-> ***binsize***: *string, integer or float; optional*
+> ***binsize***: *string, integer or float; optional*  
 > The method used to calculate the bin size. This can be: 'FD' (Fredman-Diaconis rule), 'Scott' (Scott rule) or a
 > user-defined scalar constant of type integer or float. If not specified, 'Scott' is used by default.
 > 
->**Returns**:
+>**Returns**:  
 > A number of 1D grain size values to use in paleopiezometry (or paleowattometry) studies and the number and the area-weighted plots. The values includes the mean, the median and the area-weighted mean grain size and the frequency peak via the Gaussian kernel density estimator and the mid-poind of the modal interval. It also provides other values of interest such as the bin size and bandwidth estimated and the methods chosen.
 
 ####**derive3D** (*diameters, numbins=10, set_limit=None, fit=False, initial_guess=False*)
@@ -57,22 +57,22 @@ The Saltykov method is optimal to estimate the volume of particular grain fracti
 
 > **Parameters:**
 > 
-> ***diameters***: *array_like*
+> ***diameters***: *array_like*  
 > The apparent diameters of the grains.
 > 
-> ***numbins***: *integer; optional*
+> ***numbins***: *integer; optional*  
 > The number of classes or bins used by the Saltykov method to unfold the population. If not declared, is set to ten by default.
 >
-> ***set_limit***: *integer or float; optional*
+> ***set_limit***: *integer or float; optional*  
 > If the user defines a number, the script will return the volume occupied by the grain fraction of size less than or equal to that value.
 >
-> ***fit***: *True or False*
+> ***fit***: *True or False*  
 > If False, the standard Saltykov method is applied. If True, the two-step method is applied. The Saltykov method is set by default.
 >
->***initial_guess***: *True or False*
+>***initial_guess***: *True or False*  
 > If False, the script will use the default guessing values to fit a log-normal distribution. If True, the script will ask the user to define the shape and scale guessing values.
 >
->**Returns**:
+>**Returns**:  
 > In the case of the Saltykov method: The bin size, the frequencies (probabilities) of the different classes and a plot containing two subplots: i) the distribution of the actual grain size population according to the Scheil-Schwartz-Saltykov method and ii) the volume-weighted cumulative distribution. The frequencies are normalized such that the integral over the range is 1. Note that the sum of these values will not be equal to 1 unless bins of unity width are chosen. In the case of the two-step method: The estimated optimal shape and scale values and the precision of the estimation at a 3-sigma level. Also a plot containing the unfolded population using the Saltykov method and the best fitted log-normal density function and its trust region.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
