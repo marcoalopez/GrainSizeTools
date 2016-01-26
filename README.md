@@ -1,4 +1,4 @@
-![](https://github.com/marcoalopez/GrainSizeTools/blob/05837e74bb371c34c5257e869bfd363c069b9c4d/FIGURES/header_fig.png?raw=true)
+![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)
 
 [GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides a number of tools with the aim of characterizing the grain size and the actual population of grain sizes in dynamically recrystallized rocks. The script is suitable to use in paleopiezometry studies, using different 1D grain size measures, as well as to derive the actual 3D population of grain sizes from 2D data (*i.e.* thin sections). The script only requires the previous measurement of the grain sectional areas from a thin section. There is **no need** of previous knowledge of Python language to use the script and get the results (see [documentation][2]). For advanced users, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
