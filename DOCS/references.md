@@ -18,7 +18,9 @@ Higgins MD (2000) [Measurement of crystal size distributions.](http://ammin.geos
 
 Lopez-Sanchez MA and Llana-Funez S (2015) [An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies](http://bit.ly/1ND45Sw). *Solid Earth* 6, 475-495. doi: [10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
-Lopez-Sanchez MA and Llana-Fúnez S [Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations](). *To submit soon*
+Lopez-Sanchez MA and Llana-Fúnez S [Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations](). *Submitted*
+
+Marquardt DW (1963) [An Algorithm for Least-Squares Estimation of Nonlinear Parameters.](http://epubs.siam.org/doi/abs/10.1137/0111030) *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](http://dx.doi.org/10.1137/0111030)
 
 Saltykov SA (1967) [The determination of the size distribution of particles in an opaque material from a measurment of the size distribution of their secions](http://link.springer.com/chapter/10.1007%2F978-3-642-88260-9_31). In: Elias, H. (Ed.), *Proceedings of the Second International Congress for STEREOLOGY*. Springer Berlin Heidelberg, Berlin, Heidelberg, pp. 163–173. doi: [10.1007/978-3-642-88260-9_31](http://dx.doi.org/10.1007/978-3-642-88260-9_31)
 
