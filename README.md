@@ -1,8 +1,8 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)
 
-[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides a number of tools with the aim of characterizing the grain size and the actual distribution of grain sizes from thin sections. The script is suitable to use in paleopiezometry studies, using different 1D grain size measures, as well as to derive the actual 3D grain size distribution using two different methods. The script only requires the previous measurement of the grain sectional areas from a thin section. There is **no need** of previous knowledge of Python programming language to use the script and get the results (see [documentation][2]). For advanced users, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
+[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides a number of tools with the aim of characterizing the grain size and the actual distribution of grain sizes from thin sections. The script is suitable to use in paleopiezometry studies, returning different 1D grain size measures, as well as to derive the actual 3D grain size distribution using two methods: the Saltykov and the two-step methods. The script only requires the previous measurement of the grain sectional areas from a thin section. There is **no need** of previous knowledge of Python programming language to use the script and get the results (see [documentation][2]). For advanced users, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
-[***IMPORTANT: new update available (v. 1.1). Update as soon as possible***](https://github.com/marcoalopez/GrainSizeTools/releases)
+[***IMPORTANT: new update available (v. 1.1.1). Update as soon as possible***](https://github.com/marcoalopez/GrainSizeTools/releases)
 
 Screenshots
 -------------
@@ -24,7 +24,7 @@ Features at a glance
 Download
 -------------
 
-You can download the script at the following sites (***latest release (v1.1) released on 2016/03/23***):  
+You can download the script at the following sites (***latest release (v1.1.1) released on 2016/03/28***):  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/files/?source=navbar
