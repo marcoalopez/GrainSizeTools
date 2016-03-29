@@ -24,7 +24,7 @@ Features at a glance
 Download
 -------------
 
-You can download the script at the following sites (***latest release (v1.1.1) released on 2016/03/28***):  
+You can download the script at the following sites (***v1.1.1 released on 2016/03/28***):  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/files/?source=navbar
@@ -59,3 +59,41 @@ The documentation of GrainSizeTools script is licensed under a <a rel="license" 
 
  [1]: https://www.python.org/
  [2]: https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
