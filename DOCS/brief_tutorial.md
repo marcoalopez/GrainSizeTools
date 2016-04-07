@@ -22,7 +22,7 @@ To change the working directory use: os.chdir('new path')
 
 ### *Organization of the script*
 
-The script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if required. A Python function looks like this in the editor: 
+The script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if required. A Python function looks like this in the editor:
 
 ```python
 def calc_diameters(areas, addPerimeter = 0):
@@ -33,20 +33,20 @@ def calc_diameters(areas, addPerimeter = 0):
     PARAMETERS    
     areas:
     a numpy array with the sectional areas of the grains
-    
+
     addPerimeter:
     a float or integer. Correct the diameters estimated from the
-    areas by adding the perimeter of the grain. If addPerimeter is not 
+    areas by adding the perimeter of the grain. If addPerimeter is not
     declared, it is considered 0
     """
 
     # calculate diameters via equivalent circular diameter
     diameters = 2*sqrt(areas/pi)
-    
+
     # diameter correction adding edges (if applicable)
     if addPerimeter != 0:
         diameters = diameters + addPerimeter
-    
+
     return diameters
 ```
 
@@ -58,7 +58,7 @@ The names of the Python functions defined in the script are intuitive and self-e
 
 #### Loading the data and extracting the areas of the grain profiles
 
-The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* or similar software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to do this, then take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md). 
+The first step is to load the data into memory. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* or similar software and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to do this, then take a look at the section [A brief tutorial on how to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the txt file. At right, the csv (comma-separated) version.*
@@ -92,7 +92,7 @@ In this example, the parameter ```skip_header = 1``` means that the first line i
 >  In the case that the file 'my_sample.csv' were stored in ```c:/user/yourname/my_samples``` we will write:
 > ```python
 >>> areas = importdata('my_samples/my_sample.csv', type = 'csv')
-``` 
+```
 > and so on. When you run the script, the current working directory is showed. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()``` and modify it to another path using the function ```os.chdir('new default path')```. Note that the new file path defined within the parentheses is in quotes. This also works when using the ```np.genfromtxt``` method.
 
 The data stored in any variable can be viewed at any time by invoking the name of the variable in the Python shell and pressing the Enter key, as follows (as a random example):
@@ -106,7 +106,7 @@ Furthermore, both the Canopy and the Spyder editors have a specific variable exp
 
 ```python
 >>> len(areas)
->>> 2754 
+>>> 2754
 ```
 #### Estimating the apparent diameters from the areas of the grain profiles
 
@@ -133,7 +133,7 @@ This example means that for each apparent diameter calculated from the sectional
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="500">  
 *Figure 5. Example of perimeter correction. The figure shows the boundaries (in white) between three grains in a grain boundary map. The squares are the pixels of the image. The boundaries are two pixel wide approximately. If, for example, each pixel corresponds to 1 micron, we need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
-Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, *submitted*).
+Once the sectional areas and the apparent grain sizes are loaded into memory, we have two choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattometry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, *in prep*).
 
 #### *Obtaining an unidimensional value of grain size (paleopiezometry studies)*
 
@@ -183,16 +183,16 @@ Since the Saltykov method is based on the discretization of the grain size distr
 ```python
 >>> derive3D(diameters, numbins=12, set_limit=40)
 ```
-In the example above, we set the grain fraction to 40 microns, which means that this time the script will also return an estimation of the volume occupied by all the grain fractions less or equal to 40 microns within the entire population. As a cautionary note, if we use a different number of bins/classes (in this random example set at 12), we will obtain slightly different results. This is normal due to the inaccuracies of the method involved. In any event, as showed in Lopez-Sanchez and Llana-Fúnez (*submitted*), the absolute differences between the volume estimations using the typical range of number of classes (from 10 to 20) are less than 5%, which means that to stay safe we should always take an absolute error margin of 5% in the volume estimations. 
+In the example above, we set the grain fraction to 40 microns, which means that this time the script will also return an estimation of the volume occupied by all the grain fractions less or equal to 40 microns within the entire population. As a cautionary note, if we use a different number of bins/classes (in this random example set at 12), we will obtain slightly different results. This is normal due to the inaccuracies of the method involved. In any event, as showed in Lopez-Sanchez and Llana-Fúnez (*in prep*), the absolute differences between the volume estimations using the typical range of number of classes (from 10 to 20) are less than 5%, which means that to stay safe we should always take an absolute error margin of 5% in the volume estimations.
 
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
 
-Regarding the number of bins/classes there is no best number of bins since it depends on a number of factors, such as the length and the features of the data set. Due to the nature of the Saltykov method, the larger the bin size (or the smaller the number of classes), the better the numerical stability of the method. In contrast, the smaller the bin size, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces good results. Based on experience, previous works using the Saltykov method proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the data set it seems that it can be used up to 20 classes without problem (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez *submitted*). So far, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size). Hence, the only way to find which is the maximum number of classes that produces a consistent result is to use a strategy of trial and error . As a last cautionary note, to unfold the distribution of apparent grain diameters into the actual 3D distribution applying a Saltykov-type method/algorithm, large samples are required (n ~ 1000 or larger) to obtain consistent results, even when using a small number of classes.
+Regarding the number of bins/classes there is no best number of bins since it depends on a number of factors, such as the length and the features of the data set. Due to the nature of the Saltykov method, the larger the bin size (or the smaller the number of classes), the better the numerical stability of the method. In contrast, the smaller the bin size, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces good results. Based on experience, previous works using the Saltykov method proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the data set it seems that it can be used up to 20 classes without problem (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez *in prep*). So far, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size). Hence, the only way to find which is the maximum number of classes that produces a consistent result is to use a strategy of trial and error . As a last cautionary note, to unfold the distribution of apparent grain diameters into the actual 3D distribution applying a Saltykov-type method/algorithm, large samples are required (n ~ 1000 or larger) to obtain consistent results, even when using a small number of classes.
 
 ***Using the two-step method***
 
-To estimate quantitatively the actual 3D grain size distribution, the ```derive3D``` function implements since version 1.0 a new method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, *submitted*). This method assumes that the actual 3D population of grain sizes follows a lognormal distribution, which in a deformed rock means that the rock or the studied area within the rock is completely recrystallized. Therefore, to apply the method it is first required to use the Saltykov method to observe qualitatively whether the derived distribution of grain sizes is unimodal (i.e. one frequency peak) and approximately follows a lognormal distribution, i.e. the population is skewed to the right as in the example in figure 7. The two-step method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The script return two parameters, the **MSD** and the **scale**, which they describe the lognormal distribution at their original scale, as well as the errors associated with the estimation (see details in Lopez-Sanchez and Llana-Fúnez, *submitted*). In addition, it also returns a frequency plot showing the distributions obtained appliying the Saltykov and the two-step methods (Fig. 8). To apply the two-step method we need to invoke the function ```derive3D``` as follows:
+To estimate quantitatively the actual 3D grain size distribution, the ```derive3D``` function implements since version 1.0 a new method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, *in prep*). This method assumes that the actual 3D population of grain sizes follows a lognormal distribution, which in a deformed rock means that the rock or the studied area within the rock is completely recrystallized. Therefore, to apply the method it is first required to use the Saltykov method to observe qualitatively whether the derived distribution of grain sizes is unimodal (i.e. one frequency peak) and approximately follows a lognormal distribution, i.e. the population is skewed to the right as in the example in figure 7. The two-step method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The script return two parameters, the **MSD** and the **scale**, which they describe the lognormal distribution at their original scale, as well as the errors associated with the estimation (see details in Lopez-Sanchez and Llana-Fúnez, *in prep*). In addition, it also returns a frequency plot showing the distributions obtained appliying the Saltykov and the two-step methods (Fig. 8). To apply the two-step method we need to invoke the function ```derive3D``` as follows:
 
 ```python
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True)

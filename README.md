@@ -46,7 +46,7 @@ Lopez-Sanchez, Marco A. (2015): GrainSizeTools script. figshare. http://dx.doi.o
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies. *Solid Earth* 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
 ***Two-step method***  
-Lopez-Sanchez MA and Llana-Fúnez Deriving 3D grain size distributions from thin sections in mylonites: strategy, presentation format and error considerations. *Submitted*.
+Lopez-Sanchez MA and Llana-Fúnez. *An evaluation of the Saltykov and the two-step methods to quantify 3D grain size distributions from 2D sections in mylonites.* To be submitted soon.
 
 Licenses
 -------------
@@ -59,41 +59,3 @@ The documentation of GrainSizeTools script is licensed under a <a rel="license" 
 
  [1]: https://www.python.org/
  [2]: https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
