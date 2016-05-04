@@ -17,7 +17,7 @@ Features at a glance
 - It allows deriving the actual 3D grain size distribution from thin sections (2D data) using the Saltykov method. Similar to what the ***StripStar*** script does.
 - It returns the volume of a particular grain fraction defined by the user.
 - It allows to estimate a complete quantitative description of the 3D grain size distribution using a new method named the two-step method.
-- It produces a number of different ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images (see the image above for examples)
+- It produces different ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images (see the image above for examples)
 
 Download
 -------------
