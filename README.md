@@ -22,7 +22,7 @@ Features at a glance
 Download
 -------------
 
-You can download the script at the following sites (***Latest release 2016/03/28: v1.1.1 ***):  
+You can download the script at the following sites (***Latest release 2016/03/28: v1.1.1***):  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/files/?source=navbar
