@@ -156,11 +156,11 @@ note that the acronym is in quotes with both letters capitalized or
 >>> find_grain_size(areas, diameters, binsize = 10.0)
 ```
 
-to set a user-defined bin size, in this example set to ten. The user-defined bin size can be of type integer or float (*i.e.* an irrational number). The Freedman-Diaconis rule is a better option compared to Scott rule when we suspect that there are outliers in the population of apparent grain sizes.
+to set a user-defined bin size, in this example set to ten. The user-defined bin size can be of type integer or float (*i.e.* an irrational number). Compared to Scott rule, the Freedman-Diaconis rule is a better option when we suspect that there are outliers in the population of apparent grain sizes.
 
-After pressing the Enter key, the function will return a number of different 1D measures of grain size typically used in paleopiezometry studies. This includes the mean, the median, the area-weighted mean and the frequency peak grain sizes (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size estimated, the method used for estimating the bin size, and the bandwidth used for the Gaussian kernel density estimator according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **a minimum of 433 measured grain profiles are needed to obtain consistent results**, although we recommend to measure a minimum of 965 when possible.
+After pressing the Enter key, the function will return a number of different 1D measures of grain size typically used in paleopiezometry studies. This includes the mean, median, area-weighted mean and frequency peak grain sizes (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size, the method used in such estimation, and the bandwidth used for the Gaussian kernel density estimator according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **a minimum of 433 measured grain profiles are needed to obtain consistent results**, although we recommend to measure a minimum of 965 when possible.
 
-In addition, a new window with the number and area weighted plots appear (Fig. 6), showing the location of the different grain sizes estimated respect to the population of apparent grain sizes. The advantages and disadvantages of these plots are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). You can save the plots by clicking in the floppy disk icon (Fig. 6) and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you want to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon (Fig. 6) and choose the subplot you want to modify. A new window appears with several options available.
+In addition, a new window with the number and area weighted plots appear (Fig. 6), showing the location of the different grain sizes estimated respect to the population of apparent grain sizes. The advantages and disadvantages of these plots are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). You can save the plots by clicking in the floppy disk icon (Fig. 6) and save it as bitmap (8 file types to choose) or vector images (5 file types to choose) in case you want to post-edit the plots. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon (Fig. 6) and choose the subplot you want to modify. A new window will appear and several options will be available.
 
 ![Figure 6. Number- and area-weighted plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
 *Figure 6. Number- and area-weighted plots returned by the find_grain_size function.*
@@ -173,7 +173,7 @@ The function responsible to unfold the distribution of apparent grain sizes into
 def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=False):
 ```
 As especified above, the script implements two methods for this, the Saltykov and the two-step method.
-The Saltykov method is suitable to estimate the volume of particular grain size fractions, which is essential to describe the creep behaviour using composite flow laws (e.g. Freeman and Ferguson 1986). In contrast, the two-step method is suitable to describe quantitatively the distribution of grain sizes assuming that they follow a lognormal distribution. This means that the method only yield consistent results when the population of grain considered are completely recrystallized or when the non-recrystallized grains can be previously discarded using shape descriptors. For details see [Lopez-Sanchez and Llana-Fúnez (submitted)]().
+The Saltykov method is suitable to estimate the volume of particular grain size fractions, which is essential to describe the creep behaviour using composite flow laws (e.g. Freeman and Ferguson 1986). In contrast, the two-step method is suitable to describe quantitatively the distribution of grain sizes assuming that they follow a lognormal distribution. This means that the method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded using shape descriptors. For details see [Lopez-Sanchez and Llana-Fúnez (submitted)]().
 
 ***Using the Saltykov method***
 
@@ -189,7 +189,7 @@ After pressing the Enter key, the function will return the bin size estimated an
 ```python
 >>> derive3D(diameters, numbins=12, set_limit=40)
 ```
-In the example above, the grain fraction is set to 40 microns, which means that the script will return an estimation of the volume occupied by all the grain fractions up to 40 microns. As a cautionary note, if we use a different number of bins/classes (in this random example set at 12), we will obtain slightly different results. This is normal due to the inaccuracies of the Saltykov method. In any event, Lopez-Sanchez and Llana-Fúnez (*in prep*) proved that the absolute differences between the volume estimations using the typical range of number of classes (from 10 to 20) are less than ±5, which means that to stay safe we should always take an absolute error margin of ±5 in the volume estimations.
+In the example above, the grain fraction is set to 40 microns, which means that the script will return an estimation of the volume occupied by all the grain fractions up to 40 microns. As a cautionary note, if we use a different number of bins/classes (in this random example set at 12), we will obtain slightly different results. This is normal due to the inaccuracies of the Saltykov method. In any event, Lopez-Sanchez and Llana-Fúnez (*submitted*) proved that the absolute differences between the volume estimations using the typical range of number of classes (from 10 to 20) are less than ±5, which means that to stay safe we should always take an absolute error margin of ±5 in the volume estimations.
 
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
@@ -211,7 +211,7 @@ Note that in this case we include a new parameter named ```fit``` that it is set
 ```python
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True, initial_guess=True)
 ```
-When the ```initial_guess``` parameter is set to ```True```, the script will ask you about the new guess values for both parameters (it also indicates which are the default ones). Based on our experience, a wise strategy is to let the shape value in its default value (1.2) and decrease the scale value every five units until the fitting procedure yield a coherent result (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
+When the ```initial_guess``` parameter is set to ```True```, the script will ask you about the new guess values for both parameters (it also indicates which are the default ones). Based on our experience, a wise strategy is to let the MSD value in its default value (1.2) and decrease the median value every five units until the fitting procedure yield a coherent result (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
 
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example of a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
@@ -244,7 +244,7 @@ Note that in this example we merged the original data sets into two new variable
 ```python
 >>> areas1 = np.hstack((areas1, areas2))
 ```
-The variable ```areas1``` is now a new array with the values of the two data sets, and the original dataset stored in the variable ```areas1``` no longer exists since they are mutable Python objects.
+The variable ```areas1``` is now a new array with the values of the two data sets, and the original dataset stored in the variable ```areas1``` no longer exists since this variables are mutable Python objects.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
