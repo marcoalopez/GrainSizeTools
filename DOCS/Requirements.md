@@ -5,7 +5,7 @@ The scripts requires [Python][1] 2.7.x or higher and the scientific libraries [*
 
 The approach of the script is based on the estimation of the areas of the grain profiles obtained from thin sections. It is therefore necessary to measure them in advance and save the results in a txt/csv file. For this task, we highly encourage you to use the [*ImageJ*][8] program, or one of their different flavours (see [here](http://fiji.sc/ImageJ)), since they are public-domain image processing programs widely used for scientific research that runs on Windows, OS X, and Linux platforms.
 
-The main aim of this documentation is not to describe how to measure the areas of the grain profiles with the *ImageJ* application but to treat the data obtained from this or similar applications. If you are not familiarized with the use of *ImageJ* don't worry, there are many tutorials on the web. Just type the terms *'ImageJ'* and *'areas'* in your favorite search engine and you will find your answers. Furthermore, you have a quick tutorial [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
+The main aim of this documentation is not to describe how to measure the areas of the grain profiles with the *ImageJ* application but to treat the data obtained from this or similar applications. If you are not familiarized with the use of *ImageJ* just type the terms *'ImageJ'* and *'areas'* in your favorite search engine and you will find your answers. Furthermore, you have a quick tutorial [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 
 
 
