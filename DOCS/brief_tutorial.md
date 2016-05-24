@@ -85,7 +85,7 @@ In this example, the parameter ```skip_header = 1``` means that the first line i
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg" width="350">  
 *Figure 4. A txt file without spreadsheet-like form.*
 
-> **Hint**: If you need to load a large number of data sets, you probably prefer not having to specify the absolute file paths of all of them. Python establishes by default a current working directory in which all the files can be >accessed directly by specifying just the name of the file (or a sub-folder and the name of the file; *i.e.* a relative path). For example, if your current working directory is ```c:/user/yourname```, this means that you no longer need to specify the entire file path for all the files stored within this directory. For example, to load a csv file named 'my_sample.csv' that it is stored in that location you just need to write:
+> **Hint**: If you need to load a large number of data sets, you probably prefer not having to specify the absolute file paths of all of them. Python establishes by default a current working directory in which all the files can be accessed directly by specifying just the name of the file (or a sub-folder and the name of the file; *i.e.* a relative path). For example, if your current working directory is ```c:/user/yourname```, this means that you no longer need to specify the entire file path for all the files stored within this directory. For example, to load a csv file named 'my_sample.csv' that it is stored in that location you just need to write:
 >
 > ```python
 >>>> areas = extract_areas('my_sample.csv', type = 'csv')
