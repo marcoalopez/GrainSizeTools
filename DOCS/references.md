@@ -16,9 +16,9 @@ Herwegh M (2000) [A new technique to automatically quantify microstructures of f
 
 Higgins MD (2000) [Measurement of crystal size distributions.](http://ammin.geoscienceworld.org/content/85/9/1105.short) *American Mineralogist* 85, 1105-1116. doi: [10.2138/am-2000-8-901](http://dx.doi.org/10.2138/am-2000-8-901)
 
-Lopez-Sanchez MA and Llana-Funez S (2015) [An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattometry studies](http://bit.ly/1ND45Sw). *Solid Earth* 6, 475-495. doi: [10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
+Lopez-Sanchez MA and Llana-Funez S (2015) [An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies](http://bit.ly/1ND45Sw). *Solid Earth* 6, 475-495. doi: [10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
-Lopez-Sanchez MA and Llana-Fúnez S [An evaluation of the Saltykov and the two-step methods to quantify 3D grain size distributions from 2D sections in mylonites](). *To be submitted soon*
+Lopez-Sanchez MA and Llana-Fúnez S [An evaluation of the Saltykov and the two-step methods to quantify 3D grain size distributions from 2D sections in mylonites](). *in review*
 
 Marquardt DW (1963) [An Algorithm for Least-Squares Estimation of Nonlinear Parameters.](http://epubs.siam.org/doi/abs/10.1137/0111030) *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](http://dx.doi.org/10.1137/0111030)
 
