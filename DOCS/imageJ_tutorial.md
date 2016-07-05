@@ -51,11 +51,11 @@ Once the grain segmentation is done, it is crucial to ensure that at the actual 
 
 ### *List of useful references (in alphabetical order)*
 
-**Note**: This list of references is not intended to be exhaustive in any way. It simply reflects some articles, webpages and books that I find interesting about the topic in question. My intention is to expand the list over time. Regarding the ImageJ program, there are extensive documentation and tutorials on the web, see for example [here](http://imagej.nih.gov/ij/docs/index.html) or [here](http://imagej.net/Category:Tutorials)
+**Note**: This list of references is not intended to be exhaustive in any way. It simply reflects some articles, webpages and books that I find interesting about the topic in question. My intention is to expand the list over time. Regarding the ImageJ program, there are many tutorials on the web, see for example [here](http://imagej.nih.gov/ij/docs/index.html) or [here](http://imagej.net/Category:Tutorials)
 
 Barraud, J., 2006. The use of watershed segmentation and GIS software for textural analysis of thin sections. Journal of Volcanology and Geothermal Research 154, 17–33. doi:[10.1016/j.jvolgeores.2005.09.017](http://dx.doi.org/10.1016%2Fj.jvolgeores.2005.09.017)
 
-> This paper propose a workflow for grain segmentation and grain analysis in rocks that differs slightly from other approaches referred here. For grain segmentation it uses anisotropic diffusion plus watershed segmentation. For grain size analysis he promotes the use of geographical information systems (GIS) and vector graphics over the use of ImageJ-type applications plus raster images.
+> This paper propose a workflow for grain segmentation and grain analysis in rocks that differs slightly from other approaches referred here. For image acquisition, he uses three different images from light microscopy with different orientations and then combine them in a false-colour RGB image. For grain segmentation it uses the anisotropic diffusion for noise reduction plus watershed segmentation (both available in the ImageJ/Fiji apps). For grain size measures he promotes the use of geographical information systems (GIS) and vector graphics over the use of ImageJ-type applications plus raster images.
 
 Heilbronner, R., 2000. Automatic grain boundary detection and grain size analysis using polarization micrographs or orientation images. J. Struct. Geol. 22, 969–981. doi:[10.1016/S0191-8141(00)00014-6](http://www.sciencedirect.com/science/article/pii/S0191814100000146)
 
@@ -71,7 +71,7 @@ Herwegh, M., 2000. A new technique to automatically quantify microstructures of 
 
 Russ, J.C., 2011. The image processing handbook. CRC Press. Taylor & Francis Group
 
-> This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on structural geology or thin sections, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques or characterizing shapes among others. The text is very clear and well-written. If you want a general-purpose image analysis book, this is a good one.
+> This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on rocks, structural geology or thin sections, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques or characterizing shapes among others. The text is very clear and well-written. If you want a general-purpose image analysis book, this is a good one.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
