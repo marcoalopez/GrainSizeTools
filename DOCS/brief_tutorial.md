@@ -8,7 +8,7 @@ Getting Started: A step-by-step tutorial
 
 Once you download the latest version of the GrainSizeTools script (make sure you have the 1.2 version) and the required software installed in your system (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)), open the script with the Canopy editor -if you installed the Enthought Canopy package-, or the IDLE/Spyder editor -if you installed the Anaconda package- and run the code. To do this, if you are in the Canopy or the Spyder editor just click on the green play icon in the tool bar or go to *Run* in the menu bar and click on “Run file” (Fig. 1). If you open the script in the IDLE, just press F5 or go to *Run* and click on “Run module” (Fig. 1).
 
-![Figure 1. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.jpg)  
+![Figure 1. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.png)  
 *Figure 1. Running a script in the Enthought's Canopy editor (left) and the IDLE (right).*
 
 The following text will appear in the Python shell (Fig. 2):
