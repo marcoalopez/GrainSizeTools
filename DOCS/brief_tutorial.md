@@ -2,7 +2,7 @@ Getting Started: A step-by-step tutorial
 -------------
 
 > **Note**
-> This tutorial assumes that the user know nothing about Python programming language. Hence no previous knowledge of the Python programming language is needed to use the script and obtain the results.
+> This tutorial assumes that the user knows nothing about Python programming language. Hence no previous knowledge of the Python programming language is needed to use the script and obtain the results.
 
 ### *Running the script*
 
@@ -58,7 +58,7 @@ The names of the Python functions defined in the script are intuitive and self-e
 
 #### Loading the data and extracting the areas of the grain profiles
 
-The first step is to load the data. It is assumed that previously to this step, the areas of the grain profiles was calculated using the *ImageJ* or similar software, and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to do this go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
+The first step is to load the data. It is assumed that previously to this step, the areas of the grain profiles were calculated using the *ImageJ* or similar software, and that the result was saved as a txt or csv file (Fig. 3). If you do not know how to do this go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the txt file. At right, the csv (comma-separated) version.*
@@ -71,14 +71,14 @@ As shown in figure 3, we obtain a file with data in a spreadsheet-like form from
 
 where ```areas``` is just a name for a Python object, also named variable, in which the data will be stored into memory. This will allow us to manipulate later the areas of the grain profiles when required. Almost any name can be used to create a variable in Python. As an example, if you want to load several files belonging to different datasets, you can name them ```areas1```, ```areas2``` or ```sample1``` , ```sample2``` and so on. Variable names can contain upper and lowercase letters, digits and the special character *underscore*, but cannot start with a digit. ```extract_areas``` is the function responsible for extracting the areas and loading the data into the variable defined. Within the parentheses, it is the file location path in the OS in quotes (single or double) following by the type of the file to be read (optional). To avoid problems in windows, make sure that you use a forward slash (or double backslashes) instead of single backslashes to define the filepath (e.g. "C:/yourfilelocation.../nameofthefile.txt"). The function assumes by default that the datasets were saved as txt files (Fig. 3a), so in such case it is not necessary to define the type. In contrast, if you want to read a csv file you have to specify the type (as in the example above). Once you press the Enter key, the function ```extract_areas``` will automatically extract the information corresponding for the areas of the grains. To check that everything is ok, the function will also return in the shell the first rows of the dataset and the first and last values of the extracted values.
 
-If needed, the ```extract_areas``` function also have the option of defining a different column name. In this case we need to add a new parameter at the end:
+If needed, the ```extract_areas``` function also have the option of defining a column name different from the default. In this case we need to add a new parameter at the end:
 
 ```python
 >>> areas = extract_areas('C:/yourFileLocation/nameOfTheFile.csv', type = 'txt', col_name='areas')
 ```
 in this example set to ```'areas'``` instead of the default column name returned by the imageJ ```'Area'```
 
-In the case that the user extracted and stored the areas of the grains manually, either in a txt or csv file (i.e. without a spreadsheet-like form; Fig. 4), you can use the built-in method ```np.genfromtxt()``` to load the data into a variable in a similar way. As an example:
+In the case that the user extracted and stored the areas of the grains manually, either in a txt or csv file (i.e. without a spreadsheet-like form; Fig. 4), the built-in method ```np.genfromtxt()``` can be used to load the data into a variable in a similar way. As an example:
 
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt')
@@ -124,7 +124,7 @@ The second step is to convert the areas into diameters via the equivalent circul
 >>> diameters = calc_diameters(areas)
 ```
 
-In the example above, the only parameter declared within the parenthesis are the variable containing the areas of the grain profiles previously loaded in the variable named ```areas```. In some cases, we need to correct the perimeter of the grain profiles (Fig. 5). For this, just add the following parameter within the parentheses:
+In the example above, the only parameter declared within the parenthesis are the variable containing the areas of the grain profiles previously loaded in the variable named ```areas```. In some cases, we will need to correct the perimeter of the grain profiles (Fig. 5). For this, just add the following parameter within the parentheses:
 
 ```python
 >>> diameters = calc_diameters(areas, addPerimeter = 0.05)
@@ -143,7 +143,7 @@ This example means that for each apparent diameter calculated from the sectional
 
 Once the sectional areas and the apparent grain sizes were calculated and stored, we have two choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, *in review*).
 
-#### *Obtaining an unidimensional value of grain size (paleopiezometry/paleowattmetry studies)*
+#### *Obtaining an unidimensional value of grain size (paleopiezometry / paleowattmetry studies)*
 
 In case we want to obtain a 1D value of grain size, we need to call the function ```find_grain_size```. This function returns several grain size measures and plots, depending on your needs. The default mode returns a frequency *vs* apparent grain size plot as well as the mean, median, and frequency peak grain sizes using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size, the method used in such estimation, and the bandwidth used for the Gaussian kde according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **a minimum of 433 measured grain profiles are needed to obtain consistent results** (95% confidence), although we recommend to measure a minimum of 965 when possible (99% confidence). For this, we write in the shell:
 
@@ -151,7 +151,7 @@ In case we want to obtain a 1D value of grain size, we need to call the function
 >>> find_grain_size(areas, diameters)
 ```
 
-Note that contrary to what was shown so far, the function is called directly since it is no longer necessary to store any data into an object/variable. The inputs are the arrays with the areas and diameters previously estimated and, if desired, the bin size. The function includes two plug-in methods to estimate an 'optimal' bin size, the Scott (Scott, 1979) and the Freedman-Diaconis (Freedman and Diaconis, 1981) rules. The function uses by default the Scott rule. If you want to use the Freedman-Diaconis rule or an user-defined bin size value, it can be do it as follows:
+Note that contrary to what was shown so far, the function is called directly in the shell since it is no longer necessary to store any data into an object/variable. The inputs are the arrays with the areas and diameters previously estimated and, if desired, the bin size. The function includes two plug-in methods to estimate an 'optimal' bin size, the Scott (Scott, 1979) and the Freedman-Diaconis (Freedman and Diaconis, 1981) rules. The function uses by default the Scott rule. If you want to use the Freedman-Diaconis rule or an user-defined bin size value, it can be do it as follows:
 
 ```python
 >>> find_grain_size(areas, diameters, plot = 'freq', binsize = 'FD')
@@ -177,10 +177,10 @@ for the area-weighted approach or
 ```
 for estimating the logarithmic grain size (or ```'sqrt'``` for the square root grain size).
 
-After pressing the Enter key, the different 1D measures and a new window with a plot will appear (Fig. 6). The plots show the location of the different grain sizes estimated respect to the population of apparent grain sizes. You can save the plots by clicking in the floppy disk icon as bitmap (8 file types to choose) or vector image (5 file types to choose) to post-editing. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon in the tool bar.
+After pressing the Enter key, different 1D grain size measures and a new window with a plot will appear (Fig. 6). The plots show the location of the different grain sizes estimated respect to the population of apparent grain sizes. You can save the plots by clicking in the floppy disk icon as bitmap (8 file types to choose) or vector image (5 file types to choose) to post-editing. Another interesting option is to modify the plot within the *Matplotlib* environment before saving. For this, just click the green tick icon in the tool bar.
 
 ![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
-*Figure 6. Different apparent grain size vs frequency plots returned by the find_grain_size function. These include the number- and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part) *
+*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part) *
 
 #### *Derive the actual 3D distribution of grain sizes*
 
@@ -200,7 +200,7 @@ To derive the actual 3D population of grain sizes using the Saltykov method (Sal
 ```
 Since the Saltykov method uses the histogram to derive the actual 3D grain size distribution, the inputs are an array with the apparent diameters of the grains and the desired number of bins/classes of the histogram. If the number of bins is not declared is set to ten by default. In any event, the user can use any positive **integer** value. However, it is advisable to choose a number smaller than 20 classes (see later for details).
 
-After pressing the Enter key, the function will return the bin size estimated, an array with the normalized frequencies of the different classes, and a new window with two plots (Fig 7). In the new window, at left there are a frequency plot showing the estimated 3D grain size distribution in a form of a histogram and, at right, a volume-weighted cumulative density curve. The latter allow the user to estimate graphically the percentage of volume occupied by a defined fraction of grain sizes. In the case we want to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the parenthesis as follows:
+After pressing the Enter key, the function will return the bin size estimated, an array with the normalized frequencies of the different classes, and a new window with two plots (Fig 7). In the new window and at left there is the frequency plot showing the estimated 3D grain size distribution in a form of a histogram and, at right, a volume-weighted cumulative density curve. The latter allows the user to estimate graphically the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the parenthesis as follows:
 
 ```python
 >>> derive3D(diameters, numbins=12, set_limit=40)
@@ -258,7 +258,7 @@ Note that in this example we merged the original data sets into two new variable
 ```python
 >>> areas1 = np.hstack((areas1, areas2))
 ```
-The variable ```areas1``` is now a new array with the values of the two data sets, and the original dataset stored in the variable ```areas1``` no longer exists since these variables (Strictly speaking named Numpy arrays) are mutable Python objects.
+The variable ```areas1``` is now a new array with the values of the two data sets, and the original dataset stored in the variable ```areas1``` no longer exists since these variables (strictly speaking Numpy arrays) are mutable Python objects.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
