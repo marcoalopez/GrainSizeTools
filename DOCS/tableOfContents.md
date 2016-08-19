@@ -21,5 +21,3 @@ Please, browse through the table of contents.
   * [How to measure the areas of the grain profiles with the ImageJ app](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
   * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
   * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
-    * [Who this script is for?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
-    * [Does the script works with Python 2.7.x and 3.4.x?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
