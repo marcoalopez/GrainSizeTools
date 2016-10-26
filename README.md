@@ -47,7 +47,7 @@ Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures o
 Lopez-Sanchez MA and Llana-Fúnez. An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, *Accepted, available soon* doi:[10.1016/j.jsg.2016.10.008](http://dx.doi.org/10.1016/j.jsg.2016.10.008).
 
 ***Saltykov method***  
-The method as implemented in the GrainSizeTools script is described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (in press) *J. Struc. Geol.* doi:[] The procedure is partially based on general formulation developed in the Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. doi:[10.1029/95JB02500](http://dx.doi.org/10.1016/S0377-0273(98)00043-2)
+The method as implemented in the GrainSizeTools script is described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (Accepted) *J. Struc. Geol.* doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015) The procedure is partially based on general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. doi:[10.1029/95JB02500](http://dx.doi.org/10.1016/S0377-0273(98)00043-2)
 
 License
 -------------
