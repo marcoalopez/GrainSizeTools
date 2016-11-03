@@ -17,6 +17,7 @@ Welcome to the GrainSizeTools script v. 1.2
 Your current working directory is C:\...
 To change the working directory use: os.chdir('new path')
 ```
+
 ![Figure 2. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Canopy_env.png)  
 *Figure 2. The Python editor and the Python shell in the Enthought Canopy environment.*
 
@@ -167,7 +168,7 @@ The user-defined bin size can be any number of type integer or float (*i.e.* an 
 After pressing the Enter key, different 1D grain size measures and a new window with a plot will appear. The plots show the location of the different grain sizes estimated respect to the population of apparent grain sizes (Fig. 6). You can save the plots by clicking the floppy disk icon in the tool bar as bitmap (8 file types to choose) or vector image (5 file types to choose) to post-editing. Another interesting option is to modify the plot within the *Matplotlib* environment before saving by clicking the green tick icon within the tool bar.
 
 ![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
-*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part) *
+*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part)*
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
 
@@ -208,7 +209,7 @@ Note that in this case we include a new parameter named ```fit``` that it is set
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True, initial_guess=True)
 ```
 When the ```initial_guess``` parameter is set to ```True```, the script will ask to set a new starting values for both parameters (it also indicates which are the default ones). A wise strategy based in our experience is to let the MSD value in its default value (1.2) and decreasing the median value every five units until the fitting procedure yield a good fit (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
-
+  
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
 
