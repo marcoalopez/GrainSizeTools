@@ -91,7 +91,7 @@ or in case you need to skip the first or whatever number of lines because there 
 ```
 In this example, ```skip_header = 1``` means that the first line in the txt file is ignored, but you can define any number of lines to ignore.
 
-<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg" width="250">  
+<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.jpg" width="300">  
 *Figure 4. A txt file without spreadsheet-like form.*
 
 The data stored in any object/variable can be viewed at any time by invoking its name in the shell and pressing the Enter key, as follows:
@@ -129,7 +129,7 @@ or just
 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 is added. If the parameter ```addPerimeters``` is not declared within the function, as in the first example, it is assumed that no perimeter correction is needed.
 
-<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="400">  
+<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="450">  
 *Figure 5. Example of perimeter correction. The figure shows the boundaries (in white) between three grains in a grain boundary map. The squares are the pixels of the image. The boundaries are two pixel wide approximately. If, for example, each pixel corresponds to 1 micron, we need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
 Once the sectional areas and the apparent grain sizes were calculated and stored, we have two choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, *In press*).  
@@ -209,11 +209,11 @@ Note that in this case we include a new parameter named ```fit``` that it is set
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True, initial_guess=True)
 ```
 When the ```initial_guess``` parameter is set to ```True```, the script will ask to set a new starting values for both parameters (it also indicates which are the default ones). A wise strategy based in our experience is to let the MSD value in its default value (1.2) and decreasing the median value every five units until the fitting procedure yield a good fit (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
-  
+
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
 
-#### *Other general methods of interest*
+#### ***General methods of interest***
 
 **Calculate the mean and the standard deviation of an array stored**
 ```python
@@ -243,20 +243,22 @@ Note that in this example we merged the original data sets into two new variable
 ```
 The variable ```areas1``` is now a new array with the values of the two data sets, and the original dataset stored in the variable ```areas1``` no longer exists since these variables (strictly speaking Numpy arrays) are mutable Python objects.
 
-**Hints for loading several data sets**
+**Loading several data sets: the fastest (appropriate) way**
 
-If you need to load a large number of data sets, you probably prefer not having to specify the absolute file paths of all of them. Python establishes by default a current working directory in which all the files can be accessed directly by specifying just the name of the file (or a sub-folder and the name of the file; *i.e.* a relative path). For example, if your current working directory is ```c:/user/yourname```, this means that you no longer need to specify the entire file path for all the files stored within this directory. For example, to load a csv file named 'my_sample.csv' that it is stored in that location you just need to write:
+If you need to load a large number of data sets, you probably prefer not having to specify the absolute file paths of all of them. Python establishes by default a current working directory in which all the files can be accessed directly by specifying just the name of the file (or a relative path if they are in a sub-folder). For example, if the current working directory is ```c:/user/yourname```, you no longer need to specify the entire file path for the files stored within this directory. For example, to load a csv file named 'my_sample.csv' stored in that location you just need to write:
 
 ```python
 >>> areas = extract_areas('my_sample.csv', type = 'csv')
 ```
-In the case that the file 'my_sample.csv' were stored in ```c:/user/yourname/my_samples``` we will write:
+or in the case that the file 'my_sample.csv' were stored in ```c:/user/yourname/my_samples``` we will write:
 ```python
 >>> areas = extract_areas('my_samples/my_sample.csv', type = 'csv')
 ```
-and so on. When you run the script, the script shows your current working directory. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()``` and modify it to another path using the function ```os.chdir('new default path')```. Note that the new file path defined within the parentheses is in quotes. This also works when using the ```np.genfromtxt``` method.
+and so on.
 
-> Note: although it depends on the Python package you have installed, usually the current working directory is the same directory in which the script is located. So usually it is a nice idea to locate the scrip in the same directory where the data set are located.
+When you run the script for the first time, your current working directory will appear in the Python shell. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()```, as well as modify it to another path using the function ```os.chdir('new default path')```. Note that the new file path defined within the parentheses is in quotes. The same rules apply when using the ```np.genfromtxt``` method.
+
+> Note: although it depends on the Python package you have installed, usually the current working directory is the same directory where the script is located. Hence, in general it is a good idea to locate the scrip in the same directory where the data sets are located.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
