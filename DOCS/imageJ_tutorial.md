@@ -1,7 +1,7 @@
 How to measure the areas of the grain profiles with the ImageJ app
 -------------
 
-**Before you start:** This tutorial assumes that you have installed the ImageJ software. If this is not the case, go [here](http://imagej.nih.gov/ij/) to download and install the application. You can also install different flavours of the ImageJ application that will work in a similar way (for example I use Fiji instead, see [here](http://fiji.sc/ImageJ) for a summary) . As a cautionary note, this is not a detailed tutorial on image analysis using ImageJ at all, but a quick systematic tutorial to obtain the areas of the grain profiles from a thin section to later estimate the grain size and grain size distribution using the GrainSizeTools script. If you are interested in image analysis methods (e.g. grain segmentation techniques, etc.) you should have a look at the list of references at the end of this tutorial.
+**Before you start:** This tutorial assumes that you have installed the ImageJ software. If this is not the case, go [here](http://imagej.nih.gov/ij/) to download and install the application. You can also install different flavours of the ImageJ application that will work in a similar way (for example I use Fiji instead, see [here](http://fiji.sc/ImageJ) for a summary) . As a cautionary note, this is not a detailed tutorial on image analysis using ImageJ at all, but a quick systematic tutorial to obtain the areas of the grain profiles from a thin section to later estimate the grain size and grain size distribution using the GrainSizeTools script. If you are interested in image analysis methods (e.g. grain segmentation techniques, shape characterization, etc.) you should have a look at the list of references at the end of this tutorial.
 
 ### *Previous considerations on the Grain Boundary Maps*
 
@@ -63,11 +63,11 @@ Heilbronner, R., 2000. Automatic grain boundary detection and grain size analysi
 
 Heilbronner, R., Barret, S., 2014. Image Analysis in Earth Sciences. Springer-Verlag Berlin Heidelberg. doi:[10.1007/978-3-642-10343-8](http://link.springer.com/book/10.1007%2F978-3-642-10343-8)
 
-> This book on image analysis focuses on topics related with Earth Sciences, putting much emphasis on methods used in structural geology. The first two chapters, which deals with image processing and grain segmentation and uses the software Image SXM, which is a different flavour of the ImageJ family applications (see [here](http://fiji.sc/ImageJ)).
+> This book focuses on image analysis related with Earth Sciences putting much emphasis on methods used in structural geology. The first two chapters deals with image processing and grain segmentation techniques using the software Image SXM, which is a different flavour of the ImageJ family applications (see [here](http://fiji.sc/ImageJ)).
 
 Herwegh, M., 2000. A new technique to automatically quantify microstructures of fine-grained carbonate mylonites: two-step etching combined with SEM imaging and image analysis. J. Struct. Geol. 22, 391-400. doi:[10.1016/S0191-8141(99)00165-0](http://www.sciencedirect.com/science/article/pii/S0191814199001650)
 
-> This paper uses digital backscatter electron images on previously treated samples to distinguish between two mineral phases. The author uses the NIH Image and the LGB method for the grain segmentation.
+> This paper uses digital backscatter electron images on previously chemically attacked samples to distinguish between two mineral phases. The author uses the NIH Image and the LGB method for the grain segmentation.
 
 Russ, J.C., 2011. The image processing handbook. CRC Press. Taylor & Francis Group
 

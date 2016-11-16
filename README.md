@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)
 
-[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides several tools to characterize the grain size from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script only requires measuring the grain sectional areas from a thin section in advance and **does not require a previous experience with Python programming language** (see [documentation][2]). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
+[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides several tools to characterize the grain size from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script only requires measuring the grain sectional areas from a thin section and **does not require a previous experience with Python programming language** (see [documentation][2]). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
 Screenshots
 -------------
@@ -44,10 +44,11 @@ Lopez-Sanchez, Marco A. (2016): GrainSizeTools script. figshare. http://dx.doi.o
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 
 ***Two-step method***  
-Lopez-Sanchez MA and Llana-Fúnez. An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, *In Press, Accepted Manuscript* doi:[10.1016/j.jsg.2016.10.008](http://dx.doi.org/10.1016/j.jsg.2016.10.008).
+Lopez-Sanchez MA and Llana-Fúnez. An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, 93, 149-161. doi:[10.1016/j.jsg.2016.10.008](http://dx.doi.org/10.1016/j.jsg.2016.10.008).
 
 ***Saltykov method***  
-The method as implemented in the GrainSizeTools script is described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (*In press*) *J. Struc. Geol.* doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015) The procedure is partially based on general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. doi:[10.1029/95JB02500](http://dx.doi.org/10.1016/S0377-0273(98)00043-2)
+The method as implemented in the GrainSizeTools script is described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
+The procedure is partially based on general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. doi:[10.1029/95JB02500](http://dx.doi.org/10.1016/S0377-0273(98)00043-2)
 
 License
 -------------
