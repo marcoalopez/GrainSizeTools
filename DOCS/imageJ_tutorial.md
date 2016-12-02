@@ -59,7 +59,7 @@ Barraud, J., 2006. The use of watershed segmentation and GIS software for textur
 
 Heilbronner, R., 2000. Automatic grain boundary detection and grain size analysis using polarization micrographs or orientation images. J. Struct. Geol. 22, 969–981. doi:[10.1016/S0191-8141(00)00014-6](http://www.sciencedirect.com/science/article/pii/S0191814100000146)
 
-> This paper explains a simple procedure for creating grain boundary maps from thin sections using a semi-automatic method called Lazy Grain Boundary (LGB) using the NIH Image, which is the predecessor of ImageJ (i.e. no longer under active development). The authors compare the results obtained using the LGB method and manual segmentation. The input digital images were obtained from a quartzite under light microscopy using different techniques including the CIP method.
+> This paper explains a simple procedure for creating grain boundary maps from thin sections using a semi-automatic method implemented in a NIH Image macro named Lazy Grain Boundary (LGB). NIH Image is the predecessor of ImageJ and is no longer under active development. The authors compare the results obtained using the LGB method and manual segmentation. The input digital images were obtained from a quartzite under light microscopy using different techniques including the CIP method. All the steps describing in the protocol can be automated using the ImageJ software and using more sophisticated segmentation algorithms (e.g. using the Canny edge detector instead of the Sobel edge detector used by the LGB macro)
 
 Heilbronner, R., Barret, S., 2014. Image Analysis in Earth Sciences. Springer-Verlag Berlin Heidelberg. doi:[10.1007/978-3-642-10343-8](http://link.springer.com/book/10.1007%2F978-3-642-10343-8)
 
@@ -67,11 +67,11 @@ Heilbronner, R., Barret, S., 2014. Image Analysis in Earth Sciences. Springer-Ve
 
 Herwegh, M., 2000. A new technique to automatically quantify microstructures of fine-grained carbonate mylonites: two-step etching combined with SEM imaging and image analysis. J. Struct. Geol. 22, 391-400. doi:[10.1016/S0191-8141(99)00165-0](http://www.sciencedirect.com/science/article/pii/S0191814199001650)
 
-> This paper uses digital backscatter electron images on previously chemically attacked samples to distinguish between two mineral phases. The author uses the NIH Image and the LGB method for the grain segmentation.
+> This paper uses digital backscatter electron images on previously chemically attacked samples to distinguish between two mineral phases. The author uses the NIH Image and the LGB method (referred above) for the grain segmentation.
 
 Russ, J.C., 2011. The image processing handbook. CRC Press. Taylor & Francis Group
 
-> This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on rocks, structural geology or thin sections, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques or characterizing shapes among others. I find the text very clear and well-written. If you want a general-purpose image analysis book, this is a good one.
+> This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on structural geology, thin sections, or even rocks, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques or shapes characterization among others. I find the text very clear and well-written, so if you want a general-purpose image analysis book, this is a good one.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
