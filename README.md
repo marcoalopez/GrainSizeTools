@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)
 
-[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides several tools to characterize the grain size from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script only requires measuring the grain sectional areas from a thin section and **does not require a previous experience with Python programming language** (see [documentation][2]). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
+[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides several tools to visualize and characterize the grain size from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script only requires measuring the grain sectional areas from a thin section and **does not require a previous experience with Python programming language** (see [documentation][2]). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
 Screenshots
 -------------
@@ -14,15 +14,15 @@ Features at a glance
 - It allows calculating the apparent diameters of the grain profiles via the equivalent circular diameter and to correct, if required, the diameters by adding the perimeter of the grains.
 - It allows estimating different 1D grain size measures for paleopiezometry studies, including the mean, the median, the area-weighted mean and the frequency peak of the apparent grain sizes (also the log or square root apparent grain sizes).
 - It implements several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on the population features.
-- It allows deriving the actual 3D grain size distribution from thin sections (2D data) using the Saltykov method. Similar to what the StripStar script does.
+- It allows deriving the actual 3D grain size distribution from thin sections (2D data) using the Saltykov method.
 - It returns the volume of a particular grain fraction defined by the user.
-- It allows to estimate a complete quantitative description of the 3D grain size distribution using a novel method named the two-step method.
+- It allows estimating a complete quantitative description of the 3D grain size distribution using a novel method named the two-step method.
 - It produces different ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images (see the image above for examples)
 
 Download
 -------------
 
-You can download the script at the following sites (***Latest release 2016/07/08: v1.2***):  
+You can download the script at the following sites (***Latest release 2017/01/09: v1.3***):  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/
@@ -34,7 +34,7 @@ Look at the [table of contents](https://github.com/marcoalopez/GrainSizeTools/bl
 
 Citation guidelines
 -------------
-If you need to cite the script or the methods, the following references are available:
+If you need to cite the script or the methods implemeted, the following references are available:
 
 ###Script reference
 Lopez-Sanchez, Marco A. (2016): GrainSizeTools script. figshare. http://dx.doi.org/10.6084/m9.figshare.1383130
