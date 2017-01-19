@@ -138,13 +138,33 @@ Once we estimated and stored the apparent grain sizes, we have several choices: 
 
 #### *Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)*
 
-For this, we need to call the function ```find_grain_size```. This function returns several grain size measures and plots, depending on your needs. The default mode returns a frequency *vs* apparent grain size plot together with the mean, median, and frequency peak grain sizes; the latter using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size, the number of classes, the method used to estimate the bin size, and the bandwidth used for the Gaussian kde according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **to obtain consistent results a minimum of 433 measured grain profiles are required** (error < 4% at a 95% confidence), although we recommend to measure a minimum of 965 when possible (99% confidence). We write in the shell:
+For this, we need to call the function ```find_grain_size```. This function returns several grain size measures and plots, depending on your needs. The default mode returns a frequency *vs* apparent grain size plot together with the mean, median, and frequency peak grain sizes; the latter using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size, the number of classes, the method used to estimate the bin size, and the bandwidth used for the Gaussian kde according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **to obtain consistent results a minimum of 433 measured grain profiles are required** (error < 4% at a 95% confidence), although we recommend to measure a minimum of 965 when possible (99% confidence).
+
+To estimate a 1D apparent grain size value we write in the shell:
 
 ```python
 >>> find_grain_size(areas, diameters)
 ```
 
-First note that contrary to what was shown so far, the function is called directly in the shell since it is no longer necessary to store any data into an object/variable. The inputs are the arrays with the areas and diameters previously estimated.
+First note that contrary to what was shown so far, the function is called directly in the shell since it is no longer necessary to store any data into an object/variable. The inputs are the arrays with the areas and diameters previously estimated. After pressing the Enter key, the shell will show something similar to this:
+
+```
+NUMBER WEIGHTED APPROACH (linear apparent grain size):
+
+Mean grain size = 35.79 microns
+Median grain size = 32.53 microns
+
+HISTOGRAM FEATURES
+The modal interval is 27.02 - 31.52
+The number of classes are 35
+The bin size is 4.5 according to the scott rule
+
+GAUSSIAN KERNEL DENSITY ESTIMATOR FEATURES
+KDE peak (peak grain size) =  25.24 microns
+Bandwidth = 4.01 (Silverman rule)
+```
+
+Also, a new window with a plot will also appear. The plots will show the location of the different grain size measures respect to the population of apparent grain sizes (Fig. 6). You can save the plots by clicking the floppy disk icon in the tool bar as bitmap (8 file types to choose) or to post-editing in vector image (5 file types to choose). Another interesting option is to modify the plot within the *Matplotlib* window before saving by clicking on the green tick icon in the tool bar.
 
 Although we promote the use of frequency *vs* apparent grain size linear plot (Fig. 6a), the function allows to use other options such as the logarithmic and square-root grain sizes (Figs. 6c, d), widely used in the past, or the area-weighted grain size (e.g. Berger et al. 2011) (Fig. 6b). The advantages and disadvantages of the area weighted plot are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). To do this, we need to specify the type of plot as follows:
 
@@ -167,8 +187,6 @@ note that you have to define first the type of plot you want and that depending 
 
 The user-defined bin size can be any number of type integer or float (*i.e.* an irrational number).
 
-After pressing the Enter key, you will see in the shell different 1D grain size measures and a new window with a plot will also appear. The plots will show the location of the different grain size measures respect to the population of apparent grain sizes (Fig. 6). You can save the plots by clicking the floppy disk icon in the tool bar as bitmap (8 file types to choose) or to post-editing in vector image (5 file types to choose). Another interesting option is to modify the plot within the *Matplotlib* window before saving by clicking on the green tick icon in the tool bar.
-
 ![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
 *Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- (linear) and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part)*
 
@@ -181,14 +199,32 @@ The function responsible to unfold the distribution of apparent grain sizes into
 To derive the actual 3D population of grain sizes using the Saltykov method (Saltykov 1967), we need to call the function ```derive3D```as follows:
 
 ```python
->>> derive3D(diameters, numbins=15)
+>>> derive3D(diameters, numbins=14)
 ```
-Since the Saltykov method uses the histogram to derive the actual 3D grain size distribution, the inputs are an array with the apparent diameters of the grains and the desired number of bins/classes of the histogram. If the number of bins is not declared is set to ten by default. In any event, the user can use any positive **integer** value. However, it is usually advisable to choose a number not exceeding 20 classes (see later for details). After pressing the Enter key, the function will return the corresponding bin size, an array with the normalized frequencies of the different classes, and a new window showing two plots (Fig 7). On the left the frequency plot with the estimated 3D grain size distribution in a form of a histogram, and on the right as volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the function as follows:
+Since the Saltykov method uses the histogram to derive the actual 3D grain size distribution, the inputs are an array with the apparent diameters of the grains and the desired number of bins/classes of the histogram. If the number of bins is not declared is set to ten by default. The user can use any positive **integer** value. However, it is usually advisable to choose a number not exceeding 20 classes (see later for details). After pressing the Enter key, the function will return something like this in the shell:
+
+```
+sample size = 2661
+bin size = 11.26
+
+midpoints =  [   5.63   16.89   28.14 ...,  129.45  140.71  151.97]
+class freqs. (norm.) = [ 0.      0.0156  0.0223 ...,  0.      0.      0.0001]
+cumulative vol. (%) = [   0.      0.78    5.96 ...,   97.97   97.97  100.  ]
+
+A file named Saltykov_output.csv was generated
+```
+
+the arrays correspond with the midpoints, the normalized frequencies, and the normalized cumulative volume of the different classes. The text also indicates that a tabular-like csv file with the data contained in the arrays was generated. Lastly, a new window will appear showing two plots (Fig 7). On the left the frequency plot with the estimated 3D grain size distribution in a form of a histogram, and on the right as volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the function as follows:
 
 ```python
 >>> derive3D(diameters, numbins=12, set_limit=40)
 ```
-In the example above, the grain fraction set to 40 microns means that the script will return an estimation of the percentage of volume occupied by all the grain fractions up to 40 microns. As a cautionary note, if we use a different number of bins/classes (in this example set at 12), we will obtain slightly different estimations. This is normal due to the inaccuracies of the Saltykov method. In any event, Lopez-Sanchez and Llana-Fúnez (2016) proved that the absolute differences between the volume estimations using a range of classes between 10 and 20 are less than ±5. This means that to stay safe we should always take an absolute error margin of ±5 in the volume estimations.
+In the example above, the grain fraction set to 40 microns means that the script will also return an estimation of the percentage of volume occupied by all the grain fractions up to 40 microns. A line similar to this will also appear in the shell:
+
+```
+volume fraction (up to 40 microns) = 22.8 %
+```
+As a cautionary note, if we use a different number of bins/classes, in this example set at 12, we will obtain slightly different percentages. This is normal due to the inaccuracies of the Saltykov method. In any event, Lopez-Sanchez and Llana-Fúnez (2016) proved that the absolute differences between the volume estimations using a range of classes between 10 and 20 are below ±5. This means that to stay safe we should always take an absolute error margin of ±5 in the volume estimations.
 
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
@@ -203,12 +239,34 @@ To estimate the shape of the 3D grain size distribution, the ```derive3D``` func
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True)
 ```
 
-Note that in this case we include a new parameter named ```fit``` that it is set to ```True``` with the "T" capitalized (it is set to ```False``` by default). Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 8b). This is due to the algorithm used to find the optimal MSD and median values (the Levenberg–Marquardt algorithm; Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 25.0 for the MSD and median values respectively. However, when the algorithm fails it would be necessary to change these default values by adding a new parameter as follows:
+Note that in this case we include a new parameter named ```fit``` that it is set to ```True``` with the "T" capitalized (it is set to ```False``` by default). The function will return something like this in the shell:
+
+```
+sample size = 2661
+bin size = 11.26
+
+midpoints =  [   5.63   16.89   28.14 ...,  129.45  140.71  151.97]
+class freqs. (norm.) = [ 0.      0.0156  0.0223 ...,  0.      0.      0.0001]
+cumulative vol. (%) = [   0.      0.78    5.96 ...,   97.97   97.97  100.  ]
+
+
+Optimal coefficients:
+ [MSD(shape) ; median]
+ 1.65 ; 36.91
+
+Confidence interval
+ [MSD(shape) ; median]
+ 0.09 ; 2.33
+
+A file named twoStep_output.csv was generated
+```
+
+In this example, the MSD and median estimations have to be readed as MSD = 1.65 ± 0.09 and Median = 36.91 ± 2.33. The script also generates a tabular-like csv file with the data contained in the arrays. Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 8b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 25.0 for the MSD and median values respectively. However, when the algorithm fails it would be necessary to change these default values by adding a new parameter as follows:
 
 ```python
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True, initial_guess=True)
 ```
-When the ```initial_guess``` parameter is set to ```True```, the script will ask to set a new starting values for both parameters (it also indicates which are the default ones). A wise strategy based in our experience is to let the MSD value in its default value (1.2) and decreasing the median value every five units until the fitting procedure yield a good fit (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
+When the ```initial_guess``` parameter is set to ```True```, the script will ask to set a new starting values for both parameters (it also indicates which are the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and decreasing the median value every five units until the fitting procedure yield a good fit (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
 
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
