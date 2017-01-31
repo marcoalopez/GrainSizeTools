@@ -19,7 +19,7 @@
 
 ## Download
 
-You can download the script at the following sites (***Latest release 2017/01/09: v1.3***):  
+You can download the script at the following sites (***Latest release 2017/01/31: v1.3.1***):  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/
@@ -29,12 +29,11 @@ Look at the [table of contents](https://github.com/marcoalopez/GrainSizeTools/bl
 
 
 ## Citation guidelines
-If you need to cite the script or the methods implemeted, the following references are available:
+If you need to cite the script or the methods the following references are available:
 
-### Script reference  
+**Script reference**   
 Lopez-Sanchez, Marco A. (2016): GrainSizeTools script. figshare. http://dx.doi.org/10.6084/m9.figshare.1383130
 
-### Methods:  
 ***Frequency peak grain size based on Gaussian KDE***  
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. doi:[10.5194/se-6-475-2015](http://dx.doi.org/10.5194/se-6-475-2015)
 

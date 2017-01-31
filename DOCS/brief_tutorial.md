@@ -2,11 +2,11 @@ Getting Started: A step-by-step tutorial
 -------------
 
 > **Note:**
-> This tutorial assumes no previous knowledge of the Python programming language. It is important to **update as soon as possible to version 1.3**, it contains important changes that are not fully compatible with previous versions.
+> This tutorial assumes no previous knowledge of the Python programming language. Please, **update as soon as possible to version 1.3.1**, it contains important changes that are not fully compatible with previous versions.
 
 ### *Open and running the script*
 
-Once you installed the required software in your system (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)) and the latest version of the GrainSizeTools script is on your computer (make sure it is the 1.3 version), you will need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy IDE -if you installed the Enthought Canopy package-, or the Spyder IDE -if you installed the Anaconda package- and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
+Once you installed the required software (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)) and downloaded the latest version of the GrainSizeTools script (make sure it is the 1.3.1 version), you will need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy IDE -if you installed the Enthought Canopy package-, or the Spyder IDE -if you installed the Anaconda package- and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)
 *Figure 1. The editor and the Python shell (aka. the console) in the Enthought Canopy (top) and the Spyder (bottom) integrated development environments (IDE). Both are MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among others features.*
@@ -18,7 +18,7 @@ To use the script it is necessary to run it. To do this, just click in the tool 
 
 The following text will appear in the shell/console (Fig. 1):
 ```
-Welcome to the GrainSizeTools script v. 1.3
+Welcome to the GrainSizeTools script v. 1.3.1
 Your current working directory is...
 To change the working directory use: os.chdir('new path')
 
@@ -27,13 +27,12 @@ The installed Numpy version in your system is...
 ```
 Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
 
-
 ### *A brief note on the organization of the script*
 
-The script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed. A Python function looks like this in the editor:
+The script is organized in a modular way using Python functions, which helps to modify, reuse or extend the code if needed. A Python function looks like this in the editor:
 
 ```python
-def calc_diameters(areas, addPerimeter=0):
+def calc_diameters(areas, correct_diameter=0):
     """ Calculate the diameters from the sectional areas via the equivalent circular
     diameter.
 
@@ -41,65 +40,85 @@ def calc_diameters(areas, addPerimeter=0):
     areas:
     a numpy array with the sectional areas of the grains
 
-    addPerimeter:
-    Correct the diameters estimated from the areas by adding the perimeter of
-    the grain. If addPerimeter is not declared, it is considered 0. A float or
-    integer.
+    correct_diameter:
+    Correct the diameters estimated from the areas of the grains by adding the
+    the width of the grain boundaries. If correct_diameter is not declared, it
+    is considered 0. A float or integer.
     """
 
     # calculate diameters via equivalent circular diameter
     diameters = 2 * sqrt(areas/pi)
 
     # diameter correction adding edges (if applicable)
-    if addPerimeter != 0:
-        diameters += addPerimeter
+    if correct_diameter != 0:
+        diameters += correct_diameter
 
     return diameters
 ```
 
-To sum up, the name following the Python keyword ```def``` -in this example ```calc_diameters```- is the name of the function. The sequence of names within the parentheses are the formal parameters of the function, the inputs. In this case the function has two inputs, the name ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the name ```addPerimeter``` that corresponds to a number of type integer or float (i.e. an irrational number) that sometimes is necessary for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user and the output obtained. Below, it is the code block.
+To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function, the inputs. In this case the function has two inputs, the arameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```addPerimeter``` that corresponds to a number of type integer or float (i.e. an irrational number) that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user and the output obtained. This information can be accessed from the shell by using the command help() and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing Ctrl+I once you wrote the name of a function. Below, it is the code block.
 
-The names of the Python functions defined in the script are self-explanatory. Each function has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to use four functions, and usually less than four, to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
+The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although a lot of functions exist within the script, we will only need to use four, and usually less than four, to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
 ### *Using the script to visualize and estimate the grain size features*
 
 #### Loading the data and extracting the areas of the grain profiles
 
-The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were estimated previously using the *ImageJ* or similar software, and that the results were saved as a txt or csv file. If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
+The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated with the *ImageJ* or similar software, and that the results were saved as a txt or csv file. If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the tab-separated txt file. At right, the csv comma-separated version.*
 
-People usually perform different kinds of measures at the same time in the *ImageJ* application. Consequently, we usually obtain a file with data in a spreadsheet-like form (Fig. 3). We only need to extract the information corresponding to the column named 'Area', which is the one that contains the areas of the grain profiles. To do this, the script implements a ad hoc function named ```extract_areas``` that automatically extract this data for us. To invoke this function we write in the shell (note that different inputs/parameters are separated by commas):
+People usually perform different types of measures at the same time in the *ImageJ* application. Consequently, we usually obtain a text file with the data in a spreadsheet-like form (Fig. 3). In our case, we need to extract the information corresponding to the column named 'Area', which is the one that contains the areas of the grain profiles. To do this, the script implements a function named ```extract_areas``` that automatically do this data for us. To invoke this function we write in the shell:
 
 ```python
->>> areas = extract_areas('C:/yourFileLocation/nameOfTheFile.csv', form='csv')
+>>> areas = extract_areas()
+```
+where ```areas``` is just a name for a Python object, known as variable, in which the data extracted will be stored into memory. This will allow us to access and manipulate later the areas of the grain profiles using other functions. Almost any name can be used to create a variable in Python. As an example, if you want to load several files belonging to different datasets, you can name them ```areas1```, ```areas2``` or ```my_data1``` , ```my_data2``` and so on. In Python variable names can contain upper and lowercase letters (the language is case-sensitive), digits and the special character *_*, but cannot start with a digit. In addition, there are some special keywords reserved for the Python language (e.g. True, False, if, else, etc.). Do not worry about it, the shell will highlight the word if you are using one of these. The function ```extract_areas``` is responsible for automatically extracting the areas from the dataset and loading them into the variable defined. Since the script version 1.3.1, you do not need to introduce any parameter/input within the parentheses. Once you press the Enter key, a new window will pop up showing a file selection dialog so that you can search and open the file that contains the dataset. Then, the function will automatically extract the information corresponding to the areas of the grains profiles and store them into the variable. To check that everything is ok, the shell will return the first and last rows of the dataset and the first and last values of the areas extracted as follows:
+
+```
+>>> areas = extract_areas()
+
+         Area  Circ.     AR  Round  Solidity
+0  1   157.25  0.680  1.101  0.908     0.937
+1  2  2059.75  0.771  1.314  0.761     0.972
+2  3  1961.50  0.842  1.139  0.878     0.972
+3  4  5428.50  0.709  1.896  0.528     0.947
+4  5   374.00  0.699  1.515  0.660     0.970
+...
+               Area  Circ.     AR  Round  Solidity
+2656  2657   452.50  0.789  1.235  0.810     0.960
+2657  2658  1081.25  0.756  1.446  0.692     0.960
+2658  2659   513.50  0.720  1.493  0.670     0.953
+2659  2660   277.75  0.627  1.727  0.579     0.920
+2660  2661   725.00  0.748  1.351  0.740     0.960
+
+column extracted = [  157.25  2059.75  1961.5  ...,   513.5    277.75   725.  ]
+n = 2661
 ```
 
-where ```areas``` is just a name for a Python object, also named variable, in which the data will be stored into memory. This will allow us to access and manipulate later the areas of the grain profiles. Almost any name can be used to create a variable in Python. As an example, if you want to load several files belonging to different datasets, you can name them ```areas1```, ```areas2``` or ```sample1``` , ```sample2``` and so on. Variable names can contain upper and lowercase letters (Python language is case-sensitive), digits and the special character *_*, but cannot start with a digit. Also, there are some special keywords reserved for the Python language (e.g. True, False, if, else, etc.). Do not worry about it, the shell will highlight the word if you are using one of these.  ```extract_areas``` is the function responsible for extracting the areas and loading the data into the variable defined. Within the parentheses, it is the file location path in quotes, either single or double, following by the form of the file to be read (optional). To avoid problems in Windows OS avoid single backslashes to define the filepath (e.g. "C:/yourfilelocation.../nameofthefile.txt") and use instead forward slashes (or double backslashes). The function assumes by default that the datasets were saved as txt files (Fig. 3a), so in such case it is not necessary to define the form. In contrast, if you want to read a csv file you have to specify the form as in the example above (note that in versions previous to 1.3 this parameter was named *type* instead). Once you press the Enter key, the function ```extract_areas``` will automatically extract the information corresponding for the areas of the grains and then store it in the variable. To check that everything is ok, the function will also return in the shell the first and last rows of the dataset and the first and last values of the extracted areas.
-
-If needed, the ```extract_areas``` function also have the option of defining an *ad hoc* column name different from the default. In this case we need to add a new parameter at the end of the function named *col_name*:
+The data stored in any variable can be viewed at any time by invoking its name in the shell and pressing the Enter key. Furthermore, both the Canopy and Spyder IDEs have a specific variable explorer to visualize the variables loaded in the current session. The automatic mode assumes that the column containing the areas of the grain profiles is named ```'Area'``` in the text file (as shown in Fig. 3), which is the default name used by the ImageJ application. If the name of the column is different you can specify it as follows:
 
 ```python
->>> areas = extract_areas('C:/yourFileLocation/nameOfTheFile.csv', form='txt', col_name='areas')
+>>> areas = extract_areas(file_path='auto', col_name='areas')
 ```
-in this example set to ```'areas'``` instead of the default column name returned by the imageJ ```'Area'```
 
-The data stored in any object/variable can be viewed at any time by invoking its name in the shell and pressing the Enter key, as follows:
+In this example, we introduced two different inputs/parameters within the parentheses. The first one is responsible for defining the file path. In this case it is set to 'auto', which means that the automatic mode showed above is on. The second one is the column name (col_name), in this example set to ```'areas'``` instead of the default ```'Area'```. Note that different inputs/parameters are comma-separated.
+
+Another option, which was the only one available in previous versions (< v1.3.1), is to introduce the inputs/parameters manually. For this write in the shell:
 
 ```python
->>> areas
->>> array([99.6535, 41.9045, ..., 79.5712, 119.777])
+>>> areas = extract_areas('C:/...yourFileLocation.../nameOfTheFile.csv', col_name='areas')
 ```
 
-Furthermore, both the Canopy and Spyder IDEs have a specific variable explorer to visualize all the variables loaded in the current session.
+in this case we define the file location path in quotes, either single or double, following by the column name if required. If the column name is 'Areas' you just need to write the file path. To avoid problems in Windows OS do not use single backslashes to define it and use instead forward slashes (e.g. "C:/yourfilelocation.../nameofthefile.txt") or double backslashes. Also note that you won't need to specify the file type (txt or csv) as in previous versions of the script.
 
-In the case that the user extracted and stored the areas of the grains with other software or manually, either in a txt or csv file but without a spreadsheet-like form (Fig. 4), there is a  Python/Numpy built-in method named ```np.genfromtxt()``` that can be used to load any data into a variable in a similar way. For example:
+In the case that the user extracted and stored the areas of the grains in a different form from the one proposed here, this is either in a txt or csv file but without a spreadsheet-like form (Fig. 4), there is a Python/Numpy built-in method named ```np.genfromtxt()``` that can be used to load any text data (txt or csv) into a variable in a similar way. For example:
 
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt')
 ```
-in case you need to skip the first or any other number of lines because there is text or complementary information use the *skip_header* parameter:
+or if you need to skip the first or any other number of lines because there is text or complementary information, then use the *skip_header* parameter:
 
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt', skip_header=1)
@@ -117,22 +136,16 @@ The second step is to convert the areas into diameters via the equivalent circul
 >>> diameters = calc_diameters(areas)
 ```
 
-In the example above, the only parameter declared within the parenthesis are the variable containing the areas of the grain profiles previously loaded in the object ```areas```, and the calculated diameters will be stored in an variable defined as ```diameters``` in our example. In some cases, we would need to correct the perimeter of the grain profiles (Fig. 5). For this, you need to add the following parameter within the parentheses:
+In the example above, the only parameter declared within the parenthesis are the name of the variable containing the areas of the grain profiles previously loaded in the object ```areas```, and the calculated diameters will be stored in an variable defined as ```diameters``` in our example. In some cases, we would need to correct the size of the grain profiles (Fig. 5). For this, you need to add the following parameter within the parentheses:
 
 ```python
->>> diameters = calc_diameters(areas, addPerimeter=0.05)
+>>> diameters = calc_diameters(areas, correct_diameter=0.05)
 ```
 
-or just
-
-```python
->>> diameters = calc_diameters(areas, 0.05)
-```
-
-This example means that for each apparent diameter calculated from the sectional areas, 0.05 will be added. If the parameter ```addPerimeters``` is not declared within the function, as in the first example, it is assumed that no perimeter correction is needed.
+This example means that for each apparent diameter calculated from the sectional areas, 0.05 will be added. If the parameter ```correct_diameter``` is not declared within the function, as in the first example, it is assumed that no diameter correction is needed.
 
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="450">  
-*Figure 5. Example of perimeter correction in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*
+*Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
 Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
 
@@ -229,7 +242,7 @@ As a cautionary note, if we use a different number of bins/classes, in this exam
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
 
-Regarding the number of bins/classes, no best number of bins exists yet (Lopez-Sanchez and Llana-Fúnez 2016). Due to the nature of the Saltykov method, the smaller the number of classes, the better the numerical stability of the method and the larger the number of classes, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the data set it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy. In the experience of the GrainSizeTools developer, the Doane's method seems to work well for this when the distribution is lognormal-like. So, if you do not want to define your own number of classes we propose the following strategy: i) use the Doane's method with the apparent grain size distribution (i.e. when using the *find_grain_size* function); ii) annotate the number of classes estimated; and iii) use this number when using the Saltykov or the two-step methods. As a last cautionary note, keep in mind that **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
+Regarding the number of bins/classes, no best number of bins exists yet (Lopez-Sanchez and Llana-Fúnez 2016). Due to the nature of the Saltykov method, the smaller the number of classes, the better the numerical stability of the method and the larger the number of classes, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the dataset it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy. In the experience of the GrainSizeTools developer, the Doane's method seems to work well for this when the distribution is lognormal-like. So, if you do not want to define your own number of classes we propose the following strategy: i) use the Doane's method with the apparent grain size distribution (i.e. when using the *find_grain_size* function); ii) annotate the number of classes estimated; and iii) use this number when using the Saltykov or the two-step methods. As a last cautionary note, keep in mind that **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
 
 ***Using the two-step method***
 
@@ -273,20 +286,7 @@ When the ```initial_guess``` parameter is set to ```True```, the script will ask
 
 #### ***Other general methods of interest***
 
-**See the length of an array stored**
-
-```python
->>> len(name of the variable)
->>> 2754
-```
-
-**Calculate the mean and the standard deviation of any variabe/object stored**
-```python
->>> mean(name of the variable)
->>> std(name of the variable)
-```
-
-**Merging data sets**
+**Merging datasets**
 
 A useful *Numpy* method to merge two or more datasets is called ```hstack()```, which stack arrays in sequence as follows (*please, note the use of double parenthesis*):
 
@@ -294,36 +294,31 @@ A useful *Numpy* method to merge two or more datasets is called ```hstack()```, 
 >>> np.hstack((name of the array1, name of the Array2,...))
 ```
 
-As an example if we have two different data sets and we want to merge the areas and the diameters estimated in a single variable we write into the Python shell (variable names are just random examples):
+As an example if we have two different datasets and we want to merge the areas and the diameters estimated in a single variable we write into the Python shell (variable names are just random examples):
 
 ```python
 >>> all_areas = np.hstack((areas1, areas2))
 >>> all_diameters = np.hstack((diameters1, diameters2))
 ```
 
-Note that in this example we merged the original data sets into two new variables named ```all_areas``` and ```all_diameters``` respectively. Therefore, we do not overwrite any of the original variables and we can used them later if required. In contrast, if you use a variable name already defined:
+Note that in this example we merged the original datasets into two new variables named ```all_areas``` and ```all_diameters``` respectively. Therefore, we do not overwrite any of the original variables and we can used them later if required. In contrast, if you use a variable name already defined:
 
 ```python
 >>> areas1 = np.hstack((areas1, areas2))
 ```
-The variable ```areas1``` is now a new array with the values of the two data sets, and the original dataset stored in the variable ```areas1``` no longer exists since these variables (strictly speaking Numpy arrays) are mutable Python objects.
+The variable ```areas1``` is now a new array with the values of the two datasets, and the original dataset stored in the variable ```areas1``` no longer exists since these variables (strictly speaking Numpy arrays) are mutable Python objects.
 
-**Loading several data sets: the fastest (appropriate) way**
+**Loading several datasets: the fastest (appropriate) way**
 
-If you need to load a large number of data sets, you probably prefer not having to specify the absolute file paths of each file. Python establishes by default a current working directory in which all the files can be accessed directly by specifying just the name of the file (or a relative path if they are in a sub-folder). For example, if the current working directory is ```c:/user/yourname```, you no longer need to specify the entire file path for the files stored within this directory. For example, to load a csv file named 'my_sample.csv' stored in that location you just need to write:
+If you need to load a large number of datasets, you probably prefer not having to search across multiple folders in the file dialog window or to manually specify the absolute file paths of each file. Python establishes by default a current working directory in which all the files can be accessed directly by specifying just the name of the file (or a relative path if they are in a sub-folder). For example, if the current working directory is ```c:/user/yourname```, you no longer need to specify the entire file path for the files stored within this directory. For example, to load a csv file named 'my_sample.csv' stored in that location you just need to write:
 
 ```python
->>> areas = extract_areas('my_sample.csv', form='csv')
+>>> areas = extract_areas('my_sample.csv')
 ```
-or in the case that the file 'my_sample.csv' were stored in ```c:/user/yourname/my_samples``` we will write:
-```python
->>> areas = extract_areas('my_samples/my_sample.csv', form='csv')
-```
-and so on.
 
-When you run the script for the first time, your current working directory will appear in the Python shell. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()```, as well as modify it to another path using the function ```os.chdir('new default path')```. Note that the new file path defined within the parentheses is in quotes. The same rules apply when using the ```np.genfromtxt``` method.
+When you run the script for the first time, your current working directory will appear in the Python shell. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()```, as well as to modify it to another path using the function ```os.chdir('new default path')```. The same rules apply when using the ```np.genfromtxt``` method.
 
-> Note: although it depends on the Python package you have installed, usually the current working directory is the same directory where the script is located. Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
+> Note: although it depends on the Python environment you have installed, usually the current working directory is the same directory where the script is located. Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
