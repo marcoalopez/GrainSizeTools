@@ -76,7 +76,7 @@ def extract_areas(file_path='auto', col_name='Area'):
             root.attributes("-topmost", True)
             file_path = filedialog.askopenfilename(initialdir=os.getcwd(),
                                                    title="Select file",
-                                                   filetypes=[('Text files', '*.txt'), ('Text file', '*.csv')])
+                                                   filetypes=[('Text files', '*.txt'), ('Text files', '*.csv')])
         except ImportError:  # code for Python 2.7.x versions
             import Tkinter as tk
             import tkFileDialog
@@ -85,7 +85,7 @@ def extract_areas(file_path='auto', col_name='Area'):
             root.attributes("-topmost", True)
             file_path = tkFileDialog.askopenfilename(initialdir=os.getcwd(),
                                                      title="Select file",
-                                                     filetypes=[('Text files', '*.txt'), ('Text file', '*.csv')])
+                                                     filetypes=[('Text files', '*.txt'), ('Text files', '*.csv')])
     form = file_path[-3:]
 
     if form == 'txt':
@@ -112,7 +112,7 @@ def extract_areas(file_path='auto', col_name='Area'):
     return data_set
 
 
-def calc_diameters(areas, addPerimeter=0):
+def calc_diameters(areas, correct_diameter=0):
     """ Calculate the diameters from the sectional areas via the equivalent circular
     diameter.
 
@@ -121,18 +121,18 @@ def calc_diameters(areas, addPerimeter=0):
     areas:
     A numpy array with the sectional areas of the grains
 
-    addPerimeter:
-    Correct the diameters estimated from the areas by adding the perimeter of
-    the grain. If addPerimeter is not declared, it is considered 0. A float or
-    integer.
+    correct_diameter:
+    Correct the diameters estimated from the areas of the grains by adding the
+    the width of the grain boundaries. If correct_diameter is not declared, it
+    is considered 0. A float or integer.
     """
 
     # calculate diameters via equivalent circular diameter
     diameters = 2 * sqrt(areas / pi)
 
     # diameter correction adding edges (if applicable)
-    if addPerimeter != 0:
-        diameters += addPerimeter
+    if correct_diameter != 0:
+        diameters += correct_diameter
 
     return diameters
 
