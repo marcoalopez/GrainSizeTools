@@ -136,7 +136,7 @@ The second step is to convert the areas into diameters via the equivalent circul
 >>> diameters = calc_diameters(areas)
 ```
 
-In the example above, the only parameter declared within the parenthesis are the name of the variable containing the areas of the grain profiles previously loaded in the object ```areas```, and the calculated diameters will be stored in an variable defined as ```diameters``` in our example. In some cases, we would need to correct the size of the grain profiles (Fig. 5). For this, you need to add the following parameter within the parentheses:
+The parameter declared within the parenthesis are the name of the variable that contains the areas of the grain profiles. Also, we need to define a new variable to store the diameters estimated from the areas, in this example defined as ```diameters```. In some cases, we would need to correct the size of the grain profiles (Fig. 5). For this, you need to add a new parameter within the parentheses:
 
 ```python
 >>> diameters = calc_diameters(areas, correct_diameter=0.05)
