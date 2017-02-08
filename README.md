@@ -2,9 +2,6 @@
 
 [GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python][1] that provides several tools to visualize and characterize the grain size from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script only requires measuring the grain sectional areas from a thin section and **does not require a previous experience with Python programming language** (see [documentation][2]). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
-[![GitHub Release](https://github-basic-badges.herokuapp.com/release/marcoalopez/GrainSizeTools.svg?text=last_release)]()
-[![GitHub Download Count](https://github-basic-badges.herokuapp.com/downloads/marcoalopez/GrainSizeTools/total.svg?color=yellow)]()
-
 ## Screenshots
 ![Figure 1. Screenshots (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots_fig-01.png)  
 [enlarge image](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots_fig-01.png)
@@ -22,7 +19,8 @@
 
 ## Download
 
-You can download the script at the following sites (***Last release 2017/01/31: v1.3.1***):  
+You can download the script at the following sites:  
+[![GitHub Release](https://github-basic-badges.herokuapp.com/release/marcoalopez/GrainSizeTools.svg?text=last_release)]() **2017/01/31**  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/
