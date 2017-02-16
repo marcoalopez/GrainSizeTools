@@ -20,7 +20,7 @@
 ## Download
 
 You can download the script at the following sites:  
-[![GitHub Release](https://github-basic-badges.herokuapp.com/release/marcoalopez/GrainSizeTools.svg?text=last_release)]() **2017/01/31**  
+[![GitHub Release](https://github-basic-badges.herokuapp.com/release/marcoalopez/GrainSizeTools.svg?text=last_release)]()  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/
