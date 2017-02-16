@@ -8,7 +8,7 @@ Getting Started: A step-by-step tutorial
 
 Once you installed the required software (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)) and downloaded the latest version of the GrainSizeTools script (make sure it is the 1.3.1 version), you will need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy IDE -if you installed the Enthought Canopy package-, or the Spyder IDE -if you installed the Anaconda package- and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
-![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)
+![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  
 *Figure 1. The editor and the Python shell (aka. the console) in the Enthought Canopy (top) and the Spyder (bottom) integrated development environments (IDE). Both are MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among others features.*
 
 To use the script it is necessary to run it. To do this, just click in the tool bar on the green triangle icon or go to ```Run>Run file``` in the menu bar (Fig. 2).
@@ -186,7 +186,7 @@ Although we promote the use of frequency *vs* apparent grain size linear plot (F
 ```
 in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (set as default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different type of plot also implies to obtain different grain size estimations.
 
-Since the version 1.3 of the script, this function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. The other methods available are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html). You can also use and *ad hoc* bin/class size (see an example below). We encourage you to use the default method ```'auto'```, the ```'doane'``` method in case you have a lognormal-like distribution of apparent grain sizes, or the ```'scott'``` method in case your distribution is Gaussian-like. To specify the method we write in the shell:
+Since the version 1.3 of the script, this function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. The other methods available are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html). You can also use and *ad hoc* bin/class size (see an example below). We encourage you to use the default method ```'auto'```, or the ```'doane'``` and ```'scott'``` methods in case you have a lognormal- or a normal-like distribution respectively. To specify the method we write in the shell:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize='doane')
@@ -318,7 +318,7 @@ If you need to load a large number of datasets, you probably prefer not having t
 
 When you run the script for the first time, your current working directory will appear in the Python shell. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()```, as well as to modify it to another path using the function ```os.chdir('new default path')```. The same rules apply when using the ```np.genfromtxt``` method.
 
-> Note: although it depends on the Python environment you have installed, usually the current working directory is the same directory where the script is located. Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
+> Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you installed). Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
