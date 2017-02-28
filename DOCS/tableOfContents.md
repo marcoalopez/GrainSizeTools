@@ -2,7 +2,7 @@ Table of contents
 -------------
 
   * [Requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
-  * [Getting started: A step-by-step tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
+  * [Getting started: A (comprehensive) step-by-step tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
     * [Open and running the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#open-and-running-the-script)
     * [A brief note on the organization of the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#a-brief-note-on-the-organization-of-the-script)
     * [Using the script to visualize and estimate the grain size features](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-visualize-and-estimate-the-grain-size-features)
@@ -11,6 +11,7 @@ Table of contents
       * [Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-an-unidimensional-value-of-grain-size-paleopiezowattmetry-studies)
       * [Derive the actual 3D distribution of grain sizes from thin sections](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-distribution-of-grain-sizes-from-thin-sections)
       * [Other general methods of interest](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#general-methods-of-interest)
+  * [A quick tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/quick_tutorial.md)
   * [Specifications of main functions in the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)
     * [extract_areas](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#extract_areas-filepath-type--txt)
     * [calc_diameters](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md#calc_diameters-areas-addperimeter--0)

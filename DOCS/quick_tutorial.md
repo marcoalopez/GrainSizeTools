@@ -73,3 +73,7 @@ derive3D(diameters, numbins=12, set_limit=None, fit=True)
 # The script will ask you about the new guessing values
 derive3D(diameters, numbins=12, set_limit=None, fit=True, initial_guess=True)
 ```
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
+[table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
+
+----------

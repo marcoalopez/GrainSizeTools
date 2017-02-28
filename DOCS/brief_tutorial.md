@@ -322,7 +322,7 @@ When you run the script for the first time, your current working directory will 
 
 > Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you installed). Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
 
-[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/quick_tutorial.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
 
 ----------
