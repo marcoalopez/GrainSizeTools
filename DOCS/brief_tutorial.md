@@ -2,11 +2,11 @@
 -------------
 
 > **Important note:**
-> Please, **update as soon as possible to version 1.3.1**, it contains important changes that are not fully compatible with previous versions.
+> Please, **update as soon as possible to version 1.3.x**, it contains important changes that are not fully compatible with previous versions. It is also advisable to update matplotlib to version 2.x since the plots are optimized for such version.
 
 ### *Open and running the script*
 
-First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v.1.3.1). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
+First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v1.3.2). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  
 *Figure 1. The editor and the Python shell (a.k.a. the console) in the Enthought Canopy (top) and the Spyder (bottom) integrated development environments (IDEs). Both are MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among others features.*
@@ -18,12 +18,9 @@ To use the script it is necessary to run it. To do this, just click on the green
 
 The following text will appear in the shell/console (Fig. 1):
 ```
-Welcome to the GrainSizeTools script v. 1.3.1
+Welcome to the GrainSizeTools script v. 1.3.2
 Your current working directory is...
 To change the working directory use: os.chdir('new path')
-
-Please to avoid problems check that your Numpy version below is 1.11 or higher:
-The installed Numpy version in your system is...
 ```
 Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
 
@@ -166,6 +163,7 @@ NUMBER WEIGHTED APPROACH (linear apparent grain size):
 
 Mean grain size = 35.79 microns
 Median grain size = 32.53 microns
+Interquartile range (IQR) = 23.98
 
 HISTOGRAM FEATURES
 The modal interval is 27.02 - 31.52
@@ -220,14 +218,11 @@ Since the Saltykov method uses the histogram to derive the actual 3D grain size 
 sample size = 2661
 bin size = 11.26
 
-midpoints =  [   5.63   16.89   28.14 ...,  129.45  140.71  151.97]
-class freqs. (norm.) = [ 0.      0.0156  0.0223 ...,  0.      0.      0.0001]
-cumulative vol. (%) = [   0.      0.78    5.96 ...,   97.97   97.97  100.  ]
-
-A file named Saltykov_output.csv was generated
+A file named Saltykov_output.csv containing the midpoints and the class frequencies,
+was generated
 ```
 
-the arrays correspond with the midpoints, the normalized frequencies, and the normalized cumulative volume of the different classes. The text also indicates that a tabular-like csv file with these data was generated. Lastly, a window will pop up showing two plots (Fig 7). On the left it is the frequency plot with the estimated 3D grain size distribution in the form of a histogram, and on the right the volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the function as follows:
+The text indicates the sample size, the bin size, and that a tabular-like csv file containing different numerical values was generated. Lastly, a window will pop up showing two plots (Fig 7). On the left it is the frequency plot with the estimated 3D grain size distribution in the form of a histogram, and on the right the volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the function as follows:
 
 ```python
 >>> derive3D(diameters, numbins=12, set_limit=40)
@@ -242,7 +237,7 @@ As a cautionary note, if we use a different number of bins/classes, in this exam
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
 
-Due to the nature of the Saltykov method, the smaller the number of classes, the better the numerical stability of the method and the larger the number of classes, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the dataset it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy. In the experience of the GrainSizeTools developer, the Doane's method seems to work well in some cases when the distribution is lognormal-like. So, if you do not want to define your own number of classes we propose the following strategy: i) use the Doane's method with the apparent grain size distribution (i.e. when using the *find_grain_size* function); ii) annotate the number of classes estimated; and iii) use this number when using the Saltykov or the two-step methods. In any event, keep in mind that common sense is still the best guide in obtaining an optimal number of classes. As a last cautionary note, **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
+Due to the nature of the Saltykov method, the smaller the number of classes, the better the numerical stability of the method and the larger the number of classes, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the dataset it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy. As a last cautionary note, **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
 
 ***Using the two-step method***
 
@@ -256,25 +251,15 @@ Note that in this case we include a new parameter named ```fit``` that it is set
 
 ```
 sample size = 2661
-bin size = 11.26
-
-midpoints =  [   5.63   16.89   28.14 ...,  129.45  140.71  151.97]
-class freqs. (norm.) = [ 0.      0.0156  0.0223 ...,  0.      0.      0.0001]
-cumulative vol. (%) = [   0.      0.78    5.96 ...,   97.97   97.97  100.  ]
-
+bin size = 10.44
 
 Optimal coefficients:
- [MSD(shape) ; median]
- 1.65 ; 36.91
+MSD (shape) = 1.69 ± 0.07
+Median (location) = 35.51 ± 1.73 (caution: not fully realiable)
 
-Confidence interval
- [MSD(shape) ; median]
- 0.09 ; 2.33
-
-A file named twoStep_output.csv was generated
+A file named twoStep_output.csv containing the midpoints, class frequencies,
+and cumulative volumes was generated
 ```
-
-In this example, the MSD and median estimations have to be read as MSD = 1.65 ± 0.09 and Median = 36.91 ± 2.33. The script also generates a tabular-like csv file with the data contained in the arrays.
 
 Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 8b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 25.0 for the MSD and median values respectively. However, when the algorithm fails it would be necessary to change these default values by adding a new parameter as follows:
 
@@ -287,6 +272,15 @@ When the ```initial_guess``` parameter is set to ```True```, the script will ask
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
 
 #### ***Other general methods of interest***
+
+**Estimate common descriptive statistic parameters**
+
+```python
+>>> mean(array_name)  # Estimate the mean
+>>> std(array_name)  # Estimate the standard deviation
+>>> median(array_name)  # Estimate the median
+>>> iqr(array_name)  # Estimate the interquartile range
+```
 
 **Merging datasets**
 
