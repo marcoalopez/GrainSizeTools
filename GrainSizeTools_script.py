@@ -17,12 +17,12 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.3.1                                                             #
+#    Version 1.3.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
 #    Requirements:                                                             #
-#        Python version 2.7.x or 3.4.x or higher                               #
+#        Python version 2.7.x, 3.4.x or higher                                 #
 #        Numpy version 1.11 or higher                                          #
 #        Matplotlib version 1.5.3 or higher                                    #
 #        Scipy version 0.13 or higher                                          #
@@ -40,7 +40,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy import mean, std, median, pi, sqrt, exp, log, array, tan, arctan, delete
 from pandas import read_table, read_csv, DataFrame
-from scipy.stats import gaussian_kde
+from scipy.stats import gaussian_kde, iqr
 from scipy.optimize import curve_fit
 
 import matplotlib as mpl
@@ -48,8 +48,8 @@ import matplotlib as mpl
 # https://tonysyu.github.io/raw_content/matplotlib-style-gallery/gallery.html
 mpl.style.use('ggplot')
 # mpl.rcParams['font.family'] = 'Helvetica Neue'  # uncomment this line to change the default font in the plots
-mpl.rcParams['xtick.labelsize'] = 12.
-mpl.rcParams['ytick.labelsize'] = 12.
+mpl.rcParams['xtick.labelsize'] = 11.
+mpl.rcParams['ytick.labelsize'] = 11.
 
 
 def extract_areas(file_path='auto', col_name='Area'):
@@ -86,18 +86,16 @@ def extract_areas(file_path='auto', col_name='Area'):
             file_path = tkFileDialog.askopenfilename(initialdir=os.getcwd(),
                                                      title="Select file",
                                                      filetypes=[('Text files', '*.txt'), ('Text files', '*.csv')])
-    form = file_path[-3:]
-
-    if form == 'txt':
+    if file_path.endswith('.txt'):
         data_frame = read_table(file_path)
         data_set = array(data_frame[col_name])
 
-    elif form == 'csv':
+    elif file_path.endswith('.csv'):
         data_frame = read_csv(file_path)
         data_set = array(data_frame[col_name])
 
     else:
-        print("The file is not a 'txt' nor 'csv'. Please save data as txt or csv or specify the form of the file in the file path.")
+        print("Error: The file is not a 'txt' nor 'csv' or the file extension was not specified.")
         return None
 
     print(' ')
@@ -241,19 +239,15 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
     # Create an array with the left edges of the bins and other with the midpoints
     left_edges = delete(bin_edges, -1)
     mid_points = left_edges + binsize / 2.
-    print('midpoints = ', np.around(mid_points, 2))
 
     # Applied the Scheil-Schwartz-Saltykov method to unfold the population of apparent diameters
     freq3D = Saltykov(freq, bin_edges, binsize, mid_points)
-    print('class freqs. (norm.) =', np.around(freq3D, 4))
 
     # Calculates the volume-weighted cumulative frequency distribution
     x_vol = binsize * (4 / 3.) * pi * (mid_points**3)
     freq_vol = x_vol * freq3D
     cdf = np.cumsum(freq_vol)
     cdf_norm = 100 * (cdf / cdf[-1])
-    print('cumulative vol. (%) =', np.around(cdf_norm, 2))  # Delete for released versions
-    print(' ')
 
     if fit is False:
         if set_limit is not None:
@@ -270,7 +264,7 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
 
         # Save a text file with the midpoints, class frequencies, and cumulative volumes
         df = DataFrame({'mid_points': np.around(mid_points, 3), 'freqs': np.around(freq3D, 4), 'cum_vol': np.around(cdf_norm, 2)})
-        print('A file named Saltykov_output.csv was generated')
+        print('A file named Saltykov_output.csv containing the midpoints, class frequencies, \nand cumulative volumes was generated')
         return df.to_csv('Saltykov_output.csv', sep='\t')
 
     # Fit a lognormal distribution with uncertainties to 3D data
@@ -294,12 +288,9 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
         # deviations
         sigma_err = sqrt([covm[0, 0], covm[1, 1]])
 
-        print(' ')
-        print('Optimal coefficients:\n', '[MSD(shape) ; median]\n',
-              round(optp[0], 2), ';', round(optp[1], 2))
-        print(' ')
-        print('Confidence interval\n', '[MSD(shape) ; median]\n',
-              round(3 * sigma_err[0], 2), ';', round(3 * sigma_err[1], 2))
+        print('Optimal coefficients:')
+        print('MSD (shape) =', round(optp[0], 2), '±', round(3 * sigma_err[0], 2))
+        print('Median (location) =', round(optp[1], 2), '±', round(3 * sigma_err[1], 2), '(caution: not fully realiable)')
         print(' ')
         # print(' Covariance matrix:\n', covm)
 
@@ -324,7 +315,7 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
 
         # Save a text file with the midpoints and class frequencies
         df = DataFrame({'mid_points': np.around(mid_points, 3), 'freqs': np.around(freq3D, 4)})
-        print('A file named twoStep_output.csv was generated')
+        print('A file named twoStep_output.csv containing the midpoints and class frequencies \nwas generated')
         return df.to_csv('twoStep_output.csv', sep='\t')
 
     else:
@@ -333,8 +324,8 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
 
 
 # ============================================================================ #
-# Functions used by the find_grain_size and the derive3D functions to plot the #
-# results using the matplotlib capabilities. I use hex color codes to set the  #
+# Functions used by the find_grain_size and the derive3D functions to generate #
+# the plots using the matplotlib capabilities. I use hex color codes to define #
 # colors.                                                                      #
 # ============================================================================ #
 
@@ -343,63 +334,62 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
     """ Generate a frequency vs grain size plot."""
 
     plt.figure(tight_layout=True)
-
     plt.hist(diameters,
              bins=binList,
              range=(0, diameters.max()),
              normed=True,
-             color='#66C2A5',
-             edgecolor='#EBF7F3')
+             color='#108ED2',
+             edgecolor='#E8F7FF')
     plt.plot([mean_GS, mean_GS], [0.0001, y_max],
-             linestyle='-.',
-             color='#252525',
-             label='mean grain size',
+             linestyle='-',
+             color='#1F1F1F',
+             label='mean',
              linewidth=2)
     plt.plot([median_GS, median_GS], [0.0001, y_max],
              linestyle='--',
-             color='#252525',
-             label='median grain size',
+             color='#1F1F1F',
+             label='median',
              linewidth=2)
     plt.plot(xgrid, y_values,
-             color='#252525',
-             label='Gaussian KDE',
+             color='#1F1F1F',
              linewidth=2)
     plt.ylabel('frequency',
-               fontsize=15)
+               fontsize=13)
     if plot == 'freq':
         plt.xlabel(r'apparent diameter ($\mu m$)',
-                   fontsize=15)
+                   fontsize=13)
         plt.title('Linear grain size distribution',
-                  color='#525252',
-                  fontsize=16,
+                  color='#1F1F1F',
+                  fontsize=13.5,
                   y=1.02)
     elif plot == 'log':
         plt.xlabel(r'apparent diameter ln ($\mu m$)',
-                   fontsize=15)
+                   fontsize=13)
         plt.title('Logarithmic (base e) grain size distribution',
-                  color='#525252',
-                  fontsize=16,
+                  color='#1F1F1F',
+                  fontsize=13.5,
                   y=1.02)
     elif plot == 'sqrt':
         plt.xlabel(r'apparent diameter sqrt ($\mu m$)',
-                   fontsize=15)
+                   fontsize=13)
         plt.title('Square root grain size distribution',
-                  color='#525252',
-                  fontsize=16,
+                  color='#1F1F1F',
+                  fontsize=13.5,
                   y=1.02)
     plt.plot([x_peak], [y_max],
              'o',
-             color='#252525')
+             color='#1F1F1F',
+             label='freq. peak')
     plt.vlines(x_peak, 0.0001, y_max,
                linestyle=':',
-               color='#252525',
+               color='#1F1F1F',
                linewidth=2)
     plt.annotate('Gaussian KDE peak',
                  xy=(x_peak, y_max),
                  xytext=(+10, +30),
                  label='peak')
     plt.legend(loc='upper right',
-               fontsize=13)
+               fontsize=11)
 
     return plt.show()
 
@@ -416,24 +406,24 @@ def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
 
     # figure aesthetics stuff
     plt.bar(intValues, cumulativeAreasNorm, width=h,
-            color='#66C2A5',
-            edgecolor='#EBF7F3',
+            color='#108ED2',
+            edgecolor='#E8F7FF',
             align='edge')
     plt.plot([weightedMean, weightedMean], [0.0001, maxValue],
-             linestyle='--',
-             color='#252525',
+             linestyle='-',
+             color='#1F1F1F',
              label='area weighted mean',
              linewidth=2)
-    plt.ylabel('% of area fraction within the interval',
-               fontsize=15)
+    plt.ylabel('% of area fraction',
+               fontsize=13)
     plt.xlabel(r'apparent diameter ($\mu m$)',
-               fontsize=15)
+               fontsize=13)
     plt.title('Area-weighted grain size distribution',
-              color='#525252',
-              fontsize=16,
+              color='#1F1F1F',
+              fontsize=13.5,
               y=1.02)
     plt.legend(loc='upper right',
-               fontsize=13)
+               fontsize=11)
 
     return plt.show()
 
@@ -446,35 +436,35 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
     plt.subplot(121)
     plt.bar(left_edges, freq3D, width=binsize,
-            color='#80b1d3',
-            edgecolor='#EBF7F3',
+            color='#108ED2',
+            edgecolor='#E8F7FF',
             align='edge')
 #    plt.plot(mid_points, freq3D,
 #             'o',
 #             color='#fb8072')
     plt.ylabel('frequency',
-               fontsize=15)
+               fontsize=13)
     plt.xlabel(r'diameter ($\mu m$)',
-               fontsize=15)
+               fontsize=13)
     plt.title('estimated 3D grain size distribution',
-              color='#525252',
-              fontsize=16,
+              color='#1F1F1F',
+              fontsize=13.5,
               y=1.02)
 
     plt.subplot(122)
-    plt.ylim([0, 105])
+    plt.ylim([-2, 105])
     plt.plot(mid_points, cdf_norm,
              'o-',
              color='#ed4256',
              label='volume weighted CDF',
              linewidth=2)
     plt.ylabel('cumulative volume (%)',
-               fontsize=15)
+               fontsize=13)
     plt.xlabel(r'diameter ($\mu m$)',
-               fontsize=15)
+               fontsize=13)
     plt.title('volume-weighted cumulative freq. distribution',
-              color='#525252',
-              fontsize=16,
+              color='#1F1F1F',
+              fontsize=13.5,
               y=1.02)
 
     return plt.show()
@@ -490,37 +480,35 @@ def twostep_plot(left_edges, freq3D, binsize, mid_points_corrected,
 
     plt.figure(tight_layout=True)
 
+    # bar plot from Saltykov method
+    plt.bar(left_edges, freq3D,
+            width=binsize,
+            color='#108ED2',
+            label='Saltykov method',
+            edgecolor='#E8F7FF',
+            align='edge',
+            alpha=0.65)
+
     # log-normal distribution
     plt.plot(xgrid, best_fit,  # best fit
-             color='#525252',
+             color='#1F1F1F',
              label='best fit',
              linewidth=2)
-    plt.plot(mid_points_corrected, freq3D_corrected,  # datapoints used for the fitting procedure
-             'o',
-             color='#d53e4f',
-             label='Datapoints',
-             linewidth=1.5,
-             alpha=0.75)
     plt.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
                      color='#525252',
                      label='trust region',
                      alpha=0.5)
-    # bar plot from Saltykov method
-    plt.bar(left_edges, freq3D,
-            width=binsize,
-            color='#3288bd',
-            label='Saltykov method',
-            linewidth=1,
-            edgecolor='#ffffff',
-            alpha=0.6,
-            align='edge')
-
+    plt.plot(mid_points_corrected, freq3D_corrected,  # datapoints used for the fitting procedure
+             'o',
+             color='#d53e4f',
+             label='Datapoints',
+             linewidth=1.5)
     plt.ylabel('freq. (per unit vol.)',
-               fontsize=15)
-    plt.legend(loc='upper right',
                fontsize=13)
+    plt.legend(loc='upper right',
+               fontsize=11)
     plt.xlabel(r'diameter ($\mu m$)',
-               fontsize=15)
+               fontsize=13)
 
     return plt.show()
 
@@ -553,6 +541,7 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
 
     mean_GS = mean(diameters)
     median_GS = median(diameters)
+    iqr_GS = iqr(diameters)
 
     # estimate the histogram and the bin edges
     histogram, bin_edges = np.histogram(diameters, bins=binsize, range=(0.0, diameters.max()))
@@ -580,6 +569,7 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
         print(' ')
         print('Mean grain size =', round(mean_GS, 2), 'microns')
         print('Median grain size =', round(median_GS, 2), 'microns')
+        print('Interquartile range (IQR) =', round(iqr_GS, 2))
         print(' ')
         print('HISTOGRAM FEATURES')
         print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
@@ -601,6 +591,7 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
         print(' ')
         print('Mean (log) grain size =', round(mean_GS, 2), 'microns')
         print('Median (log) grain size =', round(median_GS, 2), 'microns')
+        print('Interquartile range (IQR) =', round(iqr_GS, 2))
         print(' ')
         print('HISTOGRAM FEATURES')
         print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
@@ -622,6 +613,7 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
         print(' ')
         print('Mean (sqrt) grain size =', round(mean_GS, 2), 'microns')
         print('Median (sqrt) grain size =', round(median_GS, 2), 'microns')
+        print('Interquartile range (IQR) =', round(iqr_GS, 2))
         print(' ')
         print('HISTOGRAM FEATURES')
         print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
@@ -642,15 +634,9 @@ def gen_xgrid(pop, start, stop):
     """Returns a mesh of x_values.
 
     PARAMETERS
-
-    pop:
-    the population
-
-    start:
-    the starting value of the sequence
-
-    stop:
-    the end value of the sequence
+    pop: the population
+    start: the starting value of the sequence
+    stop: the end value of the sequence
     """
 
     d_range = pop.max() - pop.min()
@@ -706,8 +692,8 @@ def calc_areaweighted_grainsize(areas, diameters, binsize):
     weightedMean = sum(weigtedDiameters)
 
     # sort arrays
-    areas.sort()
-    diameters.sort()
+    np.sort(areas)
+    np.sort(diameters)
 
     minVal = 0
     maxVal = max(diameters)
@@ -886,13 +872,13 @@ def fit_function(x, shape, scale):
 
 
 print(' ')
-print('Welcome to the GrainSizeTools script v.1.3.1')
+print('Welcome to the GrainSizeTools script v. 1.3.2')
 print('Your current working directory is', os.getcwd())
 print("To change the working directory use: os.chdir('new path')")
 print(' ')
-print('Please to avoid problems check that your Numpy version below is 1.11 or higher:')
-print('The installed Numpy version in your system is', np.__version__)
-print(' ')
+if float(np.__version__[0:4]) < 1.11:
+    print('The installed Numpy version', np.__version__, 'is too old.')
+    print('Please upgrade to v1.11 or higher')
 
 # ============================================================================ #
 # Make it correct, make it clear, make it concise, make it fast. In that order.#
