@@ -47,7 +47,7 @@ GrainSizeTools script requires [Python](https://www.python.org/) 2.7.x (legacy) 
 
 The approach of the script is based on the estimation of the areas of the grain profiles obtained from thin sections. It is therefore necessary to measure them in advance and save the results in a txt/csv file. For this task, we highly encourage you to use the [*ImageJ*](http://rsbweb.nih.gov/ij/) application or one of their different flavours (see [here](http://fiji.sc/ImageJ)), since they are public-domain image processing programs widely used for scientific research that runs on Windows, OS X, and Linux platforms.
 
-The main aim of this documentation is not to describe how to measure the areas of the grain profiles with the *ImageJ* application but to treat the data obtained from this or similar applications. If you are not familiarized with the use of *ImageJ* you have a quick tutorial [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md). To find other tutorials just type the terms *'ImageJ'* and *'areas'* in your favourite search engine.
+The main aim of this documentation is not to describe how to measure the areas of the grain profiles with the *ImageJ* application but to treat the data obtained from this or similar applications. If you are not familiarized with the use of *ImageJ* you have tutorial within this document.
 
 
 ## Getting Started: A step-by-step tutorial
@@ -59,7 +59,7 @@ The main aim of this documentation is not to describe how to measure the areas o
 
 First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v1.3.2). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
-![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png =350x)  
+![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png =400x)  
 *Figure 1. The editor and the Python shell (a.k.a. the console) in the the Spyder (bottom) integrated development environment (IDE). Both, the Enthough Canopy and the Spyder IDEs, are MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among other interesting features.*
 
 To use the script it is necessary to run it. To do this, just click on the green "play" icon in the tool bar or go to ```Run>Run file``` in the menu bar (Fig. 2).
