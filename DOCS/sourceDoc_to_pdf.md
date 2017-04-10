@@ -39,7 +39,7 @@ GrainSizeTools script is licensed under the [Apache License, Version 2.0 (the â€
 - FAQs
 - References
 
-<br><br>
+<div style="page-break-after: always;"></div>
 
 ## Requirements
 
@@ -49,6 +49,7 @@ The approach of the script is based on the estimation of the areas of the grain 
 
 The main aim of this documentation is not to describe how to measure the areas of the grain profiles with the *ImageJ* application but to treat the data obtained from this or similar applications. If you are not familiarized with the use of *ImageJ* you have tutorial within this document.
 
+<div style="page-break-after: always;"></div>
 
 ## Getting Started: A step-by-step tutorial
 
@@ -64,16 +65,16 @@ First of all, make sure you have the required software and necessary Python libr
 
 To use the script it is necessary to run it. To do this, just click on the green "play" icon in the tool bar or go to ```Run>Run file``` in the menu bar (Fig. 2).
 
-![Figure 2. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.png =350x)  
-*Figure 2. Running a script in the Enthought's Canopy (left) and Spyder (right) IDEs.*
-
-The following text will appear in the shell/console (Fig. 1):
+The following text will appear in the shell/console:
 ```
 Welcome to the GrainSizeTools script v. 1.3.2
 Your current working directory is...
 To change the working directory use: os.chdir('new path')
 ```
 Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
+
+![Figure 2. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.png =350x)  
+*Figure 2. Running a script in the Enthought's Canopy (left) and Spyder (right) IDEs.*
 
 ### *A brief note on the organization of the script*
 
@@ -367,6 +368,7 @@ When you run the script for the first time, your current working directory will 
 
 > Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you installed). Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
 
+<div style="page-break-after: always;"></div>
 
 ## GST script quick tutorial
 
@@ -443,6 +445,7 @@ derive3D(diameters, numbins=12, set_limit=None, fit=True)
 derive3D(diameters, numbins=12, set_limit=None, fit=True, initial_guess=True)
 ```
 
+<div style="page-break-after: always;"></div>
 
 ## How to measure the areas of the grain profiles with the ImageJ app
 
@@ -491,6 +494,8 @@ Once the grain segmentation is done, it is crucial to ensure that at the actual 
 ![Figure 13. ImageJ I/O options window](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_ImageJ_IOoptions.png =150x)  
 *Figure 13. ImageJ I/O options window.*
 
+<div style="page-break-after: always;"></div>
+
 ### *List of useful references (in alphabetical order)*
 
 **Note**: This list of references is not intended to be exhaustive in any way. It simply reflects some articles, webpages and books that I find interesting about the topic in question. My intention is to expand the list over time. Regarding the ImageJ program, there are many tutorials on the web, see for example [here](http://imagej.nih.gov/ij/docs/index.html) or [here](http://imagej.net/Category:Tutorials)
@@ -515,6 +520,7 @@ Russ, J.C., 2011. The image processing handbook. CRC Press. Taylor & Francis Gro
 
 > This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on structural geology, thin sections, or even rocks, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques or shapes characterization among others. I find the text very clear and well-written, so if you want a general-purpose image analysis book, this is the best one I known.
 
+<div style="page-break-after: always;"></div>
 
 ## Frequently Asked Questions
 
@@ -530,14 +536,17 @@ As you may noticed classic CSDs charts (Marsh, 1988) show in the vertical axis t
 ***Why the sum of all frequencies in the histograms is not equal to one?***  
 This is because the script normalized the frequencies of the different classes so that the integral over the range is one. In other words, once the frequencies are normalized to one, the frequency values are divided by the bin size. This means that the sum of all frequency values will not be equal to one unless the bin size is one. We have chosen this normalization method because it allows comparing similar distributions using a different number of classes (or bin size), and it is required to properly apply the two-step method.
 
+<div style="page-break-after: always;"></div>
+
 ***Why use apparent grain size measures instead of measures estimated from the unfolded 3D grain size distribution in paleopiezometry studies?***  
 At first glance, one may be tempted to use the midpoint of the modal interval or any other parameter based on the actual grain size distribution rather than using the mean, median, or frequency peak of the apparent grain size distribution. We think that there is no advantage in doing these but serious drawbacks. First, 3D grain size distributions are estimated using a stereological model. Thus, the estimation of the modal interval (or the mean or median) depends on the robustness of the model. Unfortunately, stereological methods are built on several (weak) geometric assumptions and the results will always be, at best, only approximate. This means that the precision of the estimated 3D size distribution is much poorer than the precision of the original distribution of grain profiles, since the latter is based on real data. To sum up, use stereological methods only when you need to estimate the volume occupied by a particular grain size fraction or investigating the shape of the actual grain size distributions, otherwise use always measures based on the apparent grain size distribution.
 
 ***Can I report bugs or submit ideas to improve the script?***  
 Definitely. If you have any problem using the script please let me know (see an email address here: http://marcoalopez.github.io/ ). Feedback from users is always welcome and important to develop a better script. Lastly, you can also create a fork of the project and develop your own tools based on the GST script since it is open source and free.
 
+<div style="page-break-after: always;"></div>
 
-## References
+## References cited
 
 Exner HE (1972) [Analysis of Grain- and Particle-Size Distributions in Metallic Materials.](http://www.maneyonline.com/doi/citedby/10.1179/imtlr.1972.17.1.25) *International Metallurgical Reviews* 17, 25-42.
 
