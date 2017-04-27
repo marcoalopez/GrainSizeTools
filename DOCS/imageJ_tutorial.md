@@ -71,7 +71,7 @@ Herwegh, M., 2000. A new technique to automatically quantify microstructures of 
 
 Russ, J.C., 2011. The image processing handbook. CRC Press. Taylor & Francis Group
 
-> This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on structural geology, thin sections, or even rocks, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques or shapes characterization among others. I find the text very clear and well-written, so if you want a general-purpose image analysis book, this is the best one I known.
+> This is a general-purpose book on image analysis written by professor John C. Russ from the Material Sciences and Engineering at North Carolina State University. Although the book is not specifically focused on structural geology, thin sections, or even rocks, it covers a wide variety of procedures in image analysis and contain very nice examples of image enhancement, segmentation techniques, or shapes characterization. I find the text very clear and well-written, so if you are looking for a general-purpose image analysis book, this is the best one I known.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
