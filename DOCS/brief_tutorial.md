@@ -123,7 +123,7 @@ or if you need to skip the first or any other number of lines because there is t
 In this example, ```skip_header=1``` means that the first line in the txt file will be ignored. You can define any number of lines to ignore.
 
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.png" width="300">  
-*Figure 4. A txt file without spreadsheet-like form. The first line, which is informative, has to be ignored when loading the data*
+*Figure 4. A txt file without spreadsheet-like form. The first line, which is informative, has to be ignored when loading the data*  
 
 #### *Estimating the apparent diameters from the areas of the grain profiles*
 
@@ -142,7 +142,7 @@ The parameter declared within the parenthesis are the name of the variable that 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 will be added. If the parameter ```correct_diameter``` is not declared within the function, as in the first example, it is assumed that no diameter correction is needed.
 
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="450">  
-*Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*
+*Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*  
 
 Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
 
@@ -275,8 +275,7 @@ When the ```initial_guess``` parameter is set to ```True```, the script will ask
 
 [Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles, being a very efficient way for comparing several datasets graphically. Figure 9 show the different elements represented in a typical box plot.
 
-![figure 9. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png =175x)
-*Figure 9. Box plot elements*
+*Figure 9. Box plot elements*  
 
 The procedure to create a box plot using the Matplotlib library is the following. First we need to create a variable with all the data sets to be represented in the plot. For this we create a Python list as follows (variable names have been chosen for convenience):
 
