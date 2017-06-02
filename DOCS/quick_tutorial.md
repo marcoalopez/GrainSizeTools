@@ -3,8 +3,8 @@ GST script quick tutorial
 
 > This is a quick tutorial showing typical commands to interact with the GST script
 > in the shell. You can copy and paste the command lines directly into the shell.
-> Variable names have been chosen for convenience, use any other name if desired.  
-> The commands shown in this tutorial are for the GST script v1.3. or higher.
+> Variable names have been chosen for convenience, but you can use any other name if desired.  
+> The commands below require the v1.3 or higher.
 
 #### Loading the data and extracting the areas of the grain profiles
 

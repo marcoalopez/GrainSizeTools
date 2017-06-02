@@ -2,14 +2,14 @@
 -------------
 
 > **Important note:**
-> Please, **update as soon as possible to version 1.3.x**, it contains important changes that are not fully compatible with previous versions. It is also advisable to **update matplotlib to version 2.x** since the plots are optimized for such version.
+> Please, **update as soon as possible to version 1.3.x**, it contains important changes that are not fully compatible with previous versions. It is also advisable to **update the plotting library matplotlib to version 2.x** since the plots are optimized for such version.
 
 ### *Open and running the script*
 
 First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v1.3.2). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  
-*Figure 1. The editor and the Python shell (a.k.a. the console) in the the Spyder integrated development environment (IDE). Both, the Enthough Canopy and the Spyder IDEs, are MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among other interesting features.*
+*Figure 1. The editor and the Python shell (a.k.a. the console) in the the Spyder integrated development environment (IDE). The Enthough Canopy and the Spyder IDEs are both MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among other interesting features.*
 
 To use the script it is necessary to run it. To do this, just click on the green "play" icon in the tool bar or go to ```Run>Run file``` in the menu bar (Fig. 2).
 
@@ -53,7 +53,7 @@ def calc_diameters(areas, correct_diameter=0):
     return diameters
 ```
 
-To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function, the inputs. In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
+To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
 
 The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four, and usually less than four, functions to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
@@ -61,7 +61,7 @@ The names of the Python functions in the script are self-explanatory and each on
 
 #### Loading the data and extracting the areas of the grain profiles
 
-The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated using the *ImageJ* or similar software, and that the results were saved as a txt or csv file. If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
+The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated using the *ImageJ* or similar software, and that the results were saved as a txt or csv file (Fig. 3). If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the tab-separated txt file. At right, the csv comma-separated version.*
@@ -108,7 +108,7 @@ Another option, which was the only one available in previous versions (< v1.3.1)
 >>> areas = extract_areas('C:/...yourFileLocation.../nameOfTheFile.csv', col_name='areas')
 ```
 
-in this case we define the file location path in quotes, either single or double, following by the column name if required. If the column name is 'Areas' you just need to write the file path. To avoid problems in Windows OS do not use single backslashes to define it and use instead forward slashes (e.g. "C:/yourfilelocation.../nameofthefile.txt") or double backslashes. Also note that you won't need to specify the file type (txt or csv) as in previous versions of the script.
+in this case we define the file location path in quotes, either single or double, following by the column name if required. If the column name is 'Areas' you just need to write the file path. To avoid problems in Windows OS do not use single backslashes to define the filepath but forward slashes (e.g. "C:/yourfilelocation.../nameofthefile.txt") or double backslashes.
 
 In the case that the user extracted and stored the areas of the grains in a different form from the one proposed here, this is either in a txt or csv file but without a spreadsheet-like form (Fig. 4), there is a Python/Numpy built-in method named ```np.genfromtxt()``` that can be used to load any text data (txt or csv) into a variable in a similar way. For example:
 
@@ -125,7 +125,7 @@ In this example, ```skip_header=1``` means that the first line in the txt file w
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.png" width="300">  
 *Figure 4. A txt file without spreadsheet-like form. The first line, which is informative, has to be ignored when loading the data*
 
-#### Estimating the apparent diameters from the areas of the grain profiles
+#### *Estimating the apparent diameters from the areas of the grain profiles*
 
 The second step is to convert the areas into diameters via the equivalent circular diameter. This is done by a function named ```calc_diameters```. To invoke this function we write in the shell:
 
@@ -177,20 +177,20 @@ Bandwidth = 4.01 (Silverman rule)
 
 Also, a new window with a plot will appear. The plots will show the apparent grain size distribution and the location of the different grain size measures (Fig. 6). You can save the plots by clicking the floppy disk icon in the tool bar as bitmap (8 file types to choose) or to post-editing in vector image (5 file types to choose). Another interesting option is to modify the appearance of the plot within the *Matplotlib* environment before saving by clicking on the configuration icon in the toolbar.
 
-Although we promote the use of frequency *vs* apparent grain size linear plot (Fig. 6a), the function allows to use other options such as the logarithmic and square-root grain sizes (Figs. 6c, d), widely used in the past, or the area-weighted grain size (e.g. Berger et al. 2011) (Fig. 6b). The advantages and disadvantages of the area weighted plot are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). To do this, we need to specify the type of plot as follows:
+Although we promote the use of frequency *vs* apparent grain size linear plot (Fig. 6a), the function allows to use other options such as the logarithmic and square-root grain sizes (Figs. 6c, d) or the area-weighted grain size (e.g. Berger et al. 2011) (Fig. 6b). The advantages and disadvantages of the area weighted plot are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). To do this, we need to specify the type of plot as follows:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='area')
 ```
 in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different type of plot also implies to obtain different grain size estimations.
 
-Since the version 1.3 of the script, this function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. The other methods available are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html). You can also use and *ad hoc* bin/class size (see an example below). We encourage you to use the default method ```'auto'```. In addition, the ```'doane'``` and ```'scott'``` methods work pretty well in case you have a lognormal- or a normal-like distribution, respectively. To specify the method we write in the shell:
+Since version 1.3, this function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. The other methods available are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. In our experience, the ```'doane'``` and ```'scott'``` methods work also pretty well when you have a lognormal- or a normal-like distribution, respectively. To specify the method we write in the shell:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize='doane')
 ```
 
-note that you have to define first the type of plot you want and that depending on the type of plot your distribution of apparent grain sizes will change (Fig. 6). Last, an example with a user-defined bin size will be as follows:
+note that you have to define first the type of plot you want and that the type of plot will change the appearance of your distribution (Fig. 6). You can also use and *ad hoc* bin/class size of type integer or float (*i.e.* an irrational number) as follows:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize=10.0)
@@ -203,9 +203,9 @@ The user-defined bin size can be any number of type integer or float (*i.e.* an 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
 
-The function responsible to unfold the distribution of apparent grain sizes into the actual 3D grain size distribution is named ```derive3D```. The script implements two methods to do this, the Saltykov and the two-step methods. The Saltykov method is the best option for exploring the dataset and for estimating the volume of a particular grain size fraction. The two-step method is suitable to describe quantitatively the shape of the grain size distribution assuming that they follow a lognormal distribution. This means that the two-step method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded using shape descriptors. It is therefore necessary to check first whether the distribution of grain sizes is unimodal and lognormal-like (i.e. skewed to the right as in the example shown in figure 7). For more details see [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778).
+The function responsible to unfold the distribution of apparent grain sizes into the actual 3D grain size distribution is named ```derive3D```. The script implements two methods to do this, the Saltykov and the two-step methods. The Saltykov method is the best option for exploring the dataset and for estimating the volume of a particular grain size fraction. The two-step method is suitable to describe quantitatively the shape of the grain size distribution assuming that they follow a lognormal distribution. This means that the two-step method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded using shape descriptors or any other relevant paramater such as the density of dislocations. It is therefore necessary to check first whether the linear distribution of grain sizes is unimodal and lognormal-like (i.e. skewed to the right as in the example shown in figure 7). For more details see [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778).
 
-***Using the Saltykov method***
+***Applying the Saltykov method***
 
 To derive the actual 3D population of grain sizes using the Saltykov method (Saltykov 1967), we need to call the function ```derive3D```as follows:
 
@@ -222,7 +222,7 @@ A file named Saltykov_output.csv containing the midpoints and the class frequenc
 was generated
 ```
 
-The text indicates the sample size, the bin size, and that a tabular-like csv file containing different numerical values was generated. Lastly, a window will pop up showing two plots (Fig 7). On the left it is the frequency plot with the estimated 3D grain size distribution in the form of a histogram, and on the right the volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the function as follows:
+The text indicates the sample size, the bin size, and that a tabular-like csv file containing different numerical values was generated. Also, a window will pop up showing two plots (Fig 7). On the left it is the frequency plot with the estimated 3D grain size distribution in the form of a histogram, and on the right the volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) we need to add a new parameter within the function as follows:
 
 ```python
 >>> derive3D(diameters, numbins=12, set_limit=40)
@@ -237,11 +237,11 @@ As a cautionary note, if we use a different number of bins/classes, in this exam
 ![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
 
-Due to the nature of the Saltykov method, the smaller the number of classes, the better the numerical stability of the method and the larger the number of classes, the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality of the dataset it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy. As a last cautionary note, **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
+Lastly, due to the nature of the Saltykov method, the smaller the number of classes the better the numerical stability of the method, and the larger the number of classes the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality and the size of the dataset it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy and observe if the appearance is coherent or not. As a last cautionary note, **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
 
-***Using the two-step method***
+***Applying the two-step method***
 
-To estimate the shape of the 3D grain size distribution, the ```derive3D``` function implements a method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, 2016). This method assumes that the actual 3D population of grain sizes follows a lognormal distribution, a common distribution observed in recrystallized aggregates. Hence, make sure that the aggregate or the studied area within the rock/alloy/ceramic is completely recrystallized. The method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The script return two parameters, the **MSD** and the theoretical **median**, both enough to fully describe the lognormal distribution at their original scale, and the uncertainty associated with these estimates (see details in Lopez-Sanchez and Llana-Fúnez, 2016). In addition, it also returns a frequency plot showing the probability density function estimated (Fig. 8). In particular, the **MSD value** allows to describe the shape of the lognormal distribution independently of the scale (i.e. the range) of the grain size distribution, which is very convenient for comparative purposes. To apply the two-step method we need to invoke the function ```derive3D``` as follows:
+To estimate the shape of the 3D grain size distribution, the ```derive3D``` function implements a method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, 2016). This method assumes that the actual 3D population of grain sizes follows a lognormal distribution, a common distribution observed in recrystallized aggregates. Hence, make sure that the aggregate or the studied area within the rock/alloy/ceramic is completely recrystallized. The method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The method return two parameters, the **MSD** and the theoretical **median**, both enough to fully describe a lognormal distribution at their original (linear) scale, and the uncertainty associated with these estimates (see details in Lopez-Sanchez and Llana-Fúnez, 2016). In addition, it also returns a frequency plot showing the probability density function estimated (Fig. 8). In particular, the **MSD value** allows to describe the shape of the lognormal distribution independently of the scale (i.e. the range) of the grain size distribution, which is very convenient for comparative purposes. To apply the two-step method we need to invoke the function ```derive3D``` as follows:
 
 ```python
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True)
@@ -261,7 +261,7 @@ A file named twoStep_output.csv containing the midpoints, class frequencies,
 and cumulative volumes was generated
 ```
 
-Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 8b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 25.0 for the MSD and median values respectively. However, when the algorithm fails it would be necessary to change these default values by adding a new parameter as follows:
+Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 8b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 25.0 for the MSD and median values respectively. However, if the algorithm fails it is possible to change the default values by adding a following parameter:
 
 ```python
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True, initial_guess=True)
@@ -271,9 +271,45 @@ When the ```initial_guess``` parameter is set to ```True```, the script will ask
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
 
-#### ***Other general methods of interest***
+#### ***Comparing different grain size populations using box plots***
 
-**Estimate common descriptive statistic parameters**
+[Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles, being a very efficient way for comparing several datasets graphically. Figure 9 show the different elements represented in a typical box plot.
+
+![figure 9. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png =175x)
+*Figure 9. Box plot elements*
+
+The procedure to create a box plot using the Matplotlib library is the following. First we need to create a variable with all the data sets to be represented in the plot. For this we create a Python list as follows (variable names have been chosen for convenience):
+
+```python
+>>> all_data = [dataset1, dataset2, dataset3, dataset4] # Note that a Python list is a list of elements within brackets separated by commas
+```
+
+Then we create the plot (Fig. 10):
+
+```python
+>>> plt.boxplot(all_data)
+>>> plt.show() # write this and click return if the plot did not appear automatically
+```
+To create a more convenience plot (Fig. 10) we propose to use the following **optional** parameters:
+
+```python
+# First make a list specifying the labels of the samples (this is optional)
+>>> label_list = ['SampleA', 'SampleB', 'SampleC', 'SampleD']
+# Then make the plot ading the following instructions
+>>> plt.boxplot(all_data, vert=False, meanline=True, showmeans=True, labels=label_list)
+# vert -> if False makes the boxes horizontal instead of vertical
+# meanline and showmeans -> if True will show the location of the mean within the plots
+# labels -> add labels to the different datasets. The number of items within the brackets must be coincide with the number of datasets to be plotted.
+>>> plt.xlabel('apparent diameter ($\mu m$)') # add the x-axis label
+>>> plt.show() # write this and click return if the plot did not appear automatically
+```
+
+![figure 10. Examples of box plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Boxplot_02.png)
+*Figure 10. Box plot comparing four datasets obtained from the same sample but located in different places of the thin section. At left, a box plot with the default appearance. At right, the same box plot with the optional parameters showing above. Dashed lines are the mean. Note that the all the datasets show similar median, means, IQRs, and whisker locations. In contrast, the fliers (points) approximately above 100 microns vary greatly.*
+
+#### ***Other methods of interest***
+
+**Obtain common descriptive statistic parameters**
 
 ```python
 >>> mean(array_name)  # Estimate the mean
@@ -314,7 +350,7 @@ If you need to load a large number of datasets, you probably prefer not having t
 
 When you run the script for the first time, your current working directory will appear in the Python shell. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()```, as well as to modify it to another path using the function ```os.chdir('new default path')```. The same rules apply when using the ```np.genfromtxt``` method.
 
-> Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you installed). Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
+> Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you have installed). Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/quick_tutorial.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
