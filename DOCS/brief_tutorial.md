@@ -275,6 +275,7 @@ When the ```initial_guess``` parameter is set to ```True```, the script will ask
 
 [Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles, being a very efficient way for comparing several datasets graphically. Figure 9 show the different elements represented in a typical box plot.
 
+![figure 9. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png)
 *Figure 9. Box plot elements*  
 
 The procedure to create a box plot using the Matplotlib library is the following. First we need to create a variable with all the data sets to be represented in the plot. For this we create a Python list as follows (variable names have been chosen for convenience):
