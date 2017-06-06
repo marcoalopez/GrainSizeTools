@@ -13,9 +13,13 @@ Lopez-Sanchez MA and Llana-Fúnez S [An extension of the Saltykov method to quan
 
 Marquardt DW (1963) [An Algorithm for Least-Squares Estimation of Nonlinear Parameters.](http://epubs.siam.org/doi/abs/10.1137/0111030) *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](http://dx.doi.org/10.1137/0111030)
 
+Sahagian D and Proussevitch AA (1998) [3D particle size distributions from 2D observations: stereology for natural applications](http://www.sciencedirect.com/science/article/pii/S0377027398000432). *Journal of Volcanology and Geothermal Research* 84, 173-196. doi: [10.1029/95JB02500](http://dx.doi.org/10.1029/95JB02500)
+
 Saltykov SA (1967) [The determination of the size distribution of particles in an opaque material from a measurment of the size distribution of their secions](http://link.springer.com/chapter/10.1007%2F978-3-642-88260-9_31). In: Elias, H. (Ed.), *Proceedings of the Second International Congress for STEREOLOGY*. Springer Berlin Heidelberg, Berlin, Heidelberg, pp. 163–173. doi: [10.1007/978-3-642-88260-9_31](http://dx.doi.org/10.1007/978-3-642-88260-9_31)
 
 Silverman BW (1986) [Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability](http://ned.ipac.caltech.edu/level5/March02/Silverman/Silver_contents.html), Chapman and Hall, London.
+
+Stipp M and Tullis J (2003) [The recrystallized grain size piezometer for quartz.](http://www.agu.org/pubs/crossref/2003/2003GL018444.shtml) *Geophysical Research Letters* 30, 1-5. doi: [10.1029/2003GL018444](http://dx.doi.org/10.1029/2003GL018444)
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)

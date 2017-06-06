@@ -73,7 +73,7 @@ When we estimate unimodal grain size measures from a **single section** (whateve
 
 The common way to estimate a **confidence interval** of your grain size measurement is to take several representative micrographs from the same specimen (three or more) and then estimate the mean and the variation in the results reporting the standard deviation (SD) at a 2-sigma level of confidence, i.e. the confidence interval will be the mean ± two times the SD. To minimize variations in the results due to an insufficient number of grains measurement, a minimum of 433 grains (2-sigma) or 965 (3-sigma) grain areas is required for each grain boundary map (see [Lopez-Sanchez and Llana-Fúnez, 2015)](http://www.solid-earth.net/6/475/2015/) for details).
 
-Lastly, for paleopizometry/paleowattmetry studies **do not report measures derived from distributions estimated via stereological methods but apparent grain size measures**. The reasoning behind this is that stereological methods are built on several (weak) geometric assumptions and the results will always be, at best, only approximate. This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles since the latter is based on real data.
+For paleopizometry/paleowattmetry studies **do not report measures derived from distributions estimated via stereological methods but apparent grain size measures**. The reasoning behind this is that stereological methods are built on several (weak) geometric assumptions and the results will always be, at best, only approximate. This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles since the latter is based on real data. Lastly, when using piezometer relation is of paramount importance to ensure for what type of grain size measure the equation has been stablished. For example, if you want to use the piezometric relation established for quartz in Stipp and Tullis (2003), note that they established the relation using the *root mean square diameter*.
 
 #### **Getting the shape of actual grain size distribution or the volume occupied by a particular grain size fraction**
 
@@ -232,7 +232,7 @@ This example means that for each apparent diameter calculated from the sectional
 ![Figure 5. Example of correction of sizes in a grain boundary map](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png =250x)  
 *Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*
 
-Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
+Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
 
 #### *Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)*
 
@@ -292,7 +292,7 @@ The function responsible to unfold the distribution of apparent grain sizes into
 
 ***Applying the Saltykov method***
 
-To derive the actual 3D population of grain sizes using the Saltykov method (Saltykov 1967), we need to call the function ```derive3D```as follows:
+To derive the actual 3D population of grain sizes using the Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998), we need to call the function ```derive3D```as follows:
 
 ```python
 >>> derive3D(diameters, numbins=14)
@@ -628,6 +628,10 @@ Lopez-Sanchez MA and Llana-Fúnez S [An extension of the Saltykov method to quan
 
 Marquardt DW (1963) [An Algorithm for Least-Squares Estimation of Nonlinear Parameters.](http://epubs.siam.org/doi/abs/10.1137/0111030) *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](http://dx.doi.org/10.1137/0111030)
 
+Sahagian D and Proussevitch AA (1998) [3D particle size distributions from 2D observations: stereology for natural applications](http://www.sciencedirect.com/science/article/pii/S0377027398000432). *Journal of Volcanology and Geothermal Research* 84, 173-196. doi: [10.1029/95JB02500](http://dx.doi.org/10.1029/95JB02500)
+
 Saltykov SA (1967) [The determination of the size distribution of particles in an opaque material from a measurment of the size distribution of their secions](http://link.springer.com/chapter/10.1007%2F978-3-642-88260-9_31). In: Elias, H. (Ed.), *Proceedings of the Second International Congress for STEREOLOGY*. Springer Berlin Heidelberg, Berlin, Heidelberg, pp. 163–173. doi: [10.1007/978-3-642-88260-9_31](http://dx.doi.org/10.1007/978-3-642-88260-9_31)
 
 Silverman BW (1986) [Density estimation for statistics and data analysis. Monographs on Statistics and Applied Probability](http://ned.ipac.caltech.edu/level5/March02/Silverman/Silver_contents.html), Chapman and Hall, London.
+
+Stipp M and Tullis J (2003) [The recrystallized grain size piezometer for quartz.](http://www.agu.org/pubs/crossref/2003/2003GL018444.shtml) *Geophysical Research Letters* 30, 1-5. doi: [10.1029/2003GL018444](http://dx.doi.org/10.1029/2003GL018444)
