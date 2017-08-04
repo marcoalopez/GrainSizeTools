@@ -4,9 +4,9 @@
 This pdf manual is based on the online documentation at https://marcoalopez.github.io/GrainSizeTools/   
 
 **Manual version**:  
-v3.3.1  
+v3.3.2  
 **Release date**:  
-2017/07/05  
+2017/08/04  
 
 **Author**:  
 Marco A. Lopez-Sanchez  
@@ -69,7 +69,7 @@ GST script requires as the input the measurement of the areas of the grain profi
 
 Unidimensional apparent grain size measures such as the **mean** or **median** are only meaningful in specimens that show a **unimodal distribution of diameters** (or areas). Consequently, in all cases it is key to visualize the distribution of apparent grain sizes and **observe if the distribution is unimodal** (a single peak). In the case that the distribution is multimodal (two or more peaks), you can use for comparative purposes the modal interval or, better, the **location of frequency peaks** based on the Kernel density estimate [(Lopez-Sanchez and Llana-Fúnez, 2015)](http://www.solid-earth.net/6/475/2015/). Despite this, the best option when a multimodal grain size distribution occurs is to separate the different populations of grain size previously via image analysis methods. Unfortunately, no general protocol exist in the earth science community for unidimensional grain size measures. Consequently, if possible, it is advisable to always report all the different unidimensional grain size measures (mean, median, freq. peak). This will allow other scientists to compare their data with yours directly when using a different type of grain size measurement from that used in your study.
 
-When we estimate unimodal grain size measures from a **single section**, whatever the number of grain boundary maps used, the results will be only meaningful if grains are equant (equiaxed) or near-equant (i.e. aspect ratios mostly < 2.0). If grains systematically show aspect ratios above 2.0 and a shape preferred orientation of their large axes throughout the rock volume, you will need to **estimate the grain size over three orthogonal sections and then averaged the results**. Although specimens with equant grains accept any orientation to obtain a unidimensional grain size measure, it is advisable to use a principal section. Specifically, we promote the use of the XZ section, i.e. parallel to the lineation and perpendicular to the foliation, since this will allow us: (i) to visualize and measure whether the grains are far from equant via the aspect ratio; and (ii) to provide a fairer comparison between different specimens when near-equant grains and preferred orientation of the large axes exist.
+When we estimate unimodal grain size measures from a **single section** and whatever the number of grain boundary maps used, the results will be only meaningful if grains are equant (equiaxed) or near-equant (i.e. aspect ratios mostly < 2.0). If grains systematically show aspect ratios above 2.0 and a shape preferred orientation of their large axes throughout the rock volume, you will need to **estimate the grain size over three orthogonal sections and then averaged the results**. Although specimens with equant grains accept any orientation to obtain a unidimensional grain size measure, it is advisable to use a principal section. Specifically, we promote the use of the XZ section, i.e. parallel to the lineation and perpendicular to the foliation, since this will allow us: (i) to visualize and measure whether the grains are far from equant via the aspect ratio; and (ii) to provide a fairer comparison between different specimens when near-equant grains and preferred orientation of the large axes exist.
 
 A common way to estimate a **confidence interval** of your grain size measurement is to take several representative micrographs from the same specimen (three or more) and then estimate the mean and the variation in the results reporting the standard deviation (SD) at a 2-sigma level of confidence, i.e. the confidence interval will be the mean ± two times the SD. To minimize variations in the results due to an insufficient number of grain measurements, a minimum of 433 (2-sigma) or 965 (3-sigma) grain areas is required for each grain boundary map (see [Lopez-Sanchez and Llana-Fúnez, 2015)](http://www.solid-earth.net/6/475/2015/) for details).
 
@@ -99,13 +99,7 @@ First of all, make sure you have the required software and necessary Python libr
 
 To use the script it is necessary to run it. To do this, just click on the green "play" icon in the tool bar or go to ```Run>Run file``` in the menu bar (Fig. 2).
 
-The following text will appear in the shell/console:
-```
-Welcome to the GrainSizeTools script v. 1.3.2
-Your current working directory is...
-To change the working directory use: os.chdir('new path')
-```
-Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
+A text that begins with "Welcome to GrainSizeTools script v.1.3.3" will appear in the console. Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
 
 ![Figure 2. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.png =350x)  
 *Figure 2. Running a script in the Enthought's Canopy (left) and Spyder (right) IDEs.*
@@ -141,7 +135,7 @@ def calc_diameters(areas, correct_diameter=0):
 
 To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
 
-The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four, and usually less than four, to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
+The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four functions (usually less) to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
 ### *Using the script to visualize and estimate the grain size*
 

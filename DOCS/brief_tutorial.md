@@ -18,9 +18,26 @@ To use the script it is necessary to run it. To do this, just click on the green
 
 The following text will appear in the shell/console (Fig. 1):
 ```
-Welcome to the GrainSizeTools script v. 1.3.2
-Your current working directory is...
-To change the working directory use: os.chdir('new path')
+#======================================================================================#
+#                                                                                      #
+#                      Welcome to GrainSizeTools script v1.3.3                         #
+#                                                                                      #
+#  The following methods are available:                                                #
+#                                                                                      #
+#    extract_areas  # extract the areas of the grains from a text file                 #
+#    calc_diameters  # calculate the diameter via the equivalent circular diameter     #
+#    find_grain_size  #  estimate ¬ visualize different apparent grain size measures   #
+#    derive3D  # estimate the actual (3D) grain size via steorology methods            #
+#                                                                                      #
+#  You can get information on the different methods by:                                #
+#                                                                                      #
+#  (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)         #
+#                                                                                      #
+#  (2) In the Spyder editor by writing the name of the method and clicking Ctrl + I    #
+#                                                                                      #
+#  (3) Visit the documentation at https://marcoalopez.github.io/GrainSizeTools/        #
+#                                                                                      #
+#======================================================================================#
 ```
 Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
 
@@ -55,7 +72,7 @@ def calc_diameters(areas, correct_diameter=0):
 
 To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
 
-The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four, and usually less than four, functions to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
+The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four functions (usually less) to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
 ### *Using the script to visualize and estimate the grain size features*
 
