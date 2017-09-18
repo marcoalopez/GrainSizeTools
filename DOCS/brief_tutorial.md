@@ -26,7 +26,7 @@ The following text will appear in the shell/console (Fig. 1):
 #                                                                                      #
 #    extract_areas  # extract the areas of the grains from a text file                 #
 #    calc_diameters  # calculate the diameter via the equivalent circular diameter     #
-#    find_grain_size  #  estimate ¬ visualize different apparent grain size measures   #
+#    find_grain_size  #  estimate & visualize different apparent grain size measures   #
 #    derive3D  # estimate the actual (3D) grain size via steorology methods            #
 #                                                                                      #
 #  You can get information on the different methods by:                                #
@@ -50,14 +50,18 @@ def calc_diameters(areas, correct_diameter=0):
     """ Calculate the diameters from the sectional areas via the equivalent circular
     diameter.
 
-    PARAMETERS    
-    areas:
-    a numpy array with the sectional areas of the grains
+    Parameters
+    ----------
+    areas: array_like
+        the sectional areas of the grains
 
-    correct_diameter:
-    Correct the diameters estimated from the areas of the grains by adding the
-    the width of the grain boundaries. If correct_diameter is not declared, it
-    is considered 0. A float or integer.
+    correct_diameter: a positive integer or float
+        this adds the width of the grain boundaries to correct the diameters. If
+        correct_diameter is not declared no correction is considered.
+
+    Returns
+    -------
+    A numpy array with the equivalent circular diameters
     """
 
     # calculate diameters via equivalent circular diameter
@@ -70,7 +74,7 @@ def calc_diameters(areas, correct_diameter=0):
     return diameters
 ```
 
-To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
+To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (i.e. the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set by default to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
 
 The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four functions (usually less) to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
@@ -140,6 +144,7 @@ or if you need to skip the first or any other number of lines because there is t
 In this example, ```skip_header=1``` means that the first line in the txt file will be ignored. You can define any number of lines to ignore.
 
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.png" width="300">  
+
 *Figure 4. A txt file without spreadsheet-like form. The first line, which is informative, has to be ignored when loading the data*  
 
 #### *Estimating the apparent diameters from the areas of the grain profiles*
@@ -159,6 +164,7 @@ The parameter declared within the parenthesis are the name of the variable that 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 will be added. If the parameter ```correct_diameter``` is not declared within the function, as in the first example, it is assumed that no diameter correction is needed.
 
 <img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="450">  
+
 *Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*  
 
 Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
