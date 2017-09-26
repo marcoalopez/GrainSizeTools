@@ -1,12 +1,12 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)  
 
 ## Information  
-This pdf manual is based on the online documentation at https://marcoalopez.github.io/GrainSizeTools/   
+This pdf manual is based on the online documentation at <https://marcoalopez.github.io/GrainSizeTools/>
 
 **Manual version**:  
-v3.3.2  
+v3.3.2_b  
 **Release date**:  
-2017/08/04  
+2017/09/26  
 
 **Author**:  
 Marco A. Lopez-Sanchez  
@@ -20,7 +20,7 @@ GrainSizeTools script is licensed under the [Apache License, Version 2.0 (the â€
 - Requirements
 - Scope
 - Getting Started: A step-by-step tutorial
-	- *Open and running the script*
+  - *Open and running the script*
 	- *A brief note on the organization of the script*
 	- *Using the script to visualize and estimate the grain size*
 		- *Loading the data and extracting the areas of the grain profiles*
@@ -47,7 +47,7 @@ GrainSizeTools script is licensed under the [Apache License, Version 2.0 (the â€
 
 GrainSizeTools script requires [Python](https://www.python.org/) 2.7.x (legacy) or 3.x versions and the scientific libraries [*Numpy*](http://www.numpy.org/), [*Scipy*](http://www.scipy.org/), [*Pandas*](http://pandas.pydata.org) and [*Matplotlib*](http://matplotlib.org/). We recommend installing the [Continuum Anaconda](https://store.continuum.io/cshop/anaconda/) or the [Enthought Canopy](https://www.enthought.com/products/canopy/) (maybe more easy-friendly for novices) distributions. Both distributions have free basic versions that already include the scientific packages named above and they also provide free academic licenses for advanced versions. In case you have space problems in your hard disk, there is a distribution named [miniconda](http://conda.pydata.org/miniconda.html) that only installs the packages you actually need.
 
-The approach of the script is based on the estimation of the areas of the grain profiles obtained from thin sections. It is therefore necessary to measure them in advance and save the results in a txt/csv file. For this task, we highly encourage you to use the [*ImageJ*](http://rsbweb.nih.gov/ij/) application or one of their different flavours (see [here](http://fiji.sc/ImageJ)), since they are public-domain image processing programs widely used for scientific research that runs on Windows, OS X, and Linux platforms. This manual contains a quick tutorial on how to measure the areas of the grain profiles with ImageJ, see the *Table of Contents*. The combined use of **ImageJ** and the **GrainSizeTools script** is intended to ensure that all data processing steps are done through free and open-source programs/scripts that run under any operating system.
+The approach of the script is based on the estimation of the areas of the grain profiles obtained from thin sections. It is therefore necessary to measure them in advance and save the results in a txt/csv file. For this task, we highly encourage you to use the [*ImageJ*](http://rsbweb.nih.gov/ij/) application or one of their different flavours (see [here](http://fiji.sc/ImageJ)), since they are public-domain image processing programs widely used for scientific research that runs on Windows, macOS, and Linux platforms. This manual contains a quick tutorial on how to measure the areas of the grain profiles with ImageJ, see the *Table of Contents*. The combined use of **ImageJ** and the **GrainSizeTools script** is intended to ensure that all data processing steps are done through free and open-source programs/scripts that run under any operating system.
 
 <div style="page-break-after: always;"></div>
 
@@ -113,14 +113,18 @@ def calc_diameters(areas, correct_diameter=0):
     """ Calculate the diameters from the sectional areas via the equivalent circular
     diameter.
 
-    PARAMETERS    
-    areas:
-    a numpy array with the sectional areas of the grains
+    Parameters
+    ----------
+    areas: array_like
+        the sectional areas of the grains
 
-    correct_diameter:
-    Correct the diameters estimated from the areas of the grains by adding the
-    the width of the grain boundaries. If correct_diameter is not declared, it
-    is considered 0. A float or integer.
+    correct_diameter: a positive integer or float
+        this adds the width of the grain boundaries to correct the diameters. If
+        correct_diameter is not declared no correction is considered.
+
+    Returns
+    -------
+    A numpy array with the equivalent circular diameters
     """
 
     # calculate diameters via equivalent circular diameter
@@ -133,7 +137,7 @@ def calc_diameters(areas, correct_diameter=0):
     return diameters
 ```
 
-To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
+To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (i.e. the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set by default to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
 
 The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four functions (usually less) to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
 
@@ -589,7 +593,7 @@ Barraud, J., 2006. The use of watershed segmentation and GIS software for textur
 This script is targeted at anyone who wants to: i) visualize grain size features, ii) obtain a set of single 1D measures of grain size to estimate the magnitude of differential stress (or rate of mechanical work) in dynamically recrystallized rocks, and iii) estimate features of the actual 3D distribution of grain sizes from the population of apparent grain sizes measured in thin sections. These features include the estimation of the volume occupied by a particular grain size fraction and the estimation of the parameters that best describe the population of grain sizes (assuming that the distribution of grain sizes follows a lognormal distribution). The stereological methods implemented in the script assume that the grains have equant or near-equant (AR < 2.0) shapes, which includes most od the dynamically recrystallized non-tabular grains typically found in crustal and mantle shear zones (olivine, quartz, feldspar or calcite) and ice when bulging (BLG) or sub-grain rotation (SGR) are the main recrystallization process. For studies involving tabular objects far from near-equant objects, we recommend other approaches such as those implemented in the *CSDCorrections* (Higgins 2000). See the references list section for details.
 
 ***Why use apparent grain size measures instead of measures estimated from the unfolded 3D grain size distribution in paleopiezometry studies?***  
-One may be tempted to use a stereological methods to estimate the midpoint of the modal interval or any other parameter based on the actual grain size distribution rather than using the mean, median, or frequency peak of the apparent grain size distribution. We think that there is no advantage in doing this but serious drawbacks. 3D grain size distributions are estimated using a stereological model, therefore the estimation of the modal interval (or the mean or median) depends on the robustness of the model. Unfortunately, stereological methods are built on several (weak) geometric assumptions and the results will always be, at best, only approximate. This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles, since the latter is based on real data. In short, use stereological methods only when you need to estimate the volume occupied by a particular grain size fraction or investigating the shape of the actual grain size distributions, otherwise use measures based on the apparent grain size distribution.
+One may be tempted to use a stereological methods to estimate the midpoint of the modal interval or any other parameter based on the actual grain size distribution rather than using the mean, median, or frequency peak of the apparent grain size distribution. We think that there is no advantage in doing this but serious drawbacks. The rationale behind this is that 3D grain size distributions are estimated using a stereological model and hence the accuracy of the modal interval (or the mean or median) depends on the robustness of the model. Unfortunately, stereological methods are built on several (weak) geometric assumptions and the results will always be, at best, only approximate. This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles, since the latter is based on real data. In short, use stereological methods only when you need to estimate the volume occupied by a particular grain size fraction or investigating the shape of the actual grain size distributions, otherwise use measures based on the apparent grain size distribution.
 
 ***Why the grain size distribution plots produced by the GST script do not use the same units as the classic CSD charts?***  
 As you may noticed classic CSDs charts (Marsh, 1988) show in the vertical axis the logarithmic variation in population density or log(frequency) in mm<sup>-4</sup>, while the stereological methods put in the GrainSizeTools (GST) script returns plots with a linear frequency (per unit volume). This is due to the different aims of the CSDs and the plots returned by the GST script. Originally, CSDs were built for deriving two things in magmatic systems: i) nucleation rates and ii) crystal growth rates. In these systems, small grains are more abundant than the large ones and the increase in quantity is typically exponential. The use of the logarithm in the vertical axis helps to obtain a straight line with the slope being the negative inverse of the crystal growth x crystallization time. Further, the intercept of the line at grain size = 0 allows estimating the nuclei population density. In recrystallized rocks, there is no grain size equal to zero and we usually unknown the crystallization time, so the use of the CSDs are not optimal. Furthermore, the use of the logarithm in the vertical axis has two main disadvantages for microstructural studies: (i) it obscures the reading of the volume of a particular grain fraction, a common target in microtectonic studies, and (ii) it prevents the easy identification of the features of grain size distribution, which is relevant for the two-step method.
@@ -604,7 +608,7 @@ Despite both Python versions are not fully compatible, *GrainSizeTools script* h
 This issue is produced because the size of the figures returned by the script are too large to show them inside the console using the **inline** mode. To fix this go to the Spyder menu bar and in  ```Tools>Preferences>IPython console>Graphics``` find *Graphics backend* and select *Automatic*.
 
 ***Can I report bugs or submit ideas to improve the script?***  
-Definitely. If you have any problem using the script please just let me know (see an email address here: http://marcoalopez.github.io/ ). Feedback from users is always welcome and important to develop a better script. Lastly, you can also create a fork of the project and develop your own tools based on the GST script since it is open source and free.
+Definitely. If you have any problem using the script please just let me know (see an email address here: <http://marcoalopez.github.io/> ). Feedback from users is always welcome and important to develop a better script. Lastly, you can also create a fork of the project and develop your own tools based on the GST script since it is open source and free.
 
 <div style="page-break-after: always;"></div>
 
