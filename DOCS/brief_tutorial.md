@@ -20,20 +20,20 @@ The following text will appear in the shell/console (Fig. 1):
 ```
 #======================================================================================#
 #                                                                                      #
-#                      Welcome to GrainSizeTools script v1.3.3                         #
+#                      Welcome to GrainSizeTools script v1.3.4                         #
 #                                                                                      #
 #  The following methods are available:                                                #
 #                                                                                      #
 #    extract_areas  # extract the areas of the grains from a text file                 #
 #    calc_diameters  # calculate the diameter via the equivalent circular diameter     #
-#    find_grain_size  #  estimate & visualize different apparent grain size measures   #
+#    find_grain_size  #  estimate and visualize different apparent grain size measures #
 #    derive3D  # estimate the actual (3D) grain size via steorology methods            #
 #                                                                                      #
 #  You can get information on the different methods by:                                #
 #                                                                                      #
 #  (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)         #
 #                                                                                      #
-#  (2) In the Spyder editor by writing the name of the method and clicking Ctrl + I    #
+#  (2) In Spyder IDE by writing the name of the method and clicking Ctrl + I           #
 #                                                                                      #
 #  (3) Visit the documentation at https://marcoalopez.github.io/GrainSizeTools/        #
 #                                                                                      #
@@ -82,7 +82,7 @@ The names of the Python functions in the script are self-explanatory and each on
 
 #### Loading the data and extracting the areas of the grain profiles
 
-The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated using the *ImageJ* or similar software, and that the results were saved as a txt or csv file (Fig. 3). If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
+The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated using the *ImageJ* or similar software, and that the results were saved as a txt, csv, or xlsx (Fig. 3). If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
 
 ![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the tab-separated txt file. At right, the csv comma-separated version.*
