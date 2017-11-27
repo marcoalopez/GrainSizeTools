@@ -4,7 +4,7 @@
 
 [GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python](https://www.python.org/) that provides several tools to visualize and characterize the grain size in polycrystalline materials from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script **does not require a previous experience with Python programming language** (see [documentation](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md) or [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
 
-**Last release 2017/10/27, v1.4: Now includes the ability to estimate differential stresses via paleopiezometers! ** (including multiple paleopiezometric relations for comparison)
+**Last release 2017/10/27, v1.4: Now includes the ability to estimate differential stresses via paleopiezometers!** (including multiple paleopiezometric relations for comparison)
 
 ## Features at a glance
 
