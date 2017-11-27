@@ -73,6 +73,22 @@ derive3D(diameters, numbins=12, set_limit=None, fit=True)
 # The script will ask you about the new guessing values
 derive3D(diameters, numbins=12, set_limit=None, fit=True, initial_guess=True)
 ```
+
+#### *Estimate differential stresses using paleopizometers*
+
+```python
+# Estimate differential stress using quartz and the piezometric
+# relation of Stipp and Tullis (2003)
+quartz_piezometer(grain_size=9.0, 'Stipp')
+
+# Estimate differential stress using olivine and the piezometric
+# relation of...(AVAILABLE SOON)
+olivine_piezometer(grain_size=9.0, 'Karato')
+
+# Estimate differential stress in other mineral/materials (calcite,
+# ice, alloys, etc.) (AVAILABLE SOON)
+other_piezometer(grain_size=9.0, 'calcite_Rutter')
+```
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
 

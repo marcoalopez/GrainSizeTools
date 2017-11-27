@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.3.4                                                             #
+#    Version 1.4                                                               #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -224,9 +224,9 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
 
     References
     ----------
-    | Saltykov SA (1967) doi:10.1007/978-3-642-88260-9_3
-    | Sahagian and Proussevitch (1998) J. Vol. Geotherm. Res. doi:10.1029/95JB0250
-    | Lopez-Sanchez and Llana-Funez (2016) J. Struc. Geol. doi:10.1016/j.jsg.2016.10.00
+    | Saltykov SA (1967) http://doi.org/10.1007/978-3-642-88260-9_31
+    | Sahagian and Proussevitch (1998) https://doi.org/10.1016/S0377-0273(98)00043-2
+    | Lopez-Sanchez and Llana-Funez (2016) https://doi.org/10.1016/j.jsg.2016.10.008
 
     Parameters
     ----------
@@ -364,6 +364,150 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
     else:
         print('fit parameter was not defined as True nor False. Please try again.')
         return None
+
+
+def quartz_piezometer(grain_size, form='Stipp'):
+    """ Apply different quartz piezometric relations to estimate the differential
+    stress from 1D apparent grain sizes. The piezometric relations has the
+    following expression:
+
+    diff_stress = B * grain_size**-p
+
+    where diff_stress is the differential stress in [MPa], B is an experimentally
+    derived parameter in [MPa micron**p], grain_size is the aparent grain size
+    in [microns], and p is an experimentally derived exponent which is adimensonal.
+
+    Parameters
+    ----------
+    grain_size: positive integer or float
+        the apparent grain size in microns
+
+    form: string
+        the piezometric relation, either:
+            | 'Cross' and 'Cross2' from Cross et al. (2017)
+            | 'Holyoke' from Holyoke and Kronenberg (2010) (Stipp and Tullis corrected)
+            | 'Shimizu' from Shimizu (2008)
+            | 'Stipp' from Stipp and Tullis (2003)
+            | 'Twiss' from Twiss (1977)
+
+    References
+    ----------
+    Cross et al. (2017) https://doi.org/10.1002/2017GL073836
+    De Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
+    Holyoke and Kronenberg (2010) https://doi.org/10.1016/j.tecto.2010.08.001
+    Shimizu (2008) https://doi.org/10.1016/j.jsg.2008.03.004
+    Stipp and Tullis (2003)  https://doi.org/10.1029/2003GL018444
+
+    Assumptions
+    -----------
+    - Independence of temperature (excepting Shimizu's piezometer), total strain,
+    flow stress, and water content.
+
+    - Recrystallized grains are equidimensional or close to equidimensional.
+
+    - The piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg (2010),
+    and Cross et al. (2007) requires entering the grain size as the root mean square
+    apparent grain size calculated using equivalent circular diameters with no
+    stereological correction.
+
+    - The piezometer relation of Shimizu (2008) requires entering the grain size
+    as the logarithmic median apparent grain size calculated using equivalent
+    circular diameters with no stereological correction.
+
+    - The piezometer of Twiss (1977) requires entering the logarithmic mean apparent
+    grain size calculated from equivalent circular diameters (ECD) with no stereological
+    correction. The function will convert this value to the mean linear intercept (LI)
+    grain size using the De Hoff and Rhines (1968) empirical relation LI = ECD / sqrt(4/pi)
+    and assuming that LI was originally multiplied by 1.5 (correction factor). Then the
+    final relation would be: LI = (1.5 / sqrt(4/pi)) * ECD
+
+    Returns
+    -------
+    The differential stress in MPa, a floating point number
+    """
+
+    if form == 'Stipp':
+        B = 669.0
+        p = 0.79
+
+    elif form == 'Holyoke':
+        B = 490.3
+        p = 0.79
+
+    elif form == 'Cross':
+        B = 593.0
+        p = 0.71
+
+    elif form == 'Cross2':
+        B = 450.9
+        p = 0.63
+
+    elif form == 'Shimizu':
+        B = 349.9
+        p = 0.8
+        T = float(input("Shimizu's paleopiezometer requires setting the temperature [in K] during deformation: "))
+
+        diff_stress = 352 * grain_size**(-0.8) * exp(698 / T)
+
+        print(' ')
+        print('differential stress =', round(diff_stress, 2), 'MPa')
+        return None
+
+    elif form == 'Twiss':
+        B = 603.1  # Recalculated from Twiss (1977) using [5.5 * (1000**0.68)] (Note: B is 5.5 when grain size (d) is in mm)
+        p = 0.68
+        grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
+
+    else:
+        print('Wrong from. Please choose between valid forms')
+        return None
+
+    diff_stress = B * grain_size**-p
+
+    print(' ')
+    print('differential stress =', round(diff_stress, 2), 'MPa')
+    return None
+
+
+def olivine_piezometer(grain_size, form='Karato'):
+    """ Apply different olivine piezometric relations to estimate the differential
+    stress from 1D apparent grain sizes. The piezometric relations has the
+    following expression:
+
+    diff_stress = B * grain_size**-p
+
+    where diff_stress is the differential stress in [MPa], B is an experimentally
+    derived parameter in [MPa micron**p], grain_size is the aparent grain size
+    in [microns], and p is an experimentally derived exponent which is adimensonal.
+
+    Parameters
+    ----------
+    grain_size: positive integer or float
+        the apparent grain size in microns
+
+    form: string
+        the piezometric relation, either:
+            | 'Karato_dry' from Karato et al. (1980)
+            | TODO
+            | TODO
+
+
+    References
+    ----------
+    TODO
+
+    Assumptions
+    -----------
+    - Independence of temperature, total strain, flow stress, and water content.
+
+    - TODO
+
+    Returns
+    -------
+    The differential stress in MPa, a floating point number
+    """
+
+    pass
 
 
 # ============================================================================ #
@@ -886,8 +1030,7 @@ def Saltykov(freq, bin_edges, binsize, mid_points, normalize=True):
     if normalize is True:
         freq = np.clip(freq, 0., 2**20)  # replacing negative values with zero
         freq_norm = freq / sum(freq)  # normalize to one
-        # normalize such that the integral over the range is one
-        freq_norm = freq_norm / binsize
+        freq_norm = freq_norm / binsize  # normalize such that the integral over the range is one
         return freq_norm
 
     else:
@@ -920,26 +1063,46 @@ def fit_function(x, shape, scale):
 
 
 texto = """
-#======================================================================================#
-#                                                                                      #
-#                      Welcome to GrainSizeTools script v1.3.4                         #
-#                                                                                      #
-#  The following methods are available:                                                #
-#                                                                                      #
-#    extract_areas  # extract the areas of the grains from a text file                 #
-#    calc_diameters  # calculate the diameter via the equivalent circular diameter     #
-#    find_grain_size  #  estimate and visualize different apparent grain size measures #
-#    derive3D  # estimate the actual (3D) grain size via steorology methods            #
-#                                                                                      #
-#  You can get information on the different methods by:                                #
-#                                                                                      #
-#  (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)         #
-#                                                                                      #
-#  (2) In Spyder IDE by writing the name of the method and clicking Ctrl + I           #
-#                                                                                      #
-#  (3) Visit the documentation at https://marcoalopez.github.io/GrainSizeTools/        #
-#                                                                                      #
-#======================================================================================#
+======================================================================================
+Welcome to GrainSizeTools script v1.4
+======================================================================================
+
+GrainSizeTools is a free open-source cross-platform script to visualize and characterize
+the grain size in polycrystalline materials from thin sections and estimate differential
+stresses via paleopizometers.
+
+METHODS AVAILABLE
+-----------------
+==================  ==================================================================
+Function            Description
+==================  ==================================================================
+extract_areas       Extract the areas of the grains from a text file
+calc_diameters      Calculate the diameter via the equivalent circular diameter
+find_grain_size     Estimate different apparent grain size measures and visualize populations
+derive3D            Estimate the actual grain size distribution via steorology methods
+quartz_piezometer   Estimate the differential stress for quartz using piezometers
+olivine_piezometer  (not yet implemented, available soon)
+==================  ==================================================================
+
+You can get information on the different methods by:
+    (1) Typing help(name of the function) in the console. e.g. >>> help(derive3D)
+    (2) In the Spyder IDE by writing the name of the function and clicking Ctrl + I
+    (3) Visit script documentation at https://marcoalopez.github.io/GrainSizeTools/
+
+
+EXAMPLES
+--------
+Extracting data using the automatic mode:
+>>> areas = extract_areas()
+
+Estimating the equivalent circular diameters:
+>>> diameters = calc_diameters(areas)
+
+Estimate and visualize different apparent grain size measures in square root scale
+>>> find_grain_size(areas, diameters, form='sqrt')
+
+Estimating differential stress using the paleopiezometric relations
+>>> quartz_piezometer(grain_size=5.7, form='Stipp')
 """
 print(texto)
 

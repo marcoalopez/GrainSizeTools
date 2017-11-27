@@ -2,11 +2,11 @@
 -------------
 
 > **Important note:**
-> Please, **update as soon as possible to version 1.3.x**, it contains important changes that are not fully compatible with previous versions. It is also advisable to **update the plotting library matplotlib to version 2.x** since the plots are optimized for such version.
+> Please, **update as soon as possible to version 1.4**. It is also advisable to **update the plotting library matplotlib to version 2.x** since the plots are optimized for such version.
 
 ### *Open and running the script*
 
-First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v1.3.2). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
+First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v1.4). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  
 *Figure 1. The editor and the Python shell (a.k.a. the console) in the the Spyder integrated development environment (IDE). The Enthough Canopy and the Spyder IDEs are both MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among other interesting features.*
@@ -18,26 +18,46 @@ To use the script it is necessary to run it. To do this, just click on the green
 
 The following text will appear in the shell/console (Fig. 1):
 ```
-#======================================================================================#
-#                                                                                      #
-#                      Welcome to GrainSizeTools script v1.3.4                         #
-#                                                                                      #
-#  The following methods are available:                                                #
-#                                                                                      #
-#    extract_areas  # extract the areas of the grains from a text file                 #
-#    calc_diameters  # calculate the diameter via the equivalent circular diameter     #
-#    find_grain_size  #  estimate and visualize different apparent grain size measures #
-#    derive3D  # estimate the actual (3D) grain size via steorology methods            #
-#                                                                                      #
-#  You can get information on the different methods by:                                #
-#                                                                                      #
-#  (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)         #
-#                                                                                      #
-#  (2) In Spyder IDE by writing the name of the method and clicking Ctrl + I           #
-#                                                                                      #
-#  (3) Visit the documentation at https://marcoalopez.github.io/GrainSizeTools/        #
-#                                                                                      #
-#======================================================================================#
+======================================================================================
+Welcome to GrainSizeTools script v1.4
+======================================================================================
+
+GrainSizeTools is a free open-source cross-platform script to visualize and characterize
+the grain size in polycrystalline materials from thin sections and estimate differential
+stresses via paleopizometers.
+
+METHODS AVAILABLE
+-----------------
+==================  ==================================================================
+Function            Description
+==================  ==================================================================
+extract_areas       Extract the areas of the grains from a text file
+calc_diameters      Calculate the diameter via the equivalent circular diameter
+find_grain_size     Estimate different apparent grain size measures and visualize populations
+derive3D            Estimate the actual grain size distribution via steorology methods
+quartz_piezometer   Estimate the differential stress for quartz using piezometers
+olivine_piezometer  (not yet implemented, available soon)
+==================  ==================================================================
+
+You can get information on the different methods by:
+    (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)
+    (2) In the Spyder IDE by writing the name of the method and clicking Ctrl + I
+    (3) Visit script documentation at https://marcoalopez.github.io/GrainSizeTools/
+
+
+EXAMPLES
+--------
+Extracting data using the automatic mode:
+>>> areas = extract_areas()
+
+Estimating the equivalent circular diameters:
+>>> diameters = calc_diameters(areas)
+
+Estimate and visualize different apparent grain size measures in square root scale
+>>> find_grain_size(areas, diameters, form='sqrt')
+
+Estimating differential stress using the paleopiezometric relations
+>>> quartz_piezometer(grain_size=9.7, form='Stipp')
 ```
 Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
 
@@ -169,7 +189,7 @@ This example means that for each apparent diameter calculated from the sectional
 
 Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
 
-#### *Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)*
+#### *Obtaining an unidimensional value of grain size*
 
 For this, we need to call the function ```find_grain_size```. This function returns several grain size measures and plots, depending on your needs. The default mode returns a frequency *vs* apparent grain size plot together with the mean, median, and frequency peak grain sizes; the latter using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size, the number of classes, the method used to estimate the bin size, and the bandwidth used for the Gaussian kde according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **to obtain consistent results a minimum of 433 measured grain profiles are required** (error < 4% at a 95% confidence), although we recommend to measure a minimum of 965 when possible (99% confidence).
 
@@ -223,6 +243,29 @@ The user-defined bin size can be any number of type integer or float (*i.e.* an 
 
 ![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
 *Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- (linear) and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part)*
+
+#### *Estimating differential stress using piezometric relations (paleopiezometry)*
+
+Currently, the script includes a function for estimating differential stress from the apparent grain size in quartz (new phases, such as olivine, calcite, ice, etc., will be added soon). The function requires entering the apparent grain size ***in microns*** and the piezometric relation to be used as follows:
+```python
+>>> quartz_piezometer(grain_size=5.7, 'Stipp')
+
+differential stress = 169.16 MPa
+```
+The ```quartz_piezometer``` function includes the following piezometric relations:
+
+- ```'Stipp'``` from Stipp and Tullis (2003), used as default
+- ```'Holyoke'``` with uses the Stipp and Tullis (2003) piezometer corrected by Holyoke and Kronenberg (2010)
+- ```'Shimizu'``` from Shimizu (2008)
+- ```'Cross'``` and ```'Cross2'``` from Cross et al. (2017),  the preferred option for grains reconstructed from ebsd data
+- ```'Twiss'``` from Twiss (1977)
+
+It is key to note that different paleopiezometers require entering **different types of apparent grain sizes** to properly estimate differential stress values. For example, the piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg (2010), and Cross et al. (2017) requires entering the grain size as *the root mean square grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size). In contrast, Shimizu (2008) paleopizometer requires to enter the *logarithmic median apparent grain size from equivalent circular diameters with no stereological correction* and provide the temperature in K during deformation (the script will ask you for this value). Regarding the Twiss (1977) paleopiezometer, originally calibrated using linear intercepts, the script requires entering the grain size as *the logarithmic mean apparent grain size from equivalent circular diameters with no stereological correction*; the script will convert this value to linear intercepts. For more details write in the shell:
+
+```python
+>>> help(quartz_piezometer)
+```
+and read the assumptions made. 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
 
@@ -373,7 +416,7 @@ If you need to load a large number of datasets, you probably prefer not having t
 
 When you run the script for the first time, your current working directory will appear in the Python shell. Also, you can retrieve your current working directory at any time by typing in the shell ```os.getcwd()```, as well as to modify it to another path using the function ```os.chdir('new default path')```. The same rules apply when using the ```np.genfromtxt``` method.
 
-> Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you have installed). Hence, in general it is a good idea to locate the scrip in the same directory where the datasets are located.
+> Note: usually the current working directory is the same directory where the script is located (although this depends on the Python environment you have installed). Hence, sometimes it is a good idea to locate the scrip in the same directory where the datasets are located.
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/quick_tutorial.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)

@@ -1,8 +1,10 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2017/10/18*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2017/11/27*  
 
 [GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python](https://www.python.org/) that provides several tools to visualize and characterize the grain size in polycrystalline materials from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script **does not require a previous experience with Python programming language** (see [documentation](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md) or [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using Python functions, which facilitates to modify, reuse or extend the code if needed.
+
+**Last release 2017/10/27, v1.4: Now includes the ability to estimate differential stresses via paleopiezometers! ** (including multiple paleopiezometric relations for comparison)
 
 ## Features at a glance
 
@@ -12,11 +14,12 @@
 - It implements several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on the population features.
 - Derive the actual 3D grain size distribution from thin sections (2D data) using the Saltykov method, including to get an estimation of the volume of a particular grain size fraction.
 - Estimate the shape of the 3D grain size distribution using the two-step method and a single parameter (the MSD).
+- Estimate differential stresses via paleopiezometers (**New!**)
 - It produces different ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images (see the image above for examples).
 
 ## Download
 
-You can download the script at the following sites (**Last release 2017/10/18, v1.3.4**):  
+You can download the script at the following sites:  
 https://github.com/marcoalopez/GrainSizeTools/releases  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/
