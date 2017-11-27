@@ -89,7 +89,7 @@ olivine_piezometer(grain_size=9.0, 'Karato')
 # ice, alloys, etc.) (AVAILABLE SOON)
 other_piezometer(grain_size=9.0, 'calcite_Rutter')
 ```
-[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md)  
+[next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
 
 ----------
