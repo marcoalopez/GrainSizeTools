@@ -86,7 +86,7 @@ quartz_piezometer(grain_size=9.0, 'Stipp')
 olivine_piezometer(grain_size=9.0, 'Karato')
 
 # Estimate differential stress in other mineral/materials (calcite,
-# ice, alloys, etc.) (AVAILABLE SOON)
+# ice, alloys, etc.) (PARTIALLY IMPLEMENTED, only available 'calcite_Rutter')
 other_piezometer(grain_size=9.0, 'calcite_Rutter')
 ```
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)  

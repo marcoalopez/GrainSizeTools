@@ -246,11 +246,15 @@ The user-defined bin size can be any number of type integer or float (*i.e.* an 
 
 #### *Estimating differential stress using piezometric relations (paleopiezometry)*
 
-Currently, the script includes a function for estimating differential stress from the apparent grain size in quartz (new phases, such as olivine, calcite, ice, etc., will be added soon). The function requires entering the apparent grain size ***in microns*** and the piezometric relation to be used as follows:
+Currently, the script includes a function for estimating differential stress from the apparent grain size in quartz and calcite (new phases, such as olivine, calcite, ice, etc., will be added soon). The function requires entering the apparent grain size ***in microns*** and the piezometric relation to be used as follows:
 ```python
 >>> quartz_piezometer(grain_size=5.7, 'Stipp')
 
 differential stress = 169.16 MPa
+
+>>> other_piezometers(grain_size=5.7, 'calcite_Rutter')
+
+differential stress = 175.72 MPa
 ```
 The ```quartz_piezometer``` function includes the following piezometric relations:
 
@@ -259,6 +263,8 @@ The ```quartz_piezometer``` function includes the following piezometric relation
 - ```'Shimizu'``` from Shimizu (2008)
 - ```'Cross'``` and ```'Cross2'``` from Cross et al. (2017),  the preferred option for grains reconstructed from ebsd data
 - ```'Twiss'``` from Twiss (1977)
+
+The ```other_piezometers``` function only includes the ```calcite_Rutter``` piezometer from Rutter (1995) so far.
 
 It is key to note that different paleopiezometers require entering **different types of apparent grain sizes** to properly estimate differential stress values. For example, the piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg (2010), and Cross et al. (2017) requires entering the grain size as *the root mean square grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size). In contrast, Shimizu (2008) paleopizometer requires to enter the *logarithmic median apparent grain size from equivalent circular diameters with no stereological correction* and provide the temperature in K during deformation (the script will ask you for this value). Regarding the Twiss (1977) paleopiezometer, originally calibrated using linear intercepts, the script requires entering the grain size as *the logarithmic mean apparent grain size from equivalent circular diameters with no stereological correction*; the script will convert this value to linear intercepts. For more details write in the shell:
 
