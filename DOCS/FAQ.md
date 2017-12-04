@@ -15,7 +15,7 @@ This is because the script normalized the frequencies of the different classes s
 
 ***Is it necessary to specify the version of the script used in a publication? How can this be indicated?***  
 
-Yes, it is always desirable to indicate the version of the script used. The rationale behind this is that codes may contain bugs and versioning allow to track this bugs and correct the results of already published studies in case a bug is discovered a posteriori. The way to indicate the version this is twofold:
+Yes, it is always desirable to indicate the version of the script used. The rationale behind this is that codes may contain bugs and versioning allow to track them and correct the results of already published studies in case a bug is discovered a posteriori. The way to indicate the version this is twofold:
 
 - In the text by explicitly indicating it as follows: "*...we used the GrainSizeTools script version 1.4.1...*"
 
