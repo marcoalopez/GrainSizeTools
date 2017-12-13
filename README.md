@@ -74,7 +74,7 @@ The procedure is partially based on general formulation developed by Sahagian an
 
 GrainSizeTools script is licensed under the [Apache License, Version 2.0 (the "License")](http://www.apache.org/licenses/LICENSE-2.0)
 
-The documentation of GrainSizeTools script is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-sa/4.0/).  
+The documentation of GrainSizeTools script is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/).  
 
 # 
 *Copyright © 2017 Marco A. Lopez-Sanchez*  

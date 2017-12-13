@@ -1,18 +1,17 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)  
 
-## Information  
 This pdf manual is based on the online documentation at <https://marcoalopez.github.io/GrainSizeTools/>
 
 **Manual version**:  
-v3.4  
+v3.4.1  
 **Release date**:  
-2017/11/27
+2017/12/13
 
 **Author**:  
 Marco A. Lopez-Sanchez  
 
 **Licenses**:  
-This document is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International License.](http://creativecommons.org/licenses/by-sa/4.0/)
+This document is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](http://creativecommons.org/licenses/by-sa/4.0/)
 
 ### Table of contents
 
@@ -20,24 +19,24 @@ This document is licensed under a [Creative Commons Attribution-ShareAlike 4.0 I
 - Scope
 - Getting Started: A step-by-step tutorial
   - *Open and running the script*
-	- *A brief note on the organization of the script*
-	- *Using the script to visualize and estimate the grain size*
-		- *Loading the data and extracting the areas of the grain profiles*
-		- *Estimating the apparent diameters from the areas of the grain profiles*
-		- *Obtaining an unidimensional value of grain size*
-		- *Estimating differential stress using piezometric relations (paleopiezometry)*
-		- *Derive the actual 3D distribution of grain sizes from thin sections*
-		- *Comparing different grain size populations using box plots*
-		- *Other methods of interest*
+  - *A brief note on the organization of the script*
+  - *Using the script to visualize and estimate the grain size*
+    - *Loading the data and extracting the areas of the grain profiles*
+    - *Estimating the apparent diameters from the areas of the grain profiles*
+    - *Obtaining an unidimensional value of grain size*
+    - *Estimating differential stress using piezometric relations (paleopiezometry)*
+    - *Derive the actual 3D distribution of grain sizes from thin sections*
+    - *Comparing different grain size populations using box plots*
+    - *Other methods of interest*
 - GST script quick tutorial
-	- *Loading the data and extracting the areas of the grain profiles*
+  - *Loading the data and extracting the areas of the grain profiles*
     - *Estimating the apparent diameters from the areas of the grain profiles*
     - *Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)*
     - *Derive the actual 3D grain size distribution from the apparent grain size distribution*
 - How to measure the areas of the grain profiles with ImageJ
-	- *Previous considerations on Grain Boundary Maps*
-	- *Measuring the areas of the grain profiles*
-	- *List of useful references*
+  - *Previous considerations on Grain Boundary Maps*
+  - *Measuring the areas of the grain profiles*
+  - *List of useful references*
 - FAQs
 - References
 
@@ -292,6 +291,10 @@ Currently, the script includes a function for estimating differential stress fro
 >>> quartz_piezometer(grain_size=5.7, 'Stipp')
 
 differential stress = 169.16 MPa
+
+>>> other_piezometers(grain_size=5.7, 'calcite_Rutter')
+
+differential stress = 175.72 MPa
 ```
 The ```quartz_piezometer``` function includes the following piezometric relations:
 
@@ -300,6 +303,8 @@ The ```quartz_piezometer``` function includes the following piezometric relation
 - ```'Shimizu'``` from Shimizu (2008)
 - ```'Cross'``` and ```'Cross2'``` from Cross et al. (2017),  the preferred option for grains reconstructed from ebsd data
 - ```'Twiss'``` from Twiss (1977)
+
+The ```other_piezometers``` function only includes the ```calcite_Rutter``` piezometer from Rutter (1995) so far.
 
 It is key to note that different paleopiezometers require entering **different types of apparent grain sizes** to properly estimate differential stress values. For example, the piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg (2010), and Cross et al. (2017) requires entering the grain size as *the root mean square grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size). In contrast, Shimizu (2008) paleopizometer requires to enter the *logarithmic median apparent grain size from equivalent circular diameters with no stereological correction* and provide the temperature in K during deformation (the script will ask you for this value). Regarding the Twiss (1977) paleopiezometer, originally calibrated using linear intercepts, the script requires entering the grain size as *the logarithmic mean apparent grain size from equivalent circular diameters with no stereological correction*; the script will convert this value to linear intercepts. For more details write in the shell:
 
