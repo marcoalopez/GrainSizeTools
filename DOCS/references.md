@@ -17,6 +17,8 @@ Lopez-Sanchez MA and Llana-Fúnez S An extension of the Saltykov method to quant
 
 Marquardt DW (1963) An Algorithm for Least-Squares Estimation of Nonlinear Parameters. *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](https://www.doi.org/10.1137/0111030)
 
+Rutter E (1995) Experimental study of the influence of stress, temperature, and strain on the dynamic recrystallization of Carrara marble. *Journal of Geophysical Research: Solid Earth*, 100, 24651-24663. doi: [10.1029/95JB02500](https://www.doi.org/10.1029/95JB02500)
+
 Sahagian D and Proussevitch AA (1998) 3D particle size distributions from 2D observations: stereology for natural applications. *Journal of Volcanology and Geothermal Research* 84, 173-196. doi: [10.1029/95JB02500](https://www.doi.org/10.1029/95JB02500)
 
 Saltykov SA (1967) The determination of the size distribution of particles in an opaque material from a measurment of the size distribution of their secions. In: Elias, H. (Ed.), *Proceedings of the Second International Congress for STEREOLOGY*. Springer Berlin Heidelberg, Berlin, Heidelberg, pp. 163–173. doi: [10.1007/978-3-642-88260-9_31](https://www.doi.org/10.1007/978-3-642-88260-9_31)

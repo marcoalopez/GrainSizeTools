@@ -15,7 +15,7 @@ This is because the script normalized the frequencies of the different classes s
 
 ***Is it necessary to specify the version of the script used in a publication? How can this be indicated?***  
 
-Yes, it is always desirable to indicate the version of the script used. The rationale behind this is that codes may contain bugs and versioning allow to track them and correct the results of already published studies in case a bug is discovered a posteriori. The way to indicate the version this is twofold:
+Yes, it is always desirable to indicate the version of the script used. The rationale behind this is that codes may contain bugs and versioning allow to track them and correct the results of already published studies in case a bug is discovered a posteriori. The way to indicate the version is twofold:
 
 - In the text by explicitly indicating it as follows: "*...we used the GrainSizeTools script version 1.4.1...*"
 
@@ -23,7 +23,7 @@ Yes, it is always desirable to indicate the version of the script used. The rati
 
   Lopez-Sanchez, Marco A. (2017): GrainSizeTools script. figshare.
 
-  https://doi.org/10.6084/m9.figshare.1383130.v15 (Note the termination .v15)
+  https://doi.org/10.6084/m9.figshare.1383130.v15 (Note the termination *.v15*)
 
   To know what termination to use go to the script repository at https://figshare.com/articles/GrainSizeTools_script/1383130 , find the version you used in your study, and then click on "Cite" to obtain the full citation.
 
