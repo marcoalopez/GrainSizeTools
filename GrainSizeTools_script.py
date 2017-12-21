@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.4.1                                                             #
+#    Version 1.4.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -57,10 +57,10 @@ def extract_areas(file_path='auto', col_name='Area'):
     Parameters
     ----------
     file_path: string
-        the file location in the OS in quotes
+        the file location in quotes
         e.g: 'C:/...yourFileLocation.../nameOfTheFile.csv'
-        If 'auto', the default, the function will ask you for the location of
-        the file through a file selection dialog.
+        If 'auto' the function will ask you for the location of the file
+        through a file selection dialog.
 
     col_name: string
         the name of the column that contains the areas of the grain profiles.
@@ -178,6 +178,11 @@ def find_grain_size(areas, diameters, plot='lin', binsize='auto'):
         | 'sqrt' (square-root rule)
         | 'sturges' (Sturge's rule)
 
+    Call functions
+    --------------
+    - calc_freq_grainsize
+    - calc_areaweighted_grainsize
+
     Returns
     -------
     A plot with the distribution of apparent grain sizes and several statistical
@@ -249,6 +254,14 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
         If False, the script will use the default guessing values to fit a
         lognormal distribution. If True, the script will ask the user to define
         their own MSD and median guessing values.
+
+    Call functions
+    --------------
+    - Saltykov
+    - Saltykov_plot
+    - gen_xgrid
+    - fit_function
+    - twostep_plot
 
     Returns
     -------
@@ -366,7 +379,7 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
         return None
 
 
-def quartz_piezometer(grain_size, form='Stipp'):
+def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
     """ Apply different quartz piezometric relations to estimate the differential
     stress from 1D apparent grain sizes. The piezometric relations has the
     following expression:
@@ -382,12 +395,13 @@ def quartz_piezometer(grain_size, form='Stipp'):
     grain_size: positive integer or float
         the apparent grain size in microns
 
-    form: string
+    piezometer: string
         the piezometric relation, either:
-            | 'Cross' and 'Cross2' from Cross et al. (2017)
+            | 'Cross' and 'Cross_hr' from Cross et al. (2017)
             | 'Holyoke' from Holyoke and Kronenberg (2010) (Stipp and Tullis corrected)
             | 'Shimizu' from Shimizu (2008)
-            | 'Stipp' from Stipp and Tullis (2003)
+            | 'Stipp_Tullis' from Stipp and Tullis (2003)
+            | 'Stipp_Tullis_BLG' from Stipp and Tullis (2003)
             | 'Twiss' from Twiss (1977)
 
     References
@@ -400,16 +414,16 @@ def quartz_piezometer(grain_size, form='Stipp'):
 
     Assumptions
     -----------
-    - Independence of temperature (excepting Shimizu's piezometer), total strain,
+    - Independence of temperature (excepting Shimizu piezometer), total strain,
     flow stress, and water content.
 
     - Recrystallized grains are equidimensional or close to equidimensional when
     using a single section.
 
-    - The piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg (2010),
-    and Cross et al. (2007) requires entering the grain size as the root mean square
-    apparent grain size calculated using equivalent circular diameters with no
-    stereological correction.
+    - The piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg
+    (2010) and Cross et al. (2007) requires entering the grain size as the square
+    root mean apparent grain size calculated using equivalent circular diameters
+    with no stereological correction.
 
     - The piezometer relation of Shimizu (2008) requires entering the grain size
     as the logarithmic median apparent grain size calculated using equivalent
@@ -417,36 +431,46 @@ def quartz_piezometer(grain_size, form='Stipp'):
 
     - The piezometer of Twiss (1977) requires entering the logarithmic mean apparent
     grain size calculated from equivalent circular diameters (ECD) with no stereological
-    correction. The function will convert this value to the mean linear intercept (LI)
-    grain size using the De Hoff and Rhines (1968) empirical relation LI = ECD / sqrt(4/pi)
-    and assuming that LI was originally multiplied by 1.5 (correction factor). Then the
-    final relation would be: LI = (1.5 / sqrt(4/pi)) * ECD
+    correction. The function will convert this value to mean linear intercept (LI)
+    grain size using the De Hoff and Rhines (1968) empirical relation and assuming
+    that LI was originally multiplied by 1.5 (correction factor). Then the final
+    relation is: LI = (1.5 / sqrt(4/pi)) * ECD
 
     Returns
     -------
     The differential stress in MPa, a floating point number
     """
 
-    if form == 'Stipp':
+    if piezometer == 'Stipp_Tullis':
         B = 669.0
         p = 0.79
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
 
-    elif form == 'Holyoke':
+    elif piezometer == 'Stipp_Tullis_BLG':
+        B = 31.65
+        p = 1.64
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
+
+    elif piezometer == 'Holyoke':
         B = 490.3
         p = 0.79
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
 
-    elif form == 'Cross':
+    elif piezometer == 'Cross':
         B = 593.0
         p = 0.71
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
 
-    elif form == 'Cross2':
+    elif piezometer == 'Cross_hr':
         B = 450.9
         p = 0.63
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
 
-    elif form == 'Shimizu':
+    elif piezometer == 'Shimizu':
         B = 349.9
         p = 0.8
         T = float(input("Shimizu's paleopiezometer requires setting the temperature [in K] during deformation: "))
+        print('Ensure that you have entered the apparent grain size as the log median!')
 
         diff_stress = 352 * grain_size**(-0.8) * exp(698 / T)
 
@@ -454,14 +478,16 @@ def quartz_piezometer(grain_size, form='Stipp'):
         print('differential stress =', round(diff_stress, 2), 'MPa')
         return None
 
-    elif form == 'Twiss':
+    elif piezometer == 'Twiss':
         B = 5.5  # this B value is for grain size in mm (Twiss, 1977) (Note: this is equivalent to 603.1 when grain size is in microns)
         p = 0.68
         grain_size = grain_size / 1000  # convert from microns to mm
         grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
+        print('Ensure that you have entered the apparent grain size as the log mean!')
 
     else:
-        print('Wrong from. Please choose between valid forms')
+        print(' ')
+        print('Wrong name. Please choose between valid piezometers')
         return None
 
     diff_stress = B * grain_size**-p
@@ -471,7 +497,7 @@ def quartz_piezometer(grain_size, form='Stipp'):
     return None
 
 
-def olivine_piezometer(grain_size, form='Karato'):
+def olivine_piezometer(grain_size, piezometer='Jung_Karato'):
     """ Apply different olivine piezometric relations to estimate the differential
     stress from 1D apparent grain sizes. The piezometric relations has the
     following expression:
@@ -487,30 +513,64 @@ def olivine_piezometer(grain_size, form='Karato'):
     grain_size: positive integer or float
         the apparent grain size in microns
 
-    form: string
+    piezometer: string
         the piezometric relation, either:
-            | 'Karato_dry' from Karato et al. (1980)
-            | TODO
+            | 'VanderWal_wet' from Van der Wal et al. (1993)
+            | 'Jung_Karato' from Jung and Karato (2001)
 
     References
     ----------
-    TODO
+    | Jung and Karato (2001) https://doi.org/10.1016/S0191-8141(01)00005-0
+    | Van der Wal et al. (1993) https://doi.org/10.1029/93GL01382
 
     Assumptions
     -----------
     - Independence of temperature, total strain, flow stress, and water content.
 
-    - TODO
+    - The piezometer of Van der Wal (1993) requires entering the linear mean apparent
+    grain size in microns calculated from equivalent circular diameters (ECD) with no
+    stereological correction. The function will convert automatically this value to
+    linear intercept (LI) grain size using the De Hoff and Rhines (1968) empirical
+    equation. Since LI was originally multiplied by 1.2 (correction factor),
+    the final relation is: LI = (1.2 / sqrt(4/pi)) * ECD
+
+    - The piezometer of Jung and Karato (2001) requires entering the linear mean
+    apparent grain size in microns calculated from equivalent circular diameters
+    (ECD) with no stereological correction. The function will convert automatically
+    this value to linear intercept (LI) grain size using the De Hoff and Rhines
+    (1968) empirical equation. Since LI was originally multiplied by 1.5 (correction
+    factor), the final relation is: LI = (1.5 / sqrt(4/pi)) * ECD
 
     Returns
     -------
     The differential stress in MPa, a floating point number
     """
 
-    pass
+    if piezometer == 'Jung_Karato':
+        B = 5461.03
+        p = 0.85
+        grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
+        print('Ensure that you have entered the apparent grain size as the linear scale mean!')
+
+    elif piezometer == 'VanderWal_wet':
+        B = 0.0425  # this B value requires average grain size in m
+        p = 0.75
+        grain_size = grain_size / 1e6  # convert from microns to m
+        grain_size = (1.2 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
+        print('Ensure that you have entered the apparent grain size as the linear scale mean!')
+
+    else:
+        print('Wrong name. Please choose between valid piezometers')
+        return None
+
+    diff_stress = B * grain_size**-p
+
+    print(' ')
+    print('differential stress =', round(diff_stress, 2), 'MPa')
+    return None
 
 
-def other_piezometers(grain_size, form='calcite_Rutter'):
+def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
     """ Apply different piezometric relations to estimate the differential
     stress from 1D apparent grain sizes. The piezometric relations has the
     following expression:
@@ -526,14 +586,17 @@ def other_piezometers(grain_size, form='calcite_Rutter'):
     grain_size: positive integer or float
         the apparent grain size in microns
 
-    form: string
+    piezometer: string
         the piezometric relation, either:
-            | 'cacite_Rutter' from Rutter (1995)
+            | 'calcite_Rutter_SGR' from Rutter (1995)
+            | 'calcite_Rutter_GBM' from Rutter (1995)
+            | 'albite_Post_BLG' from Alice and Post (1999)
             | More paleopizometers soon!
 
 
     References
     ----------
+    | Alice and Post (1999) https://doi.org/10.1016/S0040-1951(98)00260-1
     | Rutter (1995) https://doi.org/10.1029/95JB02500
 
     Assumptions
@@ -544,17 +607,39 @@ def other_piezometers(grain_size, form='calcite_Rutter'):
     using a single section.
 
     - The piezometer relation of Rutter (1995) requires entering the grain size
-    as the root mean square apparent grain size calculated using equivalent
+    as the root square mean apparent grain size calculated using equivalent
     circular diameters with no stereological correction.
+
+    - The piezometer of Post and Tullis (1999) requires entering the median
+    apparent grain size calculated from equivalent circular diameters (ECD) with
+    no stereological correction. The function will convert this value to the mean
+    linear intercept (LI) grain size using the De Hoff and Rhines (1968) empirical
+    relation LI = ECD / sqrt(4/pi)
 
     Returns
     -------
     The differential stress in MPa, a floating point number
     """
 
-    if form == 'calcite_Rutter':
+    if piezometer == 'calcite_Rutter_SGR':
         B = 812.83
         p = 0.88
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
+
+    elif piezometer == 'calcite_Rutter_GBM':
+        B = 2691.53
+        p = 0.89
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
+
+    elif piezometer == 'albite_Post_BLG':
+        B = 11.46
+        p = 1.52
+        grain_size = grain_size / np.sqrt(4 / np.pi)  # convert ECD to LI
+        print('Ensure that you have entered the apparent grain size as the linear scale median!')
+
+    else:
+        print('Wrong name. Please choose between valid piezometers')
+        return None
 
     diff_stress = B * grain_size**-p
 
@@ -565,9 +650,9 @@ def other_piezometers(grain_size, form='calcite_Rutter'):
 
 # ============================================================================ #
 # Functions used by the find_grain_size and the derive3D functions to generate #
-# the plots using the matplotlib capabilities. I use hex color codes to define #
-# colors.                                                                      #
+# the plots using the matplotlib library. I use hex color codes to set colors. #
 # ============================================================================ #
+
 
 def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot='freq'):
     """ Generate a frequency vs grain size plot"""
@@ -710,12 +795,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
 
 def twostep_plot(left_edges, freq3D, binsize, mid_points_corrected, freq3D_corrected, xgrid, best_fit, fit_error):
-    """ Generate a plot applying the two-step method
-
-    Reference
-    ---------
-    Lopez-Sanchez and Llana-Funez (2016) J. Struc. Geol 93:149-161
-    """
+    """ Generate a plot with the best fitting lognormal distribution (two-step method)"""
 
     plt.figure(tight_layout=True)
 
@@ -728,8 +808,8 @@ def twostep_plot(left_edges, freq3D, binsize, mid_points_corrected, freq3D_corre
             align='edge',
             alpha=0.65)
 
-    # log-normal distribution
-    plt.plot(xgrid, best_fit,  # best fit
+    # plot log-normal distribution
+    plt.plot(xgrid, best_fit,
              color='#1F1F1F',
              label='best fit',
              linewidth=2)
@@ -801,10 +881,9 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
     kde = gaussian_kde(diameters, bw_method=my_kde_bandwidth)
 
     # determine where the Gaussian kde function reach it maximum value
-    xgrid = gen_xgrid(diameters, diameters.min(), diameters.max())  # generate x-values
-    y_values = kde(xgrid)  # generate y-values using the gaussian kde function estimated
-    y_max = np.max(y_values)  # get maximum value
-    index = np.argmax(y_values)  # get the index of the maximum value along the y-axis
+    xgrid = gen_xgrid(diameters, diameters.min(), diameters.max())
+    y_values = kde(xgrid)  # find y-values using the gaussian kde function
+    y_max, index = np.max(y_values), np.argmax(y_values)  # get maximum value and the index
     x_peak = xgrid[index]  # get the diameter (x-value) where y-value is maximum
 
     if plot == 'freq':
@@ -1003,13 +1082,13 @@ def wicksell_eq(D, d1, d2):
 
     Parameters
     ----------
-    D: a positive integer or float
+    D: positive integer or float
         the midpoint of the actual class, which corresponds with the diameter
 
-    d1: a positive integer or float
+    d1: positive integer or float
         the lower limit of the bin/class
 
-    d2: a positive integer or float
+    d2: positive integer or float
         the upper limit of the bin/class
     """
 
@@ -1043,13 +1122,13 @@ def Saltykov(freq, bin_edges, binsize, mid_points, normalize=True):
         a list with the midpoints of the classes
 
     normalize: boolean
-        when True frequency negative values are set to zero and the
-        distribution is normalized. It is True by default.
+        when True negative values of frequency are set to zero and then
+        the distribution normalized. It is True by default.
 
     Returns
     -------
     The normalized frequencies of the unfolded population such that the integral
-    over the range considered is one
+    over the range is one
     """
 
     d_values = np.copy(bin_edges)
@@ -1066,8 +1145,7 @@ def Saltykov(freq, bin_edges, binsize, mid_points, normalize=True):
                 D = midpoints[-1]
                 Pj = wicksell_eq(D, d_values[j - 1], d_values[j])
                 P_norm = (Pj * freq[i]) / Pi
-                # replace specified elements of an array
-                np.put(freq, j - 1, freq[j - 1] - P_norm)
+                np.put(freq, j - 1, freq[j - 1] - P_norm)  # replace specified elements of an array
                 j -= 1
 
             i -= 1
@@ -1117,7 +1195,7 @@ def fit_function(x, shape, scale):
 
 texto = """
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.1
+Welcome to GrainSizeTools script v1.4.2
 ======================================================================================
 
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
@@ -1128,13 +1206,13 @@ METHODS AVAILABLE
 ==================  ==================================================================
 Function            Description
 ==================  ==================================================================
-extract_areas       Extract the areas of the grains from a text file
+extract_areas       Extract the areas of the grains from a text file (txt, csv or xlsx)
 calc_diameters      Calculate the diameter via the equivalent circular diameter
-find_grain_size     Estimate different apparent grain size measures and visualize populations
+find_grain_size     Estimate the apparent grain size and visualize their distribution
 derive3D            Estimate the actual grain size distribution via steorology methods
-quartz_piezometer   Estimate the differential stress for quartz using piezometers
-olivine_piezometer  (not yet implemented, available soon)
-other_pizometers    (partially implemented)
+quartz_piezometer   Estimate diff. stress from grain size in quartz using piezometers
+olivine_piezometer  Estimate diff. stress from grain size in olivine using piezometers
+other_pizometers    Estimate diff. stress from grain size in other phases
 ==================  ==================================================================
 
 You can get information on the different methods by:
@@ -1148,15 +1226,18 @@ EXAMPLES
 Extracting data using the automatic mode:
 >>> areas = extract_areas()
 
-Estimating the equivalent circular diameters:
+Estimate the equivalent circular diameters:
 >>> diameters = calc_diameters(areas)
 
 Estimate and visualize different apparent grain size measures in square root scale
 >>> find_grain_size(areas, diameters, form='sqrt')
 
-Estimating differential stress using paleopiezometric relations
->>> quartz_piezometer(grain_size=5.7, form='Stipp')
->>> other_piezometers(grain_size=5.7, form='calcite_Rutter')
+Estimate differential stress using piezometric relations
+>>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
+
+Estimate the actual 3D grain size distribution from thin sections
+>>> derive3D(diameters, numbins=15, set_limit=40)
+>>> derive3D(diameters, numbins=15, set_limit=None, fit=True)
 """
 print(texto)
 
