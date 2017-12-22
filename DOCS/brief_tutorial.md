@@ -320,8 +320,8 @@ The constant values as put in the script are described in Table 2 below.
 
 *(a) ***B*** and ***m*** relate to ***A*** and ***p*** as follows: ***B = A<sup>1/p</sup>*** and ***m = 1/p****  
 *(b) ***A*** and ***B*** have units in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) which is in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
-*c) Holyoke and Kronenberg (2010) apply a linear re-calibration of the Stipp and Tullis (2003) piezometer*  
-*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD grain reconstruction using EBSD map made with a 1 &mu;m step size and high resolution (hr) maps with a 200 nm step size. This is the preferred piezometer for quartz when data comes from EBSD maps*
+*c) Holyoke and Kronenberg (2010) applied a linear recalibration of the Stipp and Tullis (2003) piezometer*  
+*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD grain reconstruction using grain maps with a 1 &mu;m step size and a 200 nm step size (hr - high resolution). This is the preferred piezometer for quartz when data comes from EBSD grain maps*
 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
