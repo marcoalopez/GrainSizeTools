@@ -3,9 +3,10 @@
 This pdf manual is based on the online documentation at <https://marcoalopez.github.io/GrainSizeTools/>
 
 **Manual version**:  
-v3.4.1  
+v29
+
 **Release date**:  
-2017/12/13
+2017/12/22
 
 **Author**:  
 Marco A. Lopez-Sanchez  
@@ -88,25 +89,73 @@ The two-step method ([Lopez-Sanchez and Llana-Fúnez, 2016](http://www.sciencedi
 ## Getting Started: A step-by-step tutorial
 
 > **Important note:**
-> Please, **update as soon as possible to version 1.4**. It is also advisable to **update the plotting library matplotlib to version 2.x** since the plots are optimized for such version.
+> Please, **update as soon as possible to version 1.4.2**. It is also advisable to **update the plotting library matplotlib to version 2.x** since the plots are optimized for such version.
 
 ### *Open and running the script*
 
 First of all, make sure you have the required software and necessary Python libraries installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for details), and that you downloaded the latest version of the GrainSizeTools script (currently the v1.4). If this is the case, then you need to open the script in a integrated development environment (IDE) to interact with it (Fig. 1). For this, open the Canopy editor -if you installed the Enthought package- or the Spyder IDE -if you installed the Anaconda package-, and open the GrainSizeTools script using ```File>Open```. The script will appear in the editor as shown in figure 1.
 
-![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png =400x)  
+![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  
 *Figure 1. The editor and the Python shell (a.k.a. the console) in the the Spyder integrated development environment (IDE). The Enthough Canopy and the Spyder IDEs are both MATLAB-like IDEs optimized for numerical computing and data analysis using Python. They also provide a file explorer, a variable explorer, or a history log among other interesting features.*
 
 To use the script it is necessary to run it. To do this, just click on the green "play" icon in the tool bar or go to ```Run>Run file``` in the menu bar (Fig. 2).
 
-A text that begins with "Welcome to GrainSizeTools script v.1.4" will appear in the console. Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
-
-![Figure 2. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.png =350x)  
+![Figure 2. Running a script in the Canopy editor (left) and in the IDLE editor (right)](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/RunScript_Canopy.png)  
 *Figure 2. Running a script in the Enthought's Canopy (left) and Spyder (right) IDEs.*
+
+The following text will appear in the shell/console (Fig. 1):
+```
+======================================================================================
+Welcome to GrainSizeTools script v1.4.2
+======================================================================================
+
+GrainSizeTools is a free open-source cross-platform script to visualize and characterize
+the grain size in polycrystalline materials from thin sections and estimate differential
+stresses via paleopizometers.
+
+METHODS AVAILABLE
+-----------------
+==================  ==================================================================
+Function            Description
+==================  ==================================================================
+extract_areas       Extract the areas of the grains from a text file (txt, csv or xlsx)
+calc_diameters      Calculate the diameter via the equivalent circular diameter
+find_grain_size     Estimate the apparent grain size and visualize their distribution
+derive3D            Estimate the actual grain size distribution via steorology methods
+quartz_piezometer   Estimate diff. stress from grain size in quartz using piezometers
+olivine_piezometer  Estimate diff. stress from grain size in olivine using piezometers
+other_pizometers    Estimate diff. stress from grain size in other phases
+==================  ==================================================================
+
+You can get information on the different methods by:
+    (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)
+    (2) In the Spyder IDE by writing the name of the method and clicking Ctrl + I
+    (3) Visit script documentation at https://marcoalopez.github.io/GrainSizeTools/
+
+
+EXAMPLES
+--------
+Extracting data using the automatic mode:
+>>> areas = extract_areas()
+
+Estimate the equivalent circular diameters:
+>>> diameters = calc_diameters(areas)
+
+Estimate and visualize different apparent grain size measures
+>>> find_grain_size(areas, diameters, plot='sqrt')
+
+Estimate differential stress using piezometric relations
+>>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
+
+Estimate the actual 3D grain size distribution from thin sections
+>>> derive3D(diameters, numbins=15, set_limit=40)
+>>> derive3D(diameters, numbins=15, set_limit=None, fit=True)
+```
+Once you see this text, all the tools implemented in the GrainSizeTools script will be available by typing some commands in the shell as will be explained below.
 
 ### *A brief note on the organization of the script*
 
-The script is organized in a modular way using Python functions, which helps to modify, reuse or extend the code if needed. A Python function looks like this in the editor:
+The script is organized in a modular way using Python functions helping to modify, reuse or extend the code. A Python function looks like this in the editor:
 
 ```python
 def calc_diameters(areas, correct_diameter=0):
@@ -139,18 +188,18 @@ def calc_diameters(areas, correct_diameter=0):
 
 To sum up, the name following the Python keyword ```def```, in this example ```calc_diameters```, is the name of the function. The sequence of names within the parentheses are the formal parameters of the function (i.e. the inputs). In this case the function has two inputs, the parameter ```areas``` that correspond with an array containing the areas of the grain profiles previously measured, and the parameter ```correct_diameter``` that corresponds to a number that sometimes is required for correcting the size of the grains. Note that in this case the default value is set by default to zero. The text between the triple quotation marks provides information about the function, describing the conditions that must be met by the user as well as the output obtained. This information can be accessed from the shell by using the command ```help()``` and specifying the name of the function within the parentheses or, in the Spyder IDE, by pressing *Ctrl+I* once you wrote the name of the function. Below, it is the code block.
 
-The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call four functions (usually less) to obtain the results. For more details, you can look at the section [*Specifications of main functions in the GrainSizeTools script*](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/specifications.md).
+The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call less than four functions to obtain the results.
 
-### *Using the script to visualize and estimate the grain size*
+### *Using the script to visualize and estimate the grain size features*
 
 #### Loading the data and extracting the areas of the grain profiles
 
-The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated using the *ImageJ* or similar software, and that the results were saved as a txt or csv file (Fig. 3). If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
+The first step requires to load the areas of the grain profiles measured in the thin section. It is therefore assumed that they were previously estimated using the *ImageJ* or similar software, and that the results were saved as a txt, csv, or xlsx (Fig. 3). If you do not know how to do this, then go to the section [How to measure the grain profile areas with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md).
 
-![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png =350x)  
+![Figure 3. Tabular-like files obtaining from the ImageJ app](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_imageJ_files.png)  
 *Figure 3. Tabular-like files obtaining from the ImageJ app. At left, the tab-separated txt file. At right, the csv comma-separated version.*
 
-People usually perform different types of measures at the same time in the *ImageJ* application. Consequently, we usually obtain a text file with the data in a spreadsheet-like form (Fig. 3). In our case, we need to extract the information corresponding to the column named 'Area', which is the one that contains the areas of the grain profiles. To do this, the script implements a function named ```extract_areas``` that automatically do this for us. To invoke this function we write in the shell:
+People usually perform different types of measures at the same time in the *ImageJ* application ultimately obtained a text file with the data in a spreadsheet-like form (Fig. 3). In this case, we need to extract the information corresponding to the column named 'Area', which is the one that contains the areas of the grain profiles. To do this, the script implements a function named ```extract_areas``` that automatically do this for us. To invoke this function we write in the shell:
 
 ```python
 >>> areas = extract_areas()
@@ -178,9 +227,7 @@ column extracted = [  157.25  2059.75  1961.5  ...,   513.5    277.75   725.  ]
 n = 2661
 ```
 
-The data stored in any variable can be viewed at any time by invoking its name in the shell and pressing the Enter key. Furthermore, both the Canopy and Spyder IDEs have a specific variable explorer to visualize the variables loaded in the current session.
-
-The automatic mode assumes that the column containing the areas of the grain profiles is named ```'Area'``` in the text file (as shown in Fig. 3), which is the default name used by the ImageJ application. If the name of the column is different you can specify it as follows:
+The data stored in any variable can be viewed at any time by invoking its name in the shell and pressing the Enter key. Furthermore, both the Canopy and Spyder IDEs have a specific variable explorer to visualize the variables loaded in the current session. The automatic mode assumes that the column containing the areas of the grain profiles is named ```'Area'``` in the text file (as shown in Fig. 3), which is the default name used by the ImageJ application. If the name of the column is different you can specify it as follows:
 
 ```python
 >>> areas = extract_areas(file_path='auto', col_name='areas')
@@ -188,7 +235,7 @@ The automatic mode assumes that the column containing the areas of the grain pro
 
 In this example, we introduced two different inputs/parameters within the parentheses. The first one is responsible for defining the file path. In this case it is set by default to 'auto', which means that the automatic mode showed above is on. The second one is the column name (col_name), in this example set to ```'areas'``` instead of the default ```'Area'```. Note that different inputs/parameters are comma-separated.
 
-Another option, which was the only one available in previous versions (< v1.3.1), is to introduce the inputs/parameters manually. For this write in the shell:
+Another option, which was the only one available in old versions (< v1.3.1), is to introduce the inputs/parameters manually. For this write in the shell:
 
 ```python
 >>> areas = extract_areas('C:/...yourFileLocation.../nameOfTheFile.csv', col_name='areas')
@@ -196,20 +243,21 @@ Another option, which was the only one available in previous versions (< v1.3.1)
 
 in this case we define the file location path in quotes, either single or double, following by the column name if required. If the column name is 'Areas' you just need to write the file path. To avoid problems in Windows OS do not use single backslashes to define the filepath but forward slashes (e.g. "C:/yourfilelocation.../nameofthefile.txt") or double backslashes.
 
-In the case that the user extracted and stored the areas of the grains in a different form from the one proposed above, this is either in a txt or csv file but without a spreadsheet-like form (Fig. 4), there is a Python/Numpy built-in method named ```np.genfromtxt()``` that can be used to load any text data (txt or csv) into a variable in a similar way. For example:
+In the case that the user extracted and stored the areas of the grains in a different form from the one proposed here, this is either in a txt or csv file but without a spreadsheet-like form (Fig. 4), there is a Python/Numpy built-in method named ```np.genfromtxt()``` that can be used to load text data in txt or csv into a variable in a similar way. For example:
 
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt')
 ```
-or if you need to skip the first or any other number of lines because there is text or complementary information, then use the *skip_header* parameter:
+In case you need to skip the first or any other number of lines because there is text or complementary information, then use the *skip_header* parameter as follows:
 
 ```python
 >>> areas = np.genfromtxt('C:/yourFileLocation/nameOfTheFile.txt', skip_header=1)
 ```
-In this example, ```skip_header=1``` means that the first line in the txt file will be ignored. You can define any number of lines to ignore.
+In this example, ```skip_header=1``` means that the first line in the txt file will be ignored.
 
-![Figure 4. txt file example](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.png =175x)  
-*Figure 4. A txt file without spreadsheet-like form. The first line, which is informative, has to be ignored when loading the data*
+<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/notebook.png" width="300">  
+
+*Figure 4. A txt file without spreadsheet-like form. The first line, which is informative, has to be ignored when loading the data*  
 
 #### *Estimating the apparent diameters from the areas of the grain profiles*
 
@@ -219,7 +267,7 @@ The second step is to convert the areas into diameters via the equivalent circul
 >>> diameters = calc_diameters(areas)
 ```
 
-The parameter declared within the parenthesis are the name of the variable that contains the areas of the grain profiles. Also, we need to define a new variable to store the diameters estimated from the areas, ```diameters``` in this example. In some cases, we would need to correct the size of the grain profiles by adding the width of the grain boundaries (Fig. 5). For this, you need to add a new parameter within the parentheses:
+The parameter declared within the parenthesis are the name of the variable that contains the areas of the grain profiles. Also, we need to define a new variable to store the diameters estimated from the areas, ```diameters``` in this example. In some cases, we would need to correct the size of the grain profiles (Fig. 5). For this, you need to add a new parameter within the parentheses:
 
 ```python
 >>> diameters = calc_diameters(areas, correct_diameter=0.05)
@@ -227,12 +275,13 @@ The parameter declared within the parenthesis are the name of the variable that 
 
 This example means that for each apparent diameter calculated from the sectional areas, 0.05 will be added. If the parameter ```correct_diameter``` is not declared within the function, as in the first example, it is assumed that no diameter correction is needed.
 
-![Figure 5. Example of correction of sizes in a grain boundary map](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png =250x)  
-*Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*
+<img src="https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Fig_PS_pixels.png" width="450">  
+
+*Figure 5. Example of correction of sizes in a grain boundary map. The figure is a raster showing the grain boundaries (in white) between three grains. The squares are the pixels of the image. The boundaries are two pixel wide, approximately. If, for example, each pixel corresponds to 1 micron, we will need to add 2 microns to the diameters estimated from the equivalent circular areas.*  
 
 Once we estimated and stored the apparent grain sizes, we have several choices: (1) estimate an unidimensional value of grain size for paleopiezometry/paleowattmetry studies, or (2) derive the actual 3D grain size distribution from the population of apparent grain sizes using the Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998) or an extension of the Saltykov method named the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016).  
 
-#### *Obtaining an unidimensional value of grain size*
+#### *Obtaining apparent grain size measures*
 
 For this, we need to call the function ```find_grain_size```. This function returns several grain size measures and plots, depending on your needs. The default mode returns a frequency *vs* apparent grain size plot together with the mean, median, and frequency peak grain sizes; the latter using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). Other parameters of interest are also provided, such as the bin size, the number of classes, the method used to estimate the bin size, and the bandwidth used for the Gaussian kde according to the Silverman rule (Silverman 1986). As stated in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html), **to obtain consistent results a minimum of 433 measured grain profiles are required** (error < 4% at a 95% confidence), although we recommend to measure a minimum of 965 when possible (99% confidence).
 
@@ -270,7 +319,7 @@ Although we promote the use of frequency *vs* apparent grain size linear plot (F
 ```
 in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different type of plot also implies to obtain different grain size estimations.
 
-Since version 1.3, this function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. The other methods available are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. In our experience, the ```'doane'``` and ```'scott'``` methods work also pretty well when you have a lognormal- or a normal-like distribution, respectively. To specify the method we write in the shell:
+The function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have a lognormal- or a normal-like distributions, respectively. To specify the method we write in the shell:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize='doane')
@@ -281,37 +330,83 @@ note that you have to define first the type of plot you want and that the type o
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize=10.0)
 ```
-![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png =450x)  
-*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- (linear) and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part)*  
+
+The user-defined bin size can be any number of type integer or float (*i.e.* an irrational number).
+
+![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
+*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- (linear) and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part)*
 
 #### *Estimating differential stress using piezometric relations (paleopiezometry)*
 
-Currently, the script includes a function for estimating differential stress from the apparent grain size in quartz (new phases, such as olivine, calcite, ice, etc., will be added soon). The function requires entering the apparent grain size ***in microns*** and the piezometric relation to be used as follows:
+The script includes several functions for estimating differential stress from apparent grain size (i.e. using piezometric relations). This includes mineral phases such as quartz, calcite, olivine and albite (other phases will be added in the future). The function requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns***. There are three different functions for this: ```quartz_piezometer``` for quartz piezometers, ```olivine_piezometer``` for olivine piezometers, and ```other_piezometers``` for other mineral phases. We provide some examples below:
+
 ```python
->>> quartz_piezometer(grain_size=5.7, 'Stipp')
+>>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
+Ensure that you have entered the apparent grain size as the square root mean!
 
 differential stress = 169.16 MPa
 
->>> other_piezometers(grain_size=5.7, 'calcite_Rutter')
+>>> olivine_piezometer(grain_size=35, piezometer='Jung_Karato')
+Ensure that you have entered the apparent grain size as the linear scale mean!
+
+differential stress = 208.8 MPa
+
+>>> other_piezometers(grain_size=5.7, piezometer='calcite_Rutter_SGR')
+Ensure that you have entered the apparent grain size as the square root mean!
 
 differential stress = 175.72 MPa
 ```
-The ```quartz_piezometer``` function includes the following piezometric relations:
+It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the square root mean grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size), and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD) since the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
 
-- ```'Stipp'``` from Stipp and Tullis (2003), used as default
-- ```'Holyoke'``` with uses the Stipp and Tullis (2003) piezometer corrected by Holyoke and Kronenberg (2010)
-- ```'Shimizu'``` from Shimizu (2008)
-- ```'Cross'``` and ```'Cross2'``` from Cross et al. (2017),  the preferred option for grains reconstructed from ebsd data
-- ```'Twiss'``` from Twiss (1977)
+**Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required for each one.
+|              Piezometer              | Apparent grain size<sup>a</sup> | DRX mechanism  |    Phase     |           Reference           |
+| :----------------------------------: | :-----------------------------: | :------------: | :----------: | :---------------------------: |
+|         ```'Stipp_Tullis'```         |        Square root mean         |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
+|       ```'Stipp_Tullis_BLG'```       |        Square root mean         | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
+|           ```'Holyoke'```            |        Square root mean         |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
+|         ```'Holyoke_BLG'```          |        Square root mean         | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
+|     ```'Shimizu'```<sup>b</sup>      |       Logarithmic median        |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
+|  ```'Cross'``` and ```'Cross_hr'```  |        Square root mean         |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
+|      ```'Twiss'```<sup>c</sup>       |        Logarithmic mean         |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
+|      ```'calcite_Rutter_SGR'```      |        Square root mean         |      SGR       |   Calcite    |         Rutter (1995)         |
+|      ```'calcite_Rutter_GBM'```      |        Square root mean         |      GBM       |   Calcite    |         Rutter (1995)         |
+| ```'albite_PostT_BLG'```<sup>c</sup> |      Median (linear scale)      |      BLG       |    Albite    |    Post and Tullis (1999)     |
+|  ```'VanderWal_wet'```<sup>c</sup>   |       Mean (linear scale)       |                | Olivine, wet |   Van der Wal et al. (1993)   |
+|   ```'Jung_Karato'```<sup>c</sup>    |       Mean (linear scale)       |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
+*a) Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
+*b) Shimizu piezometer requires to provide the temperature during deformation in K, the script will ask you to provide such value*  
+*c) These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
 
-The ```other_piezometers``` function only includes the ```calcite_Rutter``` piezometer from Rutter (1995) so far.
-
-It is key to note that different paleopiezometers require entering **different types of apparent grain sizes** to properly estimate differential stress values. For example, the piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg (2010), and Cross et al. (2017) requires entering the grain size as *the root mean square grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size). In contrast, Shimizu (2008) paleopizometer requires to enter the *logarithmic median apparent grain size from equivalent circular diameters with no stereological correction* and provide the temperature in K during deformation (the script will ask you for this value). Regarding the Twiss (1977) paleopiezometer, originally calibrated using linear intercepts, the script requires entering the grain size as *the logarithmic mean apparent grain size from equivalent circular diameters with no stereological correction*; the script will convert this value to linear intercepts. For more details write in the shell:
+For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
 
 ```python
 >>> help(quartz_piezometer)
 ```
-and read the assumptions made.
+
+The constant values as put in the script are described in Table 2 below.
+
+**Table 2**. Parameters relating the apparent size of dynamically recrystallized grains and stress using a relation in the form ***d = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bd<sup>-m</sup>***
+
+|                Reference                |    phase     |     DRX      | A<sup>a, b</sup> | p<sup>a</sup> | B<sup>a, b</sup> | m<sup>a</sup> |
+| :-------------------------------------: | :----------: | :----------: | :--------------: | :-----------: | :--------------: | :-----------: |
+|         Stipp and Tullis (2003)         |    quartz    | Regimes 2, 3 |      3630.8      |     1.26      |      669.0       |     0.79      |
+|         Stipp and Tullis (2003)         |    quartz    |   Regime 1   |        78        |     0.61      |      1264.1      |     1.64      |
+| Holyoke & Kronenberg (2010)<sup>c</sup> |    quartz    | Regimes 2, 3 |       2451       |     1.26      |      490.3       |     0.79      |
+| Holyoke & Kronenberg (2010)<sup>d</sup> |    quartz    |   Regime 1   |        39        |     0.54      |      883.9       |     1.85      |
+|             Shimizu (2008)              |    quartz    |  SGR + GBM   |       1525       |     1.25      |       352        |      0.8      |
+|     Cross et al. (2017)<sup>d</sup>     |    quartz    | Regimes 2, 3 |      8128.3      |     1.41      |      593.0       |     0.71      |
+|     Cross et al. (2017)<sup>d</sup>     |  quartz, hr  | Regimes 2, 3 |     16595.9      |     1.59      |      450.9       |     0.63      |
+|              Twiss (1977)               |    quartz    | Regimes 2, 3 |       12.3       |     1.47      |       5.5        |     0.68      |
+|         Jung and Karato (2001)          | olivine, wet |     BLG      |      25704       |     1.18      |     5461.03      |     0.85      |
+|        Van der Wal et al. (1993)        | olivine, wet |              |      0.0148      |     1.33      |      0.0425      |     0.75      |
+|              Rutter (1995)              |   calcite    |     SGR      |      2026.8      |     1.14      |      812.83      |     0.88      |
+|              Rutter (1995)              |   calcite    |     GBM      |      7143.8      |     1.12      |     2691.53      |     0.89      |
+|         Post and Tullis (1999)          |    albite    |     BLG      |        55        |     0.66      |      433.4       |     1.52      |
+*a) ***B*** and ***m*** relate to ***A*** and ***p*** as follows: ***B = A<sup>1/p</sup>*** and ***m = 1/p****  
+*b) ***A*** and ***B*** have units in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) which is in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
+*c) Holyoke and Kronenberg (2010) apply a linear re-calibration of the Stipp and Tullis (2003) piezometer*  
+*d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD grain reconstruction using EBSD map made with a 1 &mu;m step size and high resolution (hr) maps with a 200 nm step size. This is the preferred piezometer for quartz when data comes from EBSD maps*
+
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
 
@@ -346,7 +441,7 @@ volume fraction (up to 40 microns) = 22.8 %
 ```
 As a cautionary note, if we use a different number of bins/classes, in this example set randomly at 12, we will obtain slightly different volume estimates. This is normal due to the inaccuracies of the Saltykov method. In any event, Lopez-Sanchez and Llana-Fúnez (2016) proved that the absolute differences between the volume estimations using a range of classes between 10 and 20 are below ±5. This means that to stay safe we should always take an absolute error margin of ±5 in the volume estimations.
 
-![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png =450x)  
+![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
 *Figure 7. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
 
 Lastly, due to the nature of the Saltykov method, the smaller the number of classes the better the numerical stability of the method, and the larger the number of classes the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, previous works proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality and the size of the dataset it seems that it can be used safely up to 20 classes or even more (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy and observe if the appearance is coherent or not. As a last cautionary note, **the Saltykov method requires large samples (n ~ 1000 or larger)** to obtain consistent results, even when using a small number of classes.
@@ -380,19 +475,17 @@ Sometimes, the least squares algorithm will fail at fitting the lognormal distri
 ```
 When the ```initial_guess``` parameter is set to ```True```, the script will ask to set a new starting values for both parameters (it also indicates which are the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and decreasing the median value every five units until the fitting procedure yield a good fit (*e.g.* 25 -> 20 -> 15...) (Fig. 8).
 
-![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png =450x)  
+![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 8. Plots obtained using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
-
-<div style="page-break-after: always;"></div>
 
 #### ***Comparing different grain size populations using box plots***
 
-[Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles, being a very efficient way for comparing several datasets graphically. Figure 9 show the different elements represented in a typical box plot.
+[Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles and median, being a very efficient way for comparing **unimodal** datasets graphically. Figure 9 show the different elements represented in a typical box plot.
 
-![figure 9. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png =225x)
-*Figure 9. Box plot elements*
+![figure 9. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png)
+*Figure 9. Box plot elements*  
 
-The procedure to create a box plot using the Matplotlib library is the following. First, we need to create a variable with all the data sets to be represented in the plot. For this we create a Python list as follows (variable names have been chosen for convenience):
+To create a box plot using the Matplotlib library we need to create first a variable with all the data sets to represent. For this we create a Python list as follows (variable names have been chosen for convenience):
 
 ```python
 >>> all_data = [dataset1, dataset2, dataset3, dataset4] # Note that a Python list is a list of elements within brackets separated by commas
@@ -404,7 +497,7 @@ Then we create the plot (Fig. 10):
 >>> plt.boxplot(all_data)
 >>> plt.show() # write this and click return if the plot did not appear automatically
 ```
-To create a more convenience plot (Fig. 10) we propose to use the following **optional** parameters:
+To create a more convenience plot (Fig. 10) we propose using the following **optional** parameters:
 
 ```python
 # First make a list specifying the labels of the samples (this is optional)
@@ -413,23 +506,23 @@ To create a more convenience plot (Fig. 10) we propose to use the following **op
 >>> plt.boxplot(all_data, vert=False, meanline=True, showmeans=True, labels=label_list)
 # vert -> if False makes the boxes horizontal instead of vertical
 # meanline and showmeans -> if True will show the location of the mean within the plots
-# labels -> add labels to the different datasets. The number of items within the brackets must be coincide with the number of datasets to be plotted.
+# labels -> add labels to the different datasets. Ensure that the number of items in the brackets coincide with the number of datasets to plot.
 >>> plt.xlabel('apparent diameter ($\mu m$)') # add the x-axis label
 >>> plt.show() # write this and click return if the plot did not appear automatically
 ```
 
 ![figure 10. Examples of box plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Boxplot_02.png)
-*Figure 10. Box plot comparing four datasets obtained from the same sample but located in different places of the thin section. At left, a box plot with the default appearance. At right, the same box plot with the optional parameters showing above. Dashed lines are the mean. Note that the all the datasets show similar median, mean, IQR, and whisker locations. In contrast, the fliers (points) above 105 microns vary greatly.*
+*Figure 10. Box plot comparing four unimodal datasets obtained from the same sample but located in different places along the thin section. At left, a box plot with the default appearance. At right, the same box plot with the optional parameters showing above. Dashed lines are the mean. Note that the all the datasets show similar median, means, IQRs, and whisker locations. In contrast, the fliers (points) approximately above 100 microns vary greatly.*
 
 #### ***Other methods of interest***
 
 **Obtain common descriptive statistic parameters**
 
 ```python
->>> mean(variable_name)  # Estimate the mean
->>> std(variable_name)  # Estimate the standard deviation
->>> median(variable_name)  # Estimate the median
->>> iqr(variable_name)  # Estimate the interquartile range
+>>> mean(array_name)  # Estimate the mean
+>>> std(array_name)  # Estimate the standard deviation
+>>> median(array_name)  # Estimate the median
+>>> iqr(array_name)  # Estimate the interquartile range
 ```
 
 **Merging datasets**
@@ -473,7 +566,7 @@ When you run the script for the first time, your current working directory will 
 > This is a quick tutorial showing typical commands to interact with the GST script
 > in the shell. You can copy and paste the command lines directly into the shell.
 > Variable names have been chosen for convenience, but you can use any other name if desired.  
-> The commands below require the v1.3 or higher.
+> The commands below require the v1.4.3 or higher.
 
 #### Loading the data and extracting the areas of the grain profiles
 
@@ -501,7 +594,7 @@ diameters = calc_diameters(areas)
 diameters = calc_diameters(areas, correct_diameter=0.05) # 0.05 microns will be added
 ```
 
-#### *Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)*
+#### *Obtaining apparent grain size measures*
 
 ```python
 # Default mode (linear grain size distribution, automatic bin size or number of classes)
@@ -525,6 +618,22 @@ find_grain_size(areas, diameters, plot='lin', binsize='doane')
 find_grain_size(areas, diameters, plot='lin', binsize=10.0)
 ```
 
+#### *Estimate differential stresses using paleopizometers*
+
+```python
+# Estimate differential stress using quartz and the piezometric
+# piezometer of Stipp and Tullis (2003)
+quartz_piezometer(grain_size=9.0, piezometer='Stipp_Tullis')
+
+# Estimate differential stress using olivine and the piezometric
+# piezometer of Jung and Karato (2001)
+olivine_piezometer(grain_size=9.0, piezometer='Jung_Karato')
+
+# Estimate differential stress in other mineral/materials
+# piezometer of Rutter (1995)
+other_piezometer(grain_size=9.0, piezometer='calcite_Rutter_SGR')
+```
+
 #### *Derive the actual 3D grain size distribution from the apparent grain size distribution*
 
 ```python
@@ -541,22 +650,6 @@ derive3D(diameters, numbins=12, set_limit=None, fit=True)
 # Using ad hoc initial guess values for correcting a wrong fit
 # The script will ask you about the new guessing values
 derive3D(diameters, numbins=12, set_limit=None, fit=True, initial_guess=True)
-```
-
-#### *Estimate differential stresses using paleopizometers*
-
-```python
-# Estimate differential stress using quartz and the piezometric
-# relation of Stipp and Tullis (2003)
-quartz_piezometer(grain_size=9.0, 'Stipp')
-
-# Estimate differential stress using olivine and the piezometric
-# relation of...(AVAILABLE SOON)
-olivine_piezometer(grain_size=9.0, 'Karato')
-
-# Estimate differential stress in other mineral/materials (calcite,
-# ice, alloys, etc.) (AVAILABLE SOON)
-other_piezometer(grain_size=9.0, 'calcite_Rutter')
 ```
 
 <div style="page-break-after: always;"></div>
@@ -683,11 +776,15 @@ Higgins MD (2000) Measurement of crystal size distributions. *American Mineralog
 
 Holyoke CW and Kronenberg AK (2010) Accurate differential stress measurement using the molten salt cell and solid salt assemblies in the Griggs apparatus with applications to strength, piezometers and rheology. *Tectonophysics* 494(1–2), 17–31, doi:[10.1016/j.tecto.2010.08.001](https://www.doi.org/10.1016/j.tecto.2010.08.001)
 
+Jung H and Karato S (2001) Effects of water on dynamically recrystallized grain-size of olivine. *Journal of Structural Geology* 23, 1337-1344, doi:[10.1016/S0191-8141(01)00005-0](https://www.doi.org/10.1016/S0191-8141(01)00005-0)
+
 Lopez-Sanchez MA and Llana-Funez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. doi: [10.5194/se-6-475-2015](https://www.doi.org/10.5194/se-6-475-2015)
 
 Lopez-Sanchez MA and Llana-Fúnez S An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology* 93, 149-161. doi: [10.1016/j.jsg.2016.10.008](https://www.doi.org/10.1016/j.jsg.2016.10.008)
 
 Marquardt DW (1963) An Algorithm for Least-Squares Estimation of Nonlinear Parameters. *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](https://www.doi.org/10.1137/0111030)
+
+Post A and Tullis J (1999) A recrystallized grain size piezometer for experimentally deformed feldspar aggregates. *Tectonophysics* 303, 159-173, doi:[10.1016/S0040-1951(98)00260-1](https://www.doi.org/10.1016/S0040-1951(98)00260-1)
 
 Rutter E (1995) Experimental study of the influence of stress, temperature, and strain on the dynamic recrystallization of Carrara marble. *Journal of Geophysical Research: Solid Earth*, 100, 24651-24663. doi: [10.1029/95JB02500](https://www.doi.org/10.1029/95JB02500)
 
@@ -702,3 +799,5 @@ Shimizu I (2008) Theories and applicability of grain size piezometers: The role 
 Stipp M and Tullis J (2003) The recrystallized grain size piezometer for quartz. *Geophysical Research Letters* 30, 1-5. doi: [10.1029/2003GL018444](https://www.doi.org/10.1029/2003GL018444)
 
 Twiss RJ (1977) Theory and Applicability of a Recrystallized Grain Size Paleopiezometer. *Pure Appl. Geophys. PAGEOPH* 115(1–2), 227–244, doi:[10.1007/BF01637105](https://www.doi.org/10.1007/BF01637105)
+
+Van der Wal D, Chopra M, Drury M and Fitz-Gerald J (1993) Relationships between dynamically recrystallized grain size and deformation conditions in experimentally deformed olivine rocks. *Geophysical Research Letters* 20, 1479-1482, doi:[10.1029/93GL01382](https://www.doi.org/10.1029/93GL01382)

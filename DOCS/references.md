@@ -11,11 +11,15 @@ Higgins MD (2000) Measurement of crystal size distributions. *American Mineralog
 
 Holyoke CW and Kronenberg AK (2010) Accurate differential stress measurement using the molten salt cell and solid salt assemblies in the Griggs apparatus with applications to strength, piezometers and rheology. *Tectonophysics* 494(1–2), 17–31, doi:[10.1016/j.tecto.2010.08.001](https://www.doi.org/10.1016/j.tecto.2010.08.001)
 
+Jung H and Karato S (2001) Effects of water on dynamically recrystallized grain-size of olivine. *Journal of Structural Geology* 23, 1337-1344, doi:[10.1016/S0191-8141(01)00005-0](https://www.doi.org/10.1016/S0191-8141(01)00005-0)
+
 Lopez-Sanchez MA and Llana-Funez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. doi: [10.5194/se-6-475-2015](https://www.doi.org/10.5194/se-6-475-2015)
 
 Lopez-Sanchez MA and Llana-Fúnez S An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology* 93, 149-161. doi: [10.1016/j.jsg.2016.10.008](https://www.doi.org/10.1016/j.jsg.2016.10.008)
 
 Marquardt DW (1963) An Algorithm for Least-Squares Estimation of Nonlinear Parameters. *J. Soc. Ind. Appl. Math.* 11, 431–441. doi: [10.1137/0111030](https://www.doi.org/10.1137/0111030)
+
+Post A and Tullis J (1999) A recrystallized grain size piezometer for experimentally deformed feldspar aggregates. *Tectonophysics* 303, 159-173, doi:[10.1016/S0040-1951(98)00260-1](https://www.doi.org/10.1016/S0040-1951(98)00260-1)
 
 Rutter E (1995) Experimental study of the influence of stress, temperature, and strain on the dynamic recrystallization of Carrara marble. *Journal of Geophysical Research: Solid Earth*, 100, 24651-24663. doi: [10.1029/95JB02500](https://www.doi.org/10.1029/95JB02500)
 
@@ -30,6 +34,8 @@ Shimizu I (2008) Theories and applicability of grain size piezometers: The role 
 Stipp M and Tullis J (2003) The recrystallized grain size piezometer for quartz. *Geophysical Research Letters* 30, 1-5. doi: [10.1029/2003GL018444](https://www.doi.org/10.1029/2003GL018444)
 
 Twiss RJ (1977) Theory and Applicability of a Recrystallized Grain Size Paleopiezometer. *Pure Appl. Geophys. PAGEOPH* 115(1–2), 227–244, doi:[10.1007/BF01637105](https://www.doi.org/10.1007/BF01637105)
+
+Van der Wal D, Chopra M, Drury M and Fitz-Gerald J (1993) Relationships between dynamically recrystallized grain size and deformation conditions in experimentally deformed olivine rocks. *Geophysical Research Letters* 20, 1479-1482, doi:[10.1029/93GL01382](https://www.doi.org/10.1029/93GL01382)
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)

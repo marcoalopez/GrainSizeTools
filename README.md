@@ -1,11 +1,11 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2017/12/04*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2017/12/22*  
 
 [GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python](https://www.python.org/) that provides several tools to visualize and characterize the grain size in polycrystalline materials from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script **does not require a previous experience with Python programming language** (see [documentation](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md) and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using functions facilitating to modify, reuse or extend the code if needed.
 
-**Last release 2017/10/29, v1.4.1**   
-**Since v1.4 it includes the ability to estimate differential stresses via paleopiezometers!** (including multiple paleopiezometric relations for comparison)
+**Last release 2017/12/22, v1.4.2**   
+**Now (v1.4.x) includes the ability to estimate differential stress via piezometers!** (including multiple piezometric relations for comparison)
 
 ## Features at a glance
 
@@ -15,7 +15,7 @@
 - Includes several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on the population features.
 - Approximate the actual 3D grain size distribution from thin sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.
 - Approximate the shape of the 3D grain size distribution using a single parameter (the MSD - *Multiplicative Standard Deviation*) via the two-step method.
-- ***New!:*** Estimate differential stresses via paleopiezometers. It includes several piezometric relations for quartz and calcite. Other phases available soon!
+- ***New!:*** Estimate differential stresses via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite and albite. Other phases available soon!
 - It produces different ready-to-publish plots, allowing to save the graphical output as a bitmap or vector images (see the image above for examples).
 
 ## Download

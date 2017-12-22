@@ -4,7 +4,7 @@ GST script quick tutorial
 > This is a quick tutorial showing typical commands to interact with the GST script
 > in the shell. You can copy and paste the command lines directly into the shell.
 > Variable names have been chosen for convenience, but you can use any other name if desired.  
-> The commands below require the v1.3 or higher.
+> The commands below require the v1.4.3 or higher.
 
 #### Loading the data and extracting the areas of the grain profiles
 
@@ -32,7 +32,7 @@ diameters = calc_diameters(areas)
 diameters = calc_diameters(areas, correct_diameter=0.05) # 0.05 microns will be added
 ```
 
-#### *Obtaining an unidimensional value of grain size (paleopiezo/wattmetry studies)*
+#### *Obtaining apparent grain size measures*
 
 ```python
 # Default mode (linear grain size distribution, automatic bin size or number of classes)
@@ -56,6 +56,22 @@ find_grain_size(areas, diameters, plot='lin', binsize='doane')
 find_grain_size(areas, diameters, plot='lin', binsize=10.0)
 ```
 
+#### *Estimate differential stresses using paleopizometers*
+
+```python
+# Estimate differential stress using quartz and the piezometric
+# piezometer of Stipp and Tullis (2003)
+quartz_piezometer(grain_size=9.0, piezometer='Stipp_Tullis')
+
+# Estimate differential stress using olivine and the piezometric
+# piezometer of Jung and Karato (2001)
+olivine_piezometer(grain_size=9.0, piezometer='Jung_Karato')
+
+# Estimate differential stress in other mineral/materials
+# piezometer of Rutter (1995)
+other_piezometer(grain_size=9.0, piezometer='calcite_Rutter_SGR')
+```
+
 #### *Derive the actual 3D grain size distribution from the apparent grain size distribution*
 
 ```python
@@ -74,21 +90,6 @@ derive3D(diameters, numbins=12, set_limit=None, fit=True)
 derive3D(diameters, numbins=12, set_limit=None, fit=True, initial_guess=True)
 ```
 
-#### *Estimate differential stresses using paleopizometers*
-
-```python
-# Estimate differential stress using quartz and the piezometric
-# relation of Stipp and Tullis (2003)
-quartz_piezometer(grain_size=9.0, 'Stipp')
-
-# Estimate differential stress using olivine and the piezometric
-# relation of...(AVAILABLE SOON)
-olivine_piezometer(grain_size=9.0, 'Karato')
-
-# Estimate differential stress in other mineral/materials (calcite,
-# ice, alloys, etc.) (PARTIALLY IMPLEMENTED, only available 'calcite_Rutter')
-other_piezometer(grain_size=9.0, 'calcite_Rutter')
-```
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)  
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
 
