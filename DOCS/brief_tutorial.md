@@ -272,6 +272,7 @@ differential stress = 175.72 MPa
 It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the square root mean grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size), and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD) since the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
 
 **Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required for each one.
+
 |              Piezometer              | Apparent grain size<sup>a</sup> | DRX mechanism  |    Phase     |           Reference           |
 | :----------------------------------: | :-----------------------------: | :------------: | :----------: | :---------------------------: |
 |         ```'Stipp_Tullis'```         |        Square root mean         |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
@@ -286,6 +287,7 @@ It is key to note that different piezometers require entering **different types 
 | ```'albite_PostT_BLG'```<sup>c</sup> |      Median (linear scale)      |      BLG       |    Albite    |    Post and Tullis (1999)     |
 |  ```'VanderWal_wet'```<sup>c</sup>   |       Mean (linear scale)       |                | Olivine, wet |   Van der Wal et al. (1993)   |
 |   ```'Jung_Karato'```<sup>c</sup>    |       Mean (linear scale)       |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
+
 *(a) Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
 *(b) Shimizu piezometer requires to provide the temperature during deformation in K, the script will ask you to provide such value*  
 *c) These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
@@ -315,6 +317,7 @@ The constant values as put in the script are described in Table 2 below.
 |              Rutter (1995)              |   calcite    |     SGR      |      2026.8      |     1.14      |      812.83      |     0.88      |
 |              Rutter (1995)              |   calcite    |     GBM      |      7143.8      |     1.12      |     2691.53      |     0.89      |
 |         Post and Tullis (1999)          |    albite    |     BLG      |        55        |     0.66      |      433.4       |     1.52      |
+
 *(a) ***B*** and ***m*** relate to ***A*** and ***p*** as follows: ***B = A<sup>1/p</sup>*** and ***m = 1/p****  
 *(b) ***A*** and ***B*** have units in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) which is in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
 *c) Holyoke and Kronenberg (2010) apply a linear re-calibration of the Stipp and Tullis (2003) piezometer*  
