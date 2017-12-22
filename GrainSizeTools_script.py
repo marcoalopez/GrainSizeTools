@@ -384,11 +384,11 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
     stress from 1D apparent grain sizes. The piezometric relations has the
     following expression:
 
-    diff_stress = B * grain_size**-p
+    diff_stress = B * grain_size**-m
 
     where diff_stress is the differential stress in [MPa], B is an experimentally
-    derived parameter in [MPa micron**p], grain_size is the aparent grain size
-    in [microns], and p is an experimentally derived exponent which is adimensonal.
+    derived parameter in [MPa micron**m], grain_size is the aparent grain size
+    in [microns], and m is an experimentally derived exponent which is adimensonal.
 
     Parameters
     ----------
@@ -398,10 +398,9 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
     piezometer: string
         the piezometric relation, either:
             | 'Cross' and 'Cross_hr' from Cross et al. (2017)
-            | 'Holyoke' from Holyoke and Kronenberg (2010) (Stipp and Tullis corrected)
+            | 'Holyoke' and 'Holyoke_BLG' from Holyoke and Kronenberg (2010)
             | 'Shimizu' from Shimizu (2008)
-            | 'Stipp_Tullis' from Stipp and Tullis (2003)
-            | 'Stipp_Tullis_BLG' from Stipp and Tullis (2003)
+            | 'Stipp_Tullis' and 'Stipp_Tullis_BLG' from Stipp and Tullis (2003)
             | 'Twiss' from Twiss (1977)
 
     References
@@ -411,6 +410,7 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
     | Holyoke and Kronenberg (2010) https://doi.org/10.1016/j.tecto.2010.08.001
     | Shimizu (2008) https://doi.org/10.1016/j.jsg.2008.03.004
     | Stipp and Tullis (2003)  https://doi.org/10.1029/2003GL018444
+    | Twiss (1977) https://www.doi.org/10.1007/BF01637105
 
     Assumptions
     -----------
@@ -443,44 +443,49 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
 
     if piezometer == 'Stipp_Tullis':
         B = 669.0
-        p = 0.79
+        m = 0.79
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Stipp_Tullis_BLG':
-        B = 31.65
-        p = 1.64
+        B = 1264.1
+        m = 1.64
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Holyoke':
         B = 490.3
-        p = 0.79
+        m = 0.79
+        print('Ensure that you have entered the apparent grain size as the square root mean!')
+
+    elif piezometer == 'Holyoke_BLG':
+        B = 883.9
+        m = 1.85
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Cross':
         B = 593.0
-        p = 0.71
+        m = 0.71
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Cross_hr':
         B = 450.9
-        p = 0.63
+        m = 0.63
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Shimizu':
-        B = 349.9
-        p = 0.8
+        B = 352
+        m = 0.8
         T = float(input("Shimizu's paleopiezometer requires setting the temperature [in K] during deformation: "))
         print('Ensure that you have entered the apparent grain size as the log median!')
 
-        diff_stress = 352 * grain_size**(-0.8) * exp(698 / T)
+        diff_stress = 352 * grain_size**(-m) * exp(698 / T)
 
         print(' ')
         print('differential stress =', round(diff_stress, 2), 'MPa')
         return None
 
     elif piezometer == 'Twiss':
-        B = 5.5  # this B value is for grain size in mm (Twiss, 1977) (Note: this is equivalent to 603.1 when grain size is in microns)
-        p = 0.68
+        B = 5.5  # this B value is for grain size in mm (Twiss, 1977)
+        m = 0.68
         grain_size = grain_size / 1000  # convert from microns to mm
         grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
         print('Ensure that you have entered the apparent grain size as the log mean!')
@@ -490,7 +495,7 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
         print('Wrong name. Please choose between valid piezometers')
         return None
 
-    diff_stress = B * grain_size**-p
+    diff_stress = B * grain_size**-m
 
     print(' ')
     print('differential stress =', round(diff_stress, 2), 'MPa')
@@ -502,11 +507,11 @@ def olivine_piezometer(grain_size, piezometer='Jung_Karato'):
     stress from 1D apparent grain sizes. The piezometric relations has the
     following expression:
 
-    diff_stress = B * grain_size**-p
+    diff_stress = B * grain_size**-m
 
     where diff_stress is the differential stress in [MPa], B is an experimentally
-    derived parameter in [MPa micron**p], grain_size is the aparent grain size
-    in [microns], and p is an experimentally derived exponent which is adimensonal.
+    derived parameter in [MPa micron**m], grain_size is the aparent grain size
+    in [microns], and m is an experimentally derived exponent which is adimensonal.
 
     Parameters
     ----------
@@ -548,13 +553,13 @@ def olivine_piezometer(grain_size, piezometer='Jung_Karato'):
 
     if piezometer == 'Jung_Karato':
         B = 5461.03
-        p = 0.85
+        m = 0.85
         grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
         print('Ensure that you have entered the apparent grain size as the linear scale mean!')
 
     elif piezometer == 'VanderWal_wet':
         B = 0.0425  # this B value requires average grain size in m
-        p = 0.75
+        m = 0.75
         grain_size = grain_size / 1e6  # convert from microns to m
         grain_size = (1.2 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
         print('Ensure that you have entered the apparent grain size as the linear scale mean!')
@@ -563,7 +568,7 @@ def olivine_piezometer(grain_size, piezometer='Jung_Karato'):
         print('Wrong name. Please choose between valid piezometers')
         return None
 
-    diff_stress = B * grain_size**-p
+    diff_stress = B * grain_size**-m
 
     print(' ')
     print('differential stress =', round(diff_stress, 2), 'MPa')
@@ -575,11 +580,11 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
     stress from 1D apparent grain sizes. The piezometric relations has the
     following expression:
 
-    diff_stress = B * grain_size**-p
+    diff_stress = B * grain_size**-m
 
     where diff_stress is the differential stress in [MPa], B is an experimentally
-    derived parameter in [MPa micron**p], grain_size is the aparent grain size
-    in [microns], and p is an experimentally derived exponent which is adimensonal.
+    derived parameter in [MPa micron**m], grain_size is the aparent grain size
+    in [microns], and m is an experimentally derived exponent which is adimensonal.
 
     Parameters
     ----------
@@ -590,8 +595,8 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
         the piezometric relation, either:
             | 'calcite_Rutter_SGR' from Rutter (1995)
             | 'calcite_Rutter_GBM' from Rutter (1995)
-            | 'albite_Post_BLG' from Alice and Post (1999)
-            | More paleopizometers soon!
+            | 'albite_PostT_BLG' from Alice and Post (1999)
+            | More pizometers soon!
 
 
     References
@@ -623,17 +628,17 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
 
     if piezometer == 'calcite_Rutter_SGR':
         B = 812.83
-        p = 0.88
+        m = 0.88
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'calcite_Rutter_GBM':
         B = 2691.53
-        p = 0.89
+        m = 0.89
         print('Ensure that you have entered the apparent grain size as the square root mean!')
 
-    elif piezometer == 'albite_Post_BLG':
-        B = 11.46
-        p = 1.52
+    elif piezometer == 'albite_PostT_BLG':
+        B = 433.4
+        m = 1.52
         grain_size = grain_size / np.sqrt(4 / np.pi)  # convert ECD to LI
         print('Ensure that you have entered the apparent grain size as the linear scale median!')
 
@@ -641,7 +646,7 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
         print('Wrong name. Please choose between valid piezometers')
         return None
 
-    diff_stress = B * grain_size**-p
+    diff_stress = B * grain_size**-m
 
     print(' ')
     print('differential stress =', round(diff_stress, 2), 'MPa')
@@ -1229,8 +1234,8 @@ Extracting data using the automatic mode:
 Estimate the equivalent circular diameters:
 >>> diameters = calc_diameters(areas)
 
-Estimate and visualize different apparent grain size measures in square root scale
->>> find_grain_size(areas, diameters, form='sqrt')
+Estimate and visualize different apparent grain size measures
+>>> find_grain_size(areas, diameters, plot='sqrt')
 
 Estimate differential stress using piezometric relations
 >>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
