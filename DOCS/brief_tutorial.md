@@ -271,7 +271,7 @@ differential stress = 175.72 MPa
 ```
 It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the square root mean grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size), and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD) since the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
 
-**Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required for each one.
+**Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required to obtain meaningful differential stress estimates
 
 |              Piezometer              | Apparent grain size<sup>a</sup> | DRX mechanism  |    Phase     |           Reference           |
 | :----------------------------------: | :-----------------------------: | :------------: | :----------: | :---------------------------: |
@@ -290,7 +290,7 @@ It is key to note that different piezometers require entering **different types 
 
 *(a) Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
 *(b) Shimizu piezometer requires to provide the temperature during deformation in K, the script will ask you to provide such value*  
-*c) These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
+*( c) These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
 
 For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
 
@@ -300,7 +300,7 @@ For more details on the piezometers and the assumption made use the command ```h
 
 The constant values as put in the script are described in Table 2 below.
 
-**Table 2**. Parameters relating the apparent size of dynamically recrystallized grains and stress using a relation in the form ***d = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bd<sup>-m</sup>***
+**Table 2**. Parameters relating the apparent size of dynamically recrystallized grains and the differential stress using a relation in the form ***d = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bd<sup>-m</sup>***
 
 |                Reference                |    phase     |     DRX      | A<sup>a, b</sup> | p<sup>a</sup> | B<sup>a, b</sup> | m<sup>a</sup> |
 | :-------------------------------------: | :----------: | :----------: | :--------------: | :-----------: | :--------------: | :-----------: |
@@ -319,9 +319,9 @@ The constant values as put in the script are described in Table 2 below.
 |         Post and Tullis (1999)          |    albite    |     BLG      |        55        |     0.66      |      433.4       |     1.52      |
 
 *(a) ***B*** and ***m*** relate to ***A*** and ***p*** as follows: ***B = A<sup>1/p</sup>*** and ***m = 1/p****  
-*(b) ***A*** and ***B*** have units in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) which is in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
-*c) Holyoke and Kronenberg (2010) applied a linear recalibration of the Stipp and Tullis (2003) piezometer*  
-*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD grain reconstruction using grain maps with a 1 &mu;m step size and a 200 nm step size (hr - high resolution). This is the preferred piezometer for quartz when data comes from EBSD grain maps*
+*(b) ***A*** and ***B*** are in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) [m MPa<sup>p, m</sup>]*  
+*( c) Holyoke and Kronenberg (2010) is a linear recalibration of the Stipp and Tullis (2003) piezometer*  
+*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD for grain reconstruction. Specifically, they use grain maps with a 1 &mu;m step size and a 200 nm step size (hr - high resolution). This is the preferred piezometer for quartz when grain size data comes from EBSD*
 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
