@@ -251,7 +251,7 @@ The user-defined bin size can be any number of type integer or float (*i.e.* an 
 
 #### *Estimating differential stress using piezometric relations (paleopiezometry)*
 
-The script includes several functions for estimating differential stress from apparent grain size (i.e. using piezometric relations). This includes mineral phases such as quartz, calcite, olivine and albite (other phases will be added in the future). The function requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns***. There are three different functions for this: ```quartz_piezometer``` for quartz piezometers, ```olivine_piezometer``` for olivine piezometers, and ```other_piezometers``` for other mineral phases. We provide some examples below:
+The script includes several functions for estimating differential stress from apparent grain size (i.e. using piezometric relations). This includes mineral phases such as quartz, calcite, olivine and albite (other phases will be added in the future). The function requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns***. There are three different functions for this: ```quartz_piezometer``` for quartz, ```olivine_piezometer``` for olivine, and ```other_piezometers``` for other mineral phases. We provide some examples below:
 
 ```python
 >>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
@@ -269,7 +269,7 @@ Ensure that you have entered the apparent grain size as the square root mean!
 
 differential stress = 175.72 MPa
 ```
-It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the square root mean grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size), and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD) since the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
+It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the square root mean grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size), and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD), the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
 
 **Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required to obtain meaningful differential stress estimates
 
@@ -289,7 +289,7 @@ It is key to note that different piezometers require entering **different types 
 |   ```'Jung_Karato'```<sup>c</sup>    |       Mean (linear scale)       |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
 
 *(a) Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
-*(b) Shimizu piezometer requires to provide the temperature during deformation in K, the script will ask you to provide such value*  
+*(b) Shimizu piezometer requires to provide the temperature during deformation in K*  
 *( c) These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
 
 For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
@@ -321,7 +321,7 @@ The constant values as put in the script are described in Table 2 below.
 *(a) ***B*** and ***m*** relate to ***A*** and ***p*** as follows: ***B = A<sup>1/p</sup>*** and ***m = 1/p****  
 *(b) ***A*** and ***B*** are in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) [m MPa<sup>p, m</sup>]*  
 *( c) Holyoke and Kronenberg (2010) is a linear recalibration of the Stipp and Tullis (2003) piezometer*  
-*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD for grain reconstruction. Specifically, they use grain maps with a 1 &mu;m step size and a 200 nm step size (hr - high resolution). This is the preferred piezometer for quartz when grain size data comes from EBSD*
+*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD data for reconstructing the grains. Specifically, they use grain maps with a 1 &mu;m and a 200 nm (hr - high resolution) step sizes . This is the preferred piezometer for quartz when grain size data comes from EBSD*
 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
