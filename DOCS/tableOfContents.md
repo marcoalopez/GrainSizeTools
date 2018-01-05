@@ -18,3 +18,4 @@ Table of contents
   * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
   * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
   * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
+

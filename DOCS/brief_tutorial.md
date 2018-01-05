@@ -273,24 +273,24 @@ It is key to note that different piezometers require entering **different types 
 
 **Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required to obtain meaningful differential stress estimates
 
-|              Piezometer              | Apparent grain size<sup>a</sup> | DRX mechanism  |    Phase     |           Reference           |
-| :----------------------------------: | :-----------------------------: | :------------: | :----------: | :---------------------------: |
-|         ```'Stipp_Tullis'```         |        Square root mean         |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
-|       ```'Stipp_Tullis_BLG'```       |        Square root mean         | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
-|           ```'Holyoke'```            |        Square root mean         |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
-|         ```'Holyoke_BLG'```          |        Square root mean         | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
-|     ```'Shimizu'```<sup>b</sup>      |       Logarithmic median        |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
-|  ```'Cross'``` and ```'Cross_hr'```  |        Square root mean         |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
-|      ```'Twiss'```<sup>c</sup>       |        Logarithmic mean         |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
-|      ```'calcite_Rutter_SGR'```      |        Square root mean         |      SGR       |   Calcite    |         Rutter (1995)         |
-|      ```'calcite_Rutter_GBM'```      |        Square root mean         |      GBM       |   Calcite    |         Rutter (1995)         |
-| ```'albite_PostT_BLG'```<sup>c</sup> |      Median (linear scale)      |      BLG       |    Albite    |    Post and Tullis (1999)     |
-|  ```'VanderWal_wet'```<sup>c</sup>   |       Mean (linear scale)       |                | Olivine, wet |   Van der Wal et al. (1993)   |
-|   ```'Jung_Karato'```<sup>c</sup>    |       Mean (linear scale)       |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
+|             Piezometer             | Apparent grain size*†* | DRX mechanism  |    Phase     |           Reference           |
+| :--------------------------------: | :--------------------: | :------------: | :----------: | :---------------------------: |
+|        ```'Stipp_Tullis'```        |    Square root mean    |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
+|      ```'Stipp_Tullis_BLG'```      |    Square root mean    | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
+|          ```'Holyoke'```           |    Square root mean    |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
+|        ```'Holyoke_BLG'```         |    Square root mean    | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
+|         ```'Shimizu'```*‡*         |   Logarithmic median   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
+| ```'Cross'``` and ```'Cross_hr'``` |    Square root mean    |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
+|          ```'Twiss'```*§*          |    Logarithmic mean    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
+|     ```'calcite_Rutter_SGR'```     |    Square root mean    |      SGR       |   Calcite    |         Rutter (1995)         |
+|     ```'calcite_Rutter_GBM'```     |    Square root mean    |      GBM       |   Calcite    |         Rutter (1995)         |
+|    ```'albite_PostT_BLG'```*§*     | Median (linear scale)  |      BLG       |    Albite    |    Post and Tullis (1999)     |
+|      ```'VanderWal_wet'```*§*      |  Mean (linear scale)   |                | Olivine, wet |   Van der Wal et al. (1993)   |
+|       ```'Jung_Karato'```*§*       |  Mean (linear scale)   |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
 
-*(a) Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
-*(b) Shimizu piezometer requires to provide the temperature during deformation in K*  
-*( c) These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
+*† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
+*‡ Shimizu piezometer requires to provide the temperature during deformation in K*  
+*§ These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
 
 For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
 
@@ -302,26 +302,26 @@ The constant values as put in the script are described in Table 2 below.
 
 **Table 2**. Parameters relating the apparent size of dynamically recrystallized grains and the differential stress using a relation in the form ***d = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bd<sup>-m</sup>***
 
-|                Reference                |    phase     |     DRX      | A<sup>a, b</sup> | p<sup>a</sup> | B<sup>a, b</sup> | m<sup>a</sup> |
-| :-------------------------------------: | :----------: | :----------: | :--------------: | :-----------: | :--------------: | :-----------: |
-|         Stipp and Tullis (2003)         |    quartz    | Regimes 2, 3 |      3630.8      |     1.26      |      669.0       |     0.79      |
-|         Stipp and Tullis (2003)         |    quartz    |   Regime 1   |        78        |     0.61      |      1264.1      |     1.64      |
-| Holyoke & Kronenberg (2010)<sup>c</sup> |    quartz    | Regimes 2, 3 |       2451       |     1.26      |      490.3       |     0.79      |
-| Holyoke & Kronenberg (2010)<sup>d</sup> |    quartz    |   Regime 1   |        39        |     0.54      |      883.9       |     1.85      |
-|             Shimizu (2008)              |    quartz    |  SGR + GBM   |       1525       |     1.25      |       352        |      0.8      |
-|     Cross et al. (2017)<sup>d</sup>     |    quartz    | Regimes 2, 3 |      8128.3      |     1.41      |      593.0       |     0.71      |
-|     Cross et al. (2017)<sup>d</sup>     |  quartz, hr  | Regimes 2, 3 |     16595.9      |     1.59      |      450.9       |     0.63      |
-|              Twiss (1977)               |    quartz    | Regimes 2, 3 |       12.3       |     1.47      |       5.5        |     0.68      |
-|         Jung and Karato (2001)          | olivine, wet |     BLG      |      25704       |     1.18      |     5461.03      |     0.85      |
-|        Van der Wal et al. (1993)        | olivine, wet |              |      0.0148      |     1.33      |      0.0425      |     0.75      |
-|              Rutter (1995)              |   calcite    |     SGR      |      2026.8      |     1.14      |      812.83      |     0.88      |
-|              Rutter (1995)              |   calcite    |     GBM      |      7143.8      |     1.12      |     2691.53      |     0.89      |
-|         Post and Tullis (1999)          |    albite    |     BLG      |        55        |     0.66      |      433.4       |     1.52      |
+|           Reference            |    phase     |     DRX      | A*†,‡*  | p*†* | B*†,‡*  | m*†* |
+| :----------------------------: | :----------: | :----------: | :-----: | :--: | :-----: | :--: |
+|    Stipp and Tullis (2003)     |    quartz    | Regimes 2, 3 | 3630.8  | 1.26 |  669.0  | 0.79 |
+|    Stipp and Tullis (2003)     |    quartz    |   Regime 1   |   78    | 0.61 | 1264.1  | 1.64 |
+| Holyoke & Kronenberg (2010)*§* |    quartz    | Regimes 2, 3 |  2451   | 1.26 |  490.3  | 0.79 |
+| Holyoke & Kronenberg (2010)*§* |    quartz    |   Regime 1   |   39    | 0.54 |  883.9  | 1.85 |
+|         Shimizu (2008)         |    quartz    |  SGR + GBM   |  1525   | 1.25 |   352   | 0.8  |
+|      Cross et al. (2017)¶      |    quartz    | Regimes 2, 3 | 8128.3  | 1.41 |  593.0  | 0.71 |
+|      Cross et al. (2017)¶      |  quartz, hr  | Regimes 2, 3 | 16595.9 | 1.59 |  450.9  | 0.63 |
+|          Twiss (1977)          |    quartz    | Regimes 2, 3 |  12.3   | 1.47 |   5.5   | 0.68 |
+|     Jung and Karato (2001)     | olivine, wet |     BLG      |  25704  | 1.18 | 5461.03 | 0.85 |
+|   Van der Wal et al. (1993)    | olivine, wet |              | 0.0148  | 1.33 | 0.0425  | 0.75 |
+|         Rutter (1995)          |   calcite    |     SGR      | 2026.8  | 1.14 | 812.83  | 0.88 |
+|         Rutter (1995)          |   calcite    |     GBM      | 7143.8  | 1.12 | 2691.53 | 0.89 |
+|     Post and Tullis (1999)     |    albite    |     BLG      |   55    | 0.66 |  433.4  | 1.52 |
 
-*(a) ***B*** and ***m*** relate to ***A*** and ***p*** as follows: ***B = A<sup>1/p</sup>*** and ***m = 1/p****  
-*(b) ***A*** and ***B*** are in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) [m MPa<sup>p, m</sup>]*  
-*( c) Holyoke and Kronenberg (2010) is a linear recalibration of the Stipp and Tullis (2003) piezometer*  
-*(d) Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD data for reconstructing the grains. Specifically, they use grain maps with a 1 &mu;m and a 200 nm (hr - high resolution) step sizes . This is the preferred piezometer for quartz when grain size data comes from EBSD*
+*† **B** and **m** relate to **A** and **p** as follows: B = A<sup>1/p</sup> and m = 1/p*   
+*‡ **A** and **B** are in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
+*§ Holyoke and Kronenberg (2010) is a linear recalibration of the Stipp and Tullis (2003) piezometer*  
+*¶ Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD data for reconstructing the grains. Specifically, they use grain maps with a 1 &mu;m and a 200 nm (hr - high resolution) step sizes . This is the preferred piezometer for quartz when grain size data comes from EBSD*
 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
