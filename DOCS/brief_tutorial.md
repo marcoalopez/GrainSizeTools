@@ -273,20 +273,20 @@ It is key to note that different piezometers require entering **different types 
 
 **Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required to obtain meaningful differential stress estimates
 
-|             Piezometer             | Apparent grain size*†* | DRX mechanism  |    Phase     |           Reference           |
-| :--------------------------------: | :--------------------: | :------------: | :----------: | :---------------------------: |
-|        ```'Stipp_Tullis'```        |    Square root mean    |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
-|      ```'Stipp_Tullis_BLG'```      |    Square root mean    | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
-|          ```'Holyoke'```           |    Square root mean    |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
-|        ```'Holyoke_BLG'```         |    Square root mean    | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
-|         ```'Shimizu'```*‡*         |   Logarithmic median   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
-| ```'Cross'``` and ```'Cross_hr'``` |    Square root mean    |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
-|          ```'Twiss'```*§*          |    Logarithmic mean    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
-|     ```'calcite_Rutter_SGR'```     |    Square root mean    |      SGR       |   Calcite    |         Rutter (1995)         |
-|     ```'calcite_Rutter_GBM'```     |    Square root mean    |      GBM       |   Calcite    |         Rutter (1995)         |
-|    ```'albite_PostT_BLG'```*§*     | Median (linear scale)  |      BLG       |    Albite    |    Post and Tullis (1999)     |
-|      ```'VanderWal_wet'```*§*      |  Mean (linear scale)   |                | Olivine, wet |   Van der Wal et al. (1993)   |
-|       ```'Jung_Karato'```*§*       |  Mean (linear scale)   |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
+|             Piezometer             | Apparent grain size†  | DRX mechanism  |    Phase     |           Reference           |
+| :--------------------------------: | :-------------------: | :------------: | :----------: | :---------------------------: |
+|        ```'Stipp_Tullis'```        |   Square root mean    |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
+|      ```'Stipp_Tullis_BLG'```      |   Square root mean    | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
+|          ```'Holyoke'```           |   Square root mean    |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
+|        ```'Holyoke_BLG'```         |   Square root mean    | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
+|         ```'Shimizu'```*‡*         |  Logarithmic median   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
+| ```'Cross'``` and ```'Cross_hr'``` |   Square root mean    |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
+|          ```'Twiss'```*§*          |   Logarithmic mean    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
+|     ```'calcite_Rutter_SGR'```     |   Square root mean    |      SGR       |   Calcite    |         Rutter (1995)         |
+|     ```'calcite_Rutter_GBM'```     |   Square root mean    |      GBM       |   Calcite    |         Rutter (1995)         |
+|    ```'albite_PostT_BLG'```*§*     | Median (linear scale) |      BLG       |    Albite    |    Post and Tullis (1999)     |
+|      ```'VanderWal_wet'```*§*      |  Mean (linear scale)  |                | Olivine, wet |   Van der Wal et al. (1993)   |
+|       ```'Jung_Karato'```*§*       |  Mean (linear scale)  |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
 
 *† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
 *‡ Shimizu piezometer requires to provide the temperature during deformation in K*  
@@ -302,7 +302,7 @@ The constant values as put in the script are described in Table 2 below.
 
 **Table 2**. Parameters relating the apparent size of dynamically recrystallized grains and the differential stress using a relation in the form ***d = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bd<sup>-m</sup>***
 
-|           Reference            |    phase     |     DRX      | A*†,‡*  | p*†* | B*†,‡*  | m*†* |
+|           Reference            |    phase     |     DRX      |  A†,‡   |  p†  |  B†,‡   |  m†  |
 | :----------------------------: | :----------: | :----------: | :-----: | :--: | :-----: | :--: |
 |    Stipp and Tullis (2003)     |    quartz    | Regimes 2, 3 | 3630.8  | 1.26 |  669.0  | 0.79 |
 |    Stipp and Tullis (2003)     |    quartz    |   Regime 1   |   78    | 0.61 | 1264.1  | 1.64 |
