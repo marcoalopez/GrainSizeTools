@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.4.2                                                             #
+#    Version 1.4.3                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -44,7 +44,7 @@ from scipy.optimize import curve_fit
 # https://tonysyu.github.io/raw_content/matplotlib-style-gallery/gallery.html
 import matplotlib as mpl
 mpl.style.use('ggplot')
-# mpl.rcParams['font.family'] = 'Helvetica Neue'  # uncomment this line to change the default font in the plots
+mpl.rcParams['font.family'] = 'Helvetica Neue'  # define here the font you like in the plots
 mpl.rcParams['xtick.labelsize'] = 11.
 mpl.rcParams['ytick.labelsize'] = 11.
 
@@ -76,7 +76,8 @@ def extract_areas(file_path='auto', col_name='Area'):
             root.attributes("-topmost", True)
             file_path = filedialog.askopenfilename(initialdir=os.getcwd(),
                                                    title="Select file",
-                                                   filetypes=[('Text files', '*.txt'), ('Text files', '*.csv')])
+                                                   filetypes=[('Text files', '*.txt'),
+                                                              ('Text files', '*.csv')])
         except ImportError:  # code for Python 2.7.x versions
             import Tkinter as tk
             import tkFileDialog
@@ -85,7 +86,8 @@ def extract_areas(file_path='auto', col_name='Area'):
             root.attributes("-topmost", True)
             file_path = tkFileDialog.askopenfilename(initialdir=os.getcwd(),
                                                      title="Select file",
-                                                     filetypes=[('Text files', '*.txt'), ('Text files', '*.csv')])
+                                                     filetypes=[('Text files', '*.txt'),
+                                                                ('Text files', '*.csv')])
     if file_path.endswith('.txt'):
         data_frame = read_table(file_path)
         data_set = array(data_frame[col_name])
@@ -191,7 +193,7 @@ def find_grain_size(areas, diameters, plot='lin', binsize='auto'):
 
     # determine the grain size parameters using a number-weighted approach
     if plot == 'lin':
-        return calc_freq_grainsize(diameters, binsize)
+        return calc_freq_grainsize(diameters, binsize, plot='linear')
 
     elif plot == 'log':
         diameters = log(diameters)
@@ -242,7 +244,7 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
         the number of bins/classes of the histrogram. If not declared, is set
         to 10 by default
 
-    set_limit: integer or float (positive)
+    set_limit: integer, float (positive) or None
         if the user specifies a number, the function will return the volume
         occupied by the grain fraction up to that value.
 
@@ -321,6 +323,7 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
         # Save a text file with the midpoints, class frequencies, and cumulative volumes
         df = DataFrame({'mid_points': np.around(mid_points, 3), 'freqs': np.around(freq3D, 4), 'cum_vol': np.around(cdf_norm, 2)})
         print('A file named Saltykov_output.csv containing the midpoints, class frequencies, \nand cumulative volumes was generated')
+
         return df.to_csv('Saltykov_output.csv', sep='\t')
 
     # Fit a lognormal distribution with uncertainties to 3D data
@@ -444,38 +447,38 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
     if piezometer == 'Stipp_Tullis':
         B = 669.0
         m = 0.79
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Stipp_Tullis_BLG':
         B = 1264.1
         m = 1.64
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Holyoke':
         B = 490.3
         m = 0.79
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Holyoke_BLG':
         B = 883.9
         m = 1.85
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Cross':
         B = 593.0
         m = 0.71
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Cross_hr':
         B = 450.9
         m = 0.63
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'Shimizu':
         B = 352
         m = 0.8
         T = float(input("Shimizu's paleopiezometer requires setting the temperature [in K] during deformation: "))
-        print('Ensure that you have entered the apparent grain size as the log median!')
+        print('Ensure that you entered the apparent grain size as the log median!')
 
         diff_stress = 352 * grain_size**(-m) * exp(698 / T)
 
@@ -488,7 +491,7 @@ def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
         m = 0.68
         grain_size = grain_size / 1000  # convert from microns to mm
         grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
-        print('Ensure that you have entered the apparent grain size as the log mean!')
+        print('Ensure that you entered the apparent grain size as the log mean!')
 
     else:
         print(' ')
@@ -555,14 +558,14 @@ def olivine_piezometer(grain_size, piezometer='Jung_Karato'):
         B = 5461.03
         m = 0.85
         grain_size = (1.5 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
-        print('Ensure that you have entered the apparent grain size as the linear scale mean!')
+        print('Ensure that you entered the apparent grain size as the linear scale mean!')
 
     elif piezometer == 'VanderWal_wet':
         B = 0.0425  # this B value requires average grain size in m
         m = 0.75
         grain_size = grain_size / 1e6  # convert from microns to m
         grain_size = (1.2 / (np.sqrt(4 / np.pi))) * grain_size  # convert ECD to LI
-        print('Ensure that you have entered the apparent grain size as the linear scale mean!')
+        print('Ensure that you entered the apparent grain size as the linear scale mean!')
 
     else:
         print('Wrong name. Please choose between valid piezometers')
@@ -629,18 +632,18 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
     if piezometer == 'calcite_Rutter_SGR':
         B = 812.83
         m = 0.88
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'calcite_Rutter_GBM':
         B = 2691.53
         m = 0.89
-        print('Ensure that you have entered the apparent grain size as the square root mean!')
+        print('Ensure that you entered the apparent grain size as the square root mean!')
 
     elif piezometer == 'albite_PostT_BLG':
         B = 433.4
         m = 1.52
         grain_size = grain_size / np.sqrt(4 / np.pi)  # convert ECD to LI
-        print('Ensure that you have entered the apparent grain size as the linear scale median!')
+        print('Ensure that you entered the apparent grain size as the linear scale median!')
 
     else:
         print('Wrong name. Please choose between valid piezometers')
@@ -662,63 +665,59 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
 def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot='freq'):
     """ Generate a frequency vs grain size plot"""
 
-    plt.figure(tight_layout=True)
-    plt.hist(diameters,
-             bins=binList,
-             range=(0, diameters.max()),
-             normed=True,
-             color='#108ED2',
-             edgecolor='#E8F7FF')
-    plt.plot([mean_GS, mean_GS], [0.0001, y_max],
-             linestyle='-',
-             color='#1F1F1F',
-             label='mean',
-             linewidth=2)
-    plt.plot([median_GS, median_GS], [0.0001, y_max],
-             linestyle='--',
-             color='#1F1F1F',
-             label='median',
-             linewidth=2)
-    plt.plot(xgrid, y_values,
-             color='#1F1F1F',
-             linewidth=2)
-    plt.ylabel('frequency',
-               fontsize=13)
+    fig, ax = plt.subplots()
+
+    ax.hist(diameters,
+            bins=binList,
+            range=(0, diameters.max()),
+            density=True,
+            color='#108ed2',
+            edgecolor='#e7f6fd')
+    ax.plot([mean_GS, mean_GS], [0.0001, y_max],
+            linestyle='-',
+            color='#1F1F1F',
+            label='mean',
+            linewidth=2)
+    ax.plot([median_GS, median_GS], [0.0001, y_max],
+            linestyle='--',
+            color='#1F1F1F',
+            label='median',
+            linewidth=2)
+    ax.plot(xgrid, y_values,
+            color='#1F1F1F',
+            linewidth=2)
+
+    ax.set_ylabel('frequency',
+                  fontsize=13)
+
     if plot == 'freq':
-        plt.xlabel(r'apparent diameter ($\mu m$)',
-                   fontsize=13)
-        plt.title('Linear grain size distribution',
-                  color='#1F1F1F',
-                  fontsize=13.5,
-                  y=1.02)
+        ax.set_xlabel(r'apparent diameter ($\mu m$)',
+                      fontsize=13)
+
     elif plot == 'log':
-        plt.xlabel(r'apparent diameter ln ($\mu m$)',
-                   fontsize=13)
-        plt.title('Logarithmic (base e) grain size distribution',
-                  color='#1F1F1F',
-                  fontsize=13.5,
-                  y=1.02)
+        ax.set_xlabel(r'apparent diameter ln ($\mu m$)',
+                      fontsize=13)
+
     elif plot == 'sqrt':
-        plt.xlabel(r'apparent diameter sqrt ($\mu m$)',
-                   fontsize=13)
-        plt.title('Square root grain size distribution',
-                  color='#1F1F1F',
-                  fontsize=13.5,
-                  y=1.02)
-    plt.plot([x_peak], [y_max],
-             'o',
-             color='#1F1F1F',
-             label='freq. peak')
-    plt.vlines(x_peak, 0.0001, y_max,
-               linestyle=':',
-               color='#1F1F1F',
-               linewidth=2)
-    plt.annotate('Gaussian KDE peak',
-                 xy=(x_peak, y_max),
-                 xytext=(+10, +30),
-                 label='peak')
-    plt.legend(loc='upper right',
-               fontsize=11)
+        ax.set_xlabel(r'apparent diameter sqrt ($\mu m$)',
+                      fontsize=13)
+
+    ax.plot([x_peak], [y_max],
+            'o',
+            color='#1F1F1F',
+            label='freq. peak')
+    ax.vlines(x_peak, 0.0001, y_max,
+              linestyle=':',
+              color='#1F1F1F',
+              linewidth=2)
+    ax.annotate('Gaussian KDE peak',
+                xy=(x_peak, y_max),
+                xytext=(+10, +30),
+                label='peak')
+    ax.legend(loc='upper right',
+              fontsize=11)
+
+    fig.tight_layout()
 
     return plt.show()
 
@@ -726,33 +725,31 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
 def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
     """ Generate the area-weighted frequency vs grain size plot"""
 
-    plt.figure(tight_layout=True)
-
-    # normalize the y-axis values to percentage of the total area
+    # first normalize the y-axis values to percentage of the total area
     totalArea = sum(cumulativeAreas)
     cumulativeAreasNorm = [(x / float(totalArea)) * 100 for x in cumulativeAreas]
     maxValue = max(cumulativeAreasNorm)
 
+    fig, ax = plt.subplots()
+
     # figure aesthetics
-    plt.bar(intValues, cumulativeAreasNorm, width=h,
-            color='#108ED2',
-            edgecolor='#E8F7FF',
-            align='edge')
-    plt.plot([weightedMean, weightedMean], [0.0001, maxValue],
-             linestyle='-',
-             color='#1F1F1F',
-             label='area weighted mean',
-             linewidth=2)
-    plt.ylabel('% of area fraction',
-               fontsize=13)
-    plt.xlabel(r'apparent diameter ($\mu m$)',
-               fontsize=13)
-    plt.title('Area-weighted grain size distribution',
-              color='#1F1F1F',
-              fontsize=13.5,
-              y=1.02)
-    plt.legend(loc='upper right',
-               fontsize=11)
+    ax.bar(intValues, cumulativeAreasNorm, width=h,
+           color='#0faeb9',
+           edgecolor='#e7fcfd',
+           align='edge')
+    ax.plot([weightedMean, weightedMean], [0.0001, maxValue],
+            linestyle='--',
+            color='#1F1F1F',
+            label='area weighted mean',
+            linewidth=2)
+    ax.set_ylabel('% of area fraction',
+                  fontsize=13)
+    ax.set_xlabel(r'apparent diameter ($\mu m$)',
+                  fontsize=13)
+    ax.legend(loc='upper right',
+              fontsize=11)
+
+    fig.tight_layout()
 
     return plt.show()
 
@@ -760,41 +757,41 @@ def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
 def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     """ Generate two plots once the Saltykov method is applied:
 
-    i)  a frequency plot
-    ii) a volume-weighted cumulative frequency plot
+    i)  a frequency plot (ax1)
+    ii) a volume-weighted cumulative frequency plot (ax2)
     """
 
-    plt.figure(figsize=(13, 5), tight_layout=True)
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
 
-    plt.subplot(121)
-    plt.bar(left_edges, freq3D, width=binsize,
+    ax1.bar(left_edges, freq3D, width=binsize,
             color='#108ED2',
-            edgecolor='#E8F7FF',
+            edgecolor='#e7f6fd',
             align='edge')
-    plt.ylabel('frequency',
-               fontsize=13)
-    plt.xlabel(r'diameter ($\mu m$)',
-               fontsize=13)
-    plt.title('estimated 3D grain size distribution',
-              color='#1F1F1F',
-              fontsize=13.5,
-              y=1.02)
+    ax1.set_ylabel('frequency',
+                   fontsize=13)
+    ax1.set_xlabel(r'diameter ($\mu m$)',
+                   fontsize=13)
+    ax1.set_title('estimated 3D grain size distribution',
+                  color='#1F1F1F',
+                  fontsize=13.5,
+                  y=1.02)
 
-    plt.subplot(122)
-    plt.ylim([-2, 105])
-    plt.plot(mid_points, cdf_norm,
+    ax2.set_ylim([-2, 105])
+    ax2.plot(mid_points, cdf_norm,
              'o-',
              color='#ed4256',
              label='volume weighted CFD',
              linewidth=2)
-    plt.ylabel('cumulative volume (%)',
-               fontsize=13)
-    plt.xlabel(r'diameter ($\mu m$)',
-               fontsize=13)
-    plt.title('volume-weighted cumulative freq. distribution',
-              color='#1F1F1F',
-              fontsize=13.5,
-              y=1.02)
+    ax2.set_ylabel('cumulative volume (%)',
+                   fontsize=13)
+    ax2.set_xlabel(r'diameter ($\mu m$)',
+                   fontsize=13)
+    ax2.set_title('volume-weighted cumulative freq. distribution',
+                  color='#1F1F1F',
+                  fontsize=13.5,
+                  y=1.02)
+
+    fig.tight_layout()
 
     return plt.show()
 
@@ -802,38 +799,43 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 def twostep_plot(left_edges, freq3D, binsize, mid_points_corrected, freq3D_corrected, xgrid, best_fit, fit_error):
     """ Generate a plot with the best fitting lognormal distribution (two-step method)"""
 
-    plt.figure(tight_layout=True)
+    fig, ax = plt.subplots()
 
     # bar plot from Saltykov method
-    plt.bar(left_edges, freq3D,
-            width=binsize,
-            color='#108ED2',
-            label='Saltykov method',
-            edgecolor='#E8F7FF',
-            align='edge',
-            alpha=0.65)
+    ax.bar(left_edges, freq3D,
+           width=binsize,
+           edgecolor='#1F1F1F',
+           hatch='//',
+           color='#fff2ae',
+           fill=False,
+           linewidth=1,
+           label='Saltykov method',
+           align='edge',
+           alpha=0.65)
 
     # plot log-normal distribution
-    plt.plot(xgrid, best_fit,
-             color='#1F1F1F',
-             label='best fit',
-             linewidth=2)
-    plt.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
-                     color='#525252',
-                     label='trust region',
-                     alpha=0.5)
-    plt.plot(mid_points_corrected, freq3D_corrected,  # datapoints used for the fitting procedure
-             'o',
-             color='#d53e4f',
-             label='Datapoints',
-             linewidth=1.5)
+    ax.plot(xgrid, best_fit,
+            color='#1F1F1F',
+            label='best fit',
+            linewidth=2)
+    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
+                    color='#525252',
+                    label='trust region',
+                    alpha=0.5)
+    ax.plot(mid_points_corrected, freq3D_corrected,  # datapoints used for the fitting procedure
+            'o',
+            color='#d53e4f',
+            label='datapoints',
+            linewidth=1.5)
 
-    plt.ylabel('freq. (per unit vol.)',
-               fontsize=13)
-    plt.legend(loc='upper right',
-               fontsize=11)
-    plt.xlabel(r'diameter ($\mu m$)',
-               fontsize=13)
+    ax.set_ylabel('freq. (per unit vol.)',
+                  fontsize=13)
+    ax.legend(loc='upper right',
+              fontsize=11)
+    ax.set_xlabel(r'diameter ($\mu m$)',
+                  fontsize=13)
+
+    fig.tight_layout()
 
     return plt.show()
 
@@ -844,10 +846,10 @@ def twostep_plot(left_edges, freq3D, binsize, mid_points_corrected, freq3D_corre
 # names of the functions are self-explanatory.                                   #
 # ============================================================================== #
 
-def calc_freq_grainsize(diameters, binsize, plot='freq'):
-    """ Calculate the distribution of grain sizes using the histogram and the
-    Gaussian kernel density estimator. It returns the modal interval, middle value
-    of modal interval, and Gaussian kernel density estimation peak and call the
+def calc_freq_grainsize(diameters, binsize, plot):
+    """ Calculate the distribution of grain sizes using the histogram and Gaussian
+    kernel density estimator (KDE). It returns the modal interval, the middle value
+    of modal interval, and the frequency peak based on the KDE, and call the
     function responsible for generating the corresponding plot.
 
     Parameters
@@ -859,10 +861,19 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
         the bin size
 
     plot: string
-        the type of plot and grain size, either 'freq', 'log' or 'sqrt'.
+        the type of plot and grain size, either 'linear', 'log' or 'sqrt'.
+
+    Call function
+    -------------
+    - freq_plot
     """
 
+    if len(diameters) < 433:
+        print(' ')
+        print('Caution! You should use more than 433 grain measurements for reliable results')
+
     mean_GS = mean(diameters)
+    std_GS = std(diameters)
     median_GS = median(diameters)
     iqr_GS = iqr(diameters)
 
@@ -891,68 +902,26 @@ def calc_freq_grainsize(diameters, binsize, plot='freq'):
     y_max, index = np.max(y_values), np.argmax(y_values)  # get maximum value and the index
     x_peak = xgrid[index]  # get the diameter (x-value) where y-value is maximum
 
-    if plot == 'freq':
-        print(' ')
-        print('NUMBER WEIGHTED APPROACH (linear apparent grain size):')
-        print(' ')
-        print('Mean grain size =', round(mean_GS, 2), 'microns')
-        print('Median grain size =', round(median_GS, 2), 'microns')
-        print('Interquartile range (IQR) =', round(iqr_GS, 2))
-        print(' ')
-        print('HISTOGRAM FEATURES')
-        print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
-        print('The number of classes are', len(histogram))
-        if type(binsize) is str:
-            print('The bin size is', round(h, 2), 'according to the', binsize, 'rule')
-        print(' ')
-        print('GAUSSIAN KERNEL DENSITY ESTIMATOR FEATURES')
-        print('KDE peak (peak grain size) = ', round(x_peak, 2), 'microns')
-        print('Bandwidth =', round(kde.covariance_factor() * diameters.std(ddof=1), 2), '(Silverman rule)')
-        print(' ')
+    print(' ')
+    print('NUMBER WEIGHTED APPROACH with', plot, 'apparent grain size:')
+    print(' ')
+    print('Mean grain size =', round(mean_GS, 2), 'microns')
+    print('Standard deviation =', round(std_GS, 2), '(1-sigma)')
+    print('Median grain size =', round(median_GS, 2), 'microns')
+    print('Interquartile range (IQR) =', round(iqr_GS, 2))
+    print(' ')
+    print('HISTOGRAM FEATURES')
+    print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
+    print('The number of classes are', len(histogram))
+    if type(binsize) is str:
+        print('The bin size is', round(h, 2), 'according to the', binsize, 'rule')
+    print(' ')
+    print('GAUSSIAN KERNEL DENSITY ESTIMATOR FEATURES')
+    print('KDE peak (peak grain size) = ', round(x_peak, 2), 'microns')
+    print('Bandwidth =', round(kde.covariance_factor() * diameters.std(ddof=1), 2), '(Silverman rule)')
+    print(' ')
 
-        return freq_plot(diameters, bin_edges, xgrid, y_values, y_max, x_peak, mean_GS, median_GS)
-
-    elif plot == 'log':
-        print(' ')
-        print('NUMBER WEIGHTED APPROACH (log apparent grain size):')
-        print(' ')
-        print('Mean (log) grain size =', round(mean_GS, 2), 'microns')
-        print('Median (log) grain size =', round(median_GS, 2), 'microns')
-        print('Interquartile range (IQR) =', round(iqr_GS, 2))
-        print(' ')
-        print('HISTOGRAM FEATURES')
-        print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
-        print('The number of classes are', len(histogram))
-        if type(binsize) is str:
-            print('The bin size is', round(h, 2), 'according to the', binsize, 'rule')
-        print(' ')
-        print('GAUSSIAN KERNEL DENSITY ESTIMATOR FEATURES')
-        print('KDE peak (peak grain size) = ', round(x_peak, 2), 'microns')
-        print('Bandwidth =', round(kde.covariance_factor() * diameters.std(ddof=1), 2), '(Silverman rule)')
-        print(' ')
-
-        return freq_plot(diameters, bin_edges, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot='log')
-
-    elif plot == 'sqrt':
-        print(' ')
-        print('NUMBER WEIGHTED APPROACH (square root apparent grain size):')
-        print(' ')
-        print('Mean (sqrt) grain size =', round(mean_GS, 2), 'microns')
-        print('Median (sqrt) grain size =', round(median_GS, 2), 'microns')
-        print('Interquartile range (IQR) =', round(iqr_GS, 2))
-        print(' ')
-        print('HISTOGRAM FEATURES')
-        print('The modal interval is', round(modInt_leftEdge, 2), '-', round(modInt_rightEdge, 2))
-        print('The number of classes are', len(histogram))
-        if type(binsize) is str:
-            print('The bin size is', round(h, 2), 'according to the', binsize, 'rule')
-        print(' ')
-        print('GAUSSIAN KERNEL DENSITY ESTIMATOR FEATURES')
-        print('KDE peak (peak grain size) = ', round(x_peak, 2), 'microns')
-        print('Bandwidth =', round(kde.covariance_factor() * diameters.std(ddof=1), 2), '(Silverman rule)')
-        print(' ')
-
-        return freq_plot(diameters, bin_edges, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot='sqrt')
+    return freq_plot(diameters, bin_edges, xgrid, y_values, y_max, x_peak, mean_GS, median_GS)
 
 
 def gen_xgrid(pop, start, stop):
@@ -1200,9 +1169,8 @@ def fit_function(x, shape, scale):
 
 texto = """
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.2
+Welcome to GrainSizeTools script v1.4.3
 ======================================================================================
-
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential
 stresses via paleopizometers.
@@ -1215,9 +1183,9 @@ extract_areas       Extract the areas of the grains from a text file (txt, csv o
 calc_diameters      Calculate the diameter via the equivalent circular diameter
 find_grain_size     Estimate the apparent grain size and visualize their distribution
 derive3D            Estimate the actual grain size distribution via steorology methods
-quartz_piezometer   Estimate diff. stress from grain size in quartz using piezometers
-olivine_piezometer  Estimate diff. stress from grain size in olivine using piezometers
-other_pizometers    Estimate diff. stress from grain size in other phases
+quartz_piezometer   Estimate diff. stress from grain size using quartz piezometers
+olivine_piezometer  Estimate diff. stress from grain size using olivine piezometers
+other_pizometers    Estimate diff. stress from grain size using other piezometers
 ==================  ==================================================================
 
 You can get information on the different methods by:
