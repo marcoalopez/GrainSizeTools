@@ -52,14 +52,14 @@ You can also download a manual in pdf format [here](http://figshare.com/articles
 ## Screenshots
 
 
-###### Estimation of different apparent grain size measures, in this example using a linear (number- and area-weighted), square root, and logarithmic scales.
+###### Estimate of different apparent grain size measures in the same population, in this example using a linear (number- and area-weighted), square root, and logarithmic scales.
 
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/apparent_GS.png)  
 
  
 
 
-###### Estimation of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method  
+###### Estimate of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method  
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/figure_2.png?raw=true)  
 
