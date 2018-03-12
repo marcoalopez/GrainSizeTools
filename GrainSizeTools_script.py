@@ -662,7 +662,7 @@ def other_piezometers(grain_size, piezometer='calcite_Rutter_SGR'):
 # ============================================================================ #
 
 
-def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot='freq'):
+def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot):
     """ Generate a frequency vs grain size plot"""
 
     fig, ax = plt.subplots()
@@ -921,7 +921,7 @@ def calc_freq_grainsize(diameters, binsize, plot):
     print('Bandwidth =', round(kde.covariance_factor() * diameters.std(ddof=1), 2), '(Silverman rule)')
     print(' ')
 
-    return freq_plot(diameters, bin_edges, xgrid, y_values, y_max, x_peak, mean_GS, median_GS)
+    return freq_plot(diameters, bin_edges, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot)
 
 
 def gen_xgrid(pop, start, stop):

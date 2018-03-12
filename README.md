@@ -1,11 +1,11 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/03/01*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/03/12*  
 
-[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python](https://www.python.org/) that provides several tools to visualize and characterize the grain size in polycrystalline materials from thin sections. The script is suitable to use for paleopiezometry (paleowattmetry) studies and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script **does not require a previous experience with Python programming language** (see below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using functions facilitating to modify, reuse or extend the code if needed.
+[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free open-source cross-platform script written in [Python](https://www.python.org/) that provides several tools to visualize and characterize the grain size in polycrystalline materials from thin sections. The script is suitable to **estimate differential stress via paleopiezometry** (with multiple piezometric relations for comparison!), and to derive the actual 3D grain size distribution using the Saltykov and the two-step methods. The script **does not require a previous experience with Python programming language** (see below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using functions facilitating to modify, reuse or extend the code if needed.
 
-**Last release 2017/12/22, v1.4.2**   
-**versions 1.4.x include the ability to estimate differential stress via piezometers** (with multiple piezometric relations for comparison!)
+**Last release 2018/03/12, v1.4.3**   
+
 
 ## Features at a glance
 
@@ -52,24 +52,21 @@ You can also download a manual in pdf format [here](http://figshare.com/articles
 ## Screenshots
 
 
-###### Estimation of different apparent grain size measures, in this example using a linear scale
+###### Estimation of different apparent grain size measures, in this example using a linear (number- and area-weighted), square root, and logarithmic scales.
 
-![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme01.png)  
+![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/apparent_GS.png)  
 
-
-###### Plots showing the area-weighted, square-root, and logarithmic apparent grain size distributions using the same data set  
-
-![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme02.png)  
+ 
 
 
 ###### Estimation of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method  
 
-![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme03.png)  
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/figure_2.png?raw=true)  
 
 
 ###### Estimate of the shape of the grain size distribution using the two-step method
 
-![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme04.png)  
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/2step.png?raw=true)  
 
 
 ###### Boxplots comparing different unimodal grain size distributions
@@ -100,7 +97,7 @@ GrainSizeTools script is licensed under the [Apache License, Version 2.0 (the "L
 The documentation of GrainSizeTools script is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/).  
 
 # 
-*Copyright © 2017 Marco A. Lopez-Sanchez*  
+*Copyright © 2018 Marco A. Lopez-Sanchez*  
 
 *Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.*  
 
