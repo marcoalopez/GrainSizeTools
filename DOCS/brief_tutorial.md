@@ -2,7 +2,7 @@ Getting Started: A step-by-step tutorial
 -------------
 
 > **Important note:**
-> Please, **update as soon as possible to version 1.4.2**. It is also advisable to **update the plotting library matplotlib to version 2.x** since the plots are optimized for such version.
+> Please, **update to version 1.4.3**. It is also advisable to **update the plotting library matplotlib to version 2.x** since all the plots are optimized for such version.
 
 ### *Open and running the script*
 
@@ -210,6 +210,7 @@ First note that contrary to what was shown so far, the function is called direct
 NUMBER WEIGHTED APPROACH (linear apparent grain size):
 
 Mean grain size = 35.79 microns
+Standard deviation = xx (1-sigma)
 Median grain size = 32.53 microns
 Interquartile range (IQR) = 23.98
 
@@ -230,7 +231,7 @@ Although we promote the use of frequency *vs* apparent grain size linear plot (F
 ```python
 >>> find_grain_size(areas, diameters, plot='area')
 ```
-in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different type of plot also implies to obtain different grain size estimations.
+in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different scales also implies to obtain different grain size estimations. Last, it is very important to note that **the mean of the square root or logarithmic grain sizes is not the same as the square root or the logarithm of the mean**!
 
 The function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have a lognormal- or a normal-like distributions, respectively. To specify the method we write in the shell:
 
@@ -246,8 +247,8 @@ note that you have to define first the type of plot you want and that the type o
 
 The user-defined bin size can be any number of type integer or float (*i.e.* an irrational number).
 
-![Figure 6. apparent grain size vs frequency plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_1.png)  
-*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number- (linear) and area-weighted plots (upper part) and the logarithmic and square root apparent grain sizes (lower part)*
+![Figure 6. apparent grain size vs frequency plots](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/apparent_GS.png?raw=true)  
+*Figure 6. Different apparent grain size vs frequency plots of the same population returned by the find_grain_size function. These include the number-weighted grain size distribution using linear (upper left), square root (upper right), or logarithmic (lower left) scales, and area-weighted distributions (lower right)*
 
 #### *Estimating differential stress using piezometric relations (paleopiezometry)*
 
@@ -321,7 +322,7 @@ The constant values as put in the script are described in Table 2 below.
 *† **B** and **m** relate to **A** and **p** as follows: B = A<sup>1/p</sup> and m = 1/p*   
 *‡ **A** and **B** are in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
 *§ Holyoke and Kronenberg (2010) is a linear recalibration of the Stipp and Tullis (2003) piezometer*  
-*¶ Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD data for reconstructing the grains. Specifically, they use grain maps with a 1 &mu;m and a 200 nm (hr - high resolution) step sizes . This is the preferred piezometer for quartz when grain size data comes from EBSD*
+*¶ Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD data for reconstructing the grains. Specifically, they use grain maps with a 1 &mu;m and a 200 nm (hr - high resolution) step sizes . This is the preferred piezometer for quartz when grain size data comes from EBSD maps*
 
 
 #### *Derive the actual 3D distribution of grain sizes from thin sections*
@@ -416,16 +417,19 @@ Then we create the plot (Fig. 10):
 To create a more convenience plot (Fig. 10) we propose using the following **optional** parameters:
 
 ```python
-# First make a list specifying the labels of the samples (this is optional)
+# First make a list specifying the labels of the samples (this is optional). Ensure that the number of items in the brackets coincide with the number of datasets to plot.
 >>> label_list = ['SampleA', 'SampleB', 'SampleC', 'SampleD']
 # Then make the plot ading the following instructions
 >>> plt.boxplot(all_data, vert=False, meanline=True, showmeans=True, labels=label_list)
-# vert -> if False makes the boxes horizontal instead of vertical
-# meanline and showmeans -> if True will show the location of the mean within the plots
-# labels -> add labels to the different datasets. Ensure that the number of items in the brackets coincide with the number of datasets to plot.
 >>> plt.xlabel('apparent diameter ($\mu m$)') # add the x-axis label
 >>> plt.show() # write this and click return if the plot did not appear automatically
 ```
+
+The parameters defined in the boxplot are:
+
+- ```vert```: if False makes the boxes horizontal instead of vertical (it is True by default).
+- ```meanline``` and ```showmeans```: if True will show the location of the mean within the plots.
+- ```labels```: add labels to the different datasets.
 
 ![figure 10. Examples of box plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Boxplot_02.png)
 *Figure 10. Box plot comparing four unimodal datasets obtained from the same sample but located in different places along the thin section. At left, a box plot with the default appearance. At right, the same box plot with the optional parameters showing above. Dashed lines are the mean. Note that the all the datasets show similar median, means, IQRs, and whisker locations. In contrast, the fliers (points) approximately above 100 microns vary greatly.*
