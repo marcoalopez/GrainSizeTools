@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.4.3                                                             #
+#    Version 1.4.4                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -37,7 +37,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from numpy import mean, std, median, pi, sqrt, exp, log, array, tan, arctan, delete
 from pandas import read_table, read_csv, read_excel, DataFrame
-from scipy.stats import gaussian_kde, iqr
+from scipy.stats import gaussian_kde, iqr, sem, t
 from scipy.optimize import curve_fit
 
 # Set the plot style. To see the different styles available in Matplotlib see:
@@ -382,6 +382,44 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
         return None
 
 
+def confidence_interval(data, confidence=0.95):
+    """Estimate the confidence interval using the t distribution with n-1
+    degrees of freedom t(n-1). This is useful when sample size is small
+    and the standard deviation cannot be estimated accurately. For large
+    datasets, the t distribution approaches the normal distribution.
+
+    Parameters
+    ----------
+    data: array-like
+        the dataset
+
+    confidence: float between 0 and 1
+        the confidence interval
+
+    Assumptions
+    -----------
+    the data follows a normal distrubution (when sample size is large)
+
+    Returns
+    -------
+    None
+    """
+
+    n = len(data)
+    degrees_freedom = n - 1
+    sample_mean = np.mean(data)
+    sd_err = sem(data)  # Standard error of the mean SD / sqrt(n)
+    low, high = t.interval(confidence, degrees_freedom, sample_mean, sd_err)
+    err = high - sample_mean
+    
+    print(' ')
+    print('Mean =', round(sample_mean, 2), '±', round(err, 2))
+    print('Max / min =', round(high, 2), '/', round(low, 2))
+    print('Coefficient of variation =', round(100 * err / sample_mean, 1), '(%)')
+
+    return None
+
+
 def quartz_piezometer(grain_size, piezometer='Stipp_Tullis'):
     """ Apply different quartz piezometric relations to estimate the differential
     stress from 1D apparent grain sizes. The piezometric relations has the
@@ -691,15 +729,15 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
                   fontsize=13)
 
     if plot == 'freq':
-        ax.set_xlabel(r'apparent diameter ($\mu m$)',
+        ax.set_xlabel(r'linear apparent diameter ($\mu m$)',
                       fontsize=13)
 
     elif plot == 'log':
-        ax.set_xlabel(r'apparent diameter ln ($\mu m$)',
+        ax.set_xlabel(r'apparent diameter $\log_e{(\mu m)}$',
                       fontsize=13)
 
     elif plot == 'sqrt':
-        ax.set_xlabel(r'apparent diameter sqrt ($\mu m$)',
+        ax.set_xlabel(r'Square root apparent diameter ($\sqrt{\mu m}$)',
                       fontsize=13)
 
     ax.plot([x_peak], [y_max],
@@ -744,7 +782,7 @@ def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
             linewidth=2)
     ax.set_ylabel('% of area fraction',
                   fontsize=13)
-    ax.set_xlabel(r'apparent diameter ($\mu m$)',
+    ax.set_xlabel(r'linear apparent diameter ($\mu m$)',
                   fontsize=13)
     ax.legend(loc='upper right',
               fontsize=11)
@@ -1169,7 +1207,7 @@ def fit_function(x, shape, scale):
 
 texto = """
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.3
+Welcome to GrainSizeTools script v1.4.4
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential
@@ -1186,6 +1224,7 @@ derive3D            Estimate the actual grain size distribution via steorology m
 quartz_piezometer   Estimate diff. stress from grain size using quartz piezometers
 olivine_piezometer  Estimate diff. stress from grain size using olivine piezometers
 other_pizometers    Estimate diff. stress from grain size using other piezometers
+confidence_interval Estimate the confidence interval using the t distribution
 ==================  ==================================================================
 
 You can get information on the different methods by:
@@ -1211,6 +1250,9 @@ Estimate differential stress using piezometric relations
 Estimate the actual 3D grain size distribution from thin sections
 >>> derive3D(diameters, numbins=15, set_limit=40)
 >>> derive3D(diameters, numbins=15, set_limit=None, fit=True)
+
+Estimate confidence interval
+>>> confidence_interval(data)
 """
 print(texto)
 
