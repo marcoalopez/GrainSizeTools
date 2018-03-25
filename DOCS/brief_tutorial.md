@@ -1,8 +1,10 @@
+*last update 2018/03/25* 
+
 Getting Started: A step-by-step tutorial
 -------------
 
 > **Important note:**
-> Please, **update to version 1.4.3**. It is also advisable to **update the plotting library matplotlib to version 2.x** since all the plots are optimized for such version.
+> Please, **update to version 1.4.4**. It is also advisable to **update the plotting library matplotlib to version 2.x** since all the plots are optimized for such version.
 
 ### *Open and running the script*
 
@@ -19,7 +21,7 @@ To use the script it is necessary to run it. To do this, just click on the green
 The following text will appear in the shell/console (Fig. 1):
 ```
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.2
+Welcome to GrainSizeTools script v1.4.4
 ======================================================================================
 
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
@@ -27,9 +29,8 @@ the grain size in polycrystalline materials from thin sections and estimate diff
 stresses via paleopizometers.
 
 METHODS AVAILABLE
------------------
 ==================  ==================================================================
-Function            Description
+Functions           Description
 ==================  ==================================================================
 extract_areas       Extract the areas of the grains from a text file (txt, csv or xlsx)
 calc_diameters      Calculate the diameter via the equivalent circular diameter
@@ -38,11 +39,12 @@ derive3D            Estimate the actual grain size distribution via steorology m
 quartz_piezometer   Estimate diff. stress from grain size in quartz using piezometers
 olivine_piezometer  Estimate diff. stress from grain size in olivine using piezometers
 other_pizometers    Estimate diff. stress from grain size in other phases
+confidence_interval Estimate the confidence interval using the t distribution
 ==================  ==================================================================
 
 You can get information on the different methods by:
-    (1) Typing help(name of the method) in the console. e.g. >>> help(derive3D)
-    (2) In the Spyder IDE by writing the name of the method and clicking Ctrl + I
+    (1) Typing help(function name) in the console. e.g. help(conf_interval)
+    (2) In the Spyder IDE by writing the name of the function and clicking Ctrl + I
     (3) Visit script documentation at https://marcoalopez.github.io/GrainSizeTools/
 
 
@@ -103,7 +105,7 @@ To sum up, the name following the Python keyword ```def```, in this example ```c
 
 The names of the Python functions in the script are self-explanatory and each one has been implemented to perform a single task. Although there are a lot of functions within the script, we will only need to call less than four functions to obtain the results.
 
-### *Using the script to visualize and estimate the grain size features*
+### *Using the script to visualize and estimate the grain size*
 
 #### Loading the data and extracting the areas of the grain profiles
 
@@ -231,7 +233,7 @@ Although we promote the use of frequency *vs* apparent grain size linear plot (F
 ```python
 >>> find_grain_size(areas, diameters, plot='area')
 ```
-in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different scales also implies to obtain different grain size estimations. Last, it is very important to note that **the mean of the square root or logarithmic grain sizes is not the same as the square root or the logarithm of the mean**!
+in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different scales also implies to obtain different grain size estimations. Last, it is very important to note that **the mean of the square root or logarithmic grain sizes is not the same as the square root or the logarithm of the grain size mean**!
 
 The function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have a lognormal- or a normal-like distributions, respectively. To specify the method we write in the shell:
 
@@ -324,8 +326,27 @@ The constant values as put in the script are described in Table 2 below.
 *§ Holyoke and Kronenberg (2010) is a linear recalibration of the Stipp and Tullis (2003) piezometer*  
 *¶ Cross et al. (2017) reanalysed the samples of Stipp and Tullis (2003) using EBSD data for reconstructing the grains. Specifically, they use grain maps with a 1 &mu;m and a 200 nm (hr - high resolution) step sizes . This is the preferred piezometer for quartz when grain size data comes from EBSD maps*
 
+#### Estimating a robust confidence interval
 
-#### *Derive the actual 3D distribution of grain sizes from thin sections*
+As pointed out in the scope section, the optimal approach is to obtain several measures of stress or grain sizes and then estimate a confidence interval. Since v1.4.4+, the script implements a function called ```confidende_interval```for this. The script assume that the sample size is small (< 10) and hence it uses the student's t-distribution with n-1 degrees of freedom to estimate a robust confidence interval.  For large datasets the t-distribution approaches the normal distribution so you can also use this method for large datasets. The function has two inputs, the dataset, required, and the confidence interval, optional and set at 0.95 by default. For example:
+
+```python
+>>> my_results = [165.3, 174.2, 180.1]
+>>> confidence_interval(data=my_results, confidence=0.95)
+```
+
+The function will return the following information in the console:
+
+```
+Confidence set at 95.0 %
+Mean = 173.2 ± 18.51
+Max / min = 191.71 / 154.69
+Coefficient of variation = 10.7 %
+```
+
+The coefficient of variation express the confidence interval in percentage respect to the mean and thus it can be used to compare confidence intervals between samples with different mean values.
+
+#### Derive the actual 3D distribution of grain sizes from thin sections
 
 The function responsible to unfold the distribution of apparent grain sizes into the actual 3D grain size distribution is named ```derive3D```. The script implements two methods to do this, the Saltykov and the two-step methods. The Saltykov method is the best option for exploring the dataset and for estimating the volume of a particular grain size fraction. The two-step method is suitable to describe quantitatively the shape of the grain size distribution assuming that they follow a lognormal distribution. This means that the two-step method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded using shape descriptors or any other relevant paramater such as the density of dislocations. It is therefore necessary to check first whether the linear distribution of grain sizes is unimodal and lognormal-like (i.e. skewed to the right as in the example shown in figure 7). For more details see [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778).
 

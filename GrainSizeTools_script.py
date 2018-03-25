@@ -383,10 +383,10 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
 
 
 def confidence_interval(data, confidence=0.95):
-    """Estimate the confidence interval using the t distribution with n-1
+    """Estimate the confidence interval using the t-distribution with n-1
     degrees of freedom t(n-1). This is useful when sample size is small
     and the standard deviation cannot be estimated accurately. For large
-    datasets, the t distribution approaches the normal distribution.
+    datasets, the t-distribution approaches the normal distribution.
 
     Parameters
     ----------
@@ -394,7 +394,7 @@ def confidence_interval(data, confidence=0.95):
         the dataset
 
     confidence: float between 0 and 1
-        the confidence interval
+        the confidence interval, default = 0.95
 
     Assumptions
     -----------
@@ -405,17 +405,17 @@ def confidence_interval(data, confidence=0.95):
     None
     """
 
-    n = len(data)
-    degrees_freedom = n - 1
+    degrees_freedom = len(data) - 1
     sample_mean = np.mean(data)
     sd_err = sem(data)  # Standard error of the mean SD / sqrt(n)
     low, high = t.interval(confidence, degrees_freedom, sample_mean, sd_err)
     err = high - sample_mean
-    
+
     print(' ')
+    print('Confidence set at', confidence*100, '%')
     print('Mean =', round(sample_mean, 2), '±', round(err, 2))
     print('Max / min =', round(high, 2), '/', round(low, 2))
-    print('Coefficient of variation =', round(100 * err / sample_mean, 1), '(%)')
+    print('Coefficient of variation =', round(100 * err / sample_mean, 1), '%')
 
     return None
 
