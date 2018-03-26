@@ -56,8 +56,6 @@ https://sourceforge.net/projects/grainsizetools/
 
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/apparent_GS.png)  
 
- 
-
 
 ###### Estimate of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method  
 
@@ -72,6 +70,7 @@ https://sourceforge.net/projects/grainsizetools/
 ###### Boxplots comparing different unimodal grain size distributions
 
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme05.png)  
+
 
 ## Citation guidelines
 
