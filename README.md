@@ -1,10 +1,10 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/03/24*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/03/26*  
 
-[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for visualizing and estimating grain size in polycrystalline materials. The script is able to **estimate differential stress through paleopiezometers**, implementing multiple paleopiezometers for comparison, and to derive the actual (3D) grain size distribution from thin sections using the Saltykov and the two-step methods. The script **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using functions that facilitate the reuse or extend the code.
+[GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for visualizing and estimating grain size in polycrystalline materials. The script is able to **estimate differential stress through paleopiezometers**, implementing multiple piezometric relations for comparison, and to derive the actual (3D) grain size distribution from thin sections using the Saltykov and the two-step methods. The script only requires as input the areas of the grain profiles measured grain-by-grain in a thin section and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way using functions that facilitate the reuse or extend the code.
 
-**Last release 2018/03/12, v1.4.3**   
+**Last release 2018/03/26, v1.4.4**   
 
 
 ## Features at a glance
@@ -17,7 +17,7 @@
 - Approximate the shape of the 3D grain size distribution using a single parameter (the MSD - *Multiplicative Standard Deviation*) via the two-step method.
 - Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and albite. Other phases available soon!
 - Ready-to-publish plots in bitmap or vector format (see screenshots below for examples).
-- ...and some others.
+- **New in v1.4.4:** Estimate robust confidence intervals using the student's t-distribution
 
 ## Download
 
@@ -40,6 +40,7 @@ https://sourceforge.net/projects/grainsizetools/
       * [Estimating the apparent diameters from the areas of the grain profiles](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-the-apparent-diameters-from-the-areas-of-the-grain-profiles)
       * [Obtaining apparent grain size measures](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-apparent-grain-size-measures)
       * [Estimating differential stress using piezometric relations (paleopiezometry)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-differential-stress-using-piezometric-relations-paleopiezometry)
+      * [Estimating a robust confidence interval](ttps://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-a-robust-confidence-interval)
       * [Derive the actual 3D distribution of grain sizes from thin sections](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-distribution-of-grain-sizes-from-thin-sections)
       * [Comparing different grain size populations using box plots](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#comparing-different-grain-size-populations-using-box-plots)
       * [Other methods of interest](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#general-methods-of-interest)
@@ -47,8 +48,6 @@ https://sourceforge.net/projects/grainsizetools/
 * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
 * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
-
-You can also download a manual in pdf format [here](http://figshare.com/articles/GrainSizeTools_script_manual/1371025) 
 
 ## Screenshots
 
