@@ -743,7 +743,7 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
 
     ax.plot([x_peak], [y_max],
             'o',
-            color='#1F1F1F',
+            color='#2E5A95',
             label='freq. peak')
     ax.vlines(x_peak, 0.0001, y_max,
               linestyle=':',
@@ -1208,7 +1208,7 @@ def fit_function(x, shape, scale):
 
 texto = """
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.4
+Welcome to GrainSizeTools script v1.4.5
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential

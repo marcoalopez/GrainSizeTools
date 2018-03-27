@@ -1,10 +1,10 @@
-*last update 2018/03/25* 
+*last update 2018/03/27* 
 
 Getting Started: A step-by-step tutorial
 -------------
 
 > **Important note:**
-> Please, **update to version 1.4.4**. It is also advisable to **update the plotting library matplotlib to version 2.x** since all the plots are optimized for such version.
+> Please, **update to version 1.4.5**. It is also advisable to **update the plotting library matplotlib to version 2.x** since all the plots are optimized for such version.
 
 ### *Open and running the script*
 
