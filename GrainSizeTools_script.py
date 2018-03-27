@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.4.4                                                             #
+#    Version 1.4.5                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -412,7 +412,7 @@ def confidence_interval(data, confidence=0.95):
     err = high - sample_mean
 
     print(' ')
-    print('Confidence set at', confidence*100, '%')
+    print('Confidence set at', confidence * 100, '%')
     print('Mean =', round(sample_mean, 2), '±', round(err, 2))
     print('Max / min =', round(high, 2), '/', round(low, 2))
     print('Coefficient of variation =', round(100 * err / sample_mean, 1), '%')
@@ -709,8 +709,9 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
             bins=binList,
             range=(0, diameters.max()),
             density=True,
-            color='#108ed2',
-            edgecolor='#e7f6fd')
+            color='#4C72B0',
+            edgecolor='#F7FFFF',
+            alpha=0.6)
     ax.plot([mean_GS, mean_GS], [0.0001, y_max],
             linestyle='-',
             color='#1F1F1F',
@@ -722,14 +723,14 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
             label='median',
             linewidth=2)
     ax.plot(xgrid, y_values,
-            color='#1F1F1F',
+            color='#2E5A95',
             linewidth=2)
 
     ax.set_ylabel('frequency',
                   fontsize=13)
 
-    if plot == 'freq':
-        ax.set_xlabel(r'linear apparent diameter ($\mu m$)',
+    if plot == 'linear':
+        ax.set_xlabel(r'apparent diameter ($\mu m$)',
                       fontsize=13)
 
     elif plot == 'log':
@@ -772,8 +773,8 @@ def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
 
     # figure aesthetics
     ax.bar(intValues, cumulativeAreasNorm, width=h,
-           color='#0faeb9',
-           edgecolor='#e7fcfd',
+           color='#55A868',
+           edgecolor='#FEFFFF',
            align='edge')
     ax.plot([weightedMean, weightedMean], [0.0001, maxValue],
             linestyle='--',
@@ -802,8 +803,8 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
 
     ax1.bar(left_edges, freq3D, width=binsize,
-            color='#108ED2',
-            edgecolor='#e7f6fd',
+            color='#4C72B0',
+            edgecolor='#F7FFFF',
             align='edge')
     ax1.set_ylabel('frequency',
                    fontsize=13)
