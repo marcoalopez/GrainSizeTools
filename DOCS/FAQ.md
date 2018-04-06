@@ -11,11 +11,11 @@ One may be tempted to use a stereological method to estimate the midpoint of the
 
 This depends on the features of the grain size distribution. In the case of unimodal distributions the following rule of thumb should be considered:
 
-- use **mean and standard deviation (SD)** when your **distribution is normal-like**
-- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**
-- consider using the **location of the frequency peak (peak grain size)** when grain size in different specimens were measured at very different conditions (e.g. different resolutions) or when the distribution show complex or multimodal patterns (in that case only for comparative purposes). See more details in the [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md) section.
+- use **mean and standard deviation (SD)** when your **distribution is normal-like**. In such cases, the position of the mean, median and frequency peak should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
+- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**. In such cases the position of the mean, median and frequency peak should be well differentiated.
+- use the **location of the frequency peak (KDE peak grain size)** when grain size in different specimens was measured with very different conditions (e.g. different resolutions, cut-offs, etc.) or when the distribution show complex or multimodal patterns (in that case only for comparative purposes). See more details in the [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md) section.
 
-Lastly, as a rule of thumb and for future comparatives always report all of them.
+Last, as a rule of thumb and for future comparatives always report all of them.
 
 ***What is an MSD value? What is it used for?***  
 MSD stands for *Multiplicative Standard Deviation* and it is a parameter that allows to define the shape of the grain size distribution using a single value assuming that it follows a lognormal distribution. In plain language, the MSD value gives a measure of the asymmetry (or skewness) of the grain size distribution. For example, an MSD value equal to one corresponds to a normal (Gaussian) distribution and values greater than one with log-normal distributions of different shapes, being the higher the MSD value the greater the asymmetry of the distribution (Figure a). The advantage of this approach is that by using a single parameter we can define the shape of the grain size distribution independently of its scale (Fig. b), which is very convenient for comparing the shape of two or more grain size distributions.

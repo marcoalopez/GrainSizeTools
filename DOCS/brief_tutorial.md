@@ -1,4 +1,4 @@
-*last update 2018/03/27* 
+*last update 2018/04/06* 
 
 Getting Started: A step-by-step tutorial
 -------------
@@ -344,7 +344,7 @@ Max / min = 191.71 / 154.69
 Coefficient of variation = 10.7 %
 ```
 
-The coefficient of variation express the confidence interval in percentage respect to the mean and thus it can be used to compare confidence intervals between samples with different mean values.
+The coefficient of variation express the confidence interval in percentage respect to the mean and thus it can be used to compare errors between samples with different mean values.
 
 #### Derive the actual 3D distribution of grain sizes from thin sections
 

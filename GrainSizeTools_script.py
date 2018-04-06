@@ -1082,7 +1082,7 @@ def wicksell_eq(D, d1, d2):
     Schwartz-Saltykov method. This is the generalization by Sahagian and
     Proussevitch (1998):
 
-    P(r1<r<r2) = 1/R * (sqrt(R^2-r1^2) - sqrt(R^2-r2^2))
+    P(r1 < r < r2) = 1/R * (sqrt(R**2 - r1**2) - sqrt(R**2 - r2**2))
 
     where R is the sphere radius and r the cross-section radius. Specifically r1
     and r2 are the lower and upper bounds of the bin, respectively.
@@ -1104,7 +1104,7 @@ def wicksell_eq(D, d1, d2):
     d1: positive scalar
         the lower limit of the bin/class
 
-    d2: positive iscalar
+    d2: positive scalar
         the upper limit of the bin/class
     """
 
@@ -1187,7 +1187,8 @@ def Saltykov(freq, bin_edges, binsize, mid_points, normalize=True):
 def fit_function(x, shape, scale):
     """ Defines a custom function to fit the data using the scipy curve_fit routine.
     In this case, it is the two-parameter equation that describes a lognormal
-    distribution using the mean and the standard deviation of the log(x) with base e.
+    distribution using the mean and the standard deviation of the log(x)
+    with base e.
 
     Parameters
     ----------
