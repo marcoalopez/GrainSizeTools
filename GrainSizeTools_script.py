@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 1.4.5                                                             #
+#    Version 1.4.6                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -151,7 +151,7 @@ def find_grain_size(areas, diameters, plot='lin', binsize='auto'):
 
     Parameters
     ----------
-    areas: array_like
+    areas: array_like or None
         the areas of the grain profiles
 
     diameters: array_like
@@ -166,7 +166,7 @@ def find_grain_size(areas, diameters, plot='lin', binsize='auto'):
         | 'sqrt' for a frequency vs square root diameter
         | 'area' for a area-weighted frequency vs diameter.
 
-    binsize: string, or positive integer or float
+    binsize: string or positive scalar
         If 'auto', it defines the plug-in method to calculate the bin size.
         When integer or float, it directly specifies the bin size.
         Default: the 'auto' method.
@@ -227,7 +227,8 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
     actual 3D distribution of grain sizes. The method only works properly for
     unimodal lognormal-like grain size populations and returns the MSD (i.e. shape)
     and the median (i.e. scale) values, which describe the lognormal population of
-    grain sizes at their lineal scale. For details see Lopez-Sanchez and Llana-Funez (2016).
+    grain sizes at their lineal scale. For details see Lopez-Sanchez and
+    Llana-Funez (2016).
 
     References
     ----------
@@ -240,11 +241,11 @@ def derive3D(diameters, numbins=10, set_limit=None, fit=False, initial_guess=Fal
     diameters: array_like
         the apparent diameters of the grains
 
-    numbins: integer (positive)
+    numbins: positive integer
         the number of bins/classes of the histrogram. If not declared, is set
         to 10 by default
 
-    set_limit: integer, float (positive) or None
+    set_limit: positive scalar or None
         if the user specifies a number, the function will return the volume
         occupied by the grain fraction up to that value.
 
@@ -744,10 +745,10 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
     ax.plot([x_peak], [y_max],
             'o',
             color='#2E5A95',
-            label='freq. peak')
+            label='kde peak')
     ax.vlines(x_peak, 0.0001, y_max,
               linestyle=':',
-              color='#1F1F1F',
+              color='#2E5A95',
               linewidth=2)
     ax.annotate('Gaussian KDE peak',
                 xy=(x_peak, y_max),
@@ -764,7 +765,7 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
 def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
     """ Generate the area-weighted frequency vs grain size plot"""
 
-    # first normalize the y-axis values to percentage of the total area
+    # normalize the y-axis values to percentage of the total area
     totalArea = sum(cumulativeAreas)
     cumulativeAreasNorm = [(x / float(totalArea)) * 100 for x in cumulativeAreas]
     maxValue = max(cumulativeAreasNorm)
@@ -783,7 +784,7 @@ def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
             linewidth=2)
     ax.set_ylabel('% of area fraction',
                   fontsize=13)
-    ax.set_xlabel(r'linear apparent diameter ($\mu m$)',
+    ax.set_xlabel(r'apparent diameter ($\mu m$)',
                   fontsize=13)
     ax.legend(loc='upper right',
               fontsize=11)
@@ -802,6 +803,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
 
+    # frequency plot
     ax1.bar(left_edges, freq3D, width=binsize,
             color='#4C72B0',
             edgecolor='#F7FFFF',
@@ -815,6 +817,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
                   fontsize=13.5,
                   y=1.02)
 
+    # volume-weighted cumulative frequency curve
     ax2.set_ylim([-2, 105])
     ax2.plot(mid_points, cdf_norm,
              'o-',
@@ -936,7 +939,7 @@ def calc_freq_grainsize(diameters, binsize, plot):
     kde = gaussian_kde(diameters, bw_method=my_kde_bandwidth)
 
     # determine where the Gaussian kde function reach it maximum value
-    xgrid = gen_xgrid(diameters, diameters.min(), diameters.max())
+    xgrid = gen_xgrid(diameters, 0, diameters.max())
     y_values = kde(xgrid)  # find y-values using the gaussian kde function
     y_max, index = np.max(y_values), np.argmax(y_values)  # get maximum value and the index
     x_peak = xgrid[index]  # get the diameter (x-value) where y-value is maximum
@@ -1095,13 +1098,13 @@ def wicksell_eq(D, d1, d2):
 
     Parameters
     ----------
-    D: positive integer or float
+    D: positive scalar
         the midpoint of the actual class, which corresponds with the diameter
 
-    d1: positive integer or float
+    d1: positive scalar
         the lower limit of the bin/class
 
-    d2: positive integer or float
+    d2: positive iscalar
         the upper limit of the bin/class
     """
 
@@ -1208,7 +1211,7 @@ def fit_function(x, shape, scale):
 
 texto = """
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.5
+Welcome to GrainSizeTools script v1.4.6
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential
