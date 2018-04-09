@@ -73,8 +73,8 @@ Once you see this text, all the tools implemented in the GrainSizeTools script w
 The script is organized in a modular way using Python functions helping to modify, reuse or extend the code. A Python function looks like this in the editor:
 
 ```python
-def calc_diameters(areas, correct_diameter=0):
-    """ Calculate the diameters from the sectional areas via the equivalent circular
+def calc_diameters(areas, correct_diameter=None):
+    """ Calculate the diameters from sectional areas using the equivalent circular
     diameter.
 
     Parameters
@@ -82,8 +82,8 @@ def calc_diameters(areas, correct_diameter=0):
     areas: array_like
         the sectional areas of the grains
 
-    correct_diameter: a positive integer or float
-        this adds the width of the grain boundaries to correct the diameters. If
+    correct_diameter: None or positive scalar
+        add the width of the grain boundaries to correct the diameters. If
         correct_diameter is not declared no correction is considered.
 
     Returns
@@ -92,10 +92,10 @@ def calc_diameters(areas, correct_diameter=0):
     """
 
     # calculate diameters via equivalent circular diameter
-    diameters = 2 * sqrt(areas/pi)
+    diameters = 2 * sqrt(areas / pi)
 
     # diameter correction adding edges (if applicable)
-    if correct_diameter != 0:
+    if correct_diameter is not None:
         diameters += correct_diameter
 
     return diameters
