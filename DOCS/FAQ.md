@@ -7,12 +7,12 @@ This script is targeted at anyone who wants to: i) visualize the grain size dist
 ***Why use apparent grain size measures instead of measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?***  
 One may be tempted to use a stereological method to estimate the midpoint of the modal interval or any other unidimensional parameter based on the actual grain size distribution rather than using the mean, median, or frequency peak of the apparent grain size distribution. We think that there is no advantage in doing this but serious drawbacks. The rationale behind this is that 3D grain size distributions are estimated using a stereological model and, hence, the accuracy of the estimates depends not only in the introduction of errors during measuring but also on the robustness of the model. Unfortunately, stereological methods are built on "weak" geometric assumptions and the results will always be, at best, [only approximate](http://doi.wiley.com/10.1111/j.1365-2818.1983.tb04255.x). This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles since the latter is based on real data. To sum up, use stereological methods only when you need to estimate the volume occupied by a particular grain size fraction or investigating the shape of the actual grain size distribution, otherwise use estimates based on the apparent grain size distribution.
 
-***What "average" (mean, median, peak) apparent grain size measure do I use?***
+***What measure of central tendency (mean, median, peak/mode) do I have to use?***
 
 This depends on the features of the grain size distribution. In the case of unimodal distributions the following rule of thumb should be considered:
 
-- use **mean and standard deviation (SD)** when your **distribution is normal-like**. In such cases, the position of the mean, median and frequency peak should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
-- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**. In such cases the position of the mean, median and frequency peak should be well differentiated.
+- use **mean and standard deviation (SD)** when your **distribution is normal-like**. In such cases, the position of the mean, median and frequency peak ("mode") should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
+- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**. In such cases, the position of the mean, median and frequency peak should be well differentiated.
 - use the **location of the frequency peak (KDE peak grain size)** when grain size in different specimens was measured with very different conditions (e.g. different resolutions, cut-offs, etc.) or when the distribution show complex or multimodal patterns (in that case only for comparative purposes). See more details in the [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md) section.
 
 Last, as a rule of thumb and for future comparatives always report all of them.
@@ -57,6 +57,6 @@ Despite both Python versions are not fully compatible, *GrainSizeTools script* h
 This issue is produced because the size of the figures returned by the script are too large to show them inside the console using the **inline** mode. To fix this go to the Spyder menu bar and in  ```Tools>Preferences>IPython console>Graphics``` find *Graphics backend* and select *Automatic*.
 
 ***Can I report bugs or submit ideas to improve the script?***  
-Definitely. If you have any problem using the script please just let me know (see an email address here: http://marcoalopez.github.io/ ). Feedback from users is always welcome and important to develop a better script. Lastly, you can also create a fork of the project and develop your own tools based on the GST script since it is open source and free.
+Definitely. If you have any problem using the script please just let me know (see an email address here: http://marcoalopez.github.io/ ). Feedback from users is always welcome and important to develop a better and reliable script. Lastly, you can also fork the project and develop your own based on the GST script since it is open source and free.
 
 [table of contents](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/tableOfContents.md)
