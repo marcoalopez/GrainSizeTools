@@ -11,8 +11,8 @@ One may be tempted to use a stereological method to estimate the midpoint of the
 
 This depends on the features of the grain size distribution. In the case of unimodal distributions the following rule of thumb should be considered:
 
-- use **mean and standard deviation (SD)** when your **distribution is normal-like**. In such cases, the position of the mean, median and frequency peak ("mode") should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
-- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**. In such cases, the position of the mean, median and frequency peak should be well differentiated.
+- use **mean and standard deviation (SD)** when your **distribution is normal-like or moderate-tailed**. In such cases, the position of the mean, median and frequency peak ("mode") should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
+- use **median and interquartile (or interprecentil) range** when your **distribution is skewed (non-normal)**. In such cases, the position of the mean, median and frequency peak should be well differentiated.
 - use the **location of the frequency peak (KDE peak grain size)** when grain size in different specimens was measured with very different conditions (e.g. different resolutions, cut-offs, etc.) or when the distribution show complex or multimodal patterns (in that case only for comparative purposes). See more details in the [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md) section.
 
 Last, as a rule of thumb and for future comparatives always report all of them.
