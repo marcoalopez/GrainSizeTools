@@ -21,7 +21,7 @@ To use the script it is necessary to run it. To do this, just click on the green
 The following text will appear in the shell/console (Fig. 1):
 ```
 ======================================================================================
-Welcome to GrainSizeTools script v1.4.4
+Welcome to GrainSizeTools script v1.4.5
 ======================================================================================
 
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
@@ -209,39 +209,40 @@ To estimate a 1D apparent grain size value we write in the shell:
 First note that contrary to what was shown so far, the function is called directly in the shell since it is no longer necessary to store any data into an object/variable. The inputs are the arrays containing the areas and diameters. After pressing the Enter key, the shell will display something like this:
 
 ```
-NUMBER WEIGHTED APPROACH (linear apparent grain size):
+DESCRIPTIVE STATISTICS:
 
-Mean grain size = 35.79 microns
+Arithmetic mean grain size = 35.79 microns
 Standard deviation = xx (1-sigma)
+RMS mean = xx microns
+
 Median grain size = 32.53 microns
 Interquartile range (IQR) = 23.98
+
+Peak grain size (based on KDE) =  25.24 microns
+Bandwidth = 4.01 (Silverman rule)
 
 HISTOGRAM FEATURES
 The modal interval is 27.02 - 31.52
 The number of classes are 35
 The bin size is 4.5 according to the scott rule
-
-GAUSSIAN KERNEL DENSITY ESTIMATOR FEATURES
-KDE peak (peak grain size) =  25.24 microns
-Bandwidth = 4.01 (Silverman rule)
 ```
 
 Also, a new window with a plot will appear. The plots will show the apparent grain size distribution and the location of the different grain size measures (Fig. 6). You can save the plots by clicking the floppy disk icon in the tool bar as bitmap (8 file types to choose) or to post-editing in vector image (5 file types to choose). Another interesting option is to modify the appearance of the plot within the *Matplotlib* environment before saving by clicking on the configuration icon in the toolbar.
 
-Although we promote the use of frequency *vs* apparent grain size linear plot (Fig. 6a), the function allows to use other options such as the logarithmic and square-root grain sizes (Figs. 6c, d) or the area-weighted grain size (e.g. Berger et al. 2011) (Fig. 6b). The advantages and disadvantages of the area weighted plot are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). To do this, we need to specify the type of plot as follows:
+This function allows you to use linear, logarithmic, and square-root grain size scales or weighted the grain size with the areas (Fig. 6). The advantages and disadvantages of the area-weighted approach are explained in detail in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html). To do this, we need to specify the type of plot as follows:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='area')
 ```
-in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different scales also implies to obtain different grain size estimations. Last, it is very important to note that **the mean of the square root or logarithmic grain sizes is not the same as the square root or the logarithm of the grain size mean**!
+in this example setting to use the area-weighted plot. The name of the different plots available are ```'lin'``` for the linear number-weighted plot (the default), ```'area'``` for the area-weighted plot (as in the example above), ```'sqrt'``` for the square-root grain size plot, and ```'log'``` for the logarithmic grain size plot. Note that the selection of different scales also implies to obtain different grain size estimations.
 
-The function includes different plug-in methods to estimate an "optimal" bin size, including an automatic mode. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have a lognormal- or a normal-like distributions, respectively. To specify the method we write in the shell:
+The function includes different plug-in methods to estimate an "optimal" bin size. The default automatic mode ```'auto'``` use the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule for small datasets. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'``` bin sizes. For more details on the methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. To specify the method we write in the shell:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize='doane')
 ```
 
-note that you have to define first the type of plot you want and that the type of plot will change the appearance of your distribution (Fig. 6). You can also use and *ad hoc* bin/class size of type integer or float (*i.e.* an irrational number) as follows:
+note that the type of plot you want will change the appearance of your distribution (Fig. 6). You can also use and *ad hoc* bin/class size of type integer or float (*i.e.* an irrational number) as follows:
 
 ```python
 >>> find_grain_size(areas, diameters, plot='lin', binsize=10.0)
@@ -258,7 +259,7 @@ The script includes several functions for estimating differential stress from ap
 
 ```python
 >>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
-Ensure that you have entered the apparent grain size as the square root mean!
+Ensure that you have entered the apparent grain size as the root square mean!
 
 differential stress = 169.16 MPa
 
@@ -268,30 +269,30 @@ Ensure that you have entered the apparent grain size as the linear scale mean!
 differential stress = 208.8 MPa
 
 >>> other_piezometers(grain_size=5.7, piezometer='calcite_Rutter_SGR')
-Ensure that you have entered the apparent grain size as the square root mean!
+Ensure that you have entered the apparent grain size as the mean!
 
 differential stress = 175.72 MPa
 ```
-It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the square root mean grain size from equivalent circular diameters with no stereological correction* (i.e. mean sqrt apparent grain size), and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD), the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
+It is key to note that different piezometers require entering **different types of apparent grain sizes** to provide meaningful estimates of differential stress. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square grain size from equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v1.4.2 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific apparent grain size measured as equivalent circular diameters (ECD), the script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation.
 
 **Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required to obtain meaningful differential stress estimates
 
-|             Piezometer             | Apparent grain size†  | DRX mechanism  |    Phase     |           Reference           |
-| :--------------------------------: | :-------------------: | :------------: | :----------: | :---------------------------: |
-|        ```'Stipp_Tullis'```        |   Square root mean    |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
-|      ```'Stipp_Tullis_BLG'```      |   Square root mean    | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
-|          ```'Holyoke'```           |   Square root mean    |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
-|        ```'Holyoke_BLG'```         |   Square root mean    | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
-|         ```'Shimizu'```*‡*         |  Logarithmic median   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
-| ```'Cross'``` and ```'Cross_hr'``` |   Square root mean    |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
-|          ```'Twiss'```*§*          |   Logarithmic mean    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
-|     ```'calcite_Rutter_SGR'```     |   Square root mean    |      SGR       |   Calcite    |         Rutter (1995)         |
-|     ```'calcite_Rutter_GBM'```     |   Square root mean    |      GBM       |   Calcite    |         Rutter (1995)         |
-|    ```'albite_PostT_BLG'```*§*     | Median (linear scale) |      BLG       |    Albite    |    Post and Tullis (1999)     |
-|      ```'VanderWal_wet'```*§*      |  Mean (linear scale)  |                | Olivine, wet |   Van der Wal et al. (1993)   |
-|       ```'Jung_Karato'```*§*       |  Mean (linear scale)  |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
+|             Piezometer             |  Apparent grain size†  | DRX mechanism  |    Phase     |           Reference           |
+| :--------------------------------: | :--------------------: | :------------: | :----------: | :---------------------------: |
+|        ```'Stipp_Tullis'```        |        RMS mean        |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
+|      ```'Stipp_Tullis_BLG'```      |        RMS mean        | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
+|          ```'Holyoke'```           |        RMS mean        |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
+|        ```'Holyoke_BLG'```         |        RMS mean        | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
+|         ```'Shimizu'```*‡*         |  Median in log scale   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
+| ```'Cross'``` and ```'Cross_hr'``` |        RMS mean        |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
+|          ```'Twiss'```*§*          |   Mean in log scale    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
+|     ```'calcite_Rutter_SGR'```     |          Mean          |      SGR       |   Calcite    |         Rutter (1995)         |
+|     ```'calcite_Rutter_GBM'```     |          Mean          |      GBM       |   Calcite    |         Rutter (1995)         |
+|    ```'albite_PostT_BLG'```*§*     | Median in linear scale |      BLG       |    Albite    |    Post and Tullis (1999)     |
+|      ```'VanderWal_wet'```*§*      |          Mean          |                | Olivine, wet |   Van der Wal et al. (1993)   |
+|       ```'Jung_Karato'```*§*       |          Mean          |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
 
-*† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
+*† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns. The use of non-linear scales are indicated*  
 *‡ Shimizu piezometer requires to provide the temperature during deformation in K*  
 *§ These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
 
@@ -320,6 +321,7 @@ The constant values as put in the script are described in Table 2 below.
 |         Rutter (1995)          |   calcite    |     SGR      | 2026.8  | 1.14 | 812.83  | 0.88 |
 |         Rutter (1995)          |   calcite    |     GBM      | 7143.8  | 1.12 | 2691.53 | 0.89 |
 |     Post and Tullis (1999)     |    albite    |     BLG      |   55    | 0.66 |  433.4  | 1.52 |
+|    Barnhoorn et al. (2004)     |   calcite    |     SRG      | 2134.4  | 1.22 | 537.03  | 0.82 |
 
 *† **B** and **m** relate to **A** and **p** as follows: B = A<sup>1/p</sup> and m = 1/p*   
 *‡ **A** and **B** are in [&mu;m MPa<sup>p, m</sup>] excepting Twiss (1977) in [mm MPa<sup>p, m</sup>] and Van der Wal et al. (1993) in [m MPa<sup>p, m</sup>]*  
