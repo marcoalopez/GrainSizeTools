@@ -1,4 +1,4 @@
-*last update 2018/04/06* 
+*last update 2018/05/30* 
 
 Getting Started: A step-by-step tutorial
 -------------
@@ -285,7 +285,7 @@ It is key to note that different piezometers require entering **different types 
 |        ```'Holyoke_BLG'```         |        RMS mean        | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
 |         ```'Shimizu'```*‡*         |  Median in log scale   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
 | ```'Cross'``` and ```'Cross_hr'``` |        RMS mean        |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
-|          ```'Twiss'```*§*          |   Mean in log scale    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
+|          ```'Twiss'```*§*          |          Mean          |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
 |     ```'calcite_Rutter_SGR'```     |          Mean          |      SGR       |   Calcite    |         Rutter (1995)         |
 |     ```'calcite_Rutter_GBM'```     |          Mean          |      GBM       |   Calcite    |         Rutter (1995)         |
 |    ```'albite_PostT_BLG'```*§*     | Median in linear scale |      BLG       |    Albite    |    Post and Tullis (1999)     |
@@ -464,6 +464,7 @@ The parameters defined in the boxplot are:
 ```python
 >>> mean(array_name)  # Estimate the mean
 >>> std(array_name)  # Estimate the standard deviation
+>>> np.sqrt(mean(diameters**2))  # Estimate the root mean square (RMS) mean
 >>> median(array_name)  # Estimate the median
 >>> iqr(array_name)  # Estimate the interquartile range
 ```
