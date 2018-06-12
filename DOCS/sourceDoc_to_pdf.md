@@ -1,12 +1,12 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/header_fig.png)  
 
-This pdf manual is based on the online documentation at <https://marcoalopez.github.io/GrainSizeTools/>
+#### IMPORTANT: This is the GrainSizeTools script manual for pre-2.0 versions only. For versions 2.0+ go to https://marcoalopez.github.io/GrainSizeTools/ and see online documentation.
 
 **Manual version**:  
-v32
+v33
 
 **Release date**:  
-2018/04/06
+2018/06/12
 
 **Author**:  
 Marco A. Lopez-Sanchez  
@@ -40,7 +40,6 @@ This document is licensed under a [Creative Commons Attribution-NonCommercial-Sh
   - *Measuring the areas of the grain profiles*
   - *List of useful references*
 - FAQs
-- References
 
 <div style="page-break-after: always;"></div>
 
@@ -69,7 +68,7 @@ GrainSizeTools (GST) script is primarily targeted at anyone who wants to:
 
 1. Visualize the distribution of apparent grain sizes and extract different statistical parameters to describe the features of the distribution
 2. Estimate differential stress via paleopizometers (**New in version 1.4+!**)
-3. Approximate the actual 3D distribution of grain sizes from thin sections. This includes an estimate of the volume occupied by a particular grain size fraction and the shape of the population of grain sizes (assuming that the distribution of grain sizes is lognormal-like)
+3. Approximate the actual 3D distribution of grain sizes from thin sections. This includes an estimate of the volume occupied by a particular grain size fraction using the Saltykov method and the shape of the population of grain sizes (assuming that the distribution of grain sizes is lognormal-like)
 
 GST script only requires as input the areas of the grain profiles measured grain-by-grain in a thin section. The script is not intended to determine the mean grain size via the planimetric (Jeffries) (i.e. the number of grains per unit area) or intercept (the number of grains intercepted by a test line per unit length of test line) methods. The reasons for using grain-by-grain methods over the planimetric or intercept ones in natural rocks are detailed in [Lopez-Sanchez and Llana-Fúnez (2015)](http://www.solid-earth.net/6/475/2015/). Below is a brief outline of the key assumptions to consider so that the results obtained by the script are meaningful and reliable.
 
@@ -77,27 +76,27 @@ GST script only requires as input the areas of the grain profiles measured grain
 
 > All this safety concerns assume that the calibration of the microscope and the scale of the micrographs were set correctly.
 
-#### Determination of "average" (mean, median, peak) apparent grain sizes
+#### Determination of apparent grain sizes using different measures of central tendency (mean, median, peak/mode)
 
-Unidimensional apparent grain size measures such as the **mean** or the **median** are only meaningful in specimens that show a **unimodal distribution of diameters** or areas. It is therefore key to **always visualize if the distribution show a single peak**. In the case multimodal distributions (two or more frequency peaks), you can use for comparative purposes the **location of the frequency peaks** based on the Kernel density estimate as proposed in [Lopez-Sanchez and Llana-Fúnez (2015)](http://www.solid-earth.net/6/475/2015/). Despite this, the best option when a multimodal distribution appears is to separate the different populations of grain size using image analysis methods.
+Unidimensional apparent grain size measures such as the **arithmetic mean** or the **median** are only meaningful in specimens that show **unimodal distributions**. It is therefore key to **always visualize if the distribution shows a single peak**. When you observe two or more frequency peaks (multimodal distributions), you can use for comparative purposes the **location of the frequency peaks** based on the kernel density estimate (KDE) as proposed in [Lopez-Sanchez and Llana-Fúnez (2015)](http://www.solid-earth.net/6/475/2015/). Despite this, when multimodal distributions appear the best option is always to separate the different populations of grain size using image analysis methods.
 
-Unfortunately, no general protocol exists in the earth science community on what "average" grain size measure to use when using grain-by-grain methods. For example, in the case of paleopiezometry studies, some authors have been using the mean, others the median, and some the mode. In addition, some authors applied stereological corrections and others do not, and some used logarithmic or the square root grain size instead of the linear grain size. Since it seems that this is not going to change in the short term, we propose to always report all "average" grain size measures (mean, median, freq. peak). This will allow other scientists to directly compare their data with yours without using correction factors which always involve some assumptions. In any event, since you will have to choose one of them in your study so we advise from here to follow this rule of thumb:
+Unfortunately, no general protocol exists in the earth science community on which measure of central tendency (a.k.a "average") grain size measure to use when using grain-by-grain methods. For example, in the case of paleopiezometry studies, some authors have been using the arithmetic mean or the median, and some the mode or other types of means such as the RMS or the geometric mean. In addition, some authors applied stereological corrections and others do not, and some used logarithmic or the square root grain sizes instead of the linear grain size. Since it seems that this is not going to change in the short term, we propose to always report the arithmetic mean, the median, and the frequency peak. This will allow other scientists to directly compare their data with yours without using correction factors which always involve some assumptions. In any event, since you will have to choose one "average" measure in your study we advise from here to follow this rule of thumb:
 
-- use **mean and standard deviation (SD)** when your **distribution is normal-like**. In such cases, the position of the mean, median and frequency peak should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
-- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**. In such cases the position of the mean, median and frequency peak should be well differentiated.
-- use the **location of the frequency peak (KDE peak grain size)** when grain size in different specimens was measured with very different conditions (e.g. different resolutions, cut-offs, etc.) or when the distribution show complex or multimodal patterns (in that case only for comparative purposes).
+- use **arithmetic mean and standard deviation (SD)** when your **distribution is normal-like or moderate-tailed**. In such cases, the position of the mean, median and frequency peak should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
+- use **median and interquartile (or interprecentil) range** when your **distribution is skewed (non-normal)**. In such cases the position of the mean, median and frequency peak should be well differentiated. This is expected to occur when using linear scales.
+- use the **location of the frequency peak (KDE peak grain size)** when grain size in different specimens was measured with very different conditions (e.g. different resolutions, cut-offs...) (see [Lopez-Sanchez and Llana-Fúnez, 2015](http://www.solid-earth.net/6/475/2015/) for details), or when the distribution show complex or multimodal patterns (in that case only for comparative purposes).
 
-The rationale behind this rule of thumb is that the sample mean is generallymore efficient than the median, but the sample median is always more robust. The latter feature makes the median more efficient when distributions have "thick" tails as it happens in most skewed distributions. Both, the mean and the median, are in turn more efficient "average" measures than the frequency peak but if you want to compare grain sizes in specimens that were measured at very different conditions (e.g. different resolutions, applying different cut-offs, etc.) you should use the **location of the frequency peak (peak grain size)** instead. This is because the frequency peak is the only "average" value not affected by these factors and thus the only robust estimate in such situations (Fig. 0) ([Lopez-Sanchez and Llana-Fúnez, 2015](http://www.solid-earth.net/6/475/2015/)).
+The rationale behind this rule of thumb is that the sample mean is generally more efficient than the median, meaning that it performs better under ideal circumstances. In contrast, the median is more robust, meaning that it performs pretty well under less than ideal circumstances. This feature makes the median more efficient when distributions have "thick" tails as it happens in most skewed distributions. Both, the mean and the median, are in turn more efficient "average" measures than the frequency peak but if you want to compare grain sizes in specimens that were measured at very different conditions (e.g. different resolutions, applying different cut-offs, etc.), then **you should use the location of the frequency peak (peak grain size)** instead. This is because the frequency peak is the only "average" measure not affected by these factors and thus the only robust estimate in such situations (Fig. 1) ([Lopez-Sanchez and Llana-Fúnez, 2015](http://www.solid-earth.net/6/475/2015/)). In the end, choose between the different "average" measures is about finding a trade-off between efficiency and robustness.
 
-![Figure 0 Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Diff_cutoffs.png?raw=true)
+![Figure 1 Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Diff_cutoffs.png?raw=true)
 
-*Figure 0. Two different grain size distributions for the same EBSD dataset due to applying different cleaning protocols during grain reconstruction. **Only the KDE frequency peak remains the same**. Specifically, grains with less than 4 (left) and 10 (right) pixels were removed, both common cut-offs during EBSD grain reconstruction routines. The high cut-off imposed on the population shown on the right creates an artificial asymmetry in the distribution of grain sizes shifting the mean and the median to higher values.*
+*Figure 1. Two different grain size distributions from the same EBSD dataset due to applying different cleaning protocols during grain reconstruction. **Only the KDE frequency peak remains the same**. Specifically, grains with less than 4 (left) and 10 (right) pixels were removed, both common cut-offs during EBSD grain reconstruction routines. The high cut-off imposed on the population shown on the right creates an artificial asymmetry in the distribution of logarithmic grain sizes shifting the mean and the median to higher values.*
 
-When grains are equant (equiaxed) or near-equant (i.e. aspect ratios mostly < 2.0) any specimen orientation is acceptable for estimating unimodal grain size measures and a **single section** is enough to obtain a reliable estimate as long as you measure a required minimum of grain sections (see below for details). When grains show generally aspect ratios above 2.0 and preferred orientation throughout the rock volume, you will need to **estimate the grain size over three orthogonal sections and then average the results** to obtain meaningful results for every independent grain size measure. Although specimens with equant grains accept any orientation to estimate unidimensional grain size measures, it is advisable to use a principal section. Specifically, we promote the use of the XZ section, i.e. parallel to the lineation and perpendicular to the foliation, since this will allow us: (i) to estimate whether the grains are far from equant using the aspect ratio; and (ii) to provide a fairer comparison between different specimens when near-equant grains and preferred orientation of the large axes exist.
+When grains are equant (equiaxed) or near-equant (i.e. aspect ratios mostly < 2.0) any specimen orientation is acceptable for estimating the grain size. In such case, a **single section** is enough to obtain a reliable estimate as long as you measure a minimum of grain sections (see below for details). When the aspect ratio of grains are commonly above 2.0  and there is preferred orientation throughout the rock volume, you will need to **estimate the grain size over three orthogonal sections and then average the results to obtain meaningful results** (for every independent grain size measure). Although specimens with equant grains accept any orientation to estimate unidimensional grain size measures, it is advisable to use a principal section. Specifically, we promote the use of the XZ section, i.e. parallel to the lineation and perpendicular to the foliation, since this will allow us: (i) to estimate whether the grains are far from equant using the aspect ratio; and (ii) to provide a fairer comparison between different specimens when near-equant grains and preferred orientation of the large axes exist.
 
-To obtain reliable grain size estimates you should measure or your grain boundary map should contain at least 433 grain sections. This sample size will ensure that 95 % of the time the mean grain size estimated will have an error equal or less than ± 4 %; if you use 965 sections, a practice that we recommend here, this will ensure the 99% of the time instead ([Lopez-Sanchez and Llana-Fúnez, 2015](http://www.solid-earth.net/6/475/2015/)). If you want to obtain an accurate **confidence interval** for your estimates, then you have to take several representative micrographs from the same specimen (three or more) and estimate the "average" (mean, median or peak) grain size in each of them. Then use the ```confidence_interval``` function implemented in the script to get a robust confidence interval. For details on how this determination works see the next section or the documentation of the function using the command ``help(confidence_interval)`` in the console.
+To obtain reliable grain size estimates you should measure or your grain boundary map should contain at least 433 grain sections. This sample size will ensure that 95 % of the time the mean grain size estimated will have an error equal or less than ± 4 %; if you use 965 sections, a practice that we recommend here, this will ensure the 99% of the time instead ([Lopez-Sanchez and Llana-Fúnez, 2015](http://www.solid-earth.net/6/475/2015/)). If you want to obtain an accurate **confidence interval** for your estimates, then you need to take several representative micrographs from the same specimen (three or more) and estimate the "average" (mean, median or peak) grain size in each of them. Then use the ```confidence_interval``` function implemented in the script to get a robust confidence interval. For details on how this determination works see the next section or the documentation of the function using the command ``help(confidence_interval)`` in the console.
 
-Regarding paleopizometry estimates, **do not use "average" values using stereological methods but directly apparent grain size measures**. The rationale behind this is that stereological methods are always built on several and ill-conditioned geometric assumptions and the results will always be, at best, only approximate. This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles since the latter is based on real data.
+Regarding paleopizometry estimates, **avoid using stereological methods or factors** in the estimates but directly report apparent grain size measurements. The rationale behind this is that **stereological methods/factors are built on several (ill-conditioned) geometric assumptions and the results will always be, at best, only approximate**. This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles since the latter is based on real data not a model.
 
 #### Determination of stress via paleopiezometers
 
@@ -107,11 +106,11 @@ It is always advisable to calculate a **confidence interval** for your paleopiez
 
 #### Getting the shape of actual grain size distribution or the volume occupied by a particular grain size fraction
 
-Estimating the actual grain size distribution from thin sections using stereological methods requires assuming spatial homogeneity and that **grains under study are equant or near-equant**. The Saltykov and two-step methods will not provide reliable results if most of the grains show aspect ratios above 2.0, regardless of whether a shape preference orientation exists or not. In any event, this assumption is acceptable most of the time for the most common *recrystallized (dynamically or statically)* mineral phases in crustal and mantle shear zones, including quartz, feldspar, olivine, and calcite, as well as ice. However, be careful when recrystallized grains show very irregular/lobate grain boundaries (i.e. low "solidity" or "convexity" values).
+Estimating the actual grain size distribution from thin sections using stereological methods requires assuming spatial homogeneity and that **grains under study are equant or near-equant**. The Saltykov and two-step methods will not provide reliable results if most of the grains show aspect ratios above 2.0, regardless of whether a shape preference orientation exists or not. In any event, this assumption is acceptable most of the time for the most common recrystallized (dynamically or statically) mineral phases in crustal and mantle shear zones, which includes quartz, feldspar, olivine, and calcite, as well as ice. However, be careful when recrystallized grains show very irregular/lobate grain boundaries (i.e. low "solidity" values).
 
-The Saltykov method is suitable to estimate approximately the volume of a particular grain fraction of interest (in percentage) and to visualize the aspect of the derived 3D grain size distribution using the histogram and a volume-weighted cumulative frequency curve. To provide reliable results, the method requires using a few numbers of classes and a large number of individual grain measurements. Practical experience indicates using more than 1000 grains and less than 20 classes. Unfortunately, the optimal number of classes depends on the type of distribution and the range of values; and the latter can vary largely due to presence or absence of grains with very large sizes. In conclusion, the number of classes has to be set by a trial and error approach. This will inevitably lead to different authors using a different number of classes across studies. Due to this, when estimating the volume of a grain size fraction based on a single grain boundary map it is necessary to take an absolute error of ± 5 to stay safe (see details in [Lopez-Sanchez and Llana-Fúnez, 2016](http://www.sciencedirect.com/science/article/pii/S0191814116301778)). If possible, take more than one representative grain boundary map and then estimate a confidence interval as explained above in this section.
+The Saltykov method is suitable to estimate approximately the volume of a particular grain fraction of interest (in percentage) and to visualize the aspect of the derived 3D grain size distribution using the histogram and a volume-weighted cumulative frequency curve. To provide reliable results, the method requires using a few numbers of classes and a large number of individual grain measurements. Practical experience indicates using more than 1000 grain sections and less than 20 classes. Unfortunately, the optimal number of classes depends on the type of distribution and the range of values; and the latter can vary largely due to presence or absence of grains with very large sizes. In conclusion, the number of classes has to be set by a trial and error approach. This will inevitably lead to different authors using a different number of classes across studies. Due to this, when estimating the volume of a grain size fraction based on a single grain boundary map it is necessary to take an absolute error of ± 5 to stay safe (see details in [Lopez-Sanchez and Llana-Fúnez, 2016](http://www.sciencedirect.com/science/article/pii/S0191814116301778)). If possible, take more than one representative grain boundary map and then estimate a confidence interval as explained above in this section.
 
-The two-step method ([Lopez-Sanchez and Llana-Fúnez, 2016](http://www.sciencedirect.com/science/article/pii/S0191814116301778)) is suitable for describing quantitatively the shape of the actual 3D grain size distribution using a single parameter called the multiplicative standard deviation (MSD) value. The method assumes that the actual grain size distribution follows a lognormal distribution, **there is therefore critical to visualize the distribution using the Saltykov method first and ensure that the distribution is unimodal and lognormal-like**. The MSD estimate is independent of the chosen number of classes as long as the Saltykov method produces stable results (i.e. you do not lose the lognormal appearance of the distribution due to the use of an excessive number of classes) and provides a reliable uncertainty value.
+The two-step method ([Lopez-Sanchez and Llana-Fúnez, 2016](http://www.sciencedirect.com/science/article/pii/S0191814116301778)) is suitable for describing quantitatively the shape of the actual 3D grain size distribution using a single parameter called the multiplicative standard deviation (MSD) value. The method assumes that the actual grain size distribution follows a lognormal distribution and thus **it is critical to visualize first an estimate of the actual distribution of grain sizes using the Saltykov method and ensure that the distribution is unimodal and lognormal-like**. The MSD estimate is independent of the chosen number of classes as long as the Saltykov method produces stable results.
 
 <div style="page-break-after: always;"></div>
 
@@ -372,7 +371,7 @@ The script includes several functions for estimating differential stress from ap
 
 ```python
 >>> quartz_piezometer(grain_size=5.7, piezometer='Stipp_Tullis')
-Ensure that you have entered the apparent grain size as the square root mean!
+Ensure that you have entered the apparent grain size as the root square mean!
 
 differential stress = 169.16 MPa
 
@@ -382,7 +381,7 @@ Ensure that you have entered the apparent grain size as the linear scale mean!
 differential stress = 208.8 MPa
 
 >>> other_piezometers(grain_size=5.7, piezometer='calcite_Rutter_SGR')
-Ensure that you have entered the apparent grain size as the square root mean!
+Ensure that you have entered the apparent grain size as the mean!
 
 differential stress = 175.72 MPa
 ```
@@ -390,20 +389,20 @@ It is key to note that different piezometers require entering **different types 
 
 **Table 1.** Relation of piezometers put in the GrainSizeTools script and the apparent grain size required to obtain meaningful differential stress estimates
 
-|             Piezometer             | Apparent grain size†  | DRX mechanism  |    Phase     |           Reference           |
-| :--------------------------------: | :-------------------: | :------------: | :----------: | :---------------------------: |
-|        ```'Stipp_Tullis'```        |   Square root mean    |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
-|      ```'Stipp_Tullis_BLG'```      |   Square root mean    | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
-|          ```'Holyoke'```           |   Square root mean    |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
-|        ```'Holyoke_BLG'```         |   Square root mean    | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
-|         ```'Shimizu'```*‡*         |  Logarithmic median   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
-| ```'Cross'``` and ```'Cross_hr'``` |   Square root mean    |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
-|          ```'Twiss'```*§*          |   Logarithmic mean    |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
-|     ```'calcite_Rutter_SGR'```     |   Square root mean    |      SGR       |   Calcite    |         Rutter (1995)         |
-|     ```'calcite_Rutter_GBM'```     |   Square root mean    |      GBM       |   Calcite    |         Rutter (1995)         |
-|    ```'albite_PostT_BLG'```*§*     | Median (linear scale) |      BLG       |    Albite    |    Post and Tullis (1999)     |
-|      ```'VanderWal_wet'```*§*      |  Mean (linear scale)  |                | Olivine, wet |   Van der Wal et al. (1993)   |
-|       ```'Jung_Karato'```*§*       |  Mean (linear scale)  |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
+|             Piezometer             |  Apparent grain size†  | DRX mechanism  |    Phase     |           Reference           |
+| :--------------------------------: | :--------------------: | :------------: | :----------: | :---------------------------: |
+|        ```'Stipp_Tullis'```        |        RMS mean        |  Regimes 2, 3  |    Quartz    |     Stipp & Tullis (2003)     |
+|      ```'Stipp_Tullis_BLG'```      |        RMS mean        | Regime 1 (BLG) |    Quartz    |     Stipp & Tullis (2003)     |
+|          ```'Holyoke'```           |        RMS mean        |  Regimes 2, 3  |    Quartz    | Holyoke and Kronenberg (2010) |
+|        ```'Holyoke_BLG'```         |        RMS mean        | Regime 1 (BLG) |    Quartz    | Holyoke and Kronenberg (2010) |
+|         ```'Shimizu'```*‡*         |  Median in log scale   |   SGR + GBM    |    Quartz    |        Shimizu (2008)         |
+| ```'Cross'``` and ```'Cross_hr'``` |        RMS mean        |    BLG, SGR    |    Quartz    |      Cross et al. (2017)      |
+|          ```'Twiss'```*§*          |          Mean          |  Regimes 2, 3  |    Quartz    |         Twiss (1977)          |
+|     ```'calcite_Rutter_SGR'```     |          Mean          |      SGR       |   Calcite    |         Rutter (1995)         |
+|     ```'calcite_Rutter_GBM'```     |          Mean          |      GBM       |   Calcite    |         Rutter (1995)         |
+|    ```'albite_PostT_BLG'```*§*     | Median in linear scale |      BLG       |    Albite    |    Post and Tullis (1999)     |
+|      ```'VanderWal_wet'```*§*      |          Mean          |                | Olivine, wet |   Van der Wal et al. (1993)   |
+|       ```'Jung_Karato'```*§*       |          Mean          |      BLG       | Olivine, wet |     Jung & Karato (2001)      |
 
 *† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns either in linear, square root or logarithmic scales*  
 *‡ Shimizu piezometer requires to provide the temperature during deformation in K*  
@@ -576,6 +575,7 @@ The parameters defined in the boxplot are:
 ```python
 >>> mean(array_name)  # Estimate the mean
 >>> std(array_name)  # Estimate the standard deviation
+>>> np.sqrt(mean(diameters**2))  # Estimate the root mean square (RMS) mean
 >>> median(array_name)  # Estimate the median
 >>> iqr(array_name)  # Estimate the interquartile range
 ```
@@ -786,17 +786,17 @@ Barraud, J., 2006. The use of watershed segmentation and GIS software for textur
 ## Frequently Asked Questions
 
 ***Who is this script for?***  
-This script is targeted at anyone who wants to: i) visualize grain size features, ii) obtain a set of apparent grain size measures to estimate the magnitude of differential stress (or rate of mechanical work) in dynamically recrystallized rocks, and iii) estimate the actual (3D) distribution of grain sizes from thin sections using stereological methods. The latter point includes an estimate of the volume occupied by a particular grain size fraction and a parameter to measure the shape of the population of grain sizes (assuming that the distribution of grain sizes follows a lognormal distribution). The stereological methods assume that grains have equant or near-equant (AR < 2.0) shapes, which includes grains produced during static annealing and dynamically recrystallized grains when bulging (BLG) or sub-grain rotation (SGR) are the main recrystallization process. For igneous studies involving tabular grains far from near-equant objects, we recommend other approaches such as those implemented in the *CSDCorrections* software (Higgins 2000). See the references list section for details.
+This script is targeted at anyone who wants to: i) visualize the grain size distribution, ii) obtain a set of apparent grain size measures to estimate the magnitude of differential stress (or rate of mechanical work) in dynamically recrystallized rocks, and iii) estimate the actual (3D) distribution of grain sizes from thin sections using stereological methods. The latter includes an estimate of the volume occupied by a particular grain size fraction and a parameter to characterize the shape of the population of grain sizes (assuming that the distribution of grain sizes follows a lognormal distribution). The stereological methods assume that grains have equant or near-equant (AR < 2.0) shapes, which mostly include all recrystallized grains produced during static and dynamically recrystallization. For igneous studies involving tabular grains far from near-equant objects, we recommend other approaches such as those implemented in the *CSDCorrections* software (Higgins 2000). See the references list section for details.
 
 ***Why use apparent grain size measures instead of measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?***  
 One may be tempted to use a stereological method to estimate the midpoint of the modal interval or any other unidimensional parameter based on the actual grain size distribution rather than using the mean, median, or frequency peak of the apparent grain size distribution. We think that there is no advantage in doing this but serious drawbacks. The rationale behind this is that 3D grain size distributions are estimated using a stereological model and, hence, the accuracy of the estimates depends not only in the introduction of errors during measuring but also on the robustness of the model. Unfortunately, stereological methods are built on "weak" geometric assumptions and the results will always be, at best, [only approximate](http://doi.wiley.com/10.1111/j.1365-2818.1983.tb04255.x). This means that the precision of the estimated 3D size distribution is **much poorer** than the precision of the original distribution of grain profiles since the latter is based on real data. To sum up, use stereological methods only when you need to estimate the volume occupied by a particular grain size fraction or investigating the shape of the actual grain size distribution, otherwise use estimates based on the apparent grain size distribution.
 
-***What "average" (mean, median, peak) apparent grain size measure do I use?***
+***What measure of central tendency (mean, median, peak/mode) do I have to use?***
 
 This depends on the features of the grain size distribution. In the case of unimodal distributions the following rule of thumb should be considered:
 
-- use **mean and standard deviation (SD)** when your **distribution is normal-like**. In such cases, the position of the mean, median and frequency peak should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
-- use **median and interquartile (or interprecentil) range** when your **distribution is skewed**. In such cases the position of the mean, median and frequency peak should be well differentiated.
+- use **mean and standard deviation (SD)** when your **distribution is normal-like or moderate-tailed**. In such cases, the position of the mean, median and frequency peak ("mode") should be fairly similar. This is expected to occur when using logarithmic or square-root scales.
+- use **median and interquartile (or interprecentil) range** when your **distribution is skewed (non-normal)**. In such cases, the position of the mean, median and frequency peak should be well differentiated.
 - use the **location of the frequency peak (KDE peak grain size)** when grain size in different specimens was measured with very different conditions (e.g. different resolutions, cut-offs, etc.) or when the distribution show complex or multimodal patterns (in that case only for comparative purposes). See more details in the [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md) section.
 
 Last, as a rule of thumb and for future comparatives always report all of them.
@@ -818,7 +818,7 @@ This is because the script normalized the frequencies of the different classes s
 
 Yes, it is always desirable to indicate the version of the script used. The rationale behind this is that codes may contain bugs and versioning allow to track them and correct the results of already published studies in case a bug is discovered later. The way to indicate the version is twofold:
 
-- The easy way we advise you to follow is by explicitly indicating the version in your manuscript as follows: "*...we used the GrainSizeTools script version 1.4.4...*" and then use the general citation in the reference list.
+- The  way we advise you to follow is by explicitly indicating the version in your manuscript as follows: "*...we used the GrainSizeTools script version 1.4.4...*" and then use the general citation in the reference list.
 
 - The other way is by adding a termination in the form *.v plus a number* in the general DOI link. This is, instead of using the general reference of the script:
 
@@ -837,11 +837,11 @@ Yes, it is always desirable to indicate the version of the script used. The rati
 ***Does the script work with Python 2.7.x and 3.x versions? Which version do I choose?***  
 Despite both Python versions are not fully compatible, *GrainSizeTools script* has been written to run on both. As a rule of thumb, if you do not have previous experience with the Python language go with 3.x versions, which is the present and future of the language. Python 2.7.x versions are still maintained for legacy reasons, but keep in mind that their support [will be discontinued in 2020](https://pythonclock.org/). Also note that since version 1.3, the script is only tested by the maintainer using Python 3.
 
-***I get the results but not the plots when using the Spyder IDE***  
-This issue is produced because the size of the figures returned by the script are too large to show them inside the console using the **inline** mode. To fix this go to the Spyder menu bar and in  ```Tools>Preferences>IPython console>Graphics``` find *Graphics backend* and select *Automatic*.
+***I get the results but not the plots when using the Spyder IDE (ValueError: Image size of ... pixels is too large)***
+This issue is produced because the size of the figures returned by the script are too large to show them inside the console using the **inline** mode. To fix this go to the Spyder menu bar and in  ```Tools>Preferences>IPython console>Graphics``` find *Graphics backend* and select *Automatic* and then restart Spyder. As an alternative you can type ``%matplotlib auto`` in the console without needing to restart Spyder but this is only valid for the current session.
 
 ***Can I report bugs or submit ideas to improve the script?***  
-Definitely. If you have any problem using the script please just let me know (see an email address here: http://marcoalopez.github.io/ ). Feedback from users is always welcome and important to develop a better script. Lastly, you can also create a fork of the project and develop your own tools based on the GST script since it is open source and free.
+Sure. If you have any problem using the script or found a bug please just let me know open an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues) or drop me an email (my email address here: https://github.com/marcoalopez ). Feedback from users is always welcome and important to develop a better and reliable script. Lastly, you can also fork the project and develop your own based on the GST script since it is open source and free.
 
 <div style="page-break-after: always;"></div>
 
