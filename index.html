@@ -2,19 +2,13 @@
 <html>
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
-<title>README.md</title><link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}#write, body { height: auto; }
-#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write ol, #write p, #write ul { position: relative; }
-#write, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
-#write, pre { white-space: pre-wrap; }
-.CodeMirror, .md-fences, table { text-align: left; }
-.md-reset, a:active, a:hover { outline: 0px; }
-.md-reset, .md-toc-item a { text-decoration: none; }
-.MathJax_SVG, .md-reset { float: none; direction: ltr; }
-:root { --bg-color:#ffffff; --text-color:#333333; }
+<title>README</title><link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
-.in-text-selection, ::selection { background: rgb(181, 214, 252); text-shadow: none; }
-#write { margin: 0px auto; word-break: normal; word-wrap: break-word; padding-bottom: 70px; overflow-x: visible; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: visible; }
 .first-line-indent #write p .md-line { text-indent: 0px; }
 .first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
 .for-image #write { padding-left: 8px; padding-right: 8px; }
@@ -24,84 +18,94 @@ body.typora-export { padding-left: 30px; padding-right: 30px; }
   .CodeMirror-sizer { margin-left: 0px !important; }
   .CodeMirror-gutters { display: none !important; }
 }
-#write > blockquote:first-child, #write > div:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > table:first-child, #write > ul:first-child { margin-top: 30px; }
-#write li > table:first-child { margin-top: -20px; }
+#write > blockquote:first-child, #write > div:first-child, #write > figure:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > ul:first-child { margin-top: 30px; }
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
 img { max-width: 100%; vertical-align: middle; }
 button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
 input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
 *, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.8rem; }
 h3 { font-size: 1.6rem; }
 h4 { font-size: 1.4rem; }
 h5 { font-size: 1.2rem; }
 h6 { font-size: 1rem; }
+h1, h2, h3, h4, h5, h6 { margin-top: 1rem; margin-bottom: 1rem; }
 p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
 .mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
 .hidden { display: none; }
 .md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
 a { cursor: pointer; }
-sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
 #write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
-#write > figure:first-child { margin-top: 16px; }
-figure { overflow-x: auto; margin: -8px 0px 0px -8px; max-width: calc(100% + 16px); padding: 8px; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
 tr { break-inside: avoid; break-after: auto; }
 thead { display: table-header-group; }
-table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; }
-.CodeMirror-line, .md-fences { break-inside: avoid; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
 table.md-table td { min-width: 80px; }
-.CodeMirror-gutters { border-right: 0px; background-color: inherit; margin-right: 4px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
 .CodeMirror-placeholder { opacity: 0.3; }
 .CodeMirror pre { padding: 0px 4px; }
 .CodeMirror-lines { padding: 0px; }
 div.hr:focus { cursor: none; }
-.md-fences { font-size: 0.9rem; display: block; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+pre { white-space: pre-wrap; }
+pre.contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
 .md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
-.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
 .md-fences.mock-cm { white-space: pre-wrap; }
 .show-fences-line-number .md-fences { padding-left: 0px; }
 .show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.CodeMirror-line { break-inside: avoid; }
 .footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
 .footnotes + .footnotes { margin-top: 0px; }
-.md-reset { margin: 0px; padding: 0px; border: 0px; vertical-align: top; background: 0px 0px; text-shadow: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; }
-.md-toc-inner, a img, img a { cursor: pointer; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
 li div { padding-top: 0px; }
 blockquote { margin: 1rem 0px; }
 li .mathjax-block, li p { margin: 0.5rem 0px; }
 li { margin: 0px; position: relative; }
 blockquote > :last-child { margin-bottom: 0px; }
-blockquote > :first-child { margin-top: 0px; }
-.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: nowrap; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+.footnote-line { white-space: pre-wrap; }
 @media print {
   body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
   #write { margin-top: 0px; border-color: transparent !important; }
   .typora-export * { -webkit-print-color-adjust: exact; }
-  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
-  p { orphans: 4; }
   html.blink-to-pdf { font-size: 13px; }
   .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
   .typora-export #write::after { height: 0px; }
   @page { margin: 20mm 0px; }
 }
 .footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
 pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
 p > img:only-child { display: block; margin: auto; }
 .md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
-.mathjax-block:not(:empty)::after, .md-toc-content::after, .md-toc::after { display: none; }
 #write .MathJax_Display { margin: 0.8em 0px 0px; }
 .mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
 p + .mathjax-block { margin-top: -1.143rem; }
+.mathjax-block:not(:empty)::after { display: none; }
 [contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
 .md-task-list-item { position: relative; list-style-type: none; }
 .task-list-item.md-task-list-item { padding-left: 0px; }
 .md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
 .math { font-size: 1rem; }
 .md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
-.MathJax_SVG, .mathjax-block .MathJax_SVG_Display { text-indent: 0px; max-width: none; max-height: none; min-height: 0px; }
 .md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
 .md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
 .md-toc-inner:hover { }
-.md-toc-inner { display: inline-block; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
 .md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
 .md-toc-h2 .md-toc-inner { margin-left: 2em; }
 .md-toc-h3 .md-toc-inner { margin-left: 4em; }
@@ -123,14 +127,15 @@ code, pre, tt { font-family: var(--monospace); }
 code { text-align: left; }
 a.md-print-anchor { border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
 .md-inline-math .MathJax_SVG .noError { display: none !important; }
-.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; min-width: 100%; width: auto; display: block !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
 .MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
 .MathJax_SVG .MJX-monospace { font-family: monospace; }
 .MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; min-width: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
 .MathJax_SVG * { transition: none; }
 .os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
-.md-diagram-panel > svg, [lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
 [lang="mermaid"] .node text { font-size: 1rem; }
 table tr th { border-bottom: 0px; }
 
@@ -163,7 +168,7 @@ h5 { font-size: 1em; }
 h6 { font-size: 1em; color: rgb(119, 119, 119); }
 p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
 li > ol, li > ul { margin: 0px; }
-hr { height: 4px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border-width: 0px 0px 1px; border-style: none none solid; border-top-color: initial; border-right-color: initial; border-left-color: initial; border-image: initial; overflow: hidden; box-sizing: content-box; border-bottom-color: rgb(221, 221, 221); }
+hr { height: 2px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; overflow: hidden; box-sizing: content-box; }
 body > h2:first-child { margin-top: 0px; padding-top: 0px; }
 body > h1:first-child { margin-top: 0px; padding-top: 0px; }
 body > h1:first-child + h2 { margin-top: 0px; padding-top: 0px; }
@@ -174,17 +179,17 @@ li p.first { display: inline-block; }
 ul, ol { padding-left: 30px; }
 ul:first-child, ol:first-child { margin-top: 0px; }
 ul:last-child, ol:last-child { margin-bottom: 0px; }
-blockquote { border-left: 4px solid rgb(221, 221, 221); padding: 0px 15px; color: rgb(119, 119, 119); }
+blockquote { border-left: 4px solid rgb(223, 226, 229); padding: 0px 15px; color: rgb(119, 119, 119); }
 blockquote blockquote { padding-right: 0px; }
 table { padding: 0px; word-break: initial; }
-table tr { border-top: 1px solid rgb(204, 204, 204); margin: 0px; padding: 0px; }
-table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
-table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(204, 204, 204); border-right-color: rgb(204, 204, 204); border-left-color: rgb(204, 204, 204); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
-table tr td { border: 1px solid rgb(204, 204, 204); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr { border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px; }
+table tr:nth-child(2n), thead { background-color: rgb(248, 248, 248); }
+table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(223, 226, 229); text-align: left; margin: 0px; padding: 6px 13px; }
 table tr th:first-child, table tr td:first-child { margin-top: 0px; }
 table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
 .CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); }
-.md-fences, code, tt { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
+.md-fences, code, tt { border: 1px solid rgb(223, 226, 229); background-color: rgb(248, 248, 248); border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
 .md-fences { margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px; }
 .md-task-list-item > input { margin-left: -1.3em; }
 @media screen and (min-width: 914px) {
@@ -219,17 +224,17 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 
 
 
- .typora-export p {white-space: normal;} 
+ .typora-export p, .typora-export .footnote-line {white-space: normal;} 
 </style>
 </head>
 <body class='typora-export os-windows' >
-<div  id='write'  class = 'is-node'><p><img src='https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png' alt='' /></p><p><em>This project is maintained by <a href='https://marcoalopez.github.io/'>Marco A. Lopez-Sanchez</a> - Last update (website): 2018/04/03</em><br/></p><p><a href='http://marcoalopez.github.io/GrainSizeTools/'>GrainSizeTools script</a> is a free, open-source, cross-platform script written in <a href='https://www.python.org/'>Python</a> that provides several tools for visualizing and estimating grain size in polycrystalline materials. The script is able to <strong>estimate differential stress through paleopiezometers</strong>, implementing multiple piezometric relations for comparison, and to derive the actual (3D) grain size distribution from thin sections using the Saltykov and the two-step methods. The script only requires as input the areas of the grain profiles measured grain-by-grain in a thin section and <strong>does not require previous experience with Python programming language</strong> (see documentation below and <a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md'>FAQ</a>). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.</p><p><strong>Last release 2018/03/27, v1.4.5</strong> <br/></p><h2><a name='header-n10' class='md-header-anchor '></a>Features at a glance</h2><ul><li>Extract data from text (.txt, .csv) or excel files generated by the ImageJ or any other application.</li><li>Calculate apparent diameters of grain profiles via the equivalent circular diameter.</li><li>Estimate different apparent 1D grain size measures including the mean, median, area-weighted mean, and frequency peak, the latter using a Gaussian Kernel Density Estimator. Grain size scales can be linear, logarithmic, or square root.</li><li>Includes several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on the population features.</li><li>Approximate the actual 3D grain size distribution from data collected in thin sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.</li><li>Approximate the shape of the 3D grain size distribution using a single parameter (the MSD - <em>Multiplicative Standard Deviation</em>) via the two-step method.</li><li>Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and albite. Other phases available soon!</li><li>Ready-to-publish plots in bitmap or vector format (see screenshots below for examples).</li><li><strong>Since v1.4.4+:</strong> Estimate robust confidence intervals using the student&#39;s t-distribution</li></ul><h2><a name='header-n39' class='md-header-anchor '></a>Download</h2><p>You can download the script at the following sites:<br/>
-<a href='https://github.com/marcoalopez/GrainSizeTools/releases' target='_blank' >https://github.com/marcoalopez/GrainSizeTools/releases</a><br/>
-<a href='http://figshare.com/articles/GrainSizeTools_script/1383130' target='_blank' >http://figshare.com/articles/GrainSizeTools_script/1383130</a><br/>
-<a href='https://sourceforge.net/projects/grainsizetools' target='_blank' >https://sourceforge.net/projects/grainsizetools</a>/</p><p><a href='https://github.com/marcoalopez/GrainSizeTools'>View project on GitHub</a></p><h2><a name='header-n47' class='md-header-anchor '></a>Documentation</h2><ul><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md'>Requirements</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md'>Scope</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md'>Getting started: A step-by-step tutorial</a></p><ul><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#open-and-running-the-script'>Open and running the script</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#a-brief-note-on-the-organization-of-the-script'>A brief note on the organization of the script</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-visualize-and-estimate-the-grain-size-features'>Using the script to visualize and estimate the grain size features</a></p><ul><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#loading-the-data-and-extracting-the-areas-of-the-grain-profiles'>Loading the data and extracting the areas of the grain profiles</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-the-apparent-diameters-from-the-areas-of-the-grain-profiles'>Estimating the apparent diameters from the areas of the grain profiles</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-apparent-grain-size-measures'>Obtaining apparent grain size measures</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-differential-stress-using-piezometric-relations-paleopiezometry'>Estimating differential stress using piezometric relations (paleopiezometry)</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-a-robust-confidence-interval'>Estimating a robust confidence interval</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-distribution-of-grain-sizes-from-thin-sections'>Derive the actual 3D distribution of grain sizes from thin sections</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#comparing-different-grain-size-populations-using-box-plots'>Comparing different grain size populations using box plots</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#general-methods-of-interest'>Other methods of interest</a></li></ul></li></ul></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/quick_tutorial.md'>Quick tutorial</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md'>How to measure the areas of the grain profiles with ImageJ</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md'>References</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md'>FAQs</a></p></li></ul><h2><a name='header-n105' class='md-header-anchor '></a>Screenshots</h2><h6><a name='header-n107' class='md-header-anchor '></a>Estimate of different apparent grain size measures in the same population, in this example using a linear (number- and area-weighted), square root, and logarithmic scales.</h6><p><img src='https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/apparent_GS.png' alt='' /><br/></p><h6><a name='header-n111' class='md-header-anchor '></a>Estimate of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method</h6><p><img src='https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/figure_2.png?raw=true' alt='' /><br/></p><h6><a name='header-n115' class='md-header-anchor '></a>Estimate of the shape of the grain size distribution using the two-step method</h6><p><img src='https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/2step.png?raw=true' alt='' /><br/></p><h6><a name='header-n119' class='md-header-anchor '></a>Boxplots comparing different unimodal grain size distributions</h6><p><img src='https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme05.png' alt='' /><br/></p><h2><a name='header-n123' class='md-header-anchor '></a>Citation guidelines</h2><p>If you need references, the following are available:</p><p><strong><em>Script reference</em></strong> <br/>
-Lopez-Sanchez, Marco A. (2018): GrainSizeTools script. figshare. <a href='http://dx.doi.org/10.6084/m9.figshare.1383130' target='_blank' >http://dx.doi.org/10.6084/m9.figshare.1383130</a></p><p><strong><em>Frequency peak apparent grain size based on Gaussian kernel density estimator</em></strong><br/>
+<div  id='write'  class = 'is-node'><p><img src='https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png' alt='' referrerPolicy='no-referrer' /></p><p><em>This project is maintained by <a href='https://marcoalopez.github.io/'>Marco A. Lopez-Sanchez</a> - Last update (website): 2018/06/12</em><br/></p><p><a href='http://marcoalopez.github.io/GrainSizeTools/'>GrainSizeTools script</a> is a free, open-source, cross-platform script written in <a href='https://www.python.org/'>Python</a> that provides several tools for visualizing and estimating grain size in polycrystalline materials. The script is able to <strong>estimate differential stress through paleopiezometers</strong>, implementing multiple piezometric relations for comparison, and to derive the actual (3D) grain size distribution from thin sections using the Saltykov and the two-step methods. The script only requires as input the areas of the grain profiles measured grain-by-grain in a thin section and <strong>does not require previous experience with Python programming language</strong> (see documentation below and <a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md'>FAQ</a>). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.</p><p><strong>Last release 2018/03/27, v1.4.5 //  Version 2.0 will be released soon and will include important new features !</strong> </p><h2><a name='header-n10' class='md-header-anchor '></a>Features at a glance</h2><ul><li>Extract tabular-like data from text (.txt, .csv) or excel files.</li><li>Calculate apparent diameters of grain profiles via the equivalent circular diameter.</li><li>Estimate different apparent 1D grain size measures including the mean, median, area-weighted mean, and frequency peak using a Gaussian Kernel Density Estimator. Grain size scales can be linear, logarithmic, or square root.</li><li>Includes several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on the population features.</li><li>Approximate the actual 3D grain size distribution from data collected in thin sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.</li><li>Approximate the shape of the 3D grain size distribution via the two-step method and characterize the shape of the distribution using a single parameter (the MSD - <em>Multiplicative Standard Deviation</em>) .</li><li>Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and albite. Other phases available soon!</li><li>Ready-to-publish plots in bitmap or vector format (see screenshots below for examples).</li><li>Estimate robust confidence intervals using the student&#39;s t-distribution</li></ul><h2><a name='header-n39' class='md-header-anchor '></a>Download</h2><p>You can download the script at the following sites:<br/>
+<a href='https://github.com/marcoalopez/GrainSizeTools/releases' target='_blank' class='url'>https://github.com/marcoalopez/GrainSizeTools/releases</a><br/>
+<a href='http://figshare.com/articles/GrainSizeTools_script/1383130' target='_blank' class='url'>http://figshare.com/articles/GrainSizeTools_script/1383130</a><br/>
+<a href='https://sourceforge.net/projects/grainsizetools/' target='_blank' class='url'>https://sourceforge.net/projects/grainsizetools/</a></p><p><a href='https://github.com/marcoalopez/GrainSizeTools'>View project on GitHub</a></p><h2><a name='header-n47' class='md-header-anchor '></a>Documentation</h2><ul><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md'>Requirements</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md'>Scope</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md'>Getting started: A step-by-step tutorial</a></p><ul><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#open-and-running-the-script'>Open and running the script</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#a-brief-note-on-the-organization-of-the-script'>A brief note on the organization of the script</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-to-visualize-and-estimate-the-grain-size-features'>Using the script to visualize and estimate the grain size features</a></p><ul><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#loading-the-data-and-extracting-the-areas-of-the-grain-profiles'>Loading the data and extracting the areas of the grain profiles</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-the-apparent-diameters-from-the-areas-of-the-grain-profiles'>Estimating the apparent diameters from the areas of the grain profiles</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#obtaining-apparent-grain-size-measures'>Obtaining apparent grain size measures</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-differential-stress-using-piezometric-relations-paleopiezometry'>Estimating differential stress using piezometric relations (paleopiezometry)</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-a-robust-confidence-interval'>Estimating a robust confidence interval</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#derive-the-actual-3d-distribution-of-grain-sizes-from-thin-sections'>Derive the actual 3D distribution of grain sizes from thin sections</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#comparing-different-grain-size-populations-using-box-plots'>Comparing different grain size populations using box plots</a></li><li><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#general-methods-of-interest'>Other methods of interest</a></li></ul></li></ul></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/quick_tutorial.md'>Quick tutorial</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md'>How to measure the areas of the grain profiles with ImageJ</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md'>References</a></p></li><li><p><a href='https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md'>FAQs</a></p></li></ul><h2><a name='header-n105' class='md-header-anchor '></a>Screenshots</h2><h6><a name='header-n107' class='md-header-anchor '></a>Estimate of different apparent grain size measures in the same population, in this example using a linear (number- and area-weighted), square root, and logarithmic scales.</h6><p><img src='https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/apparent_GS.png' alt='' referrerPolicy='no-referrer' /></p><h6><a name='header-n111' class='md-header-anchor '></a>Estimate of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method</h6><p><img src='https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/figure_2.png?raw=true' alt='' referrerPolicy='no-referrer' /></p><h6><a name='header-n115' class='md-header-anchor '></a>Estimate of the shape of the grain size distribution using the two-step method</h6><p><img src='https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/2step.png?raw=true' alt='' referrerPolicy='no-referrer' /></p><h6><a name='header-n119' class='md-header-anchor '></a>Boxplots comparing different unimodal grain size distributions</h6><p><img src='https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme05.png' alt='' referrerPolicy='no-referrer' /></p><h2><a name='header-n123' class='md-header-anchor '></a>Citation guidelines</h2><p>If you need references, the following are available:</p><p><strong><em>Script reference</em></strong> <br/>
+Lopez-Sanchez, Marco A. (2018): GrainSizeTools script. figshare. <a href='http://dx.doi.org/10.6084/m9.figshare.1383130' target='_blank' class='url'>http://dx.doi.org/10.6084/m9.figshare.1383130</a></p><p><strong><em>Frequency peak apparent grain size based on Gaussian kernel density estimator</em></strong><br/>
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. <em>Solid Earth</em> 6, 475-495. doi:<a href='http://dx.doi.org/10.5194/se-6-475-2015'>10.5194/se-6-475-2015</a></p><p><strong><em>Two-step method</em></strong><br/>
 Lopez-Sanchez MA and Llana-Fúnez (2016) An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. <em>Journal of Structural Geology</em>, 93, 149-161. doi:<a href='http://dx.doi.org/10.1016/j.jsg.2016.10.008'>10.1016/j.jsg.2016.10.008</a>.</p><p><strong><em>Saltykov method</em></strong><br/>
-The procedure implemented in the GrainSizeTools script is partially based on general formulation developed by Sahagian and Proussevitch (1998) <em>J. Volcanol. Geotherm. Res.</em> 84, 173–196. <a href='http://dx.doi.org/10.1016/S0377-0273(98)00043-2'>http://dx.doi.org/10.1016/S0377-0273(98)00043-2</a> and is described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) <a href='http://dx.doi.org/10.5194/se-6-475-2015' target='_blank' >http://dx.doi.org/10.5194/se-6-475-2015</a></p><h2><a name='header-n138' class='md-header-anchor '></a>License</h2><p>GrainSizeTools script is licensed under the <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License, Version 2.0 (the &quot;License&quot;)</a></p><p>The documentation of GrainSizeTools script is licensed under a <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)</a>.<br/></p><h1><a name='header-n143' class='md-header-anchor '></a> </h1><p><em>Copyright © 2018 Marco A. Lopez-Sanchez</em><br/></p><p><em>Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.</em><br/></p><p><em>Hosted on GitHub Pages — This website was created with <a href='https://typora.io/'>Typora</a></em><br/></p></div>
+The procedure implemented in the GrainSizeTools script is partially based on general formulation developed by Sahagian and Proussevitch (1998) <em>J. Volcanol. Geotherm. Res.</em> 84, 173–196. <a href='http://dx.doi.org/10.1016/S0377-0273(98)00043-2'>http://dx.doi.org/10.1016/S0377-0273(98)00043-2</a> and is described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) <a href='http://dx.doi.org/10.5194/se-6-475-2015' target='_blank' class='url'>http://dx.doi.org/10.5194/se-6-475-2015</a></p><h2><a name='header-n138' class='md-header-anchor '></a>License</h2><p>GrainSizeTools script is licensed under the <a href='http://www.apache.org/licenses/LICENSE-2.0'>Apache License, Version 2.0 (the &quot;License&quot;)</a></p><p>The documentation of GrainSizeTools script is licensed under a <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)</a>.<br/></p><h1><a name='header-n143' class='md-header-anchor '></a> </h1><p><em>Copyright © 2018 Marco A. Lopez-Sanchez</em><br/></p><p><em>Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.</em><br/></p><p><em>Hosted on GitHub Pages — This website was created with <a href='https://typora.io/'>Typora</a></em><br/></p></div>
 </body>
 </html>
