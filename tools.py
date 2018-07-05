@@ -1,7 +1,7 @@
 # ============================================================================ #
 #                                                                              #
 #    This is part of the "GrainSizeTools Script"                               #
-#    A Python script for estimating grain size features from thin sections     #
+#    A Python script for characterizing grain size from thin sections          #
 #                                                                              #
 #    Copyright (c) 2014-present   Marco A. Lopez-Sanchez                       #
 #                                                                              #
@@ -24,7 +24,7 @@
 # ============================================================================ #
 
 # ============================================================================ #
-# Auxiliary functions doing specific tasks used by the other functions         #
+# Auxiliary functions doing specific tasks used by the GrainSizeTools script   #
 # The names of the functions are self-explanatory. They appear in alphabetical #
 # order. Save this file in the same directory as GrainSizeTools                #
 # ============================================================================ #
@@ -201,6 +201,11 @@ def calc_freq_peak(diameters, bandwidth, binsize):
     binsize : positive scalar or None
         the binsize used for histogram the population
 
+    Call function
+    -------------
+    - gen_xgrid
+    - kde (scipy)
+
     Returns
     -------
     The x and y values to contruct the kde, the peak grain size, and
@@ -352,9 +357,17 @@ def norm_grain_size(diameters, binsize, bandwidth):
     bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
+
+    Call function
+    -------------
+    - calc_freq_peak
+
+    Returns
+    -------
+    the normalized grain size population
     """
 
-    factor = int(input("Define the normalization factor (1 to 3) \n 1 -> mean; 2 -> median; 3 -> 'mode': "))
+    factor = int(input("Define the normalization factor (1 to 3) \n 1 -> mean; 2 -> median; 3 -> max_freq: "))
 
     if factor == 1:
         scale = mean(log(diameters))
@@ -392,6 +405,10 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
     normalize : boolean, optional
         when True negative values of frequency are set to zero and the
         distribution normalized. True by default.
+
+    Call function
+    -------------
+    - wicksell_eq
 
     Returns
     -------

@@ -1,7 +1,7 @@
 # ============================================================================ #
 #                                                                              #
 #    This is part of the "GrainSizeTools Script"                               #
-#    A Python script for estimating grain size features from thin sections     #
+#    A Python script for characterizing grain size from thin sections          #
 #                                                                              #
 #    Copyright (c) 2014-present   Marco A. Lopez-Sanchez                       #
 #                                                                              #
@@ -53,7 +53,7 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
             density=True,
             color='#4C72B0',
             edgecolor='#F7FFFF',
-            alpha=0.6)
+            alpha=0.7)
     ax.plot([mean_GS, mean_GS], [0.0001, y_max],
             linestyle='-',
             color='#1F1F1F',
@@ -84,7 +84,7 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
                       fontsize=13)
 
     elif plot == 'norm':
-        ax.set_xlabel(r'normalized apparent diameter ($\mu m$)',
+        ax.set_xlabel(r'normalized apparent diameter $\log_e{(\mu m)}$',
                       fontsize=13)
 
     elif plot == 'sqrt':
@@ -152,7 +152,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
 
-    # frequency plot
+    # frequency vs grain size plot
     ax1.bar(left_edges, freq3D,
             width=binsize,
             color='#404040',
@@ -190,7 +190,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
 def twostep_plot(diameters, mid_points, frequencies, optimal_params, sigma_err):
     """ Generate a plot with the best fitting lognormal distribution (two-step method)
-    
+
     Call functions
     --------------
     - gen_xgrid (tools)

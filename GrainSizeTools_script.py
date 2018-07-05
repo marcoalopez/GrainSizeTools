@@ -1,7 +1,7 @@
 # ============================================================================ #
 #                                                                              #
 #    GrainSizeTools Script                                                     #
-#    A Python script for estimating grain size features from thin sections     #
+#    A Python script for characterizing grain size from thin sections          #
 #                                                                              #
 #    Copyright (c) 2014-present   Marco A. Lopez-Sanchez                       #
 #                                                                              #
@@ -106,7 +106,7 @@ def area2diameter(areas, correct_diameter=None):
     areas : array_like
         the sectional areas of the grains
 
-    correct_diameter : None or positive scalar
+    correct_diameter : None or positive scalar, optional
         add the width of the grain boundaries to correct the diameters. If
         correct_diameter is not declared no correction is considered.
 
@@ -250,7 +250,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
     return_data : bool, optional
        if True the function will return the position of the midpoints and
        the frequencies (use by other functions).
-      
+
     left_edge : positive scalar or 'min', optional
         set the left edge of the histogram.
 
@@ -273,10 +273,9 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
         raise ValueError('Numbins must be a positive integer')
     if numbins <= 0:
         raise ValueError('Numbins must be higher than zero')
-    if left_edge < 0:
-        raise ValueError("left_edge must be a positive scalar or 'min'")
-    if calc_vol <= 0:
-        raise ValueError('calc_vol must be a positive scalar')
+    if isinstance(left_edge, (int, float)):
+        if left_edge < 0:
+            raise ValueError("left_edge must be a positive scalar or 'min'")
 
     # compute the histogram
     if left_edge == 'min':
@@ -330,11 +329,11 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
     # return data or figure (if apply)
     if return_data is True:
         return mid_points, freq3D
-    
+
     elif return_data is False:
         print('bin size =', round(binsize, 2))
         return plots.Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
-    
+
     else:
         raise TypeError('return_data must be set as True or False')
 
@@ -365,9 +364,8 @@ def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
 
     Call functions
     --------------
-    - Saltykov (tools)
-    - gen_xgrid (tools)
-    - log_function (tools)
+    - Saltykov
+    - fit_log (tools)
     - twostep_plot (plots)
 
     References
@@ -485,7 +483,7 @@ def calc_diffstress(grain_size, phase, piezometer):
 
     Call functions
     --------------
-    quartz, olivine, calcite, and albite from piezometers
+    quartz, olivine, calcite, and albite from piezometers.py
 
     Assumptions
     -----------

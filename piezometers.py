@@ -1,7 +1,7 @@
 # ============================================================================ #
 #                                                                              #
 #    This is part of the "GrainSizeTools Script"                               #
-#    A Python script for estimating grain size features from thin sections     #
+#    A Python script for characterizing grain size from thin sections          #
 #                                                                              #
 #    Copyright (c) 2014-present   Marco A. Lopez-Sanchez                       #
 #                                                                              #
@@ -161,7 +161,6 @@ def calcite(piezometer=None):
         print("'Platt_Bresser'")
         print("'Rutter_SGR'")
         print("'Rutter_GBM'")
-        print("'Schmid'")
         print("'Valcke'")
         return None
 
@@ -185,18 +184,12 @@ def calcite(piezometer=None):
 
     elif piezometer == 'Platt_Bresser':
         B, m = 538.40, 0.82
-        warn = 'Ensure that you entered the apparent grain size as the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the RMS mean in linear scale!'
         linear_interceps = False
         correction_factor = False
 
-    elif piezometer == 'Schmid':
-        B, m = 0, 0  # TODO
-        warn = 'Ensure that you entered the apparent grain size as...!'
-        linear_interceps = True
-        correction_factor = 1.0
-
     elif piezometer == 'Valcke':
-        B, m = 1467.92, 1.67  # TODO
+        B, m = 1467.92, 1.67
         warn = 'Ensure that you entered the apparent grain size the mean in linear scale!'
         linear_interceps = False
         correction_factor = False
