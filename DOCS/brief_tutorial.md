@@ -150,10 +150,10 @@ The ``extract_column`` function also allows you to manually define the file path
 
 ## *Estimate the equivalent circular diameters from the areas of the grain profiles*
 
-If you measured the areas of the grain profiles, then we need to convert them into apparent diameters via the equivalent circular diameter (ECD).
-$$
-ECD = 2 * \sqrt{area / \pi}
-$$
+If you measured the areas of the grain profiles, then we need to convert them into apparent diameters via the equivalent circular diameter (ECD):
+
+ECD = 2 * √(area / π)
+
 This can be done directly in the console using
 ```python
 >>> diameters = 2 * sqrt(areas / np.pi)
@@ -300,7 +300,7 @@ The parameter ``binsize`` also allows you to define a specific bin size if you d
 
 Lastly, the the parameter ``bandwidth`` allows you to define a method to estimate the an optimal bandwidth to construct the kde, either the ``'silverman'`` (the default) or the ``scott`` rules . You can also define your own bandwidth value declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using logarithmic or square-root scales.
 
-##### Normalized apparent grain size distributions
+### Normalized apparent grain size distributions
 
 As mentioned above, the parameter ``plot`` allows you to estimate and visualize normalized grain size distributions (Fig. 9). This is means that the entire grain population is normalized using the mean, the median, or the frequency peak; in this case it uses a logarithmic scale with base e. The advantage of normalized distributions is that they allow us to compare whether the grain size distribution is similar or not even when the average grain size between different distributions is not the same. For example, to test whether two or more apparent grain size distributions have similar shapes or not we can compare their normalized standard deviations (SD) or interquartile ranges (IQR). For this, we set the parameter ``plot='norm'`` and then the script will ask you about what average measure you want to use to normalize the grain size population:
 
@@ -308,7 +308,7 @@ As mentioned above, the parameter ``plot`` allows you to estimate and visualize 
 >>> calc_grain_size(diameters, plot='norm')
 
 Define the normalization factor (1 to 3) 
- 1 -> mean; 2 -> median; 3 -> max_freq: 1  # we write 1 to use the mean in this example
+ 1 --> mean; 2 --> median; 3 --> max_freq: 1  # we write 1 to use the mean in this example
  
 DESCRIPTIVE STATISTICS
  
