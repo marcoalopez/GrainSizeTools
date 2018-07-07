@@ -308,7 +308,7 @@ As mentioned above, the parameter ``plot`` allows you to estimate and visualize 
 >>> calc_grain_size(diameters, plot='norm')
 
 Define the normalization factor (1 to 3) 
- 1 --> mean; 2 --> median; 3 --> max_freq: 1  # we write 1 to use the mean in this example
+ 1 > mean; 2 > median; 3 > max_freq: 1  # we write 1 to use the mean in this example
  
 DESCRIPTIVE STATISTICS
  
