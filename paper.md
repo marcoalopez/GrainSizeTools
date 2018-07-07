@@ -11,14 +11,13 @@ tags:
   - Saltykov method
 authors:
   - name: Marco A. Lopez-Sanchez
-   orcid: 0000-0002-0261-9267
-   affiliation: "1, 2"
+    orcid: 0000-0002-0261-9267
+    affiliation: "1, 2"
 affiliations:
-  - name: Present address - Géosciences Montpellier, Université de Montpellier & CNRS, CC 60, Place E.
-7 Bataillon, 34095 Montpellier cedex 5, France
-   index: 1
+  - name: Present address - Géosciences Montpellier, Université de Montpellier & CNRS, CC 60, Place E. 7 Bataillon, 34095 Montpellier cedex 5, France
+    index: 1
   - name: Departamento de Geología, Universidad de Oviedo, c/Jesús Arias de Velasco s/n, 33005, Oviedo, Spain
-   index: 2
+    index: 2
 date: 07 July 2018
 bibliography: paper.bib
 ---
