@@ -4,7 +4,7 @@
 
 [GrainSizeTools script](http://marcoalopez.github.io/GrainSizeTools/) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for estimating average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent and approximated 3D grain size distributions via stereology), and estimate differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
 
-**IMPORTANT!: v2.0 released (2018/07/07). It includes new features and changes that make it incompatible with previous versions. The new version are only compatible with Python 3.5 or higher versions. PLEASE UPDATE** 
+**IMPORTANT!: v2.0 released (2018/07/07). It includes new features and changes that make it incompatible with previous versions. The new version is only compatible with Python 3.5 or higher versions. PLEASE UPDATE** 
 
 
 ## Features at a glance
