@@ -150,7 +150,7 @@ def calcite(piezometer=None):
 
     Assumptions
     -----------
-    - The piezometer relation of Rutter (1995) requires entering the grain size
+    - The piezometer of Rutter (1995) requires entering the grain size
     as the linear mean apparent grain size calculated using equivalent
     circular diameters with no stereological correction.
     """

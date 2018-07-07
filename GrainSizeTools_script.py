@@ -217,7 +217,7 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
             return tools.calc_areaweighted_grainsize(areas, diameters, binsize)
 
     else:
-        raise ValueError("The type of plot has been misspelled, please use 'lin', 'log', 'sqrt', 'norm', or 'area'")
+        raise ValueError("The type of plot has been misspelled, please use 'lin', 'log', 'log10', sqrt', 'norm', or 'area'")
 
 
 def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=False, left_edge=0):
