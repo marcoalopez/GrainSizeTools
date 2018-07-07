@@ -19,7 +19,7 @@ affiliations:
    index: 1
   - name: Departamento de Geología, Universidad de Oviedo, c/Jesús Arias de Velasco s/n, 33005, Oviedo, Spain
    index: 2
-date: xx July 2018
+date: 07 July 2018
 bibliography: paper.bib
 ---
 
