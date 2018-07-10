@@ -1,5 +1,5 @@
 ---
-title: GrainSizeTools: "a Python script for grain size analysis and paleopiezometry based on grain size"
+title: "GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size"
 tags:
   - Python
   - grain size analysis
