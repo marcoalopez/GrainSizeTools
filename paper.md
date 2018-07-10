@@ -32,9 +32,9 @@ In summary, we pursue three different goals with the script:
 
 - promoting best practices and reproducibility in grain size analysis using robust statistics, avoiding manual steps during data processing, and promoting standard procedures for grain size characterization
 - maintain a curated and up-to-date database of grain-size based paleopiezometers for different mineral phases
-- provide a platform to implement and test new methods for grain size characterization in recrystallized materials (e.g. [@Lopez_Sanchez:2015, @Lopez_Sanchez:2016])
+- provide a platform to implement and test new methods for grain size characterization in recrystallized materials [e.g. @Lopez_Sanchez:2015, @Lopez_Sanchez:2016]
 
-The script is written in Python, a non-proprietary language, and released under the Apache 2.0 license. It only uses standard and well-maintained Python scientific libraries as dependencies, such as Numpy [@Oliphan:2007], Scipy [@Jones:2001], Pandas [@McKinney:2010], and Matplotlib [@Hunter:2007]. The script is therefore designed to be free for use, open for inspection and modification, flexible, and future-proof.
+The script is written in Python, a non-proprietary language, and released under the Apache 2.0 license. It only uses standard and well-maintained Python scientific libraries as dependencies, such as Numpy [@Oliphant:2007], Scipy [@Jones:2001], Pandas [@Mckinney:2010], and Matplotlib [@Hunter:2007]. The script is therefore designed to be free for use, open for inspection and modification, flexible, and future-proof.
 
 Except for data import, the script operates through command-line. However, it is designated in a way that it does not require previous knowledge of Python programming language. Since the script is focused on research, the command-line approach facilitates reproducibility. For advanced users, the script is organized in a modular way using short and one-task functions, which facilitates code reuse and extension. Ongoing developments include the implementation of new grain size characterization methods and piezometer calibrations.
 
