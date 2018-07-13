@@ -7,7 +7,7 @@ Getting Started: A step-by-step tutorial
 
 ## *Open and running the script*
 
-First of all, make sure you have the latest version of the GrainSizeTools script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). Launch the [Spyder](https://www.spyder-ide.org/) -if you installed the Anaconda or miniconda package- or the [Canopy](https://www.enthought.com/product/canopy/) IDE -if you installed the Enthought package- and then open the ``GrainSizeTools.py`` file using ```File>Open```. The script will appear in the code editor as shown in figure 1.
+First of all, make sure you have the latest version of the GrainSizeTools script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). Launch the [Spyder](https://www.spyder-ide.org/) -if you installed the Anaconda or miniconda package- or the [Canopy](https://www.enthought.com/product/canopy/) IDE -if you installed the Enthought package- and then open the ``GrainSizeTools_script.py`` file using ```File>Open```. The script will appear in the code editor as shown in figure 1.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  
 *Figure 1. The [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) showing the editor, the Python shell or console, and the file explorer. Canopy and Spyder are both MATLAB-like IDEs optimized for numerical computing and data analysis with Python. They also provide a variable explorer or a history log among other interesting features.*
@@ -144,7 +144,7 @@ The ``extract_column`` function also allows you to manually define the file path
 >>> areas = extract_column(file_path='C:/...yourFileLocation.../nameOfTheFile.csv', col_name='areas')
 ```
 
-> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with the most common Python scientific libraries, the natural way to interact with the data and the script is through the Pandas library.
+> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with the most common Python scientific libraries, the natural way to interact with the data and the script is through the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
 
 
 
