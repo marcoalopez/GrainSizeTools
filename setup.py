@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import sys
+import os
 from setuptools import setup, find_packages
 
 
@@ -16,6 +17,8 @@ if (v[0] >= 3 and v[:2] < (3, 5)):
     print(error, file=sys.stderr)
     sys.exit(1)
 
+sys.path.append(os.path.join(sys.path[0], 'grain_size_tools'))
+
 setup(
     name = "grain_size_tools",
     version = "2.0",
@@ -27,7 +30,7 @@ setup(
     url = "https://github.com/marcoalopez/GrainSizeTools",
     license = license,
     packages = find_packages(),
-    #scripts = ['grain_size_tools/GrainSizeTools_script.py', 'grain_size_tools/tools.py', 'grain_size_tools/plots.py', 'grain_size_tools/piezometers.py'],
+    scripts = ['grain_size_tools/GrainSizeTools_script.py', 'grain_size_tools/tools.py', 'grain_size_tools/plots.py', 'grain_size_tools/piezometers.py'],
     classifiers=(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: Apache-2.0 License",
