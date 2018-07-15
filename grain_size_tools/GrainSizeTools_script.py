@@ -411,7 +411,20 @@ def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
     print(' ')
     # print(' Covariance matrix:\n', covm)
 
-    return plots.twostep_plot(diameters, mid_points, frequencies, optimal_params, sigma_err)
+    # prepare data for the plot
+    xgrid = tools.gen_xgrid(diameters, 0.1, max(diameters))
+    best_fit = tools.log_function(xgrid, optimal_params[0], optimal_params[1])
+
+    # Estimate all the combinatorial posibilities for fit curves taking into account the uncertainties
+    values = array([tools.log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] + sigma_err[1]),
+                    tools.log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] - sigma_err[1]),
+                    tools.log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] - sigma_err[1]),
+                    tools.log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] + sigma_err[1])])
+
+    # Estimate the standard deviation of the all values obtained
+    fit_error = np.std(values, axis=0)
+
+    return plots.twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error)
 
 
 def confidence_interval(data, confidence=0.95):

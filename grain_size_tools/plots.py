@@ -31,8 +31,6 @@
 
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-from numpy import array, std
-from tools import gen_xgrid, log_function
 
 # Set the plot style. To see the different styles available in Matplotlib see:
 # https://tonysyu.github.io/raw_content/matplotlib-style-gallery/gallery.html
@@ -188,29 +186,8 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     return plt.show()
 
 
-def twostep_plot(diameters, mid_points, frequencies, optimal_params, sigma_err):
-    """ Generate a plot with the best fitting lognormal distribution (two-step method)
-
-    Call functions
-    --------------
-    - gen_xgrid (tools)
-    - log_function (tools)
-    """
-
-    # Generate a mesh of x-values
-    xgrid = gen_xgrid(diameters, 0.1, max(diameters))
-
-    # Calculate the curve of the best fit
-    best_fit = log_function(xgrid, optimal_params[0], optimal_params[1])
-
-    # Estimate all the combinatorial posibilities for fit curves taking into account the uncertainties
-    values = array([log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] + sigma_err[1]),
-                    log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] - sigma_err[1]),
-                    log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] - sigma_err[1]),
-                    log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] + sigma_err[1])])
-
-    # Estimate the standard deviation of the all values obtained
-    fit_error = std(values, axis=0)
+def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
+    """ Generate a plot with the best fitting lognormal distribution (two-step method)"""
 
     # matplotlib stuff
     fig, ax = plt.subplots()
