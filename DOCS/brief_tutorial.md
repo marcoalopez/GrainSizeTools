@@ -141,7 +141,7 @@ The data stored in any variable can be viewed at any time by invoking its name i
 The ``extract_column`` function also allows you to manually define the file path of the file (note that different inputs/parameters are comma-separated) as follows:
 
 ```python
->>> areas = extract_column(file_path='C:/...yourFileLocation.../nameOfTheFile.csv', col_name='areas')
+>>> areas = extract_column(file_path='data_set.txt', col_name='areas')
 ```
 
 > 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with the most common Python scientific libraries, the natural way to interact with the data and the script is through the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
