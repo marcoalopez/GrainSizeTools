@@ -168,7 +168,7 @@ or using the ```area2diameter``` function
 Note that in all the example above we define a new variable ``diameters`` to store the equivalent circular diameters. In some cases, we would need to correct the size of the grain profiles (Fig. 5). For this, you can add a new parameter in the  ```area2diameter``` function
 
 ```python
->>> diameters = calc_diameters(areas, correct_diameter=0.5)
+>>> diameters = area2diameter(areas, correct_diameter=0.5)
 ```
 
 and 0.5 will be added to each equivalent circular diameter. If the parameter ```correct_diameter``` is not declared within the function, as in the first example, it is assumed that no diameter correction is needed.
@@ -285,7 +285,7 @@ The ``plot`` parameter allows you to define scales other than the linear one (wh
 
 *Figure 8. Area-weighted apparent grain size distribution and the location of the area-weighted mean.*
 
-The function allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of histograms. For this, we use the parameter ``binsize``. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule otherwise. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram.html).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. Some examples specifying different plug-in methods below:
+The function allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of histograms. For this, we use the parameter ``binsize``. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule when using large datasets (> 1000) and the Sturges rule otherwise. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. Some examples specifying different plug-in methods below:
 
 ```python
 >>> calc_grain_size(diameters, plot='lin', binsize='doane')
