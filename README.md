@@ -90,7 +90,14 @@ The procedure implemented in the GrainSizeTools script is partially based on gen
 
 GrainSizeTools script is licensed under the [Apache License, Version 2.0 (the "License")](http://www.apache.org/licenses/LICENSE-2.0)
 
-The documentation of GrainSizeTools script is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/).  
+The documentation of GrainSizeTools script is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License (CC BY-NC-SA 4.0)](https://creativecommons.org/licenses/by-nc-sa/4.0/). 
+
+## Community guidelines
+
+- *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
+
+- *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) and I'll see what I can do
+- *Do you want to develop your own code based on the GrainSizeTools script?* Just fork the project since the script is open source and free
 
 # 
 *Copyright © 2018 Marco A. Lopez-Sanchez*  
