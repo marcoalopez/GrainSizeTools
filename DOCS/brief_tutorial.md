@@ -1,9 +1,9 @@
-*last update 2018/07/07 
+*last update 2018/09/03 
 
 Getting Started: A step-by-step tutorial
 =============
 
-> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v2.0. Please check your script version before using this tutorial**
+> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v2.0+ Please check your script version before using this tutorial**
 
 ## *Open and running the script*
 
@@ -20,11 +20,9 @@ Before interacting with the script it is necessary to run it. Then, just click o
 The following text will appear in the console:
 ```
 ======================================================================================
-Welcome to GrainSizeTools script v2.0
+Welcome to GrainSizeTools script v2.0.1
 ======================================================================================
-GrainSizeTools is a free open-source cross-platform script to visualize and characterize
-the grain size in polycrystalline materials from thin sections and estimate differential
-stresses via paleopizometers.
+GrainSizeTools is a free open-source cross-platform script to visualize and characterize the grain size in polycrystalline materials from thin sections and estimate differential stresses via paleopizometers.
 
 
 METHODS AVAILABLE
@@ -73,7 +71,7 @@ def area2diameter(areas, correct_diameter=None):
     """
 
     # calculate the equivalent circular diameter
-    diameters = 2 * sqrt(areas / pi)
+    diameters = 2 * sqrt(areas / np.pi)
 
     # diameter correction adding edges (if applicable)
     if correct_diameter is not None:
@@ -112,7 +110,7 @@ The function ```extract_column``` uses by default the column name ``'Area'`` , s
 Once you press the Enter key, a new window will pop up showing a file selection dialog so that you can search and open the file that contains the dataset. Then, the function will automatically extract the information corresponding to the defined column and store them into a variable. To check that everything is ok, the shell will return the first and last rows of the dataset and the first and last values of the column extracted as follows:
 
 ```python
->>> areas = extract_column(col_name='Area')
+>>> areas = extract_column()
 
          Area  Circ.    Feret    ...     MinFeret     AR  Round  Solidity
 0  1   157.25  0.680   18.062    ...       13.500  1.101  0.908     0.937
@@ -144,7 +142,7 @@ The ``extract_column`` function also allows you to manually define the file path
 >>> areas = extract_column(file_path='data_set.txt', col_name='areas')
 ```
 
-> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with the most common Python scientific libraries, the natural way to interact with the data and the script is through the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
+> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with the most common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
 
 
 
@@ -203,6 +201,7 @@ DESCRIPTIVE STATISTICS
 Arithmetic mean grain size = 34.79 microns
 Standard deviation = 18.32 (1-sigma)
 RMS mean = 39.31 microns
+Geometric mean = 30.1 microns
  
 Median grain size = 31.53 microns
 Interquartile range (IQR) = 23.98
@@ -361,7 +360,7 @@ Ensure that you entered the apparent grain size as the mean in linear scale!
 differential stress = 35.58 MPa
 Ensure that you entered the apparent grain size as the mean in linear scale!
 ```
-It is key to note that different piezometers require entering **different apparent grain size averages** to provide meaningful estimates. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square (RMS) or quadratic mean using equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v2.0 and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific "average" grain size value measured as equivalent circular diameters (ECD). The script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation. Also, the script takes into account if the authors originally used a specific correction factor for the grain size. For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
+It is key to note that different piezometers require entering **different apparent grain size averages** to provide meaningful estimates. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square (RMS) using equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v2.0+ and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific "average" grain size value measured as equivalent circular diameters (ECD). The script will automatically convert this ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation. Also, the script takes into account if the authors originally used a specific correction factor for the grain size. For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
 
 ```python
 >>> help(calc_diffstress)
@@ -441,11 +440,21 @@ It is key to note that different piezometers require entering **different appare
 | :--------------------: | :----: | :--: | :--: | :--: | :---: | :--: |
 | Post and Tullis (1999) | albite | BLG  |  55  | 0.66 | 433.4 | 1.52 |
 
+Since *v2.0.1* the script ``calc_diffstress`` functions allows to correct the differential stress estimates for plane stress using the correction factor proposed in Behr and Platt (2013). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behaves as plane stress. To correct this Behr and Platt (2013) proposed to multiply the estimates by $$2 / \sqrt3$$. To do this we specify:
+
+```python
+# Note that we set the parameter 'correction' to True
+>>> calc_diffstress(grain_size=5.7, phase='quartz', piezometer='Stipp_Tullis', correction=True)
+
+differential stress = 195.32 MPa
+Ensure that you entered the apparent grain size as the root mean square (RMS)!
+```
+
 
 
 ## *Estimating a robust confidence interval*
 
-As pointed out in the [scope section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md), when using paleopiezometers the optimal approach is to obtain several estimates of stress and then estimate a confidence interval. The same principle may apply to apparent grain size estimates. The script implements a function called ```confidende_interval```for estimating a robust confidence interval that takes into account the sample size. For this, it uses the student's t-distribution with n-1 degrees of freedom. The function has two inputs, the dataset with the estimates, which is obligatory, and the level of the confidence interval, which is optional and is set at 0.95 by default. For example:
+As pointed out in the [scope section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md), when using paleopiezometers the optimal approach is to obtain several estimates of stress and then estimate a confidence interval. The same principle may apply to apparent grain size estimates. The script implements a function called ```confidende_interval```for estimating a robust confidence interval that takes into account the sample size. For this, it uses the student's t-distribution with n-1 degrees of freedom. The function has two inputs, the dataset with the estimates, which is obligatory, and the level of the confidence interval, which is optional and set at 0.95 by default. For example:
 
 ```python
 >>> my_results = [165.3, 174.2, 180.1]  # this is just a list with three different estimates
@@ -461,7 +470,7 @@ Max / min = 191.71 / 154.69
 Coefficient of variation = 10.7 %
 ```
 
-The coefficient of variation express the confidence interval in percentage respect to the mean and allows the user to compare errors between samples with different mean values.
+> 👉 The *coefficient of variation* express the confidence interval in percentage respect to the mean and allows the user to compare errors between samples with different mean values.
 
 
 
@@ -539,7 +548,7 @@ As a cautionary note, if we use a different number of bins/classes, in this exam
 
 The two-step method is suitable to describe quantitatively the shape of the grain size distribution assuming that they follow a lognormal distribution. This means that the two-step method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded. It is therefore necessary to check first whether the linear distribution of grain sizes is unimodal and lognormal-like (i.e. skewed to the right as in the example shown in figure 10). For more details see [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778).
 
-To estimate the shape of the 3D grain size distribution we will use the function ```calc_shape```.  This function implements a method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, 2016). Briefly, the method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The method return two parameters, the **MSD** and the theoretical **median**, both enough to fully describe a lognormal distribution at their original (linear) scale, and the uncertainty associated with the estimate. In addition, it also returns a frequency plot showing the probability density function estimated (Fig. 11). In particular, the **MSD value** allows to describe the shape of the lognormal distribution independently of the scale (i.e. the range) of the grain size distribution, which is very convenient for comparative purposes. This is whether two distribution show the same shape distribution of grain sizes even when they have different grain size ranges and average grain sizes. The ``calc_shape`` functions has the following inputs:
+To estimate the shape of the 3D grain size distribution we will use the function ```calc_shape```.  This function implements a method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, 2016). Briefly, the method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The method return two parameters to fully describe a lognormal distribution at their original (linear) scale: the **MSD** and the **geometric mean** (which theoretically it coincides with the **median** in perfect lognormal distributions) along with the uncertainty associated with the estimate. In addition, it also returns a frequency plot showing the probability density function estimated (Fig. 11). In particular, the **MSD value** allows to describe the shape of the lognormal distribution independently of the scale (i.e. the range) of the grain size distribution, which is very convenient for comparative purposes. This is whether two distribution show the same shape distribution of grain sizes even when they have different grain size ranges and average grain sizes. The ``calc_shape`` functions has the following inputs:
 
 ```python
 def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
@@ -571,19 +580,19 @@ Note that in this case we include a new parameter named ```fit``` that it is set
 
 ```
 OPTIMAL VALUES
-Number of clasess: 12
-MSD (shape) = 1.64 ± 0.07
-Median (location) = 36.22 ± 1.62 (caution: not realiable)
-```
-By default, the algorithm find the optimal number of classes within the range 12 to 20. We can define any other range as follows:
-
-```python
->>> calc_shape(diameters, class_range=(10, 15))
-
-OPTIMAL VALUES
 Number of clasess: 11
 MSD (shape) = 1.63 ± 0.06
-Median (location) = 36.05 ± 1.27 (caution: not realiable)
+Geometric mean (location) = 36.05 ± 1.27
+```
+By default, the algorithm find the optimal number of classes within the range 10 to 20. However, sometimes it will be necessary to define a different range. For example when we observe very thick trust regions, which is indicative that we may be using a minimum number of classes too large for our dataset.  We can define any other range as follows:
+
+```python
+>>> calc_shape(diameters, class_range=(15, 20))
+
+OPTIMAL VALUES
+Number of clasess: 15
+MSD (shape) = 1.69 ± 0.07
+Geometric mean (location) = 35.51 ± 1.73
 ```
 
 
@@ -591,16 +600,16 @@ Median (location) = 36.05 ± 1.27 (caution: not realiable)
 ![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
 *Figure 11. Lognormal approximation using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
 
-Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 11b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 35.0 for the MSD and median values respectively. However, if the algorithm fails it is possible to change the default values by adding a following parameter:
+Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 11b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 35.0 for the MSD and geometric mean values respectively. However, if the algorithm fails it is possible to change the default values by adding a following parameter:
 
 ```python
 >>> calc_shape(diameters, initial_guess=True)
 
 Define an initial guess for the MSD parameter (the default value is 1.2; MSD > 1.0): 1.2
-Define an initial guess for the median (the default value is 35.0): 40.0
+Define an initial guess for the geometric mean (the default value is 35.0): 40.0
 ```
 
-When the ```initial_guess``` parameter is set to ```True```, the script will ask you to set new starting values for both parameters (it also indicates which are the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and increase or decrease the median value every five units until the fitting procedure yield a good fit (Fig. 11). You can also try using the median of the apparent grain size population.
+When the ```initial_guess``` parameter is set to ```True```, the script will ask you to set new starting values for both parameters (it also indicates which were the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and increase or decrease the geometric mean value every five units until the fitting procedure yield a good fit (Fig. 11). You can also try using a value similar to the median or the geometric mean of the apparent grain size population.
 
 
 

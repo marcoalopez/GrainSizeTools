@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0                                                               #
+#    Version 2.0.1                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -338,7 +338,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
         raise TypeError('return_data must be set as True or False')
 
 
-def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
+def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     """ Estimates the shape of the actual (3D) distribution of grain size from a
     population of apparent diameters measured in a thin section using the two-step
     method (Lopez-Sanchez and Llana-Funez, 2016).
@@ -385,7 +385,7 @@ def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
         scale = 35.0
     elif initial_guess is True:
         shape = float(input('Define an initial guess for the MSD parameter (the default value is 1.2; MSD > 1.0): '))
-        scale = float(input('Define an initial guess for the median (the default value is 35.0): '))
+        scale = float(input('Define an initial guess for the geometric mean (the default value is 35.0): '))
     else:
         raise TypeError('Initial_guess must be set as True or False')
 
@@ -405,9 +405,10 @@ def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
     print(' ')
     print('OPTIMAL VALUES')
     print('Number of clasess: {}' .format(optimal_num_classes))
-    print('MSD (shape) = {msd} ± {err}' .format(msd=round(optimal_params[0], 2), err=round(3 * sigma_err[0], 2)))
-    print('Median (location) = {median} ± {err} (caution: not realiable)' .format(median=round(optimal_params[1], 2),
-                                                                                  err=round(3 * sigma_err[1], 2)))
+    print('MSD (shape) = {msd} ± {err}' .format(msd=round(optimal_params[0], 2),
+                                                err=round(3 * sigma_err[0], 2)))
+    print('Geometric mean (location) = {gmean} ± {err}' .format(gmean=round(optimal_params[1], 2),
+                                                                err=round(3 * sigma_err[1], 2)))
     print(' ')
     # print(' Covariance matrix:\n', covm)
 
@@ -468,7 +469,7 @@ def confidence_interval(data, confidence=0.95):
     return None
 
 
-def calc_diffstress(grain_size, phase, piezometer):
+def calc_diffstress(grain_size, phase, piezometer, correction=False):
     """ Apply different piezometric relations to estimate the differential
     stress from average apparent grain sizes. The piezometric relation has
     the following general form:
@@ -490,8 +491,12 @@ def calc_diffstress(grain_size, phase, piezometer):
     piezometer : string
         the piezometric relation to be use
 
+    correction : bool, default False
+        correct the stress values for plane stress (Behr & Platt, 2013)
+
      References
-    ----------
+    -----------
+    Berh and Platt (2013) https://doi.org/10.1016/J.JSG.2013.07.
     De Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
 
     Call functions
@@ -510,6 +515,9 @@ def calc_diffstress(grain_size, phase, piezometer):
     - When required, the grain size value will be converted from ECD to linear
     intercept (LI) using a correction factor based on De Hoff and Rhines (1968):
     LI = (correction factor / sqrt(4/pi)) * ECD
+    - Stress estimates can be corrected from uniaxial compression (experiments)
+    to plane strain (nature) multiplying the estimate of th epaleopiezometer by
+    2/sqrt(3) (Behr and Platt, 2013)
 
 
     Returns
@@ -536,11 +544,15 @@ def calc_diffstress(grain_size, phase, piezometer):
     if piezometer == 'Shimizu':
         T = float(input("Please, enter the temperature [in C degrees] during deformation: "))
         diff_stress = B * grain_size**(-m) * exp(698 / (T + 273.15))
+        if correction is True:
+            diff_stress = diff_stress * 2 / sqrt(3)
         print(' ')
         print('differential stress = {} MPa' .format(round(diff_stress, 2)))
         print(warn)
     else:
         diff_stress = B * grain_size**-m
+        if correction is True:
+            diff_stress = diff_stress * 2 / sqrt(3)
         print(' ')
         print('differential stress = {} MPa' .format(round(diff_stress, 2)))
         print(warn)
@@ -551,7 +563,7 @@ def calc_diffstress(grain_size, phase, piezometer):
 
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v2.0
+Welcome to GrainSizeTools script v2.0.1
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential

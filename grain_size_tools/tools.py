@@ -34,7 +34,7 @@ import numpy as np
 import plots as plots
 from numpy import mean, std, median, sqrt, exp, log, delete
 from scipy.optimize import curve_fit
-from scipy.stats import gaussian_kde, iqr
+from scipy.stats import gaussian_kde, iqr, mstats
 
 
 def calc_areaweighted_grainsize(areas, diameters, binsize):
@@ -137,8 +137,10 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
         print('Caution! You should use at least 433 grain measurements for reliable results')
 
     mean_GS, std_GS = mean(diameters), std(diameters)
-    mean_RMS = sqrt(mean(diameters**2))
     median_GS, iqr_GS = median(diameters), iqr(diameters)
+    if plot == 'linear':
+        gmean = mstats.gmean(diameters)
+        mean_RMS = sqrt(mean(diameters**2))
 
     # estimate the number of classes using an automatic plug-in method (if apply)
     if type(binsize) is str:
@@ -164,6 +166,7 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     print('Standard deviation = {} (1-sigma)' .format(round(std_GS, 2)))
     if plot == 'linear':
         print('RMS mean = {} microns' .format(round(mean_RMS, 2)))
+        print('Geometric mean = {} microns' .format(round(gmean, 2)))
     print(' ')
     print('Median grain size = {} microns' .format(round(median_GS, 2)))
     print('Interquartile range (IQR) = {}' .format(round(iqr_GS, 2)))
