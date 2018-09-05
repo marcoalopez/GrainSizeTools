@@ -1,16 +1,16 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/07/09*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/09/05*  
 
 **GrainSizeTools** is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools to estimate the average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent and approximate 3D grain size distributions via stereology), and estimate the differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
 
-**IMPORTANT!: v2.0 released (2018/07/07). It includes new features and changes that make it incompatible with previous versions. The new version is only compatible with Python 3.5 or higher versions. PLEASE UPDATE** 
+**IMPORTANT!: v2.0.1 released (2018/09/05). Versions 2.0+ include new features and changes that make it incompatible with previous versions and are only compatible with Python 3.5 or higher.** 
 
 
 ## Features at a glance
 
 - Extract data automatically from tabular-like files including txt, csv, or xls/slxs formats.
-- Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the mean, RMS mean, median, area-weighted mean, and frequency peak using a Gaussian Kernel Density Estimator. Grain size scales can be in linear, logarithmic, or square root.
+- Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the mean, geometric and RMS mean, median, area-weighted mean, and frequency peak using a Gaussian Kernel Density Estimator. Grain size scales can be in linear, logarithmic, or square root.
 - Estimate normalized grain size distributions to compare between different grain size populations.
 - Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar.
 - Estimate robust confidence intervals using the student's t-distribution
@@ -97,7 +97,7 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 - *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
 
 - *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) and I'll see what I can do
-- *Do you want to develop your own code based on the GrainSizeTools script?* Just fork the project since the script is open source and free
+- *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply fork the project and develop!
 
 # 
 *Copyright © 2018 Marco A. Lopez-Sanchez*  
