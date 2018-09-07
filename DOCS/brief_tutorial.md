@@ -301,13 +301,13 @@ Lastly, the the parameter ``bandwidth`` allows you to define a method to estimat
 
 ### Normalized apparent grain size distributions
 
-As mentioned above, the parameter ``plot`` allows you to estimate and visualize normalized grain size distributions (Fig. 9). This is means that the entire grain population is normalized using the mean, the median, or the frequency peak; in this case it uses a logarithmic scale with base e. The advantage of normalized distributions is that they allow us to compare whether the grain size distribution is similar or not even when the average grain size between different distributions is not the same. For example, to test whether two or more apparent grain size distributions have similar shapes or not we can compare their normalized standard deviations (SD) or interquartile ranges (IQR). For this, we set the parameter ``plot='norm'`` and then the script will ask you about what average measure you want to use to normalize the grain size population:
+As mentioned above, the parameter ``plot`` allows you to estimate and visualize normalized grain size distributions (Fig. 9). This is means that the entire grain population is normalized using the mean, the median, or the frequency peak; in this case it uses a logarithmic scale with base e. The advantage of normalized distributions is that they allow us to compare whether the grain size distribution looks similar or not even when the average grain size between different distributions is different. For example, to test whether two or more apparent grain size distributions have similar shapes we can compare their normalized standard deviations (SD) or interquartile ranges (IQR). For this, we set the parameter ``plot='norm'`` and then the script will ask you about what average measure you want to use to normalize the grain size population:
 
 ```python
 >>> calc_grain_size(diameters, plot='norm')
 
 Define the normalization factor (1 to 3) 
- 1 > mean; 2 > median; 3 > max_freq: 1  # we write 1 to use the mean in this example
+ 1 > mean; 2 > median; 3 > max_freq: 1  # we write 1 to use the mean in this example and then press Enter
  
 DESCRIPTIVE STATISTICS
  
@@ -440,7 +440,7 @@ It is key to note that different piezometers require entering **different appare
 | :--------------------: | :----: | :--: | :--: | :--: | :---: | :--: |
 | Post and Tullis (1999) | albite | BLG  |  55  | 0.66 | 433.4 | 1.52 |
 
-Since *v2.0.1* the script ``calc_diffstress`` functions allows to correct the differential stress estimates for plane stress using the correction factor proposed in Behr and Platt (2013). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behaves as plane stress. To correct this Behr and Platt (2013) proposed to multiply the estimates by $$2 / \sqrt3$$. To do this we specify:
+Since *v2.0.1*, the ``calc_diffstress`` function allows correcting the differential stress estimates for plane stress using the correction factor proposed in Behr and Platt (2013). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Behr and Platt (2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
 
 ```python
 # Note that we set the parameter 'correction' to True
@@ -584,7 +584,7 @@ Number of clasess: 11
 MSD (shape) = 1.63 ± 0.06
 Geometric mean (location) = 36.05 ± 1.27
 ```
-By default, the algorithm find the optimal number of classes within the range 10 to 20. However, sometimes it will be necessary to define a different range. For example when we observe very thick trust regions, which is indicative that we may be using a minimum number of classes too large for our dataset.  We can define any other range as follows:
+By default, the algorithm find the optimal number of classes within the range 10 to 20. However, sometimes it will be necessary to define a different range. For example when we observe very thick trust regions, which is indicative that we may be using a minimum number of classes too large for the dataset.  We can define any other range as follows:
 
 ```python
 >>> calc_shape(diameters, class_range=(15, 20))
@@ -625,6 +625,8 @@ To create a box plot using the Matplotlib library we need to create first a vari
 
 ```python
 >>> all_data = [dataset1, dataset2, dataset3, dataset4] # Note that a Python list is a list of elements within brackets separated by commas
+
+# if you prefer logarithmic scales then: all_data = [log(dataset1), ...]
 ```
 
 Then we create the plot (Fig. 13):
@@ -633,7 +635,7 @@ Then we create the plot (Fig. 13):
 >>> plt.boxplot(all_data)
 >>> plt.show() # write this and click return if the plot did not appear automatically (generally not needed)
 ```
-To create a more convenience plot (Fig. 13) we propose using the following **optional** parameters:
+To create a better-looking plot (Fig. 13) we propose using the following **optional** parameters:
 
 ```python
 # First make a list specifying the labels of the samples (this is optional). Ensure that the number of items in the brackets coincide with the number of datasets to plot.
