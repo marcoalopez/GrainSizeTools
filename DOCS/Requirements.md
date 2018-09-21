@@ -1,11 +1,36 @@
-*last update 2018/07/06*
+*last update 2018/09/21*
 
-Requirements
+Requirements & Development
 -------------
 
-GrainSizeTools script requires [Python][1] 3.5+ or higher and the Python scientific libraries [*Numpy*][2], [*Scipy*][3], [*Pandas*][9] and [*Matplotlib*][4]. We recommend installing the [Anaconda][5] or the [Enthought Canopy][6] distributions. Both distributions include all the required the scientific packages plus scientific-oriented integrated development systems. In case you have space problems in your hard disk, there is a distribution named [miniconda][7] that only installs the packages you actually need.
+### Requirements
 
-The approach of the script is based on the estimation of the areas of the grain profiles obtained from thin sections. It is therefore necessary to measure them in advance and save the results in a txt/csv/xlsx file. For this task, we highly encourage you to use the [*ImageJ*](http://rsbweb.nih.gov/ij/) application or one of their different flavours (see [here](http://fiji.sc/ImageJ)). ImageJ-type applications are public-domain image processing programs widely used for scientific research that runs on Windows, macOS, and Linux platforms. The documentation contains a quick tutorial on how to measure the areas of the grain profiles with ImageJ, see the *Table of Contents*. The combined use of **ImageJ** and **GrainSizeTools script** is intended to ensure that all data processing steps are done through free and open-source programs/scripts that run under any operating system. If you are dealing with EBSD data, we encourage you to use the [MTEX toolbox](https://mtex-toolbox.github.io/) for grain reconstruction and the [export2file script](https://github.com/marcoalopez/export2file) for exporting the data (a tutorial on this will be available soon).
+GrainSizeTools script requires [Python][1] 3.5+ or higher and the Python scientific libraries [*Numpy*][2], [*Scipy*][3], [*Pandas*][9] and [*Matplotlib*][4].
+
+- Python (>= 3.5) (old versions, <=1.4.5, also supports Python 2.7+ but have fewer features )
+- Numpy (>=1.11)
+- Scipy (>=0.13)
+- Pandas (>=0.16)
+- Matplotlib (>= 1.5.3) (*however it is advisable to have installed the v2.0 or higher*)
+
+We recommend installing the [Anaconda][5] or the [Enthought Canopy][6] distributions. Both distributions include all the required the scientific packages plus an scientific-oriented integrated development system. In case you have space problems, there is a distribution named [miniconda][7] that only installs the packages you actually need.
+
+The approach of the script is based on the estimation of the areas of the grain profiles obtained from thin sections. It is therefore necessary to measure them in advance and save the results in a txt/csv/xlsx file. For this task, we highly encourage you to use the [*ImageJ*](http://rsbweb.nih.gov/ij/) application or one of their different flavours (see [here](http://fiji.sc/ImageJ)). ImageJ-type applications are public-domain image processing programs widely used for scientific research that runs on Windows, macOS, and Linux platforms. The documentation contains a quick tutorial on how to measure the areas of the grain profiles with ImageJ, see *Table of Contents*. The combined use of **ImageJ** and **GrainSizeTools script** is intended to ensure that all data processing steps are done through free and open-source programs/scripts that run under any operating system. If you are dealing with EBSD data instead, we encourage you to use the [MTEX toolbox](https://mtex-toolbox.github.io/) for grain reconstruction and the [export2file script](https://github.com/marcoalopez/export2file) for exporting the data (a tutorial on this will be available soon).
+
+
+
+### For developers
+
+There are two options here:
+
+- Cloning the repository by clicking **Clone or download** under the repository name https://github.com/marcoalopez/GrainSizeTools or pasting the following URL using git:
+
+```html
+git clone https://github.com/marcoalopez/GrainSizeTools.git
+```
+- Forking the repository by clicking **Fork** in the repository name.
+
+To see the differences between cloning and forking a repository go https://github.community/t5/Support-Protips/The-difference-between-forking-and-cloning-a-repository/ba-p/1372
 
 
 

@@ -1,4 +1,4 @@
-*last update 2018/09/03 
+*last update 2018/09/21* 
 
 Getting Started: A step-by-step tutorial
 =============
@@ -142,7 +142,7 @@ The ``extract_column`` function also allows you to manually define the file path
 >>> areas = extract_column(file_path='data_set.txt', col_name='areas')
 ```
 
-> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with the most common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
+> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
 
 
 
@@ -677,6 +677,19 @@ Note that in the example above we do not overwrite any of the original variables
 >>> diameters1 = np.concatenate([diameters1, diameters2])
 ```
 the original ``diameters1`` variable no longer exists since these variables -strictly speaking Numpy arrays- are mutable Python objects.
+
+
+
+## *Using the script with Jupyter Notebooks*
+
+You can interact and use the script using [Jupyter notebooks](https://jupyter.org/), a tools that allows you to create and share documents that contain live code, equations, visualizations and narrative text. For this you will need to enter the following two lines of code at the beginning  of the notebook
+
+```python
+%matplotlib inline
+%run C:/...filepath.../grain_size_tools/GrainSizeTools_script.py
+```
+
+The first one allows you to visualize the plots inline and the second one run the script, ensure that you specify the whole path. You can find an specific example on how to interact between the script and the Jupyter Notebooks [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/JN_example.ipynb)
 
 
 
