@@ -97,10 +97,6 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
               linestyle=':',
               color='#1F1F1F',
               linewidth=2)
-    ax.annotate('Gaussian KDE peak',
-                xy=(x_peak, y_max),
-                xytext=(+10, +30),
-                label='peak')
     ax.legend(loc='upper right',
               fontsize=11)
 

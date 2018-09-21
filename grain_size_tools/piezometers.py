@@ -127,6 +127,7 @@ def quartz(piezometer=None):
         correction_factor = 1.5
 
     else:
+        quartz()
         raise ValueError('Piezometer name misspelled. Please choose between valid piezometers')
 
     return B, m, warn, linear_interceps, correction_factor
@@ -195,6 +196,7 @@ def calcite(piezometer=None):
         correction_factor = False
 
     else:
+        calcite()
         raise ValueError('Piezometer name misspelled. Please choose between valid piezometers')
 
     return B, m, warn, linear_interceps, correction_factor
@@ -250,6 +252,7 @@ def olivine(piezometer=None):
         correction_factor = 1.2
 
     else:
+        olivine()
         raise ValueError('Piezometer name misspelled. Please choose between valid piezometers')
 
     return B, m, warn, linear_interceps, correction_factor
@@ -293,6 +296,7 @@ def feldspar(piezometer=None):
         correction_factor = 1.0
 
     else:
+        feldspar()
         raise ValueError('Piezometer name misspelled. Please choose between valid piezometers')
 
     return B, m, warn, linear_interceps, correction_factor

@@ -406,7 +406,7 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
         the midpoints of the classes
 
     normalize : boolean, optional
-        when True negative values of frequency are set to zero and the
+        when True negative frequency values are set to zero and the
         distribution normalized. True by default.
 
     Call function
