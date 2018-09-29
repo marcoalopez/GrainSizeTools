@@ -31,7 +31,7 @@
 
 import os
 import numpy as np
-import plots as plots
+from . import plots
 from numpy import mean, std, median, sqrt, exp, log, delete
 from scipy.optimize import curve_fit
 from scipy.stats import gaussian_kde, iqr, mstats

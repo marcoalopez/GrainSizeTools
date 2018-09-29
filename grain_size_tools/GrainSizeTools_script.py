@@ -30,9 +30,9 @@
 #                                                                              #
 # ============================================================================ #
 
-import plots as plots
-import tools as tools
-from piezometers import quartz, olivine, calcite, feldspar
+from . import plots
+from . import tools
+from .piezometers import quartz, olivine, calcite, feldspar
 import numpy as np
 from numpy import mean, sqrt, exp, log, log10, array, tan, arctan, delete
 from pandas import read_table, read_csv, read_excel, DataFrame
