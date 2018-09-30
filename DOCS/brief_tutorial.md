@@ -3,7 +3,7 @@
 Getting Started: A step-by-step tutorial
 =============
 
-> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v2.0+ Please check your script version before using this tutorial**
+> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v2.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the ``file data_set.txt``**
 
 ## *Open and running the script*
 
@@ -142,7 +142,7 @@ The ``extract_column`` function also allows you to manually define the file path
 >>> areas = extract_column(file_path='data_set.txt', col_name='areas')
 ```
 
-> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library. Also, you will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the attached data_set.txt file.
+> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library.
 
 
 

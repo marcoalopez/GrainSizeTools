@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/09/05*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/09/30*  
 
 **GrainSizeTools** is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools to estimate the average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent and approximate 3D grain size distributions via stereology), and estimate the differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
 
@@ -13,7 +13,7 @@
 - Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the mean, geometric and RMS mean, median, area-weighted mean, and frequency peak using a Gaussian Kernel Density Estimator. Grain size scales can be in linear, logarithmic, or square root.
 - Estimate normalized grain size distributions to compare between different grain size populations.
 - Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar.
-- Estimate robust confidence intervals using the student's t-distribution
+- Estimate robust confidence intervals using the student's t-Distribution
 - Include several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on population features.
 - Approximate the actual 3D grain size distribution from data collected in plane sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.
 - Approximate the lognormal shape of the 3D grain size distribution via the two-step method and characterize the shape using a single parameter (the MSD - *Multiplicative Standard Deviation*) .
@@ -30,7 +30,7 @@ https://sourceforge.net/projects/grainsizetools/
 
 ## Documentation
 
-* [Requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
+* [Requirements & Development](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
 * [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md)
 * [Getting started: A step-by-step tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
     - [Open and running the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#open-and-running-the-script)
@@ -45,6 +45,7 @@ https://sourceforge.net/projects/grainsizetools/
     - [Approximate the lognormal shape of the actual grain size distribution using the two-step method](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#approximate-the-lognormal-shape-of-the-actual-grain-size-distribution-using-the-two-step-method)
     - [Comparing different grain size populations using box plots](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#comparing-different-grain-size-populations-using-box-plots)
     - [Merging datasets](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#merging-datasets)
+    - [Using the script with Jupyter Notebooks](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#jupyter-notebooks)
 * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 * [How to reconstruct the grains from SEM-EBSD data using the MTEX toolbox](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/ebsd_mtex_tutorial.md)
 * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
@@ -97,7 +98,7 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 - *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
 
 - *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) and I'll see what I can do
-- *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply fork the project and develop!
+- *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply clone the project and develop!
 
 # 
 *Copyright © 2018 Marco A. Lopez-Sanchez*  

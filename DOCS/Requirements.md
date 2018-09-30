@@ -1,4 +1,4 @@
-*last update 2018/09/21*
+*last update 2018/09/30*
 
 Requirements & Development
 -------------
@@ -30,7 +30,7 @@ git clone https://github.com/marcoalopez/GrainSizeTools.git
 ```
 - Forking the repository by clicking **Fork** in the repository name.
 
-To see the differences between cloning and forking a repository go https://github.community/t5/Support-Protips/The-difference-between-forking-and-cloning-a-repository/ba-p/1372
+To see the differences between cloning and forking see https://github.community/t5/Support-Protips/The-difference-between-forking-and-cloning-a-repository/ba-p/1372
 
 
 
