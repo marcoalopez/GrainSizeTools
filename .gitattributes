@@ -17,3 +17,5 @@
 *.RTF	 diff=astextplain
 
 *.js linguist-vendored
+*.ipynb linguist-vendored
+*.html linguist-vendored
