@@ -61,7 +61,7 @@ def extract_column(file_path='auto', col_name='Area'):
 
     Call function
     -------------
-    - get_filepath (tools)
+    - get_filepath (from tools)
 
     Returns
     -------
@@ -171,9 +171,8 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
 
     Call functions
     --------------
-    - calc_freq_grainsize (tools)
-    - calc_areaweighted_grainsize (tools)
-    - norm_grain_size (tools)
+    - calc_freq_grainsize, calc_areaweighted_grainsize, and norm_grain_size (from tools)
+
 
     Examples
     --------
@@ -211,13 +210,14 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
     # determine the grain size using the area-weighted approach
     elif plot == 'area':
         if areas is None:
-            print('You must provide the areas of the grain sections')
+            print(' ')
+            print('You must provide the areas of the grain sections!')
             return None
         else:
             return tools.calc_areaweighted_grainsize(areas, diameters, binsize)
 
     else:
-        raise ValueError("The type of plot has been misspelled, please use 'lin', 'log', 'log10', sqrt', 'norm', or 'area'")
+        raise ValueError("The type of plot has been misspelled, please use 'lin', 'log', 'log10', 'sqrt', 'norm', or 'area'")
 
 
 def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=False, left_edge=0):
@@ -256,8 +256,15 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
 
     Call functions
     --------------
-    - unfold_population (tools)
-    - Saltykov_plot (plots)
+    - unfold_population (from tools)
+    - Saltykov_plot (from plots)
+
+    Examples
+    --------
+    Saltykov(diameters)
+    Saltykov(diameters, numbins=16, calc_vol=40)
+    Saltykov(diameters, text_file='foo.csv')
+    left_edges, frequencies = Saltykov(diameters, return_data=True)
 
     References
     ----------
@@ -320,7 +327,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
         if text_file.endswith('.txt'):
             df.to_csv(text_file, sep='\t')
         elif text_file.endswith('.csv'):
-            df.to_csv(text_file)
+            df.to_csv(text_file, sep=';')
         else:
             raise ValueError('text file must be specified as .csv or .txt')
         print(' ')
@@ -365,8 +372,14 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     Call functions
     --------------
     - Saltykov
-    - fit_log (tools)
-    - twostep_plot (plots)
+    - fit_log, log_function, and gen_xgrid (from tools)
+    - twostep_plot (from plots)
+
+    Examples
+    --------
+    calc_shape(diameters)
+    calc_shape(diameters, class_range=(12, 18))
+    calc_shape(diameters, initial_guess=True)
 
     References
     ----------

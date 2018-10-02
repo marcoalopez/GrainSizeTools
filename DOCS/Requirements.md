@@ -32,6 +32,8 @@ git clone https://github.com/marcoalopez/GrainSizeTools.git
 
 To see the differences between cloning and forking see https://github.community/t5/Support-Protips/The-difference-between-forking-and-cloning-a-repository/ba-p/1372
 
+At the moment there is no automatic test to check the functionality of the script (it is a pending task!). In the meantime, you can check the functionality manually by performing the tests proposed in the following section: [running test](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/running_test.md)
+
 
 
 [next section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md)  

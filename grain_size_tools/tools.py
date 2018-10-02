@@ -61,10 +61,10 @@ def calc_areaweighted_grainsize(areas, diameters, binsize):
     """
 
     # calculate the area weighted arithmetic mean
-    areatotal = float(sum(areas))
+    areatotal = np.sum(areas)
     weightedAreas = areas / areatotal
     weigtedDiameters = diameters * weightedAreas
-    weightedMean = sum(weigtedDiameters)
+    weightedMean = np.sum(weigtedDiameters)
 
     # estimate the bin size using an automatic plug-in method (if apply)
     if type(binsize) is str:
@@ -92,7 +92,7 @@ def calc_areaweighted_grainsize(areas, diameters, binsize):
     print('HISTOGRAM FEATURES')
     print('The modal interval is {left} - {right} microns' .format(left=round(bin_edges[getIndex], 2), right=round(bin_edges[getIndex] + h, 2)))
     print('Midpoint (of modal interval) = {} microns' .format(round((bin_edges[getIndex] + (bin_edges[getIndex] + h)) / 2.0, 1)))
-    print('The number of classes are', len(cumulativeAreas) - 1)
+    print('The number of classes are {}' .format(len(histogram)))
     if type(binsize) is str:
         print('The bin size is {bin} according to the {rule} rule' .format(bin=round(h, 2), rule=binsize))
     print(' ')

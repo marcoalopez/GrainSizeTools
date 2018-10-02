@@ -20,5 +20,6 @@ Table of contents
 * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 * [How to reconstruct the grains from SEM-EBSD data using the MTEX toolbox](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/ebsd_mtex_tutorial.md)
 * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
+* [Testing the script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/running_test.md)
 * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
 
