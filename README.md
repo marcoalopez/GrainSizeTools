@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/10/05*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/10/06*  
 
 **GrainSizeTools** is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools to estimate the average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent and approximate 3D grain size distributions via stereology), and estimate the differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
 
@@ -76,7 +76,9 @@ https://sourceforge.net/projects/grainsizetools/
 In case you need references, the following are available:
 
 ***Script reference***   
-Lopez-Sanchez, Marco A., (2018) GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(27), 863 http://doi.org/10.21105/joss.00863
+Lopez-Sanchez, (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
+
+[![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)](https://doi.org/10.21105/joss.00863)
 
 ***Frequency peak apparent grain size based on Gaussian kernel density estimator***  
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. http://doi.org/10.5194/se-6-475-2015
