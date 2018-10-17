@@ -1,16 +1,17 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/10/06*  
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/10/17
 
-**GrainSizeTools** is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools to estimate the average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent and approximate 3D grain size distributions via stereology), and estimate the differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
+[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools to estimate the average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent estimates and approximate 3D grain size distributions via stereology), and estimate the differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
 
-**Last release: v2.0.2 released (2018/10/05). IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher and include new features and changes that make it incompatible with previous versions.** 
+**Last release: v2.0.2 released (2018/10/05). ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
+IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher and include new features and changes that make it incompatible with previous versions.** 
 
 
 ## Features at a glance
 
 - Extract data automatically from tabular-like files including txt, csv, or xls/slxs formats.
-- Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the mean, geometric and RMS mean, median, area-weighted mean, and frequency peak ("mode") using a Gaussian Kernel Density Estimator. Grain size scales can be in linear, logarithmic, or square root.
+- Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the arithmetic, geometric, RMS and area-weighted means, median, and frequency peak ("mode") using a Gaussian Kernel Density Estimator. Grain size can be represented in linear, logarithmic, or square root scales.
 - Estimate normalized apparent grain size distributions to compare between different grain size populations.
 - Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar.
 - Estimate robust confidence intervals using the student's t-Distribution
@@ -53,7 +54,7 @@ https://sourceforge.net/projects/grainsizetools/
 
 ## Screenshots
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/diff_scales_tre.png?raw=true)  
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/diff_scales_tre_web.png?raw=true)  
 *Estimate the distribution of apparent grain size using linear, logarithmic, or square root scales.*
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/area_weighted.png?raw=true)  
@@ -76,9 +77,7 @@ https://sourceforge.net/projects/grainsizetools/
 In case you need references, the following are available:
 
 ***Script reference***   
-Lopez-Sanchez, (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
-
-[![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)](https://doi.org/10.21105/joss.00863)
+Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863h
 
 ***Frequency peak apparent grain size based on Gaussian kernel density estimator***  
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. http://doi.org/10.5194/se-6-475-2015
@@ -87,7 +86,7 @@ Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures o
 Lopez-Sanchez MA and Llana-Fúnez (2016) An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, 93, 149-161. http://doi.org/10.1016/j.jsg.2016.10.008
 
 ***Saltykov method***  
-The procedure implemented in the GrainSizeTools script is partially based on the general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead of the for the calculation TODO! as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
+The procedure implemented in the GrainSizeTools script is partially based on the general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
 
 ## License
 
@@ -99,7 +98,7 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 - *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
 
-- *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) and I'll see what I can do
+- *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or leave a comment [here](https://github.com/marcoalopez/GrainSizeTools/issues) with the label ``enhancement`` and I'll see what I can do
 - *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply clone the project and develop!
 
 # 

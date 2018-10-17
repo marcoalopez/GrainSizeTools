@@ -1,4 +1,4 @@
-*last update 2018/09/21* 
+*last update 2018/10/17* 
 
 Getting Started: A step-by-step tutorial
 =============
@@ -297,11 +297,21 @@ The parameter ``binsize`` also allows you to define a specific bin size if you d
 >>> calc_grain_size(diameters, plot='lin', binsize=7.5)
 ```
 
-Lastly, the the parameter ``bandwidth`` allows you to define a method to estimate the an optimal bandwidth to construct the kde, either the ``'silverman'`` (the default) or the ``scott`` rules . You can also define your own bandwidth value declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using logarithmic or square-root scales.
+Lastly, the the parameter ``bandwidth`` allows you to define a method to estimate the an optimal bandwidth to construct the kde, either the ``'silverman'`` (the default) or the ``scott`` rules . You can also define your own bandwidth value declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using logarithmic or square-root scales. However, sometimes this rules-of-thumb fail and the estimated kde show undersmoothing issues in some places. For example, in figure 7 it seems that when using the square root scales the kde estimator produces a small valley near the maximum values, which indicates an undersmoothing problem. To smooth a bit the kde we can increase the bandwidth from 0.33, which is the bandwidth estimated by the Silverman rule, to for example 0.5 as follows (Fig. 9): 
+
+```python
+calc_grain_size(diameters, plot='sqrt', bandwidth=0.5)
+```
+
+![Figure 9](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/adhoc_bandwidth.png?raw=true)
+
+*Figure 9. Apparent grain size distribution in a square root scale but with a kde bandwidth set to 0.5.*
+
+Note that in comparison to the same representation in Figure 7, the approximation of the grain size distribution using the kde in figure 9 is smoother (due to the use of a larger bandwidth value), yielding in this particular case a better estimate of the frequency peak (i.e. in line with the values of the median and the mean). *
 
 ### Normalized apparent grain size distributions
 
-As mentioned above, the parameter ``plot`` allows you to estimate and visualize normalized grain size distributions (Fig. 9). This is means that the entire grain population is normalized using the mean, the median, or the frequency peak; in this case it uses a logarithmic scale with base e. The advantage of normalized distributions is that they allow us to compare whether the grain size distribution looks similar or not even when the average grain size between different distributions is different. For example, to test whether two or more apparent grain size distributions have similar shapes we can compare their normalized standard deviations (SD) or interquartile ranges (IQR). For this, we set the parameter ``plot='norm'`` and then the script will ask you about what average measure you want to use to normalize the grain size population:
+As mentioned above, the parameter ``plot`` allows you to estimate and visualize normalized grain size distributions (Fig. 10). This is means that the entire grain population is normalized using the mean, the median, or the frequency peak; in this case it uses a logarithmic scale with base e. The advantage of normalized distributions is that they allow us to compare whether the grain size distribution looks similar or not even when the average grain size between different distributions is different. For example, to test whether two or more apparent grain size distributions have similar shapes we can compare their normalized standard deviations (SD) or interquartile ranges (IQR). For this, we set the parameter ``plot='norm'`` and then the script will ask you about what average measure you want to use to normalize the grain size population:
 
 ```python
 >>> calc_grain_size(diameters, plot='norm')
@@ -318,9 +328,9 @@ Standard deviation = 0.16 (1-sigma)
 
 Keep in mind that if you want to use the SD for comparative purposes you should normalize the grain size distribution using the arithmetic mean (option 1). In contrast, if you prefer the IQR you should normalize the grain size distribution using the median (option 2). The normalization of the grain size population using the frequency peak (option 3) is useful to compare the asymmetry of different populations by measuring the difference between the frequency peak and the mean or mode.
 
-![Figure 9](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/norm_median.png?raw=true)
+![Figure 10](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/norm_median.png?raw=true)
 
-*Figure 9. Apparent grain size distribution normalized to median = 1 in logarithmic scale.*
+*Figure 10. Apparent grain size distribution normalized to median = 1 in logarithmic scale.*
 
 
 
@@ -533,12 +543,12 @@ The file saltykov_data.csv was created
 ```
 Since the Saltykov method uses the histogram to derive the actual 3D grain size distribution, the inputs are an array containing the population of apparent diameters of the grains and the number of classes. As shown in the example above, if the number of classes is not declared is set to ten by default. The user can use any positive **integer** to define the number of classes. However, it is usually advisable to choose a number not exceeding 20 classes (see later for details). 
 
-This function also generates two plots (Fig 10). On the left it is the frequency plot with the estimated 3D grain size distribution in the form of a histogram. On the right the corresponding volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) specify the ``calc_vol`` input as in the last example above.
+This function also generates two plots (Fig 11). On the left it is the frequency plot with the estimated 3D grain size distribution in the form of a histogram. On the right the corresponding volume-weighted cumulative density curve. The latter allows the user to estimate qualitatively the percentage of volume occupied by a defined fraction of grain sizes. If the user wants to estimate quantitatively the volume of a particular grain fraction (i.e. the volume occupied by a fraction of grains less or equal to a certain value) specify the ``calc_vol`` input as in the last example above.
 
 As a cautionary note, if we use a different number of bins/classes, in this example above set at 12, you will obtain slightly different volume estimates. This is normal due to the inaccuracies of the Saltykov method. In any event, Lopez-Sanchez and Llana-Fúnez (2016) proved that the absolute differences between the volume estimations using a range of classes between 10 and 20 are below ±5. This means that to stay safe we should always take an absolute error margin of ±5 in the volume estimations.
 
-![Figure 7. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
-*Figure 10. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
+![Figure 11. 3D grain size distribution](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/figure_2.png)  
+*Figure 11. The derived 3D grain size distribution and the volume-weighted cumulative grain size distribution using the Saltykov method.*
 
 > 👉 Due to the nature of the Saltykov method, the smaller the number of classes the better the numerical stability, and the larger the number of classes the better the approximation of the wanted distribution. Ultimately, the strategy to follow is about finding the maximum number of classes (i.e. the best resolution) that produces stable results. Based on experience, some authors have been proposed to use between 10 to 15 classes (e.g. Exner 1972), although depending on the quality and the size of the dataset it seems that it can be used safely up to 20 classes (e.g. Heilbronner and Barret 2014, Lopez-Sanchez and Llana-Fúnez 2016). Yet, no method (i.e. algorithm) appears to be generally best for choosing an optimal number of classes (or bin size) for the Saltykov method. Hence, the only way to find the maximum number of classes with consistent results is to use a trial and error strategy and observe if the appearance is coherent or not. As a last cautionary note, **the Saltykov method requires large datasets (n ~ 1000 or larger)** to obtain consistent (i.e. meaningful) results, even when using a small number of classes.
 
@@ -546,9 +556,9 @@ As a cautionary note, if we use a different number of bins/classes, in this exam
 
 ## *Approximate the lognormal shape of the actual grain size distribution using the two-step method*
 
-The two-step method is suitable to describe quantitatively the shape of the grain size distribution assuming that they follow a lognormal distribution. This means that the two-step method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded. It is therefore necessary to check first whether the linear distribution of grain sizes is unimodal and lognormal-like (i.e. skewed to the right as in the example shown in figure 10). For more details see [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778).
+The two-step method is suitable to describe quantitatively the shape of the grain size distribution assuming that they follow a lognormal distribution. This means that the two-step method only yield consistent results when the population of grains considered are completely recrystallized or when the non-recrystallized grains can be previously discarded. It is therefore necessary to check first whether the linear distribution of grain sizes is unimodal and lognormal-like (i.e. skewed to the right as in the example shown in figure 11). For more details see [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778).
 
-To estimate the shape of the 3D grain size distribution we will use the function ```calc_shape```.  This function implements a method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, 2016). Briefly, the method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The method return two parameters to fully describe a lognormal distribution at their original (linear) scale: the **MSD** and the **geometric mean** (which theoretically it coincides with the **median** in perfect lognormal distributions) along with the uncertainty associated with the estimate. In addition, it also returns a frequency plot showing the probability density function estimated (Fig. 11). In particular, the **MSD value** allows to describe the shape of the lognormal distribution independently of the scale (i.e. the range) of the grain size distribution, which is very convenient for comparative purposes. This is whether two distribution show the same shape distribution of grain sizes even when they have different grain size ranges and average grain sizes. The ``calc_shape`` functions has the following inputs:
+To estimate the shape of the 3D grain size distribution we will use the function ```calc_shape```.  This function implements a method called "the two-step method" (Lopez-Sanchez and Llana-Fúnez, 2016). Briefly, the method applies a non-linear least squares algorithm to fit a lognormal distribution on top of the Saltykov method using the midpoints of the different classes. The method return two parameters to fully describe a lognormal distribution at their original (linear) scale: the **MSD** and the **geometric mean** (which theoretically it coincides with the **median** in perfect lognormal distributions) along with the uncertainty associated with the estimate. In addition, it also returns a frequency plot showing the probability density function estimated (Fig. 12). In particular, the **MSD value** allows to describe the shape of the lognormal distribution independently of the scale (i.e. the range) of the grain size distribution, which is very convenient for comparative purposes. This is whether two distribution show the same shape distribution of grain sizes even when they have different grain size ranges and average grain sizes. The ``calc_shape`` functions has the following inputs:
 
 ```python
 def calc_shape(diameters, class_range=(12, 20), initial_guess=False):
@@ -597,10 +607,10 @@ Geometric mean (location) = 35.51 ± 1.73
 
 
 
-![Figure 8. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
-*Figure 11. Lognormal approximation using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
+![Figure 12. Two-step method plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/two-step_method.png)  
+*Figure 12. Lognormal approximation using the two-step method. At left, an example with the lognormal pdf well fitted to the data points. The shadow zone is the trust region for the fitting procedure. At right, an example with a wrong fit due to the use of unsuitable initial guess values. Note the discrepancy between the data points and the line representing the best fitting.*
 
-Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 11b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 35.0 for the MSD and geometric mean values respectively. However, if the algorithm fails it is possible to change the default values by adding a following parameter:
+Sometimes, the least squares algorithm will fail at fitting the lognormal distribution to the unfolded data (e.g. Fig. 12b). This is due to the algorithm used to find the optimal MSD and median values, the Levenberg–Marquardt algorithm (Marquardt, 1963), only converges to a global minimum when their initial guesses are already somewhat close to the final solution. Based on our experience in quartz aggregates, the initial guesses were set by default at 1.2 and 35.0 for the MSD and geometric mean values respectively. However, if the algorithm fails it is possible to change the default values by adding a following parameter:
 
 ```python
 >>> calc_shape(diameters, initial_guess=True)
@@ -609,17 +619,17 @@ Define an initial guess for the MSD parameter (the default value is 1.2; MSD > 1
 Define an initial guess for the geometric mean (the default value is 35.0): 40.0
 ```
 
-When the ```initial_guess``` parameter is set to ```True```, the script will ask you to set new starting values for both parameters (it also indicates which were the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and increase or decrease the geometric mean value every five units until the fitting procedure yield a good fit (Fig. 11). You can also try using a value similar to the median or the geometric mean of the apparent grain size population.
+When the ```initial_guess``` parameter is set to ```True```, the script will ask you to set new starting values for both parameters (it also indicates which were the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and increase or decrease the geometric mean value every five units until the fitting procedure yield a good fit (Fig. 12). You can also try using a value similar to the median or the geometric mean of the apparent grain size population.
 
 
 
 
 ## *Comparing different grain size populations using box plots*
 
-[Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles and median, being a very efficient way for comparing **unimodal** datasets graphically. Figure 12 show the different elements represented in a typical box plot.
+[Box (or box-and-whisker) plot](https://en.wikipedia.org/wiki/Box_plot) is a non-parametric method to display numerical datasets through their quartiles and median, being a very efficient way for comparing **unimodal** datasets graphically. Figure 13 show the different elements represented in a typical box plot.
 
-![figure 9. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png)
-*Figure 12. Box plot elements*  
+![figure 13. Box plot elements](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/boxplot_01.png)
+*Figure 13. Box plot elements*  
 
 To create a box plot using the Matplotlib library we need to create first a variable with all the data sets to represent. For this we create a Python list as follows (variable names have been chosen for convenience):
 
@@ -629,13 +639,13 @@ To create a box plot using the Matplotlib library we need to create first a vari
 # if you prefer logarithmic scales then: all_data = [log(dataset1), ...]
 ```
 
-Then we create the plot (Fig. 13):
+Then we create the plot (Fig. 14):
 
 ```python
 >>> plt.boxplot(all_data)
 >>> plt.show() # write this and click return if the plot did not appear automatically (generally not needed)
 ```
-To create a better-looking plot (Fig. 13) we propose using the following **optional** parameters:
+To create a better-looking plot (Fig. 14b) we propose using the following **optional** parameters:
 
 ```python
 # First make a list specifying the labels of the samples (this is optional). Ensure that the number of items in the brackets coincide with the number of datasets to plot.
@@ -652,8 +662,8 @@ The parameters defined in the boxplot are:
 - ```meanline``` and ```showmeans```: if True will show the location of the mean within the plots.
 - ```labels```: add labels to the different datasets.
 
-![figure 10. Examples of box plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Boxplot_02.png)
-*Figure 13. Box plot comparing four unimodal datasets obtained from the same sample but located in different places along the thin section. At left, a box plot with the default appearance. At right, the same box plot with the optional parameters showing above. Dashed lines are the mean. Note that the all the datasets show similar median, means, IQRs, and whisker locations. In contrast, the fliers (points) approximately above 100 microns vary greatly.*
+![figure 14. Examples of box plots](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/Boxplot_02.png)
+*Figure 14. Box plot comparing four unimodal datasets obtained from the same sample but located in different places along the thin section. At left, a box plot with the default appearance. At right, the same box plot with the optional parameters showing above. Dashed lines are the mean. Note that the all the datasets show similar median, means, IQRs, and whisker locations. In contrast, the fliers (points) approximately above 100 microns vary greatly.*
 
 
 
