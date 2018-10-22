@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/10/17
+*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/10/22*
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools to estimate the average grain size in polycrystalline materials, characterize the nature of the distribution of grain sizes (apparent estimates and approximate 3D grain size distributions via stereology), and estimate the differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating its reuse and code extension.
 
@@ -10,11 +10,11 @@ IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher and inclu
 
 ## Features at a glance
 
-- Extract data automatically from tabular-like files including txt, csv, or xls/slxs formats.
+- Extract data automatically from tabular-like files including txt, csv, or excel formats.
 - Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the arithmetic, geometric, RMS and area-weighted means, median, and frequency peak ("mode") using a Gaussian Kernel Density Estimator. Grain size can be represented in linear, logarithmic, or square root scales.
 - Estimate normalized apparent grain size distributions to compare between different grain size populations.
 - Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar.
-- Estimate robust confidence intervals using the student's t-Distribution
+- Estimate robust confidence intervals using the student's *t*-Distribution
 - Include several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on population features.
 - Approximate the actual 3D grain size distribution from data collected in plane sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.
 - Approximate the lognormal shape of the 3D grain size distribution via the two-step method and characterize the shape using a single parameter (the MSD - *Multiplicative Standard Deviation*) .
@@ -98,7 +98,7 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 - *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
 
-- *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or leave a comment [here](https://github.com/marcoalopez/GrainSizeTools/issues) with the label ``enhancement`` and I'll see what I can do
+- *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or open an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues) with the label ``enhancement`` and I'll see what I can do
 - *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply clone the project and develop!
 
 # 
