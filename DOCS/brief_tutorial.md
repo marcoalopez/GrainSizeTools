@@ -1,9 +1,9 @@
-*last update 2018/10/17* 
+*last update 2018/10/26* 
 
 Getting Started: A step-by-step tutorial
 =============
 
-> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v2.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the ``file data_set.txt``**
+> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v2.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``**
 
 ## *Open and running the script*
 
@@ -142,7 +142,7 @@ The ``extract_column`` function also allows you to manually define the file path
 >>> areas = extract_column(file_path='data_set.txt', col_name='areas')
 ```
 
-> 👉 The ``extract_column`` function aims to simplify the task of extracting data for people with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library.
+> 👉 The ``extract_column`` function aims to simplify the task of extracting data for users with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library.
 
 
 
@@ -179,9 +179,9 @@ Once the apparent grain sizes have been estimated, we have several choices:
 
 1. Estimate different "average" values of apparent grain size and characterize the nature of the apparent grain size distribution
 2. Estimate differential stresses via paleopiezometers
-3. Approximate the actual 3D grain size distribution via stereology methods, including:
-  1. Using the Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998)
-  2. Using the two-step method (Lopez-Sanchez and Llana-Fúnez, 2016)
+3. Approximate the actual 3D grain size distribution using stereological methods, including:
+  1. The Saltykov method (Saltykov, 1967; Sahagian and Proussevitch, 1998)
+  2. The two-step method (Lopez-Sanchez and Llana-Fúnez, 2016)
 
 
 
@@ -297,7 +297,7 @@ The parameter ``binsize`` also allows you to define a specific bin size if you d
 >>> calc_grain_size(diameters, plot='lin', binsize=7.5)
 ```
 
-Lastly, the the parameter ``bandwidth`` allows you to define a method to estimate the an optimal bandwidth to construct the kde, either the ``'silverman'`` (the default) or the ``scott`` rules . You can also define your own bandwidth value declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using logarithmic or square-root scales. However, sometimes this rules-of-thumb fail and the estimated kde show undersmoothing issues in some places. For example, in figure 7 it seems that when using the square root scales the kde estimator produces a small valley near the maximum values, which indicates an undersmoothing problem. To smooth a bit the kde we can increase the bandwidth from 0.33, which is the bandwidth estimated by the Silverman rule, to for example 0.5 as follows (Fig. 9): 
+Lastly, the parameter ``bandwidth`` allows you to define a method to estimate an optimal bandwidth to construct the KDE, either the ``'silverman'`` (the default) or the ``scott`` rules. You can also define your own bandwidth value by declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using logarithmic or square-root scales. However, sometimes these rules-of-thumb fail and the estimated KDE show undersmoothing issues in some places. For example, in figure 7 it seems that when using the square root scales the KDE estimator produces a small valley near the maximum values, which likely indicates a local undersmoothing problem. To smooth a bit the KDE we can increase the bandwidth from 0.33, which is the bandwidth estimated by the Silverman rule, to for example 0.5 as follows (Fig. 9): 
 
 ```python
 calc_grain_size(diameters, plot='sqrt', bandwidth=0.5)
@@ -305,9 +305,9 @@ calc_grain_size(diameters, plot='sqrt', bandwidth=0.5)
 
 ![Figure 9](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/adhoc_bandwidth.png?raw=true)
 
-*Figure 9. Apparent grain size distribution in a square root scale but with a kde bandwidth set to 0.5.*
+*Figure 9. Apparent grain size distribution in a square root scale but with a KDE bandwidth manually set to 0.5.*
 
-Note that in comparison to the same representation in Figure 7, the approximation of the grain size distribution using the kde in figure 9 is smoother (due to the use of a larger bandwidth value), yielding in this particular case a better estimate of the frequency peak (i.e. in line with the values of the median and the mean). *
+Note that in comparison to the same representation in Figure 7, the approximation of the grain size distribution using the KDE in figure 9 is smoother and yields a better estimate of the frequency peak in this particular case (i.e. in line with the values of the median and the mean).
 
 ### Normalized apparent grain size distributions
 
@@ -692,11 +692,11 @@ the original ``diameters1`` variable no longer exists since these variables -str
 
 ## *Using the script with Jupyter Notebooks*
 
-You can interact and use the script using [Jupyter notebooks](https://jupyter.org/), a tools that allows you to create and share documents that contain live code, equations, visualizations and narrative text. For this you will need to enter the following two lines of code at the beginning  of the notebook
+You can interact and use the script using [Jupyter notebooks](https://jupyter.org/), a tool that allows you to create and share documents that contain live code, equations, visualizations and narrative text. For this, you will need to enter the following two lines of code at the beginning  of the notebook
 
 ```python
 %matplotlib inline
-%run C:/...filepath.../grain_size_tools/GrainSizeTools_script.py
+%run ...full filepath.../grain_size_tools/GrainSizeTools_script.py
 ```
 
 The first one allows you to visualize the plots inline and the second one run the script, ensure that you specify the whole path. You can find an specific example on how to interact between the script and the Jupyter Notebooks [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/JN_example.ipynb)
