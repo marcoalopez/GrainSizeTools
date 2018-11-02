@@ -77,7 +77,7 @@ https://sourceforge.net/projects/grainsizetools/
 In case you need references, the following are available:
 
 ***Script reference***   
-Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863h
+Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
 
 ***Frequency peak apparent grain size based on Gaussian kernel density estimator***  
 Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. http://doi.org/10.5194/se-6-475-2015

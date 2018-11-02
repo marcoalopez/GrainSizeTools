@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0                                                               #
+#    Version 2.0.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
