@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0                                                               #
+#    Version 2.0.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -33,7 +33,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 
 # Set the plot style. To see the different styles available in Matplotlib see:
-# https://tonysyu.github.io/raw_content/matplotlib-style-gallery/gallery.html
+# https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html
 mpl.style.use('ggplot')
 mpl.rcParams['font.family'] = 'Verdana'
 mpl.rcParams['xtick.labelsize'] = 11.

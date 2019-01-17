@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0                                                               #
+#    Version 2.0.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -126,8 +126,8 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     Scott, D.W. (1992) Multivariate Density Estimation: Theory, Practice, and Visualization
     Silverman, B.W. (1986) Density Estimation for Statistics and Data Analysis
 
-    Call function
-    -------------
+    Call functions
+    --------------
     - freq_plot
     - calc_freq_peak
     """
@@ -139,8 +139,9 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     mean_GS, std_GS = mean(diameters), std(diameters)
     median_GS, iqr_GS = median(diameters), iqr(diameters)
     if plot == 'linear':
-        gmean = mstats.gmean(diameters)
-        mean_RMS = sqrt(mean(diameters**2))
+        gmean = mstats.gmean(diameters)  # geometric mean
+        gsd = np.std(np.log(diameters))  # multiplicative (geometric) standard deviation
+        mean_RMS = sqrt(mean(diameters**2))  # root mean square
 
     # estimate the number of classes using an automatic plug-in method (if apply)
     if type(binsize) is str:
@@ -167,6 +168,7 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     if plot == 'linear':
         print('RMS mean = {} microns' .format(round(mean_RMS, 2)))
         print('Geometric mean = {} microns' .format(round(gmean, 2)))
+        print('Multiplicative (geometric) standard deviation = {} (1-sigma)' .format(round(gsd, 2)))
     print(' ')
     print('Median grain size = {} microns' .format(round(median_GS, 2)))
     print('Interquartile range (IQR) = {}' .format(round(iqr_GS, 2)))
@@ -204,10 +206,10 @@ def calc_freq_peak(diameters, bandwidth, binsize):
     binsize : positive scalar or None
         the binsize used for histogram the population
 
-    Call function
-    -------------
+    Call functions
+    --------------
     - gen_xgrid
-    - kde (scipy)
+    - kde (from scipy)
 
     Returns
     -------
@@ -215,18 +217,15 @@ def calc_freq_peak(diameters, bandwidth, binsize):
     the maximum density value
     """
 
-    # check if bandwidth was set manually
-    if isinstance(bandwidth, float):
-        bandwidth = bandwidth / diameters.std(ddof=1)
-        bw = bandwidth
-    elif isinstance(bandwidth, int):
-        bandwidth = bandwidth / diameters.std(ddof=1)
-        bw = bandwidth
-
-    # calculate the Gaussian kernel density function and the bandwidth
-    kde = gaussian_kde(diameters, bw_method=bandwidth)
-    if isinstance(bandwidth, str):
+    # check bandwidth and estimate Gaussian kernel density function
+    if isinstance(bandwidth, (int, float)):
+        bw = bandwidth / diameters.std(ddof=1)
+        kde = gaussian_kde(diameters, bw_method=bw)
+    elif isinstance(bandwidth, str):
+        kde = gaussian_kde(diameters, bw_method=bandwidth)
         bw = round(kde.covariance_factor() * diameters.std(ddof=1), 2)
+    else:
+        raise ValueError("bandwidth must be integer, float, or 'silverman'/'scott'")
 
     # locate the peak
     if binsize is not None:
@@ -263,7 +262,7 @@ def fit_log(x, y, initial_guess):
     Call functions
     --------------
     log_function
-    curve_fit (Scipy method)
+    curve_fit (from Scipy)
 
     Returns
     -------
@@ -279,7 +278,8 @@ def fit_log(x, y, initial_guess):
 
 
 def gen_xgrid(pop, start, stop):
-    """ Returns a mesh of values.
+    """ Returns a mesh of values (i.e. discretize the
+    sample space).
 
     Parameters
     ----------
@@ -294,11 +294,9 @@ def gen_xgrid(pop, start, stop):
     d_range = pop.max() - pop.min()
 
     if d_range < 400:
-        density = 2**12
+        return np.linspace(start, stop, density=2**12)
     else:
-        density = 2**14
-
-    return np.linspace(start, stop, density)
+        return np.linspace(start, stop, density=2**14)
 
 
 def get_filepath():

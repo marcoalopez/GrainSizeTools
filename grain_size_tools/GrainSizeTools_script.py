@@ -30,9 +30,11 @@
 #                                                                              #
 # ============================================================================ #
 
+# import other grain_size_tools modules
 import plots as plots
 import tools as tools
 from piezometers import quartz, olivine, calcite, feldspar
+# import neccesary Python scientific modules
 import numpy as np
 from numpy import mean, sqrt, exp, log, log10, array, tan, arctan, delete
 from pandas import read_table, read_csv, read_excel, DataFrame
@@ -56,8 +58,8 @@ def extract_column(file_path='auto', col_name='Area'):
 
     Examples
     --------
-    my_data = extract_column()
-    areas = extract_column(col_name='diameters')
+    >>> my_data = extract_column()
+    >>> areas = extract_column(col_name='diameters')
 
     Call function
     -------------
@@ -176,10 +178,10 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
 
     Examples
     --------
-    calc_grain_size(diameters)
-    calc_grain_size(diameters, plot='log')
-    calc_grain_size(diameters, areas, plot='area')
-    calc_grain_size(diameters, binsize='doane', bandwidth=0.5)
+    >>> calc_grain_size(diameters)
+    >>> calc_grain_size(diameters, plot='log')
+    >>> calc_grain_size(diameters, areas, plot='area')
+    >>> calc_grain_size(diameters, binsize='doane', bandwidth=0.5)
 
     Returns
     -------
@@ -261,10 +263,10 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
 
     Examples
     --------
-    Saltykov(diameters)
-    Saltykov(diameters, numbins=16, calc_vol=40)
-    Saltykov(diameters, text_file='foo.csv')
-    left_edges, frequencies = Saltykov(diameters, return_data=True)
+    >>> Saltykov(diameters)
+    >>> Saltykov(diameters, numbins=16, calc_vol=40)
+    >>> Saltykov(diameters, text_file='foo.csv')
+    >>> left_edges, frequencies = Saltykov(diameters, return_data=True)
 
     References
     ----------
@@ -298,7 +300,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
     # Unfold the population of apparent diameters using the Scheil-Schwartz-Saltykov method
     freq3D = tools.unfold_population(freq, bin_edges, binsize, mid_points)
 
-    # Calculate the volume-weighted cumulative frequency distribution
+    # Calculate the volume-weighted cumulative frequency distribution TODO -> better an own function
     x_vol = binsize * (4 / 3.) * np.pi * (mid_points**3)
     freq_vol = x_vol * freq3D
     cdf = np.cumsum(freq_vol)
@@ -377,9 +379,9 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
 
     Examples
     --------
-    calc_shape(diameters)
-    calc_shape(diameters, class_range=(12, 18))
-    calc_shape(diameters, initial_guess=True)
+    >>> calc_shape(diameters)
+    >>> calc_shape(diameters, class_range=(12, 18))
+    >>> calc_shape(diameters, initial_guess=True)
 
     References
     ----------
@@ -420,8 +422,8 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     print('Number of clasess: {}' .format(optimal_num_classes))
     print('MSD (shape) = {msd} ± {err}' .format(msd=round(optimal_params[0], 2),
                                                 err=round(3 * sigma_err[0], 2)))
-    print('Geometric mean (location) = {gmean} ± {err}' .format(gmean=round(optimal_params[1], 2),
-                                                                err=round(3 * sigma_err[1], 2)))
+    print('Geometric mean (scale) = {gmean} ± {err}' .format(gmean=round(optimal_params[1], 2),
+                                                             err=round(3 * sigma_err[1], 2)))
     print(' ')
     # print(' Covariance matrix:\n', covm)
 
@@ -459,8 +461,8 @@ def confidence_interval(data, confidence=0.95):
     -----------
     the data follows a normal distrubution (when sample size is large)
 
-    call_functions
-    --------------
+    call_function(s)
+    ----------------
     Scipy's t.interval
 
     Returns
@@ -532,7 +534,6 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
     to plane strain (nature) multiplying the estimate of th epaleopiezometer by
     2/sqrt(3) (Behr and Platt, 2013)
 
-
     Returns
     -------
     The differential stress in MPa (a float)
@@ -576,7 +577,7 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
 
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v2.0.1
+Welcome to GrainSizeTools script v2.0.2
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential
