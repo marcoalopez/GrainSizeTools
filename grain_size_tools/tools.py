@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0.2                                                             #
+#    Version 2.0.3                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -26,7 +26,7 @@
 # ============================================================================ #
 # Auxiliary functions doing specific tasks used by the GrainSizeTools script   #
 # The names of the functions are self-explanatory. They appear in alphabetical #
-# order. Save this file in the same directory as GrainSizeTools                #
+# order. Save this file in the same directory as GrainSizeTools_script.py      #
 # ============================================================================ #
 
 import os
@@ -100,7 +100,7 @@ def calc_areaweighted_grainsize(areas, diameters, binsize):
     return plots.area_weighted_plot(bin_edges, cumulativeAreas, h, weightedMean)
 
 
-def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
+def calc_freq_grainsize(diameters, binsize, plot, bandwidth, max_precision):
     """ Calculate the distribution of grain sizes using the histogram and Gaussian
     kernel density estimator (KDE). It returns the modal interval, the middle value
     of modal interval, and the frequency peak based on the KDE, and call the
@@ -121,6 +121,9 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. Methods can be 'silverman' or 'scott'.
 
+    max_precision : positive scalar
+        the maximum precision expected for the "peak" kde-based estimator
+
     References
     ----------
     Scott, D.W. (1992) Multivariate Density Estimation: Theory, Practice, and Visualization
@@ -132,7 +135,7 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     - calc_freq_peak
     """
 
-    if len(diameters) < 433:
+    if len(diameters) < 433:  # TODO: Change this in next version, this is not apply for all distributions!
         print(' ')
         print('Caution! You should use at least 433 grain measurements for reliable results')
 
@@ -140,7 +143,7 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     median_GS, iqr_GS = median(diameters), iqr(diameters)
     if plot == 'linear':
         gmean = mstats.gmean(diameters)  # geometric mean
-        gsd = np.std(np.log(diameters))  # multiplicative (geometric) standard deviation
+        gsd = np.exp(np.std(np.log(diameters)))  # multiplicative (geometric) standard deviation
         mean_RMS = sqrt(mean(diameters**2))  # root mean square
 
     # estimate the number of classes using an automatic plug-in method (if apply)
@@ -158,38 +161,50 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth):
     modInt_rightEdge = modInt_leftEdge + binsize
 
     # Estimate the frequency peak grain size based on kde
-    x_kde, y_kde, peak, y_max, bw = calc_freq_peak(diameters, bandwidth, binsize)
+    x_kde, y_kde, peak, y_max, bw = calc_freq_peak(diameters, bandwidth, max_precision)
 
     print(' ')
-    print('DESCRIPTIVE STATISTICS')
-    print(' ')
-    print('Arithmetic mean grain size = {} microns' .format(round(mean_GS, 2)))
-    print('Standard deviation = {} (1-sigma)' .format(round(std_GS, 2)))
+    print('CENTRAL TENDENCY ESTIMATORS')
+    print('Arithmetic mean = {} microns' .format(round(mean_GS, 2)))
     if plot == 'linear':
-        print('RMS mean = {} microns' .format(round(mean_RMS, 2)))
         print('Geometric mean = {} microns' .format(round(gmean, 2)))
-        print('Multiplicative (geometric) standard deviation = {} (1-sigma)' .format(round(gsd, 2)))
-    print(' ')
-    print('Median grain size = {} microns' .format(round(median_GS, 2)))
-    print('Interquartile range (IQR) = {}' .format(round(iqr_GS, 2)))
-    print(' ')
+        print('RMS mean = {} microns (discouraged)' .format(round(mean_RMS, 2)))
+    print('Median = {} microns' .format(round(median_GS, 2)))
     print('Peak grain size (based on KDE) = {} microns' .format(round(peak, 2)))
-    if type(bandwidth) is str:
-        print('KDE bandwidth = {a} ({b} rule)' .format(a=bw, b=bandwidth))
-    else:
-        print('KDE bandwidth =', bandwidth)
+
     print(' ')
-    print('HISTOGRAM FEATURES')
+    print('DISTRIBUTION FEATURES (SPREADING AND SHAPE)')
+    print('Standard deviation = {} (1-sigma)' .format(round(std_GS, 2)))
+    print('Interquartile range (IQR) = {}' .format(round(iqr_GS, 2)))
+    if plot == 'linear':
+        print('Multiplicative standard deviation (lognormal shape) = {}' .format(round(gsd, 2)))
+
+    print(' ')
+    print('HISTOGRAM AND KDE FEATURES')
     print('The modal interval is {left} - {right}' .format(left=round(modInt_leftEdge, 2), right=round(modInt_rightEdge, 2)))
     print('The number of classes are {}' .format(len(histogram)))
     if type(bin_method) is str:
         print('The bin size is {bin} according to the {rule} rule' .format(bin=round(binsize, 2), rule=bin_method))
-    print(' ')
+
+    if type(bandwidth) is str:
+        print('KDE bandwidth = {a} ({b} rule)' .format(a=bw, b=bandwidth))
+    else:
+        print('KDE bandwidth =', bandwidth)
+
+    if plot == 'linear':
+        print('Maximum precision of the KDE estimator =', max_precision)
+        return plots.freq_plot(diameters, bin_edges, x_kde, y_kde, y_max, peak, mean_GS, median_GS, plot, gmean)
+    elif plot == 'log':
+        print('Maximum precision of the KDE estimator =', max_precision)
+    elif plot == 'log10':
+        print('Maximum precision of the KDE estimator =', max_precision)
+    elif plot == 'sqrt':
+        print('Maximum precision of the KDE estimator =', max_precision)
 
     return plots.freq_plot(diameters, bin_edges, x_kde, y_kde, y_max, peak, mean_GS, median_GS, plot)
 
 
-def calc_freq_peak(diameters, bandwidth, binsize):
+def calc_freq_peak(diameters, bandwidth, max_precision):
     """ Estimate the peak of the frequency ("mode") of a continuous
     distribution based on the Gaussian kernel density estimator. It
     uses Scipy's gaussian kde method.
@@ -203,8 +218,8 @@ def calc_freq_peak(diameters, bandwidth, binsize):
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. Methods can be 'silverman' or 'scott'.
 
-    binsize : positive scalar or None
-        the binsize used for histogram the population
+    max_precision : positive scalar
+        the maximum precision expected for the "peak" estimator.
 
     Call functions
     --------------
@@ -213,30 +228,28 @@ def calc_freq_peak(diameters, bandwidth, binsize):
 
     Returns
     -------
-    The x and y values to contruct the kde, the peak grain size, and
-    the maximum density value
+    The x and y values to contruct the kde, the peak grain size,
+    the maximum density value,, and the bandwidth
     """
 
     # check bandwidth and estimate Gaussian kernel density function
     if isinstance(bandwidth, (int, float)):
         bw = bandwidth / diameters.std(ddof=1)
         kde = gaussian_kde(diameters, bw_method=bw)
+
     elif isinstance(bandwidth, str):
         kde = gaussian_kde(diameters, bw_method=bandwidth)
         bw = round(kde.covariance_factor() * diameters.std(ddof=1), 2)
+
     else:
-        raise ValueError("bandwidth must be integer, float, or 'silverman'/'scott'")
+        raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
     # locate the peak
-    if binsize is not None:
-        xgrid = gen_xgrid(diameters, diameters.min() - binsize, diameters.max() + binsize)
-    else:
-        xgrid = gen_xgrid(diameters, diameters.min(), diameters.max())
-    y_values = kde(xgrid)
-    y_max, index = np.max(y_values), np.argmax(y_values)
-    peak_grain_size = xgrid[index]
+    xgrid = gen_xgrid(diameters.min(), diameters.max(), max_precision)
+    densities = kde(xgrid)
+    y_max, peak_grain_size = np.max(densities), xgrid[np.argmax(densities)]
 
-    return xgrid, y_values, peak_grain_size, y_max, bw
+    return xgrid, densities, peak_grain_size, y_max, bw
 
 
 def fit_log(x, y, initial_guess):
@@ -272,31 +285,34 @@ def fit_log(x, y, initial_guess):
     optimal_params, cov_matrix = curve_fit(log_function, x, y, initial_guess)
 
     # estimate the uncertainty of the fit.
-    sigma_error = sqrt([cov_matrix[0, 0], cov_matrix[1, 1]])
+    sigma_error = np.sqrt(np.diag(cov_matrix))
 
     return optimal_params, sigma_error
 
 
-def gen_xgrid(pop, start, stop):
+def gen_xgrid(start, stop, precision):
     """ Returns a mesh of values (i.e. discretize the
-    sample space).
+    sample space) with a range and desired precision.
 
     Parameters
     ----------
-    pop : array_like
-        the population
-    start : ositive scalar
+    start : scalar
         the starting value of the sequence
-    stop : positive scalar
+    stop : scalar
         the end value of the sequence
+    precision : scalar
+        the desired precision (density) of the mesh
     """
 
-    d_range = pop.max() - pop.min()
+    rango = stop - start
 
-    if d_range < 400:
-        return np.linspace(start, stop, density=2**12)
+    # num = range / precision; as long as range > precision
+    if rango < precision:
+        raise ValueError('Caution! the precision must be smaller than the range of grain sizes')
     else:
-        return np.linspace(start, stop, density=2**14)
+        n = int(round(rango / precision, 0))
+
+    return np.linspace(start, stop, num=n)
 
 
 def get_filepath():
@@ -383,8 +399,8 @@ def norm_grain_size(diameters, binsize, bandwidth):
 
 
 def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
-    """ Applies the Scheil-Schwartz-Saltykov method to unfold the population of
-    apparent (2D) diameters into the actual (3D) population of grain sizes.
+    """ Applies a Scheil-Schwartz-Saltykov-type method to unfold the population
+    of apparent (2D) diameters into the actual (3D) population of grain sizes.
     Following the reasoning of Higgins (2000), R (or D) is placed at the center
     of the classes (i.e. the midpoints).
 
@@ -425,12 +441,12 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
     while i > 0:
         j = i
         D = d_values[-1]
-        Pi = wicksell_eq(D, d_values[i], d_values[i + 1])
+        Pi = wicksell_solution(D, d_values[i], d_values[i + 1])
 
         if freq[i] > 0:
             while j > 0:
                 D = midpoints[-1]
-                Pj = wicksell_eq(D, d_values[j - 1], d_values[j])
+                Pj = wicksell_solution(D, d_values[j - 1], d_values[j])
                 P_norm = (Pj * freq[i]) / Pi
                 np.put(freq, j - 1, freq[j - 1] - P_norm)  # replace specified elements of an array
                 j -= 1
@@ -455,21 +471,23 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
         return freq
 
 
-def wicksell_eq(D, d1, d2):
-    """ Estimate the cross-section size probability for a population of spheres
-    based on Wicksell (1925) and later used by Scheil (1931), Schwartz (1934)
-    and Saltykov (1967) to develop the Scheil-Schwartz-Saltykov method. This is
-    the generalization by Sahagian and Proussevitch (1998):
+def wicksell_solution(D, d1, d2):
+    """ Estimate the cross-section size probability for a discretized population
+    of spheres based on the Wicksell (1925) equation originally proposed by
+    Scheil (1931), Schwartz (1934) and Saltykov (1967) (the so-called
+    Scheil-Schwartz-Saltykov method). The general solution is the equation:
 
     P(r1 < r < r2) = 1/R * (sqrt(R**2 - r1**2) - sqrt(R**2 - r2**2))
 
     where R is the sphere radius and r the cross-section radius.
     r1 and r2 are the lower and upper bounds of the classes, respectively.
+    R can be placed at the at the center or the upper/lower limit of the
+    classes.
 
     Parameters
     ----------
     D: positive scalar
-        the midpoint of the actual class, which corresponds with the diameter
+        the midpoint of the actual class
 
     d1: positive scalar
         the lower limit of the bin/class
@@ -479,7 +497,6 @@ def wicksell_eq(D, d1, d2):
 
     References
     ----------
-    | Sahagian and Proussevitch (1998) doi:10.1029/95JB02500
     | Saltykov (1967) doi:10.1007/978-3-642-88260-9_31
     | Scheil (1931) doi:10.1002/zaac.19312010123
     | Schwartz (1934) Met. Alloy 5:139
@@ -492,8 +509,6 @@ def wicksell_eq(D, d1, d2):
     """
 
     # convert diameters to radii
-    R = D / 2.0
-    r1 = d1 / 2.0
-    r2 = d2 / 2.0
+    R, r1, r2 = D / 2, d1 / 2, d2 / 2
 
     return 1 / R * (sqrt(R**2 - r1**2) - sqrt(R**2 - r2**2))

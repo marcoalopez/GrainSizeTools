@@ -17,28 +17,28 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0.2                                                             #
+#    Version 2.0.3                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
 #    Requirements:                                                             #
 #        Python version 3.5.x or higher                                        #
 #        Numpy version 1.11 or higher                                          #
-#        Matplotlib version 1.5.3 or higher                                    #
-#        Scipy version 0.13 or higher                                          #
-#        Pandas version 0.16.x or higher                                       #
+#        Matplotlib version 2.0.2 or higher                                    #
+#        Scipy version 1.0 or higher                                           #
+#        Pandas version 0.16 or higher                                         #
 #                                                                              #
 # ============================================================================ #
 
-# import other grain_size_tools modules
+# import grain_size_tools modules
 import plots as plots
 import tools as tools
 from piezometers import quartz, olivine, calcite, feldspar
+
 # import neccesary Python scientific modules
 import numpy as np
-from numpy import mean, sqrt, exp, log, log10, array, tan, arctan, delete
-from pandas import read_table, read_csv, read_excel, DataFrame
-from scipy.stats import sem, t
+from pandas import read_csv, read_excel, DataFrame
+from scipy.stats import sem, t, norm
 
 
 def extract_column(file_path='auto', col_name='Area'):
@@ -59,7 +59,7 @@ def extract_column(file_path='auto', col_name='Area'):
     Examples
     --------
     >>> my_data = extract_column()
-    >>> areas = extract_column(col_name='diameters')
+    >>> diameters = extract_column(col_name='diameters')
 
     Call function
     -------------
@@ -74,16 +74,16 @@ def extract_column(file_path='auto', col_name='Area'):
         file_path = tools.get_filepath()
 
     if file_path.endswith('.txt'):
-        data_frame = read_table(file_path)
-        data_set = array(data_frame[col_name])
+        data_frame = read_csv(file_path, sep='\t')
+        data_set = np.array(data_frame[col_name])
 
     elif file_path.endswith('.csv'):
         data_frame = read_csv(file_path)
-        data_set = array(data_frame[col_name])
+        data_set = np.array(data_frame[col_name])
 
     elif file_path.endswith('.xlsx'):
         data_frame = read_excel(file_path)
-        data_set = array(data_frame[col_name])
+        data_set = np.array(data_frame[col_name])
 
     else:
         raise TypeError("Error: The file is not a 'txt', 'csv' or 'xlsx' or the file extension was not specified.")
@@ -118,7 +118,7 @@ def area2diameter(areas, correct_diameter=None):
     """
 
     # calculate the equivalent circular diameter
-    diameters = 2 * sqrt(areas / np.pi)
+    diameters = 2 * np.sqrt(areas / np.pi)
 
     # diameter correction adding edges (if applicable)
     if correct_diameter is not None:
@@ -127,7 +127,7 @@ def area2diameter(areas, correct_diameter=None):
     return diameters
 
 
-def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth='silverman'):
+def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth='silverman', precision=0.01):
     """ Estimate different 1D measures of grain size from a population
     grain sections and plot the location of these measures along with
     the apparent grain size distribution. Includes the arithmetic mean,
@@ -171,17 +171,22 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
 
+    precision : positive scalar, optional
+        the maximum precision expected for the "peak" kde-based estimator.
+        Default is 0.1
+
     Call functions
     --------------
     - calc_freq_grainsize, calc_areaweighted_grainsize, and norm_grain_size (from tools)
-
 
     Examples
     --------
     >>> calc_grain_size(diameters)
     >>> calc_grain_size(diameters, plot='log')
     >>> calc_grain_size(diameters, areas, plot='area')
-    >>> calc_grain_size(diameters, binsize='doane', bandwidth=0.5)
+    >>> calc_grain_size(diameters, binsize='doane', bandwidth=2.5)
+    >>> calc_grain_size(diameters, bandwidth='scott', precision=0.1)
+    >>> calc_grain_size(diameters, plot='norm')
 
     Returns
     -------
@@ -191,23 +196,23 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
 
     # determine the grain size parameters using number-weighted approaches
     if plot == 'lin':
-        return tools.calc_freq_grainsize(diameters, binsize, plot='linear', bandwidth=bandwidth)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='linear', bandwidth=bandwidth, max_precision=precision)
 
     elif plot == 'log':
-        diameters = log(diameters)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='log', bandwidth=bandwidth)
+        diameters = np.log(diameters)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='log', bandwidth=bandwidth, max_precision=precision)
 
     elif plot == 'log10':
-        diameters = log10(diameters)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='log10', bandwidth=bandwidth)
+        diameters = np.log10(diameters)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='log10', bandwidth=bandwidth, max_precision=precision)
 
     elif plot == 'norm':
         diameters = tools.norm_grain_size(diameters, bandwidth=bandwidth, binsize=binsize)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='norm', bandwidth=bandwidth)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='norm', bandwidth=bandwidth, max_precision=precision)
 
     elif plot == 'sqrt':
-        diameters = sqrt(diameters)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='sqrt', bandwidth=bandwidth)
+        diameters = np.sqrt(diameters)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='sqrt', bandwidth=bandwidth, max_precision=precision)
 
     # determine the grain size using the area-weighted approach
     elif plot == 'area':
@@ -224,7 +229,7 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
 
 def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=False, left_edge=0):
     """ Estimate the actual (3D) distribution of grain size from the population of
-    apparent diameters measured in a thin section using the Saltykov method.
+    apparent diameters measured in a thin section using a Saltykov-type method.
     (Saltykov 1967; Sahagian and Proussevitch 1998).
 
     The Saltykov method is optimal to estimate the volume of a particular grain size
@@ -288,13 +293,19 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
 
     # compute the histogram
     if left_edge == 'min':
-        freq, bin_edges = np.histogram(diameters, bins=numbins, range=(diameters.min(), diameters.max()), density=True)
+        freq, bin_edges = np.histogram(diameters,
+                                       bins=numbins,
+                                       range=(diameters.min(), diameters.max()),
+                                       density=True)
     else:
-        freq, bin_edges = np.histogram(diameters, bins=numbins, range=(left_edge, diameters.max()), density=True)
+        freq, bin_edges = np.histogram(diameters,
+                                       bins=numbins,
+                                       range=(left_edge, diameters.max()),
+                                       density=True)
     binsize = bin_edges[1] - bin_edges[0]
 
     # Create an array with the left edges of the bins and other with the midpoints
-    left_edges = delete(bin_edges, -1)
+    left_edges = np.delete(bin_edges, -1)
     mid_points = left_edges + binsize / 2
 
     # Unfold the population of apparent diameters using the Scheil-Schwartz-Saltykov method
@@ -310,8 +321,8 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
     if calc_vol is not None:
         x, y = mid_points, cdf_norm
         index = np.argmax(mid_points > calc_vol)
-        angle = arctan((y[index] - y[index - 1]) / (x[index] - x[index - 1]))
-        volume = y[index - 1] + tan(angle) * (calc_vol - x[index - 1])
+        angle = np.arctan((y[index] - y[index - 1]) / (x[index] - x[index - 1]))
+        volume = y[index - 1] + np.tan(angle) * (calc_vol - x[index - 1])
         if volume < 100.0:
             print(' ')
             print('volume fraction (up to', calc_vol, 'microns) =', round(volume, 2), '%')
@@ -319,10 +330,10 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=F
             print(' ')
             print('volume fraction (up to', calc_vol, 'microns) =', 100, '%')
 
-    # Create a text file with the midpoints, class frequencies, and cumulative volumes (if apply)
+    # Create a text file (if apply) with the midpoints, class frequencies, and cumulative volumes
     if text_file is not None:
         if isinstance(text_file, str) is False:
-            print('text_file must be None or a string')
+            print('text_file must be None or string type')
         df = DataFrame({'mid_points': np.around(mid_points, 3),
                         'freqs': np.around(freq3D, 4),
                         'cum_vol': np.around(cdf_norm, 2)})
@@ -353,7 +364,7 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     method (Lopez-Sanchez and Llana-Funez, 2016).
 
     The method only works properly for unimodal lognormal-like grain size populations
-    and returns the MSD (i.e. shape) and the median (i.e. scale) values, which
+    and returns the MSD (i.e. shape) and the geometric mean (i.e. scale) values, which
     describe the lognormal population of grain sizes at their lineal scale. For
     details see Lopez-Sanchez and Llana-Funez (2016).
 
@@ -399,8 +410,8 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
         shape = 1.2
         scale = 35.0
     elif initial_guess is True:
-        shape = float(input('Define an initial guess for the MSD parameter (the default value is 1.2; MSD > 1.0): '))
-        scale = float(input('Define an initial guess for the geometric mean (the default value is 35.0): '))
+        shape = float(input('Initial guess for the MSD parameter (the default is 1.2; common values 1.2-1.8): '))
+        scale = float(input('Initial guess for the expected geometric mean (the default is 35.0): '))
     else:
         raise TypeError('Initial_guess must be set as True or False')
 
@@ -413,6 +424,7 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
         optimal_params, sigma_error = tools.fit_log(mid_points, frequencies, initial_guess=(shape, scale))
         stds[index] = sigma_error[0]
 
+    # get the optimal number of clases and estimate the best fit parameters
     optimal_num_classes = class_list[np.argmin(stds)]
     mid_points, frequencies = Saltykov(diameters, numbins=optimal_num_classes, return_data=True)
     optimal_params, sigma_err = tools.fit_log(mid_points, frequencies, (shape, scale))
@@ -428,14 +440,14 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     # print(' Covariance matrix:\n', covm)
 
     # prepare data for the plot
-    xgrid = tools.gen_xgrid(diameters, 0.1, max(diameters))
+    xgrid = tools.gen_xgrid(0.1, diameters.max())
     best_fit = tools.log_function(xgrid, optimal_params[0], optimal_params[1])
 
     # Estimate all the combinatorial posibilities for fit curves taking into account the uncertainties
-    values = array([tools.log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] + sigma_err[1]),
-                    tools.log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] - sigma_err[1]),
-                    tools.log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] - sigma_err[1]),
-                    tools.log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] + sigma_err[1])])
+    values = np.array([tools.log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] + sigma_err[1]),
+                       tools.log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] - sigma_err[1]),
+                       tools.log_function(xgrid, optimal_params[0] + sigma_err[0], optimal_params[1] - sigma_err[1]),
+                       tools.log_function(xgrid, optimal_params[0] - sigma_err[0], optimal_params[1] + sigma_err[1])])
 
     # Estimate the standard deviation of the all values obtained
     fit_error = np.std(values, axis=0)
@@ -446,8 +458,8 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
 def confidence_interval(data, confidence=0.95):
     """Estimate the confidence interval using the t-distribution with n-1
     degrees of freedom t(n-1). This is the way to go when sample size is
-    small and the standard deviation cannot be estimated accurately. For
-    large datasets, the t-distribution approaches the normal distribution.
+    small (n < 30) and the standard deviation cannot be estimated accurately.
+    For large datasets, the t-distribution approaches the normal distribution.
 
     Parameters
     ----------
@@ -469,8 +481,9 @@ def confidence_interval(data, confidence=0.95):
     -------
     None
     """
+
     degrees_freedom = len(data) - 1
-    sample_mean = mean(data)
+    sample_mean = np.mean(data)
     sd_err = sem(data)  # Standard error of the mean SD / sqrt(n)
     low, high = t.interval(confidence, degrees_freedom, sample_mean, sd_err)
     err = high - sample_mean
@@ -552,21 +565,21 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
 
     # Special cases (convert from ECD to linear intercepts)
     if linear_interceps is True:
-        grain_size = (correction_factor / (sqrt(4 / np.pi))) * grain_size
+        grain_size = (correction_factor / (np.sqrt(4 / np.pi))) * grain_size
 
     # Estimate differential stress
     if piezometer == 'Shimizu':
         T = float(input("Please, enter the temperature [in C degrees] during deformation: "))
-        diff_stress = B * grain_size**(-m) * exp(698 / (T + 273.15))
+        diff_stress = B * grain_size**(-m) * np.exp(698 / (T + 273.15))
         if correction is True:
-            diff_stress = diff_stress * 2 / sqrt(3)
+            diff_stress = diff_stress * 2 / np.sqrt(3)
         print(' ')
         print('differential stress = {} MPa' .format(round(diff_stress, 2)))
         print(warn)
     else:
         diff_stress = B * grain_size**-m
         if correction is True:
-            diff_stress = diff_stress * 2 / sqrt(3)
+            diff_stress = diff_stress * 2 / np.sqrt(3)
         print(' ')
         print('differential stress = {} MPa' .format(round(diff_stress, 2)))
         print(warn)
@@ -575,9 +588,41 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
     return None
 
 
+def test_lognorm(data, percent=2):
+    """ Plot the data in a quantile–quantile (q-q) plot to test whether the
+    the underlying distribution follows a lognormal distribution.
+
+    Parameters
+    ----------
+    data : array-like
+        the apparent diameters or any other type of data
+
+    percent : scalar
+        the percentil interval to estimate, default is 2
+
+    Call functions
+    --------------
+    probplot from scipy's stats
+    qq_plot from plots.py
+
+    """
+
+    data = np.sort(np.log(data))
+
+    # estimate percentiles in the actual data
+    percentil = np.arange(1, 100, percent)
+    obs_data = np.percentile(data, percentil)
+
+    # estimate percentiles for theoretical data
+    d_mean, d_std = np.mean(data), np.std(data)
+    theoretical_data = norm.ppf(percentil / 100, loc=d_mean, scale=d_std)
+
+    return plots.qq_plot(theoretical_data, obs_data)
+
+
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v2.0.2
+Welcome to GrainSizeTools script v2.0.3
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential
@@ -595,6 +640,7 @@ calc_shape          Characterize the log shape of the actual grain size distribu
 confidence_interval Estimate a robust confidence interval using the t-distribution
 extract_column      Extract data from tabular-like text files (txt, csv or xlsx)
 Saltykov            Estimate the actual grain size distribution via the Saltykov method
+test_lognorm        Test the lognormality of the distribution using a q-q plot
 ==================  ==================================================================
 
 You can get more information about the methods in the following ways:

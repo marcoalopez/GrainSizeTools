@@ -1,10 +1,10 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/03/20*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/04/22*
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) estimating average grain size in polycrystalline materials, (2) characterizing the nature of the distribution of grain sizes (either from apparent distributions or approximating 3D grain size distributions via stereology), and (3) estimating differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
-**Last release: v2.0.2 released (2018/10/05). ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
+**Last release: v2.0.3 released (2019/04/22). ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
 IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.** 
 
 
@@ -18,6 +18,7 @@ IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.**
 - Include several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on population features.
 - Approximate the actual 3D grain size distribution from data collected in plane sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.
 - Approximate the lognormal shape of the 3D grain size distribution via the two-step method and characterize the shape using a single parameter (the MSD - *Multiplicative Standard Deviation*) .
+- Check lognormality using quantile-quantile plots (**new in v2.0.3!**)
 - Ready-to-publish plots in bitmap or vector format (see screenshots below for examples).
 
 ## Download
@@ -44,6 +45,7 @@ https://sourceforge.net/projects/grainsizetools/
     - [Estimating a robust confidence interval](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#estimating-a-robust-confidence-interval)
     - [Approximate the actual 3D grain size distribution and estimate the volume of a specific grain size fraction using the Saltykov method](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#approximate-the-actual-3d-grain-size-distribution-and-estimate-the-volume-of-a-specific-grain-size-fraction-using-the-saltykov-method)
     - [Approximate the lognormal shape of the actual grain size distribution using the two-step method](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#approximate-the-lognormal-shape-of-the-actual-grain-size-distribution-using-the-two-step-method)
+    - [Using quantile-quantile (q-q) plots to check lognormality](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#comparing-different-grain-size-populations-using-box-plots)
     - [Comparing different grain size populations using box plots](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#comparing-different-grain-size-populations-using-box-plots)
     - [Merging datasets](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#merging-datasets)
     - [Using the script with Jupyter Notebooks](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md#using-the-script-with-jupyter-notebooks)
