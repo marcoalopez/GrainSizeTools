@@ -1,11 +1,11 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*This project is maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - Last update (website): 2018/12/05*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/03/20*
 
-[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) estimating average grain size in polycrystalline materials, (2) characterizing the nature of the distribution of grain sizes (either from apparent distributions or approximating 3D grain size distributions via stereology), and (3) estimating differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular way facilitating the reuse and code extension.
+[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) estimating average grain size in polycrystalline materials, (2) characterizing the nature of the distribution of grain sizes (either from apparent distributions or approximating 3D grain size distributions via stereology), and (3) estimating differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
 **Last release: v2.0.2 released (2018/10/05). ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
-IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher and include new features and changes that make it incompatible with previous versions.** 
+IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.** 
 
 
 ## Features at a glance
@@ -86,7 +86,7 @@ Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures o
 Lopez-Sanchez MA and Llana-Fúnez (2016) An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, 93, 149-161. http://doi.org/10.1016/j.jsg.2016.10.008
 
 ***Saltykov method***  
-The procedure implemented in the GrainSizeTools script is partially based on the general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
+The procedure implemented in the GrainSizeTools script is partially based on the general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead of the left edges as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
 
 ## License
 
@@ -98,7 +98,7 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 - *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
 
-- *Do you want to contribute new ideas or miss some feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or open an issue with the label ``enhancement`` [here](https://github.com/marcoalopez/GrainSizeTools/issues) and I'll see what I can do
+- *Do you want to contribute new ideas or miss a feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or open an issue with the label ``enhancement`` [here](https://github.com/marcoalopez/GrainSizeTools/issues) and I'll see what I can do
 - *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply clone the project and develop!
 
 # 
