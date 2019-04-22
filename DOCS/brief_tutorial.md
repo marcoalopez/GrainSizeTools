@@ -1,4 +1,4 @@
-*last update 2018/10/26* 
+*last update 2019/04/22* 
 
 Getting Started: A step-by-step tutorial
 =============
@@ -20,9 +20,11 @@ Before interacting with the script it is necessary to run it. Then, just click o
 The following text will appear in the console:
 ```
 ======================================================================================
-Welcome to GrainSizeTools script v2.0.1
+Welcome to GrainSizeTools script v2.0.3
 ======================================================================================
-GrainSizeTools is a free open-source cross-platform script to visualize and characterize the grain size in polycrystalline materials from thin sections and estimate differential stresses via paleopizometers.
+GrainSizeTools is a free open-source cross-platform script to visualize and characterize
+the grain size in polycrystalline materials from thin sections and estimate differential
+stresses via paleopizometers.
 
 
 METHODS AVAILABLE
@@ -36,6 +38,7 @@ calc_shape          Characterize the log shape of the actual grain size distribu
 confidence_interval Estimate a robust confidence interval using the t-distribution
 extract_column      Extract data from tabular-like text files (txt, csv or xlsx)
 Saltykov            Estimate the actual grain size distribution via the Saltykov method
+test_lognorm        Test the lognormality of the distribution using a q-q plot
 ==================  ==================================================================
 
 You can get more information about the methods in the following ways:
@@ -142,7 +145,7 @@ The ``extract_column`` function also allows you to manually define the file path
 >>> areas = extract_column(file_path='data_set.txt', col_name='areas')
 ```
 
-> 👉 The ``extract_column`` function aims to simplify the task of extracting data for users with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and the Pandas library.
+> 👉 The ``extract_column`` function aims to simplify the task of extracting data for users with no previous programming experience in Python. If you are familiar with common Python scientific libraries, the natural way to interact with the data and the script is using the import tool implemented in the Spyder IDE and/or the Pandas library.
 
 
 
@@ -193,38 +196,44 @@ Once the apparent grain sizes have been estimated, we have several choices:
 >>> calc_grain_size(diameters)
 ```
 
-First of all, note that contrary to what was shown so far, the function is called directly in the console since it is no longer necessary to store any data into a variable. In the above example, the function will return by default a frequency *vs* apparent grain size plot using a linear scale along with the mean, RMS mean, median, and frequency peak apparent grain sizes among others; the latter using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). The output in the console will look something like this:
+First of all, note that contrary to what was shown so far, the function is called directly in the console since it is no longer necessary to store any data into a variable. In the above example, the function will return by default a frequency *vs* apparent grain size plot using a linear scale along with the mean, RMS mean, median, and frequency peak apparent grain sizes among others; the latter using a Gaussian kernel density estimator (see details in [Lopez-Sanchez and Llana-Fúnez 2015](http://www.solid-earth.net/6/475/2015/se-6-475-2015.html)). The output in the console will look something like this (v2.0.3 or higher):
 
 ```
-DESCRIPTIVE STATISTICS
- 
-Arithmetic mean grain size = 34.79 microns
-Standard deviation = 18.32 (1-sigma)
-RMS mean = 39.31 microns
+CENTRAL TENDENCY ESTIMATORS
+Arithmetic mean = 34.79 microns
 Geometric mean = 30.1 microns
+RMS mean = 39.31 microns (discouraged)
+Median = 31.53 microns
+Peak grain size (based on KDE) = 24.11 microns
  
-Median grain size = 31.53 microns
+DISTRIBUTION FEATURES (SPREADING AND SHAPE)
+Standard deviation = 18.32 (1-sigma)
 Interquartile range (IQR) = 23.98
+Multiplicative standard deviation (lognormal shape) = 1.75
  
-Peak grain size (based on KDE) = 24.28 microns
-KDE bandwidth = 4.01 (silverman rule)
- 
-HISTOGRAM FEATURES
+HISTOGRAM AND KDE FEATURES
 The modal interval is 16.83 - 20.24
 The number of classes are 45
 The bin size is 3.41 according to the auto rule
+KDE bandwidth = 4.01 (silverman rule)
+Maximum precision = 0.01
 ```
 
-The plot, which will appear in a separate window, shows the distribution of apparent grain sizes and the location of the different "average" grain size measures respect to the population (Fig. 6). You can save it by clicking in the floppy disk icon. Another interesting option is to modify the appearance of the plot before saving by clicking on the figure options icon.
+The plot, which will appear in a separate window, shows the distribution of apparent grain sizes and the location of the different "average" grain size measures respect to the population (Fig. 6). You can save it by clicking in the floppy disk icon. Another interesting option is to modify the appearance of the plot before saving by clicking on the figure options icon. This allows to modify or hide any element on the plot.
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/mpl_window.png?raw=true)
 
 *Figure 6. The window containing the plot.*
 
-The ``calc_grain_size`` function has five different inputs that we will commented on in turn:
+The ``calc_grain_size`` function has up to six different inputs that we will commented on in turn:
 
 ```python
-def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth='silverman'):
+def calc_grain_size(diameters,
+                    areas=None,
+                    plot='lin',
+                    binsize='auto',
+                    bandwidth='silverman',
+                    precision=0.01):
     """ ...
 
     Parameters
@@ -264,6 +273,10 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
     
+    precision : positive scalar, optional
+        the maximum precision expected for the "peak" kde-based estimator.
+        Default is 0.01
+
     ...
     """
 ```
@@ -467,7 +480,7 @@ Ensure that you entered the apparent grain size as the root mean square (RMS)!
 As pointed out in the [scope section](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md), when using paleopiezometers the optimal approach is to obtain several estimates of stress and then estimate a confidence interval. The same principle may apply to apparent grain size estimates. The script implements a function called ```confidende_interval```for estimating a robust confidence interval that takes into account the sample size. For this, it uses the student's t-distribution with n-1 degrees of freedom. The function has two inputs, the dataset with the estimates, which is obligatory, and the level of the confidence interval, which is optional and set at 0.95 by default. For example:
 
 ```python
->>> my_results = [165.3, 174.2, 180.1]  # this is just a list with three different estimates
+>>> my_results = [165.3, 174.2, 180.1]  # this is just a list with three different estimates (note they are separated by commas)
 >>> confidence_interval(data=my_results, confidence=0.95)
 ```
 
@@ -489,7 +502,12 @@ Coefficient of variation = 10.7 %
 The function responsible to unfold the distribution of apparent 2D grain sizes into the actual 3D grain size distribution is named ```Saltykov```. The method is based on the Scheil-Schwartz-Saltykov method (Saltykov, 1967) using the generalization proposed by Sahagian and Proussevitch (1998) with some variations explained in Lopez-Sanchez and Llana-Fúnez (2016). This method is the best option for estimating the volume of a particular grain size fraction. The ``Saltykov`` functions has the following inputs:
 
 ```python
-def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=False, left_edge=0):
+def Saltykov(diameters,
+             numbins=10,
+             calc_vol=None,
+             text_file=None,
+             return_data=False,
+             left_edge=0):
     """...
     
     Parameters
@@ -615,13 +633,27 @@ Sometimes, the least squares algorithm will fail at fitting the lognormal distri
 ```python
 >>> calc_shape(diameters, initial_guess=True)
 
-Define an initial guess for the MSD parameter (the default value is 1.2; MSD > 1.0): 1.2
-Define an initial guess for the geometric mean (the default value is 35.0): 40.0
+Initial guess for the MSD parameter (the default is 1.2; common values 1.2-1.8): 1.6
+Initial guess for the expected geometric mean (the default is 35.0): 40.0
 ```
 
 When the ```initial_guess``` parameter is set to ```True```, the script will ask you to set new starting values for both parameters (it also indicates which were the default ones). Based in our experience, a useful strategy is to let the MSD value in its default value (1.2) and increase or decrease the geometric mean value every five units until the fitting procedure yield a good fit (Fig. 12). You can also try using a value similar to the median or the geometric mean of the apparent grain size population.
 
 
+
+## *Using quantile-quantile (q-q) plots to check lognormality*
+
+Quantile-quantile plots are a useful visualization to test whether the dataset do or do not follow a given distribution. In this case, the GrainSizeTools script (v2.0.3 or higher) contains a function to test whether the dataset do or do not follow a lognormal distribution. For this:
+
+```python
+>>> test_lognorm(diameters)
+```
+
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/qq_plot.png?raw=true)
+
+*Figure. q-q plot of the test dataset*
+
+If the points fall right onto the reference line, then the grain size values are lognormally or approximately lognormally distributed. In such case, the dataset is appropriate for using the two-step method or characterize the population of apparent diameters using the multiplicative (geometric) standard deviation. To know more about this type of plots see https://serialmentor.com/dataviz/
 
 
 ## *Comparing different grain size populations using box plots*
