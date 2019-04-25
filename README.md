@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/04/22*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/04/25*
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) estimating average grain size in polycrystalline materials, (2) characterizing the nature of the distribution of grain sizes (either from apparent distributions or approximating 3D grain size distributions via stereology), and (3) estimating differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
@@ -72,6 +72,10 @@ https://sourceforge.net/projects/grainsizetools/
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/2step.png?raw=true)   
 *Estimate of the shape of the grain size distribution using the two-step method*
 
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/qq_plot.png?raw=true)  
+
+*Testing lognormality via quantile-quantile plots*
+
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme05.png)  
 *Boxplots comparing different unimodal grain size distributions*
 
@@ -89,7 +93,7 @@ Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures o
 Lopez-Sanchez MA and Llana-Fúnez (2016) An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, 93, 149-161. http://doi.org/10.1016/j.jsg.2016.10.008
 
 ***Saltykov method***  
-The procedure implemented in the GrainSizeTools script is partially based on the general formulation developed by Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead of the left edges as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
+The procedure implemented in the GrainSizeTools script is partially based on the general formulation provided in Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead of the left edges as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
 
 ## License
 
@@ -101,11 +105,11 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 - *Did you find a bug in the code or an error in the documentation?* Let me know by opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues).
 
-- *Do you want to contribute new ideas or miss a feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or open an issue with the label ``enhancement`` [here](https://github.com/marcoalopez/GrainSizeTools/issues) and I'll see what I can do
+- *Do you want to contribute new ideas or miss a feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )) or better open an issue with the label ``enhancement`` [here](https://github.com/marcoalopez/GrainSizeTools/issues) and I'll see what I can do
 - *Do you want to develop your own code based on the GrainSizeTools script?* You're in luck since the script is open source and free, simply clone the project and develop!
 
 # 
-*Copyright © 2018 Marco A. Lopez-Sanchez*  
+*Copyright © 2019 Marco A. Lopez-Sanchez*  
 
 *Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.*  
 
