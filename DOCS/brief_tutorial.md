@@ -1,4 +1,4 @@
-*last update 2019/04/22* 
+*last update 2019/05/07* 
 
 Getting Started: A step-by-step tutorial
 =============
@@ -157,7 +157,7 @@ ECD = 2 * √(area / π)
 
 This can be done directly in the console using
 ```python
->>> diameters = 2 * sqrt(areas / np.pi)
+>>> diameters = 2 * np.sqrt(areas / np.pi)
 ```
 
 or using the ```area2diameter``` function
@@ -463,7 +463,7 @@ It is key to note that different piezometers require entering **different appare
 | :--------------------: | :----: | :--: | :--: | :--: | :---: | :--: |
 | Post and Tullis (1999) | albite | BLG  |  55  | 0.66 | 433.4 | 1.52 |
 
-Since *v2.0.1*, the ``calc_diffstress`` function allows correcting the differential stress estimates for plane stress using the correction factor proposed in Behr and Platt (2013). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Behr and Platt (2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
+Since *v2.0.1*, the ``calc_diffstress`` function allows correcting the differential stress estimates for plane stress using the correction factor proposed by Paterson and Olgaard (2000). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Paterson and Olgaard (2000) (see also Behr and Platt, 2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
 
 ```python
 # Note that we set the parameter 'correction' to True
