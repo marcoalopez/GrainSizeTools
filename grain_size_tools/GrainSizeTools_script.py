@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0.3                                                             #
+#    Version 2.0.4                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -127,7 +127,9 @@ def area2diameter(areas, correct_diameter=None):
     return diameters
 
 
-def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth='silverman', precision=0.01):
+def calc_grain_size(diameters, areas=None, plot='lin',
+                    binsize='auto', bandwidth='silverman',
+                    precision=0.01):
     """ Estimate different 1D measures of grain size from a population
     grain sections and plot the location of these measures along with
     the apparent grain size distribution. Includes the arithmetic mean,
@@ -173,11 +175,13 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
 
     precision : positive scalar, optional
         the maximum precision expected for the "peak" kde-based estimator.
-        Default is 0.1
+        Default is 0.01
 
     Call functions
     --------------
-    - calc_freq_grainsize, calc_areaweighted_grainsize, and norm_grain_size (from tools)
+    - calc_freq_grainsize (from tools.py)
+    - calc_areaweighted_grainsize (from tools.py)
+    - norm_grain_size (from tools.py)
 
     Examples
     --------
@@ -196,30 +200,39 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
 
     # determine the grain size parameters using number-weighted approaches
     if plot == 'lin':
-        return tools.calc_freq_grainsize(diameters, binsize, plot='linear', bandwidth=bandwidth, max_precision=precision)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='linear',
+                                         bandwidth=bandwidth,
+                                         max_precision=precision)
 
     elif plot == 'log':
         diameters = np.log(diameters)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='log', bandwidth=bandwidth, max_precision=precision)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='log',
+                                         bandwidth=bandwidth,
+                                         max_precision=precision)
 
     elif plot == 'log10':
         diameters = np.log10(diameters)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='log10', bandwidth=bandwidth, max_precision=precision)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='log10',
+                                         bandwidth=bandwidth,
+                                         max_precision=precision)
 
     elif plot == 'norm':
-        diameters = tools.norm_grain_size(diameters, bandwidth=bandwidth, binsize=binsize)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='norm', bandwidth=bandwidth, max_precision=precision)
+        diameters = tools.norm_grain_size(diameters, bandwidth=bandwidth,
+                                          binsize=binsize)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='norm',
+                                         bandwidth=bandwidth,
+                                         max_precision=precision)
 
     elif plot == 'sqrt':
         diameters = np.sqrt(diameters)
-        return tools.calc_freq_grainsize(diameters, binsize, plot='sqrt', bandwidth=bandwidth, max_precision=precision)
+        return tools.calc_freq_grainsize(diameters, binsize, plot='sqrt',
+                                         bandwidth=bandwidth,
+                                         max_precision=precision)
 
     # determine the grain size using the area-weighted approach
     elif plot == 'area':
         if areas is None:
-            print(' ')
-            print('You must provide the areas of the grain sections!')
-            return None
+            raise Exception('You must provide the areas of the grain sections!')
         else:
             return tools.calc_areaweighted_grainsize(areas, diameters, binsize)
 
@@ -227,7 +240,8 @@ def calc_grain_size(diameters, areas=None, plot='lin', binsize='auto', bandwidth
         raise ValueError("The type of plot has been misspelled, please use 'lin', 'log', 'log10', 'sqrt', 'norm', or 'area'")
 
 
-def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None, return_data=False, left_edge=0):
+def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
+             return_data=False, left_edge=0):
     """ Estimate the actual (3D) distribution of grain size from the population of
     apparent diameters measured in a thin section using a Saltykov-type method.
     (Saltykov 1967; Sahagian and Proussevitch 1998).
@@ -471,7 +485,8 @@ def confidence_interval(data, confidence=0.95):
 
     Assumptions
     -----------
-    the data follows a normal distrubution (when sample size is large)
+    the data follows a normal or a symmetric distrubution (when sample size
+    is large)
 
     call_function(s)
     ----------------
@@ -520,12 +535,12 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
         the piezometric relation to be use
 
     correction : bool, default False
-        correct the stress values for plane stress (Behr & Platt, 2013)
+        correct the stress values for plane stress (Paterson and Olgaard, 2000)
 
      References
     -----------
-    Berh and Platt (2013) https://doi.org/10.1016/J.JSG.2013.07.
-    De Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
+    Paterson and Olgaard (2000) https://doi.org/10.1016/S0191-8141(00)00042-0
+    de Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
 
     Call functions
     --------------
@@ -541,11 +556,11 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
     apparent grain size values calculated using equivalent circular diameters
     (ECD) with no stereological correction. See documentation for more details.
     - When required, the grain size value will be converted from ECD to linear
-    intercept (LI) using a correction factor based on De Hoff and Rhines (1968):
+    intercept (LI) using a correction factor based on de Hoff and Rhines (1968):
     LI = (correction factor / sqrt(4/pi)) * ECD
     - Stress estimates can be corrected from uniaxial compression (experiments)
-    to plane strain (nature) multiplying the estimate of th epaleopiezometer by
-    2/sqrt(3) (Behr and Platt, 2013)
+    to plane strain (nature) multiplying the paleopiezometer by 2/sqrt(3)
+	(Paterson and Olgaard, 2000)
 
     Returns
     -------
@@ -622,7 +637,7 @@ def test_lognorm(data, percent=2):
 
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v2.0.3
+Welcome to GrainSizeTools script v2.0.4
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential

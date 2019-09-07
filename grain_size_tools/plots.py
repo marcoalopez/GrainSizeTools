@@ -32,14 +32,54 @@
 # imports
 import matplotlib.pyplot as plt
 import matplotlib as mpl
-# Set the plot style. To see the different styles available in Matplotlib see:
-# https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html
-mpl.style.use('ggplot')
-mpl.rcParams['font.family'] = 'Verdana'
-mpl.rcParams['xtick.labelsize'] = 15.
-mpl.rcParams['ytick.labelsize'] = 15.
+from cycler import cycler
+
+# Set the plot style
+# For default styles see https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html
+#mpl.rcParams['font.family'] = 'Helvetica Neue'
+mpl.rcParams['font.size'] = 14.0
+mpl.rcParams['svg.fonttype'] = 'path'
+mpl.rcParams['lines.linewidth'] = 3.0
+mpl.rcParams['lines.markersize'] = 12.0
+mpl.rcParams['lines.solid_capstyle'] = 'butt'
+mpl.rcParams['legend.fancybox'] = True
+
+mpl.rcParams['axes.prop_cycle'] = cycler(color=['#008fd5', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b', '#810f7c'])
+mpl.rcParams['axes.facecolor'] = 'ffffff'
+mpl.rcParams['axes.labelsize'] = 'large'
+mpl.rcParams['axes.axisbelow'] = True
+mpl.rcParams['axes.grid'] = True
+mpl.rcParams['axes.edgecolor'] = 'ffffff'
+mpl.rcParams['axes.linewidth'] = 2.0
+mpl.rcParams['axes.titlesize'] = 'x-large'
+
+mpl.rcParams['patch.edgecolor'] = 'f0f0f0'
+mpl.rcParams['patch.linewidth'] = 0.5
+
+mpl.rcParams['grid.linestyle'] = '-'
+mpl.rcParams['grid.linewidth'] = 1.0
+mpl.rcParams['grid.color'] = 'cbcbcb'
+
+mpl.rcParams['xtick.major.size'] = 0
+mpl.rcParams['xtick.minor.size'] = 0
+mpl.rcParams['ytick.major.size'] = 0
+mpl.rcParams['ytick.minor.size'] = 0
+plt.rcParams['xtick.labelsize'] = 16
+plt.rcParams['ytick.labelsize'] = 16
+plt.rcParams['xtick.color'] = '#252525'
+plt.rcParams['ytick.color'] = '#252525'
+
+mpl.rcParams['savefig.edgecolor'] = 'ffffff'
+mpl.rcParams['savefig.facecolor'] = 'ffffff'
+
+mpl.rcParams['figure.subplot.left'] = 0.125
+mpl.rcParams['figure.subplot.right'] = 0.9
+mpl.rcParams['figure.subplot.bottom'] = 0.11
+mpl.rcParams['figure.subplot.top'] = 0.88
+mpl.rcParams['figure.facecolor'] = 'ffffff'
 
 
+# plotting funtions
 def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot, gmean=None):
     """ Generate a frequency vs grain size plot"""
 
@@ -49,61 +89,52 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
             bins=binList,
             range=(0, diameters.max()),
             density=True,
-            color='#4C72B0',
-            edgecolor='#F7FFFF',
+            color='#80419d',
+            edgecolor='#C59fd7',
             alpha=0.7)
-    ax.plot([mean_GS, mean_GS], [0.0001, y_max],
+    ax.plot([mean_GS, mean_GS], [0, y_max],
             linestyle='-',
-            color='#252525',
-            label='mean',
-            linewidth=2)
-    ax.plot([median_GS, median_GS], [0.0001, y_max],
+            color='#2F4858',
+            label='arith. mean',
+            linewidth=2.5)
+    ax.plot([median_GS, median_GS], [0, y_max],
             linestyle='--',
-            color='#252525',
+            color='#2F4858',
             label='median',
-            linewidth=2)
+            linewidth=2.5)
 
-    ax.set_ylabel('density',
-                  fontsize=15)
+    ax.set_ylabel('density', color='#252525')
 
     if plot == 'linear':
-        ax.plot([gmean, gmean], [0.0001, y_max],
+        ax.plot([gmean, gmean], [0, y_max],
                 linestyle='-',
-                color='C0',
-                label='geo. mean',
-                linewidth=2)
-        ax.set_xlabel(r'apparent diameter ($\mu m$)',
-                      fontsize=15)
+                color='C1',
+                label='geo. mean')
+        ax.set_xlabel(r'apparent diameter ($\mu m$)', color='#252525')
 
     elif plot == 'log':
-        ax.set_xlabel(r'apparent diameter $\log_e{(\mu m)}$',
-                      fontsize=15)
+        ax.set_xlabel(r'apparent diameter $\log_e{(\mu m)}$', color='#252525')
 
     elif plot == 'log10':
-        ax.set_xlabel(r'apparent diameter $\log_{10}{(\mu m)}$',
-                      fontsize=15)
+        ax.set_xlabel(r'apparent diameter $\log_{10}{(\mu m)}$', color='#252525')
 
     elif plot == 'norm':
-        ax.set_xlabel(r'normalized apparent diameter $\log_e{(\mu m)}$',
-                      fontsize=15)
+        ax.set_xlabel(r'normalized apparent diameter $\log_e{(\mu m)}$', color='#252525')
 
     elif plot == 'sqrt':
-        ax.set_xlabel(r'Square root apparent diameter ($\sqrt{\mu m}$)',
-                      fontsize=15)
+        ax.set_xlabel(r'Square root apparent diameter ($\sqrt{\mu m}$)', color='#252525')
 
     ax.plot(xgrid, y_values,
-            color='#2E5A95',
-            linewidth=2.5)
-    ax.plot([x_peak], [y_max],
-            'o',
-            color='#2E5A95')
-    ax.vlines(x_peak, 0.0001, y_max,
-              linestyle=':',
-              color='#252525',
-              linewidth=2,
-              label='kde peak')
+            color='#2F4858')
 
-    ax.legend(loc='best', fontsize=15)
+    ax.vlines(x_peak, 0, y_max,
+              linestyle=':',
+              color='#2F4858',
+              label='kde peak',
+              linewidth=2.5)
+
+    ax.legend(loc='best', fontsize=16)
+    ax.set_ylim(bottom=-0.001)
 
     fig.tight_layout()
 
