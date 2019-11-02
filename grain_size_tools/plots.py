@@ -64,10 +64,10 @@ mpl.rcParams['xtick.major.size'] = 0
 mpl.rcParams['xtick.minor.size'] = 0
 mpl.rcParams['ytick.major.size'] = 0
 mpl.rcParams['ytick.minor.size'] = 0
-plt.rcParams['xtick.labelsize'] = 16
-plt.rcParams['ytick.labelsize'] = 16
-plt.rcParams['xtick.color'] = '#252525'
-plt.rcParams['ytick.color'] = '#252525'
+mpl.rcParams['xtick.labelsize'] = 16
+mpl.rcParams['ytick.labelsize'] = 16
+mpl.rcParams['xtick.color'] = '#252525'
+mpl.rcParams['ytick.color'] = '#252525'
 
 mpl.rcParams['savefig.edgecolor'] = 'ffffff'
 mpl.rcParams['savefig.facecolor'] = 'ffffff'
@@ -108,7 +108,7 @@ def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, media
     if plot == 'linear':
         ax.plot([gmean, gmean], [0, y_max],
                 linestyle='-',
-                color='C1',
+                color='#fec44f',
                 label='geo. mean')
         ax.set_xlabel(r'apparent diameter ($\mu m$)', color='#252525')
 
@@ -243,11 +243,11 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
                     label='trust region',
                     alpha=0.5)
 
-    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
-            'o',
-            color='#d53e4f',
-            label='datapoints',
-            linewidth=1.5)
+#    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
+#            'o',
+#            color='#d53e4f',
+#            label='datapoints',
+#            linewidth=1.5)
 
     ax.set_ylabel('freq. (per unit vol.)', fontsize=15)
     ax.legend(loc='best', fontsize=15)
@@ -265,8 +265,8 @@ def qq_plot(theoretical_data, obs_data):
 
     fig, ax = plt.subplots()
 
-    ax.plot([min_val, max_val], [min_val, max_val], '-', color='C3', linewidth=2, label='perfect lognormal')
-    ax.plot(theoretical_data, obs_data, 'o', color='C0')
+    ax.plot([min_val, max_val], [min_val, max_val], '-', color='#2F4858', label='perfect lognormal')
+    ax.plot(theoretical_data, obs_data, 'o', color='C0', alpha=0.5)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
 

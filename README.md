@@ -6,7 +6,7 @@
 
 **Latest release: v2.0.3**  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
 **Date of the latest release: 2019/04/22**  
-**IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.** 
+**IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.**
 
 
 ## Features at a glance

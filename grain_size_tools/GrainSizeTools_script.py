@@ -129,12 +129,11 @@ def area2diameter(areas, correct_diameter=None):
 
 def calc_grain_size(diameters, areas=None, plot='lin',
                     binsize='auto', bandwidth='silverman',
-                    precision=0.01):
-    """ Estimate different 1D measures of grain size from a population
+                    precision=None):
+    """ Estimate different grain size statistics from a population
     grain sections and plot the location of these measures along with
-    the apparent grain size distribution. Includes the arithmetic mean,
-    the area-weighted mean, the median, and the frequency peak grain
-    sizes.
+    the apparent grain size distribution. Includes different means,
+    the median, and the frequency peak grain size via KDE.
 
     Parameters
     ----------
@@ -173,9 +172,9 @@ def calc_grain_size(diameters, areas=None, plot='lin',
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
 
-    precision : positive scalar, optional
+    precision : positive scalar or None, optional
         the maximum precision expected for the "peak" kde-based estimator.
-        Default is 0.01
+        Default is None
 
     Call functions
     --------------
@@ -200,23 +199,31 @@ def calc_grain_size(diameters, areas=None, plot='lin',
 
     # determine the grain size parameters using number-weighted approaches
     if plot == 'lin':
+        if precision is None:
+            precision = 0.1
         return tools.calc_freq_grainsize(diameters, binsize, plot='linear',
                                          bandwidth=bandwidth,
                                          max_precision=precision)
 
     elif plot == 'log':
+        if precision is None:
+            precision = 0.01
         diameters = np.log(diameters)
         return tools.calc_freq_grainsize(diameters, binsize, plot='log',
                                          bandwidth=bandwidth,
                                          max_precision=precision)
 
     elif plot == 'log10':
+        if precision is None:
+            precision = 0.01
         diameters = np.log10(diameters)
         return tools.calc_freq_grainsize(diameters, binsize, plot='log10',
                                          bandwidth=bandwidth,
                                          max_precision=precision)
 
     elif plot == 'norm':
+        if precision is None:
+            precision = 0.01
         diameters = tools.norm_grain_size(diameters, bandwidth=bandwidth,
                                           binsize=binsize)
         return tools.calc_freq_grainsize(diameters, binsize, plot='norm',
@@ -224,6 +231,8 @@ def calc_grain_size(diameters, areas=None, plot='lin',
                                          max_precision=precision)
 
     elif plot == 'sqrt':
+        if precision is None:
+            precision = 0.01
         diameters = np.sqrt(diameters)
         return tools.calc_freq_grainsize(diameters, binsize, plot='sqrt',
                                          bandwidth=bandwidth,
@@ -240,8 +249,8 @@ def calc_grain_size(diameters, areas=None, plot='lin',
         raise ValueError("The type of plot has been misspelled, please use 'lin', 'log', 'log10', 'sqrt', 'norm', or 'area'")
 
 
-def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
-             return_data=False, left_edge=0):
+def Saltykov(diameters, numbins=10, calc_vol=None,
+             text_file=None, return_data=False, left_edge=0):
     """ Estimate the actual (3D) distribution of grain size from the population of
     apparent diameters measured in a thin section using a Saltykov-type method.
     (Saltykov 1967; Sahagian and Proussevitch 1998).
@@ -446,8 +455,8 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     print(' ')
     print('OPTIMAL VALUES')
     print('Number of clasess: {}' .format(optimal_num_classes))
-    print('MSD (shape) = {msd} ± {err}' .format(msd=round(optimal_params[0], 2),
-                                                err=round(3 * sigma_err[0], 2)))
+    print('MSD (log-normal shape) = {msd} ± {err}' .format(msd=round(optimal_params[0], 2),
+                                                           err=round(3 * sigma_err[0], 2)))
     print('Geometric mean (scale) = {gmean} ± {err}' .format(gmean=round(optimal_params[1], 2),
                                                              err=round(3 * sigma_err[1], 2)))
     print(' ')
@@ -499,8 +508,8 @@ def confidence_interval(data, confidence=0.95):
 
     degrees_freedom = len(data) - 1
     sample_mean = np.mean(data)
-    sd_err = sem(data)  # Standard error of the mean SD / sqrt(n)
-    low, high = t.interval(confidence, degrees_freedom, sample_mean, sd_err)
+    std_err = sem(data)  # Standard error of the mean SD / sqrt(n)
+    low, high = t.interval(confidence, degrees_freedom, sample_mean, std_err)
     err = high - sample_mean
 
     print(' ')
@@ -560,7 +569,7 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
     LI = (correction factor / sqrt(4/pi)) * ECD
     - Stress estimates can be corrected from uniaxial compression (experiments)
     to plane strain (nature) multiplying the paleopiezometer by 2/sqrt(3)
-	(Paterson and Olgaard, 2000)
+    (Paterson and Olgaard, 2000)
 
     Returns
     -------
