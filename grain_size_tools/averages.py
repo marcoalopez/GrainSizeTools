@@ -23,45 +23,17 @@
 #                                                                              #
 # ============================================================================ #
 
-# ============================================================================ #
-# Auxiliary functions doing specific tasks used by the GrainSizeTools script   #
-# The names of the functions are self-explanatory. They appear in alphabetical #
-# order. Save this file in the same directory as GrainSizeTools_script.py      #
-# ============================================================================ #
-
 # Imports
 from scipy.stats import bayes_mvs, t
+from tools import critical_t
 import numpy as np
 
-
-def critical_t(confidence, sample_size):
-    """Returns the (two-tailed) t-score based on the t-student distribution
-    to set the certainty of the error margin.
-
-    Parameters
-    ----------
-    confidence : float, scalar between 0 and 1
-        the level of confidence. E.g. 0.95 -> 95%
-
-    sample_size : scalar, int
-        the sample size
-
-    Assumptions
-    -----------
-    - t-student assumes that the data is symmetrically distributed
-
-    Call function
-    -------------
-    scipy.stats.t
-    """
-
-    # recalculate confidence for the two-tailed t-distribution
-    confidence = confidence + ((1 - confidence) / 2)
-
-    return t.ppf(confidence, sample_size)
+# ============================================================================ #
+# AVERAGES                                                                     #
+# ============================================================================ #
 
 
-def arith_mean(pop, ci=0.95, method='ASTM'):
+def amean(pop, ci=0.95, method='CLT'):
     """ Estimate the arithmetic mean, the Bessel corrected SD,
     and the confidence interval based on different methods.
 
@@ -79,33 +51,39 @@ def arith_mean(pop, ci=0.95, method='ASTM'):
 
     Assumptions
     -----------
-    -
+    - arithmetic mean is optimal for normal-like distributions
+    - CLT method is optimized for normal distributions
+    - GCI and mCox methods are optimized for lognormal distributions
 
     Call functions
     --------------
-    - ASTM
-    - CGI
-    - mod_Cox
-    - Numpy mean and std
+    - CLT_ci
+    - CGI_ci
+    - mCox_ci
+
+    Returns
+    -------
+    the arithmetic mean, the SD, the confidence interval (scalar or tuple),
+    the length of the confidence interval
     """
 
-    n, mean, std = len(pop), np.mean(pop), np.std(pop, ddof=1)
+    mean, std = np.mean(pop), np.std(pop, ddof=1)
 
     # confidence interval
     if method == 'ASTM':
-        conf_int, length = ASTM()
+        conf_int, length = CLT_ci(pop, ci)
         return mean, std, conf_int, length
 
     elif method == 'GCI':
-        ci_lower, ci_upper, length = CGI()
+        ci_lower, ci_upper, length = GCI_ci(pop, ci)
         return mean, std, (ci_lower, ci_upper), length
 
-    elif method == 'Cox':
-        ci_lower, ci_upper, length = mod_Cox()
+    elif method == 'mCox':
+        ci_lower, ci_upper, length = mCox_ci(pop, ci)
         return mean, std, (ci_lower, ci_upper), length
 
     else:
-        raise Exception("methods must be 'ASTM', 'GCI', or 'Cox'")
+        raise Exception("CI methods must be 'ASTM', 'GCI', or 'mCox'")
 
 
 def gmean(pop, ci=0.95, method='CLT'):
@@ -126,9 +104,8 @@ def gmean(pop, ci=0.95, method='CLT'):
 
     Call functions
     --------------
-    - CLT
-    - Bayes
-    - Numpy mean, std, log, exp
+    - CLT_ci
+    - bayesian_ci
 
     Returns
     -------
@@ -138,7 +115,7 @@ def gmean(pop, ci=0.95, method='CLT'):
 
     n = len(pop)
 
-    # compute statistics in the log-transformed data
+    # compute statistics of the log-transformed data
     mean_log = np.mean(np.log(pop))
     sd_log = np.std(np.log(pop), ddof=1)  # SD using n-1 degrees of freedom (Bessel corrected)
 
@@ -146,7 +123,7 @@ def gmean(pop, ci=0.95, method='CLT'):
     gmean = np.exp(mean_log)
     mSD = np.exp(sd_log)
 
-    # estimate the confidence intervals in linear scale
+    # confidence intervals of the back-transformed values
     t_score = critical_t(ci, n)
     upper_ci = np.exp(mean_log + t_score * (sd_log / np.sqrt(n)))
     lower_ci = np.exp(mean_log - t_score * (sd_log / np.sqrt(n)))
@@ -212,7 +189,7 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
 
     # check bandwidth and estimate Gaussian kernel density function
     if isinstance(bandwidth, (int, float)):
-        bw = bandwidth / diameters.std(ddof=1)
+        bw = bandwidth / np.std(diameters, ddof=1)
         kde = gaussian_kde(diameters, bw_method=bw)
 
     elif isinstance(bandwidth, str):
@@ -222,12 +199,17 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
     else:
         raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
-    # locate the peak
+    # locate and get the frequency peak
     xgrid = tools.gen_xgrid(diameters.min(), diameters.max(), max_precision)
     densities = kde(xgrid)
     y_max, peak_grain_size = np.max(densities), xgrid[np.argmax(densities)]
 
     return xgrid, densities, peak_grain_size, y_max, bw
+
+
+# ============================================================================ #
+# CONFIDENCE INTERVAL METHODS                                                  #
+# ============================================================================ #
 
 
 def ASTM(data, ci=0.95):
@@ -267,7 +249,7 @@ def ASTM(data, ci=0.95):
     return lower, upper, interval
 
 
-def mod_Cox(data, ci=0.95):
+def mCox_ci(data, ci=0.95):
     """ Estimate the error margin for the arithmetic mean using the modified
     Cox method. This is a method optimized from lognormal populations. The
     method implemented below uses the Bessel corrected SD as it produces safer
@@ -306,7 +288,7 @@ def mod_Cox(data, ci=0.95):
     return lower, upper, interval
 
 
-def CGI(data, ci=0.95, runs=10000):
+def GCI_ci(data, ci=0.95, runs=10000):
     """ Estimate a confidence interval for the lognormal arithmetic mean
     using the generalized confidence interval (GCI) method of Krishnamoorthy
     and Mathew (2003). This is a method optimized from lognormal populations.
@@ -396,7 +378,7 @@ def GCI_equation(mu_log, var_log, z, u, n):
     return exp(mu_log - second_term + third_term)
 
 
-def CLT_based(data, ci=0.95):
+def CLT_ci(data, ci=0.95):
     """ Estimate the ci 95% error margins of the geometric mean based
     on the central limit theorem and the standard error of the mean of
     the log-transformed population. It uses the t-score and Bessel
@@ -428,7 +410,7 @@ def CLT_based(data, ci=0.95):
     return lower, upper, interval
 
 
-def bayesian(data, ci=0.95):
+def bayesian_ci(data, ci=0.95):
     """ Use a bayesian approach to estimate the confidence intervals
     of the geometric mean. For this it estimates the bayesian error
     intervals of the log-transformed data using the scipy bayes_msv
@@ -468,7 +450,7 @@ def bayesian(data, ci=0.95):
     return lower, upper, interval
 
 
-def median_em(data, ci=0.95):
+def median_ci(data, ci=0.95):
     """ Estimate the approximate ci 95% error margins for the median
     using a rule of thumb based on Hollander and Wolfe (1999).
 
