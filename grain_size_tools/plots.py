@@ -35,8 +35,7 @@ import matplotlib as mpl
 from cycler import cycler
 
 # Set the plot style
-# For default styles see https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html
-#mpl.rcParams['font.family'] = 'Helvetica Neue'
+#mpl.rcParams['font.family'] = 'Helvetica Neue'  # set your own font family
 mpl.rcParams['font.size'] = 14.0
 mpl.rcParams['svg.fonttype'] = 'path'
 mpl.rcParams['lines.linewidth'] = 3.0
