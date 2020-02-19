@@ -17,16 +17,16 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0.4                                                             #
+#    Version 3.0                                                               #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
 #    Requirements:                                                             #
-#        Python version 3.5.x or higher                                        #
-#        Numpy version 1.11 or higher                                          #
-#        Matplotlib version 2.0.2 or higher                                    #
-#        Scipy version 1.0 or higher                                           #
-#        Pandas version 0.16 or higher                                         #
+#        Python     v3.6  or higher                                            #
+#        Numpy      v1.11 or higher                                            #
+#        Matplotlib v2.0 or higher                                             #
+#        Scipy      v1.0 or higher                                             #
+#        Pandas     v0.16 or higher                                            #
 #                                                                              #
 # ============================================================================ #
 
@@ -374,7 +374,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None,
         return mid_points, freq3D
 
     elif return_data is False:
-        print('bin size =', round(binsize, 2))
+        print('bin size = {}' .format(binsize))
         return plots.Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
     else:
@@ -455,10 +455,8 @@ def calc_shape(diameters, class_range=(10, 20), initial_guess=False):
     print(' ')
     print('OPTIMAL VALUES')
     print('Number of clasess: {}' .format(optimal_num_classes))
-    print('MSD (log-normal shape) = {msd} ± {err}' .format(msd=round(optimal_params[0], 2),
-                                                           err=round(3 * sigma_err[0], 2)))
-    print('Geometric mean (scale) = {gmean} ± {err}' .format(gmean=round(optimal_params[1], 2),
-                                                             err=round(3 * sigma_err[1], 2)))
+    print('MSD (log-normal shape) = {msd:0.2f} ± {err:0.2f}' .format(msd=optimal_params[0], err=3 * sigma_err[0]))
+    print('Geometric mean (scale) = {gmean:0.2f} ± {err:0.2f}' .format(gmean=optimal_params[1], err=3 * sigma_err[1]))
     print(' ')
     # print(' Covariance matrix:\n', covm)
 
@@ -514,9 +512,9 @@ def confidence_interval(data, confidence=0.95):
 
     print(' ')
     print('Confidence set at {} %' .format(confidence * 100))
-    print('Mean = {mean} ± {err}' .format(mean=round(sample_mean, 2), err=round(err, 2)))
-    print('Max / min = {max} / {min}' .format(max=round(high, 2), min=round(low, 2)))
-    print('Coefficient of variation = {} %' .format(round(100 * err / sample_mean, 1)))
+    print('Mean = {mean:0.2f} ± {err:0.2f}' .format(mean=sample_mean, err=err))
+    print('Max / min = {max:0.2f} / {min:0.2f}' .format(max=high, min=low))
+    print('Coefficient of variation = {:0.1f} %' .format(100 * err / sample_mean))
 
     return None
 
@@ -598,14 +596,14 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
         if correction is True:
             diff_stress = diff_stress * 2 / np.sqrt(3)
         print(' ')
-        print('differential stress = {} MPa' .format(round(diff_stress, 2)))
+        print('differential stress = {:0.2f} MPa' .format(diff_stress))
         print(warn)
     else:
         diff_stress = B * grain_size**-m
         if correction is True:
             diff_stress = diff_stress * 2 / np.sqrt(3)
         print(' ')
-        print('differential stress = {} MPa' .format(round(diff_stress, 2)))
+        print('differential stress = {:0.2f} MPa' .format(diff_stress))
         print(warn)
         print(' ')
 
@@ -646,7 +644,7 @@ def test_lognorm(data, percent=2):
 
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v2.0.4
+Welcome to GrainSizeTools script v3.0
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials from thin sections and estimate differential

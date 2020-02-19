@@ -24,8 +24,8 @@
 # ============================================================================ #
 
 # Imports
-from scipy.stats import bayes_mvs, t
-from tools import critical_t
+from scipy.stats import bayes_mvs, gaussian_kde, iqr, t
+import tools as tools
 import numpy as np
 
 # ============================================================================ #
@@ -47,12 +47,12 @@ def amean(pop, ci=0.95, method='CLT'):
 
     method : string
         the method to estimate the confidence interval, either
-        'ASTM', 'CGI' or 'mCox'.
+        'CLT', 'CGI' or 'mCox'.
 
     Assumptions
     -----------
     - arithmetic mean is optimal for normal-like distributions
-    - CLT method is optimized for normal distributions
+    - CLT confidence interval is optimized for normal distributions
     - GCI and mCox methods are optimized for lognormal distributions
 
     Call functions
@@ -63,24 +63,25 @@ def amean(pop, ci=0.95, method='CLT'):
 
     Returns
     -------
-    the arithmetic mean, the SD, the confidence interval (scalar or tuple),
-    the length of the confidence interval
+    the arithmetic mean,
+    the SD (Bessel corrected),
+    the confidence interval (scalar or tuple)
     """
 
-    mean, std = np.mean(pop), np.std(pop, ddof=1)
+    mean, std = np.mean(pop), np.std(pop, ddof=1)  # SD using n-1 degrees of freedom (Bessel corrected)
 
     # confidence interval
-    if method == 'ASTM':
+    if method == 'CLT':
         conf_int, length = CLT_ci(pop, ci)
-        return mean, std, conf_int, length
+        return mean, std, conf_int
 
     elif method == 'GCI':
         ci_lower, ci_upper, length = GCI_ci(pop, ci)
-        return mean, std, (ci_lower, ci_upper), length
+        return mean, std, (ci_lower, ci_upper)
 
     elif method == 'mCox':
         ci_lower, ci_upper, length = mCox_ci(pop, ci)
-        return mean, std, (ci_lower, ci_upper), length
+        return mean, std, (ci_lower, ci_upper)
 
     else:
         raise Exception("CI methods must be 'ASTM', 'GCI', or 'mCox'")
@@ -100,7 +101,14 @@ def gmean(pop, ci=0.95, method='CLT'):
 
     method: string
        the method to estimate the confidence interval, either
-        'CLT or 'Bayes'
+        'CLT or 'bayes'
+
+    Assumptions
+    -----------
+    - geometric mean is optimal for lognormal-like distributions.
+    - the multiplicative SD is a measure of the lognormal shape of
+    the distribution.
+    - The bayes method...TODO
 
     Call functions
     --------------
@@ -109,21 +117,30 @@ def gmean(pop, ci=0.95, method='CLT'):
 
     Returns
     -------
-    the geometric mean, the multiplicative SD, the confidence intervals (tuple),
-    and the standard errors (tuple)
+    the geometric mean,
+    the multiplicative SD (MSD),
+    the confidence interval (tuple),
     """
-
-    n = len(pop)
 
     # compute statistics of the log-transformed data
     mean_log = np.mean(np.log(pop))
     sd_log = np.std(np.log(pop), ddof=1)  # SD using n-1 degrees of freedom (Bessel corrected)
+    n = len(pop)
 
     # compute the back-transformed values (gmean and mSD in linear scale)
     gmean = np.exp(mean_log)
     mSD = np.exp(sd_log)
 
     # confidence intervals of the back-transformed values
+    if method == 'CLT':
+        pass
+
+    elif method == 'bayes':
+        pass
+
+    else:
+        raise Exception("CI methods must be 'CLT' or 'bayes'")
+
     t_score = critical_t(ci, n)
     upper_ci = np.exp(mean_log + t_score * (sd_log / np.sqrt(n)))
     lower_ci = np.exp(mean_log - t_score * (sd_log / np.sqrt(n)))
@@ -133,10 +150,8 @@ def gmean(pop, ci=0.95, method='CLT'):
 
 
 def median(pop, ci=0.95):
-    """ Estimate the arithmetic mean, the SD and the confidence intervals
-    using the t-score and the margin of error formula as follows:
-
-    ci = mean ± t * (SD / sqrt(n))
+    """ Estimate the median, the interquartile range, and the
+    confidence intervals for the median
 
     Parameters
     ----------
@@ -146,14 +161,14 @@ def median(pop, ci=0.95):
     ci : float, scalar between 0 and 1
         the confidence interval, default = 0.95
     """
-    pop = np.sort(pop)
-    n, median, IQ_range = len(pop), np.median(pop), iqr(pop)
+    pop, n = np.sort(pop), len(pop)
+    median, IQ_range = np.median(pop), iqr(pop)
 
     # compute confidence intervals
     t_score = critical_t(ci, n)
     id_upper = 1 + (n / 2) + (t_score * np.sqrt(n)) / 2
     id_lower = (n / 2) - (t_score * np.sqrt(n)) / 2
-    upper_ci, lower_ci = pop[int(np.ceil(id_upper))], data[int(np.floor(id_lower))]
+    upper_ci, lower_ci = pop[int(np.ceil(id_upper))], pop[int(np.floor(id_lower))]
     std_err = (lower_ci - median, upper_ci - median)
 
     return median, IQ_range, (lower_ci, upper_ci), std_err
@@ -323,8 +338,8 @@ def GCI_ci(data, ci=0.95, runs=10000):
     """
 
     # estimate the log-transformed population y = ln(x) and the degrees of freedom
-    data = log(data)
-    mu_log, var_log, n = mean(data), var(data), len(data)
+    data = np.log(data)
+    mu_log, var_log, n = np.mean(data), np.var(data), len(data)
     ddof = n - 1
     alpha = 0.05
 
@@ -334,7 +349,7 @@ def GCI_ci(data, ci=0.95, runs=10000):
     # Generate random values from (non-central) chi-square distribution
     # with n-1 degrees of freedom
     u2_array = np.random.noncentral_chisquare(df=ddof, nonc=0, size=runs)
-    u_array = sqrt(u2_array)
+    u_array = np.sqrt(u2_array)
 
     # Compute the test statistic T values and sort them
     T_array = GCI_equation(mu_log, var_log, z_array, u_array, n)
@@ -372,10 +387,10 @@ def GCI_equation(mu_log, var_log, z, u, n):
     """
 
     # estimate the second and third terms of the equation
-    second_term = (z / (u / sqrt(n - 1))) * (sqrt(var_log) / sqrt(n))
+    second_term = (z / (u / np.sqrt(n - 1))) * (np.sqrt(var_log) / np.sqrt(n))
     third_term = 0.5 * var_log / (u**2 / (n - 1))
 
-    return exp(mu_log - second_term + third_term)
+    return np.exp(mu_log - second_term + third_term)
 
 
 def CLT_ci(data, ci=0.95):
@@ -390,14 +405,14 @@ def CLT_ci(data, ci=0.95):
         the dataset
 
     ci : float, scalar between 0 and 1
-        the confidence interval, default = 0.95    
+        the confidence interval, default = 0.95
 
     Returns
     -------
     the lower and upper confidence intervals and the length
     """
     data, n = np.log(data), len(data)
-    t = calc_t(confidence=0.95, sample_size=n)
+    t = critical_t(confidence=0.95, sample_size=n)
     mu_log, SD_log = np.mean(data), np.std(data, ddof=1)
     err = t * SD_log / np.sqrt(n)
 
@@ -476,9 +491,32 @@ def median_ci(data, ci=0.95):
     z = TODO
 
     # compute confidence intervals
-    id_upper = 1 + (n / 2) + z * sqrt(n) / 2
-    id_lower = (n / 2) - z * sqrt(n) / 2
+    id_upper = 1 + (n / 2) + z * np.sqrt(n) / 2
+    id_lower = (n / 2) - z * np.sqrt(n) / 2
     upper, lower = data[int(np.ceil(id_upper))], data[int(np.floor(id_lower))]
     interval = upper - lower
 
     return lower, upper, interval
+
+
+def critical_t(confidence, sample_size):
+    """Returns the (two-tailed) critical value of t-distribution
+
+    Parameters
+    ----------
+    confidence : float, scalar between 0 and 1
+        the level of confidence. E.g. 0.95 -> 95%
+
+    sample_size : scalar, int
+        the sample size
+
+    Assumptions
+    -----------
+    - the population is symetric
+    """
+
+    # recalculate confidence for the two-tailed t-distribution
+    confidence = confidence + ((1 - confidence) / 2)
+
+    return t.ppf(confidence, sample_size)
+

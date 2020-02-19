@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2.0.3                                                             #
+#    Version 3.0                                                               #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -32,9 +32,8 @@
 import os
 import numpy as np
 import plots as plots
-from numpy import mean, std, median, sqrt, exp, log, delete
 from scipy.optimize import curve_fit
-from scipy.stats import gaussian_kde, iqr, mstats
+from scipy.stats import gaussian_kde, t
 
 
 def calc_areaweighted_grainsize(areas, diameters, binsize):
@@ -87,14 +86,14 @@ def calc_areaweighted_grainsize(areas, diameters, binsize):
     print(' ')
     print('DESCRIPTIVE STATISTICS')
     print(' ')
-    print('Area-weighted mean grain size = {} microns' .format(round(weightedMean, 2)))
+    print('Area-weighted mean grain size = {:0.2f} microns' .format(weightedMean))
     print(' ')
     print('HISTOGRAM FEATURES')
-    print('The modal interval is {left} - {right} microns' .format(left=round(bin_edges[getIndex], 2), right=round(bin_edges[getIndex] + h, 2)))
-    print('Midpoint (of modal interval) = {} microns' .format(round((bin_edges[getIndex] + (bin_edges[getIndex] + h)) / 2.0, 1)))
+    print('The modal interval is {left:0.2f} - {right:0.2f} microns' .format(left=bin_edges[getIndex], right=bin_edges[getIndex] + h))
+    print('Midpoint (of modal interval) = {:0.2f} microns' .format(bin_edges[getIndex] + (bin_edges[getIndex] + h) / 2.0))
     print('The number of classes are {}' .format(len(histogram)))
     if type(binsize) is str:
-        print('The bin size is {bin} according to the {rule} rule' .format(bin=round(h, 2), rule=binsize))
+        print('The bin size is {bin:0.2f} according to the {rule} rule' .format(bin=h, rule=binsize))
     print(' ')
 
     return plots.area_weighted_plot(bin_edges, cumulativeAreas, h, weightedMean)
@@ -133,18 +132,15 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth, max_precision):
     --------------
     - freq_plot
     - calc_freq_peak
+    - _mean_
+    - _gmean_
+    - _median_
     """
 
-    if len(diameters) < 433:  # TODO: Change this in next version, this is not apply for all distributions!
-        print(' ')
-        print('Caution! You should use at least 433 grain measurements for reliable results')
-
-    mean_GS, std_GS = mean(diameters), std(diameters)
-    median_GS, iqr_GS = median(diameters), iqr(diameters)
+    mean, std, std_err = _mean_(diameters, ci=0.95)
+    median, iqr_pop, med_conf, med_std_err = _median_(diameters, ci=0.95)
     if plot == 'linear':
-        gmean = mstats.gmean(diameters)  # geometric mean
-        gsd = np.exp(np.std(np.log(diameters)))  # multiplicative (geometric) standard deviation
-        mean_RMS = sqrt(mean(diameters**2))  # root mean square
+        gmean, mSD, geo_conf, geo_std_err = _gmean_(diameters, ci=0.95)
 
     # estimate the number of classes using an automatic plug-in method (if apply)
     if type(binsize) is str:
@@ -164,27 +160,37 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth, max_precision):
     x_kde, y_kde, peak, y_max, bw = calc_freq_peak(diameters, bandwidth, max_precision)
 
     print(' ')
-    print('CENTRAL TENDENCY ESTIMATORS')
-    print('Arithmetic mean = {} microns' .format(round(mean_GS, 2)))
+    print('CENTRAL TENDENCY ESTIMATORS (confidence intervals at 95 %)')
+    print('Arithmetic mean = {:0.2f} microns' .format(mean))
+    print('      abs. err. = ± {:0.2f}' .format(std_err))
+    print('      coeff. var = {:0.2f}%' .format(100 * std_err / mean))
     if plot == 'linear':
-        print('Geometric mean = {} microns' .format(round(gmean, 2)))
-        print('RMS mean = {} microns (discouraged)' .format(round(mean_RMS, 2)))
-    print('Median = {} microns' .format(round(median_GS, 2)))
-    print('Peak grain size (based on KDE) = {} microns' .format(round(peak, 2)))
+        print('')
+        print('Geometric mean = {:0.2f} microns' .format(gmean))
+        print('      abs err = {:0.2f}, +{:0.2f} (lower, upper)' .format(geo_std_err[0], geo_std_err[1]))
+        print('      range = {:0.2f}, {:0.2f}' .format(geo_conf[0], geo_conf[1]))
+        print('      coeff. var. = {:0.2f}%, {:0.2f}%' .format(100 * geo_std_err[0] / gmean, 100 * geo_std_err[1] / gmean))
+    print('')
+    print('Median = {:0.2f} microns)' .format(median))
+    print('      abs. err. = {:0.2f}, +{:0.2f} (lower, upper) ' .format(med_std_err[0], med_std_err[1]))
+    print('      range = {:0.2f}, {:0.2f}' .format(med_conf[0], med_conf[1]))
+    print('      coeff. var. = {:0.2f}%, {:0.2f}%' .format(100 * med_std_err[0] / median, 100 * med_std_err[1] / median))
+    print('')
+    print('Mode = {:0.2f} microns (KDE-based peak grain size)' .format(peak))
 
     print(' ')
     print('DISTRIBUTION FEATURES (SPREADING AND SHAPE)')
-    print('Standard deviation = {} (1-sigma)' .format(round(std_GS, 2)))
-    print('Interquartile range (IQR) = {}' .format(round(iqr_GS, 2)))
+    print('Standard deviation = {:0.2f} (1-sigma)' .format(std))
+    print('Interquartile range (IQR) = {:0.2f}' .format(iqr_pop))
     if plot == 'linear':
-        print('Multiplicative standard deviation (lognormal shape) = {}' .format(round(gsd, 2)))
+        print('Multiplicative standard deviation (lognormal shape) = {:0.2f}' .format(mSD))
 
     print(' ')
     print('HISTOGRAM AND KDE FEATURES')
-    print('The modal interval is {left} - {right}' .format(left=round(modInt_leftEdge, 2), right=round(modInt_rightEdge, 2)))
-    print('The number of classes are {}' .format(len(histogram)))
+    print('Number of classes = {}' .format(len(histogram)))
+    print('The modal interval is {left:0.2f} - {right:0.2f}' .format(left=modInt_leftEdge, right=modInt_rightEdge))
     if type(bin_method) is str:
-        print('The bin size is {bin} according to the {rule} rule' .format(bin=round(binsize, 2), rule=bin_method))
+        print('The bin size is {bin:0.2f} according to the {rule} rule' .format(bin=binsize, rule=bin_method))
 
     if type(bandwidth) is str:
         print('KDE bandwidth = {a} ({b} rule)' .format(a=bw, b=bandwidth))
@@ -193,7 +199,7 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth, max_precision):
 
     if plot == 'linear':
         print('Maximum precision of the KDE estimator =', max_precision)
-        return plots.freq_plot(diameters, bin_edges, x_kde, y_kde, y_max, peak, mean_GS, median_GS, plot, gmean)
+        return plots.freq_plot(diameters, bin_edges, x_kde, y_kde, y_max, peak, mean, median, plot, gmean)
     elif plot == 'log':
         print('Maximum precision of the KDE estimator =', max_precision)
     elif plot == 'log10':
@@ -201,7 +207,7 @@ def calc_freq_grainsize(diameters, binsize, plot, bandwidth, max_precision):
     elif plot == 'sqrt':
         print('Maximum precision of the KDE estimator =', max_precision)
 
-    return plots.freq_plot(diameters, bin_edges, x_kde, y_kde, y_max, peak, mean_GS, median_GS, plot)
+    return plots.freq_plot(diameters, bin_edges, x_kde, y_kde, y_max, peak, mean, median, plot)
 
 
 def calc_freq_peak(diameters, bandwidth, max_precision):
@@ -252,6 +258,28 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
     return xgrid, densities, peak_grain_size, y_max, bw
 
 
+def critical_t(confidence, sample_size):
+    """Returns the (two-tailed) critical value of t-distribution
+
+    Parameters
+    ----------
+    confidence : float, scalar between 0 and 1
+        the level of confidence. E.g. 0.95 -> 95%
+
+    sample_size : scalar, int
+        the sample size
+
+    Assumptions
+    -----------
+    - the population is symetric
+    """
+
+    # recalculate confidence for the two-tailed t-distribution
+    confidence = confidence + ((1 - confidence) / 2)
+
+    return t.ppf(confidence, sample_size)
+
+
 def fit_log(x, y, initial_guess):
     """ Fit a lognormal distribution to data. It uses the curve_fit
     scipy routine, which is a non-linear least-square implementation of
@@ -270,7 +298,9 @@ def fit_log(x, y, initial_guess):
 
     Assumptions
     -----------
-    the distribution of points approach a lognormal distribution
+    - the distribution of points approach a lognormal distribution.
+    - It is assumed that the multiplicative SD lies within the range
+    from 1 (gaussian) to 10.
 
     Call functions
     --------------
@@ -281,8 +311,9 @@ def fit_log(x, y, initial_guess):
     -------
     The optimal params and the error of the fit
     """
-    # fit a log normal function
-    optimal_params, cov_matrix = curve_fit(log_function, x, y, initial_guess)
+    # fit a log normal function (it assumes that shape is within the 1-10 range)
+    optimal_params, cov_matrix = curve_fit(log_function, x, y, initial_guess,
+                                           bounds=((1, 0), (10, np.inf)))
 
     # estimate the uncertainty of the fit.
     sigma_error = np.sqrt(np.diag(cov_matrix))
@@ -290,9 +321,9 @@ def fit_log(x, y, initial_guess):
     return optimal_params, sigma_error
 
 
-def gen_xgrid(start, stop, precision):
+def gen_xgrid(start, stop, precision=None):
     """ Returns a mesh of values (i.e. discretize the
-    sample space) with a range and desired precision.
+    sample space) with a fixed range and desired precision.
 
     Parameters
     ----------
@@ -300,15 +331,18 @@ def gen_xgrid(start, stop, precision):
         the starting value of the sequence
     stop : scalar
         the end value of the sequence
-    precision : scalar
+    precision : scalar or None
         the desired precision (density) of the mesh
     """
 
     rango = stop - start
 
+    if precision is None:
+        precision = 1 / rango
+
     # num = range / precision; as long as range > precision
     if rango < precision:
-        raise ValueError('Caution! the precision must be smaller than the range of grain sizes')
+        raise ValueError('The precision must be smaller than the range of grain sizes')
     else:
         n = int(round(rango / precision, 0))
 
@@ -330,16 +364,15 @@ def get_filepath():
                                                           ('Text files', '*.csv'),
                                                           ('Excel files', '*.xlsx')])
     except ImportError:
-        print('The script requires Python 3.5 or higher')
+        print('Requires Python 3.6+')
 
     return file_path
 
 
 def log_function(x, shape, scale):
-    """ Defines a logarithmic function to fit the data using the scipy
-    curve_fit routine. In this case, it is the two-parameter equation
-    that describes a lognormal distribution using the mean and the
-    standard deviation of the log(x) with base e.
+    """ This is the two-parameter equation that describes a lognormal
+    distribution using the mean and the standard deviation of the
+    log(x) with base e.
 
     Parameters
     ----------
@@ -353,10 +386,10 @@ def log_function(x, shape, scale):
         the scale parameter; it relates to the mean of log(x): m = log(scale)
     """
 
-    s = log(shape)
-    m = log(scale)
+    s = np.log(shape)
+    m = np.log(scale)
 
-    return 1 / (x * s * sqrt(2 * np.pi)) * exp(-1 / 2. * ((log(x) - m)**2 / s**2))
+    return 1 / (x * s * np.sqrt(2 * np.pi)) * np.exp(-1 / 2. * ((np.log(x) - m)**2 / s**2))
 
 
 def norm_grain_size(diameters, binsize, bandwidth):
@@ -387,128 +420,12 @@ def norm_grain_size(diameters, binsize, bandwidth):
     factor = int(input("Define the normalization factor (1 to 3) \n 1 -> mean; 2 -> median; 3 -> max_freq: "))
 
     if factor == 1:
-        scale = mean(log(diameters))
+        scale = np.mean(np.log(diameters))
     elif factor == 2:
-        scale = median(log(diameters))
+        scale = np.median(np.log(diameters))
     elif factor == 3:
-        _, _, scale, _, _ = calc_freq_peak(log(diameters), bandwidth=bandwidth, binsize=None)
+        _, _, scale, _, _ = calc_freq_peak(np.log(diameters), bandwidth=bandwidth, binsize=None)
     else:
         raise ValueError('Normalization factor has to be defined as 1, 2, or 3')
 
-    return log(diameters) / scale
-
-
-def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
-    """ Applies a Scheil-Schwartz-Saltykov-type method to unfold the population
-    of apparent (2D) diameters into the actual (3D) population of grain sizes.
-    Following the reasoning of Higgins (2000), R (or D) is placed at the center
-    of the classes (i.e. the midpoints).
-
-    Reference
-    ----------
-    Higgins (2000) doi:10.2138/am-2000-8-901
-
-    Parameters
-    ----------
-    freq : array_like
-        frequency values of the different classes
-
-    bin_edges : array_like
-        the edges of the classes
-
-    mid_points : array_like
-        the midpoints of the classes
-
-    normalize : boolean, optional
-        when True negative frequency values are set to zero and the
-        distribution normalized. True by default.
-
-    Call function
-    -------------
-    - wicksell_eq
-
-    Returns
-    -------
-    The normalized frequencies of the unfolded population such that the integral
-    over the range is one. If normalize is False the raw frequencies of the
-    unfolded population.
-    """
-
-    d_values = np.copy(bin_edges)
-    midpoints = np.copy(mid_points)
-    i = len(midpoints) - 1
-
-    while i > 0:
-        j = i
-        D = d_values[-1]
-        Pi = wicksell_solution(D, d_values[i], d_values[i + 1])
-
-        if freq[i] > 0:
-            while j > 0:
-                D = midpoints[-1]
-                Pj = wicksell_solution(D, d_values[j - 1], d_values[j])
-                P_norm = (Pj * freq[i]) / Pi
-                np.put(freq, j - 1, freq[j - 1] - P_norm)  # replace specified elements of an array
-                j -= 1
-
-            i -= 1
-            d_values = delete(d_values, -1)
-            midpoints = delete(midpoints, -1)
-
-        # if the value of the current class is zero or negative move to the next class
-        else:
-            i -= 1
-            d_values = delete(d_values, -1)
-            midpoints = delete(midpoints, -1)
-
-    if normalize is True:
-        freq = np.clip(freq, 0., 2**20)  # replacing negative values with zero
-        freq_norm = freq / sum(freq)  # normalize to one
-        freq_norm = freq_norm / binsize  # normalize such that the integral over the range is one
-        return freq_norm
-
-    else:
-        return freq
-
-
-def wicksell_solution(D, d1, d2):
-    """ Estimate the cross-section size probability for a discretized population
-    of spheres based on the Wicksell (1925) equation originally proposed by
-    Scheil (1931), Schwartz (1934) and Saltykov (1967) (the so-called
-    Scheil-Schwartz-Saltykov method). The general solution is the equation:
-
-    P(r1 < r < r2) = 1/R * (sqrt(R**2 - r1**2) - sqrt(R**2 - r2**2))
-
-    where R is the sphere radius and r the cross-section radius.
-    r1 and r2 are the lower and upper bounds of the classes, respectively.
-    R can be placed at the at the center or the upper/lower limit of the
-    classes.
-
-    Parameters
-    ----------
-    D: positive scalar
-        the midpoint of the actual class
-
-    d1: positive scalar
-        the lower limit of the bin/class
-
-    d2: positive scalar
-        the upper limit of the bin/class
-
-    References
-    ----------
-    | Saltykov (1967) doi:10.1007/978-3-642-88260-9_31
-    | Scheil (1931) doi:10.1002/zaac.19312010123
-    | Schwartz (1934) Met. Alloy 5:139
-    | Wicksell (1925) doi:10.2307/2332027
-    | Higgins (2000) doi:10.2138/am-2000-8-901
-
-    Returns
-    -------
-    the cross-section probability for a especific range of grain size
-    """
-
-    # convert diameters to radii
-    R, r1, r2 = D / 2, d1 / 2, d2 / 2
-
-    return 1 / R * (sqrt(R**2 - r1**2) - sqrt(R**2 - r2**2))
+    return np.log(diameters) / scale
