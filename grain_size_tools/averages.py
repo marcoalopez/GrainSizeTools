@@ -2,6 +2,7 @@
 #                                                                              #
 #    This is part of the "GrainSizeTools Script"                               #
 #    A Python script for characterizing grain size from thin sections          #
+#    and paleopiezometry estimates based on grain size.                        #
 #                                                                              #
 #    Copyright (c) 2014-present   Marco A. Lopez-Sanchez                       #
 #                                                                              #
@@ -15,7 +16,7 @@
 #    distributed under the License is distributed on an "AS IS" BASIS,         #
 #    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.  #
 #    See the License for the specific language governing permissions and       #
-#    limitations under the License.                                            #
+#    limitations under the "License".                                          #
 #                                                                              #
 #    Version 3.0                                                               #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
@@ -24,7 +25,7 @@
 # ============================================================================ #
 
 # Imports
-from scipy.stats import bayes_mvs, gaussian_kde, iqr, t
+from scipy.stats import bayes_mvs, gaussian_kde, iqr, t, norm
 import tools as tools
 import numpy as np
 
@@ -34,8 +35,8 @@ import numpy as np
 
 
 def amean(pop, ci=0.95, method='CLT'):
-    """ Estimate the arithmetic mean, the Bessel corrected SD,
-    and the confidence interval based on different methods.
+    """ Returns the arithmetic mean, the Bessel corrected SD,
+    and the confidence interval based on the chosen method.
 
     Parameters
     ----------
@@ -47,7 +48,9 @@ def amean(pop, ci=0.95, method='CLT'):
 
     method : string
         the method to estimate the confidence interval, either
-        'CLT', 'CGI' or 'mCox'.
+        'CLT': central limit theorem based (ASTM default)
+        'GCI': generalized confidence interval method
+        'mCox': modified Cox method
 
     Assumptions
     -----------
@@ -58,7 +61,7 @@ def amean(pop, ci=0.95, method='CLT'):
     Call functions
     --------------
     - CLT_ci
-    - CGI_ci
+    - GCI_ci
     - mCox_ci
 
     Returns
@@ -66,29 +69,31 @@ def amean(pop, ci=0.95, method='CLT'):
     the arithmetic mean,
     the SD (Bessel corrected),
     the confidence interval (scalar or tuple)
+    the confidence interval length (float),
     """
 
+    n = len(pop)
     mean, std = np.mean(pop), np.std(pop, ddof=1)  # SD using n-1 degrees of freedom (Bessel corrected)
 
     # confidence interval
     if method == 'CLT':
-        conf_int, length = CLT_ci(pop, ci)
-        return mean, std, conf_int
+        conf_int, length = CLT_ci(mean, std, n, ci)
+        return mean, std, conf_int, length
 
     elif method == 'GCI':
-        ci_lower, ci_upper, length = GCI_ci(pop, ci)
-        return mean, std, (ci_lower, ci_upper)
+        ci_limis, length = GCI_ci(pop, ci)
+        return mean, std, ci_limis, length
 
     elif method == 'mCox':
-        ci_lower, ci_upper, length = mCox_ci(pop, ci)
-        return mean, std, (ci_lower, ci_upper)
+        ci_limis, length = mCox_ci(pop, ci)
+        return mean, std, ci_limis, length
 
     else:
-        raise Exception("CI methods must be 'ASTM', 'GCI', or 'mCox'")
+        raise Exception("ci methods must be 'CLT', 'GCI', or 'mCox'")
 
 
 def gmean(pop, ci=0.95, method='CLT'):
-    """ Estimate the geometric mean, the multiplicative (geometric) SD
+    """ Returns the geometric mean, the multiplicative (geometric) SD,
     and the confidence interval.
 
     Parameters
@@ -99,16 +104,18 @@ def gmean(pop, ci=0.95, method='CLT'):
     ci : float, scalar between 0 and 1
         the confidence interval, default = 0.95
 
-    method: string
+    method : string
        the method to estimate the confidence interval, either
-        'CLT or 'bayes'
+        'CLT': Central limit theorem based
+        'bayes': Bayesian based
 
     Assumptions
     -----------
-    - geometric mean is optimal for lognormal-like distributions.
+    - geometric mean is optimal for lognormal-like distributions
     - the multiplicative SD is a measure of the lognormal shape of
-    the distribution.
-    - The bayes method...TODO
+    the distribution
+    - The bayes method is slighly superior to CLT for very small (< 30)
+    sample sizes
 
     Call functions
     --------------
@@ -120,38 +127,34 @@ def gmean(pop, ci=0.95, method='CLT'):
     the geometric mean,
     the multiplicative SD (MSD),
     the confidence interval (tuple),
+    the confidence interval length (float),
     """
 
     # compute statistics of the log-transformed data
-    mean_log = np.mean(np.log(pop))
-    sd_log = np.std(np.log(pop), ddof=1)  # SD using n-1 degrees of freedom (Bessel corrected)
-    n = len(pop)
+    mean_log, n = np.mean(np.log(pop)), len(pop)
+    std_log = np.std(np.log(pop), ddof=1)  # Bessel corrected SD (n-1 degrees of freedom)
 
     # compute the back-transformed values (gmean and mSD in linear scale)
     gmean = np.exp(mean_log)
-    mSD = np.exp(sd_log)
+    mSD = np.exp(std_log)
 
     # confidence intervals of the back-transformed values
     if method == 'CLT':
-        pass
+        ci_limis, length = CLT2_ci(mean_log, std_log, n, ci)
+        return gmean, mSD, ci_limis, length
 
     elif method == 'bayes':
-        pass
+        ci_limis, length = bayesian_ci(pop, ci)
+        return gmean, mSD, ci_limis, length
 
     else:
         raise Exception("CI methods must be 'CLT' or 'bayes'")
 
-    t_score = critical_t(ci, n)
-    upper_ci = np.exp(mean_log + t_score * (sd_log / np.sqrt(n)))
-    lower_ci = np.exp(mean_log - t_score * (sd_log / np.sqrt(n)))
-    std_err = (lower_ci - gmean, upper_ci - gmean)
-
-    return gmean, mSD, (lower_ci, upper_ci), std_err
-
 
 def median(pop, ci=0.95):
-    """ Estimate the median, the interquartile range, and the
-    confidence intervals for the median
+    """ Returns the median, the interquartile length, and the
+    confidence intervals for the median based on th rule-of-
+    thumb method of Hollander and Wolfe (1999).
 
     Parameters
     ----------
@@ -160,22 +163,41 @@ def median(pop, ci=0.95):
 
     ci : float, scalar between 0 and 1
         the confidence interval, default = 0.95
+
+    Assumptions
+    -----------
+    - median is optimal for both normal and lognormal-like distributions.
+    It behaves better than the means when data contamination is expected.
+    - the interquertile length/range is a measure of the spread of
+    the distribution
+
+    Reference
+    ---------
+    Hollander and Wolfe (1999) Nonparametric Statistical Methods.
+    3rd ed. John Wiley, New York. 787 pp.
+
+    Call functions
+    --------------
+    - norm.ppf and iqr from Scipy
+
+    Returns
+    -------
+    the median (float),
+    the interquartile range,
+    the confidence interval (tuple),
+    the confidence length (float)
     """
     pop, n = np.sort(pop), len(pop)
-    median, IQ_range = np.median(pop), iqr(pop)
+    median, iqr_range = np.median(pop), iqr(pop)
 
     # compute confidence intervals
-    t_score = critical_t(ci, n)
-    id_upper = 1 + (n / 2) + (t_score * np.sqrt(n)) / 2
-    id_lower = (n / 2) - (t_score * np.sqrt(n)) / 2
-    upper_ci, lower_ci = pop[int(np.ceil(id_upper))], pop[int(np.floor(id_lower))]
-    std_err = (lower_ci - median, upper_ci - median)
+    ci_limis, length = median_ci(pop, n, ci=0.95)
 
-    return median, IQ_range, (lower_ci, upper_ci), std_err
+    return median, iqr_range, ci_limis, length
 
 
 def calc_freq_peak(diameters, bandwidth, max_precision):
-    """ Estimate the peak of the frequency ("mode") of a continuous
+    """ Returns the peak of the frequency ("mode") of a continuous
     distribution based on the Gaussian kernel density estimator. It
     uses Scipy's gaussian kde method.
 
@@ -198,8 +220,10 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
 
     Returns
     -------
-    The x and y values to contruct the kde, the peak grain size,
-    the maximum density value,, and the bandwidth
+    the x and y values to contruct the kde,
+    the mode or peak grain size,
+    the density value of the peak,
+    the bandwidth
     """
 
     # check bandwidth and estimate Gaussian kernel density function
@@ -227,14 +251,21 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
 # ============================================================================ #
 
 
-def ASTM(data, ci=0.95):
-    """ Estimate the error margin for the arithmetic mean according
-    to the ASTM norm E112-12.
+def CLT_ci(amean, std, n, ci=0.95):
+    """ Estimate the error margin for the arithmetic mean based
+    on the central limit theorem and the t-statistics. This is
+    the method describet in the ASTM norm E112-12.
 
     Parameters
     ----------
-    data : numpy array
-        the dataset
+    amean : scalar, float
+        the arithmetic mean of the population
+
+    std : scalar, float
+        the standard deviation of the population
+
+    n : scalar, positive int
+        the sample size
 
     ci : float, scalar between 0 and 1
         the confidence interval, default = 0.95
@@ -250,29 +281,68 @@ def ASTM(data, ci=0.95):
 
     Returns
     -------
-    the lower and upper confidence intervals and the length
+    the lower and upper confidence intervals (tuple)
+    the interval length (scalar)
     """
-    n = len(data)
-    t = critical_t(confidence=ci, sample_size=n)
-    mu, SD = np.mean(data), np.std(data)
-    err = t * SD / np.sqrt(n)
+    t_score = critical_t(confidence=ci, sample_size=n)
+    err = t_score * std / np.sqrt(n)
 
-    lower = mu - err
-    upper = mu + err
+    lower, upper = amean - err, amean + err
     interval = upper - lower
 
-    return lower, upper, interval
+    return (lower, upper), interval
 
 
-def mCox_ci(data, ci=0.95):
-    """ Estimate the error margin for the arithmetic mean using the modified
-    Cox method. This is a method optimized from lognormal populations. The
-    method implemented below uses the Bessel corrected SD as it produces safer
-    results for small sample sizes
+def CLT2_ci(mean_log, std_log, n, ci=0.95):
+    """ Returns the error margin for the geometric mean based
+    on the central limit theorem and the t-statistics.
 
     Parameters
     ----------
-    data : numpy array
+    mean_log : scalar, float
+        the arithmetic mean of the log-transformed data
+
+    std_log : scalar, float
+        the standard deviation of the log-transformed data
+
+    n : scalar, positive int
+        the sample size
+
+    ci : float, scalar between 0 and 1
+        the confidence interval, default = 0.95
+
+    Reference
+    ---------
+    ASTM-E112-12 (1996) Standard test methods for determining
+    average grain size.
+
+    Call
+    ----
+    calc_t
+
+    Returns
+    -------
+    the lower and upper confidence intervals (tuple)
+    the interval length (scalar)
+    """
+    t_score = critical_t(ci, n)
+
+    upper_ci = np.exp(mean_log + t_score * (std_log / np.sqrt(n)))
+    lower_ci = np.exp(mean_log - t_score * (std_log / np.sqrt(n)))
+    interval = upper_ci - lower_ci
+
+    return (lower_ci, upper_ci), interval
+
+
+def mCox_ci(data, ci=0.95):
+    """ Returns the error margin for the arithmetic mean using the modified
+    Cox method. This is a method optimized from lognormal populations. The
+    method implemented below uses the Bessel corrected SD as it produces
+    safer/robust results for small sample sizes
+
+    Parameters
+    ----------
+    data : array_like
         the dataset
 
     ci : float, scalar between 0 and 1
@@ -289,29 +359,30 @@ def mCox_ci(data, ci=0.95):
 
     Returns
     -------
-    the lower and upper confidence intervals and the length
+    the lower and upper confidence intervals (tuple)
+    the interval length (scalar)
     """
+
     n = len(data)
     t = critical_t(confidence=ci, sample_size=n)
     data = np.log(data)
-    mu_log, SD_log = np.mean(data), np.std(data, ddof=1)
+    mean_log, std_log = np.mean(data), np.std(data, ddof=1)
 
-    lower = np.exp(mu_log + 0.5 * SD_log**2 - t * (SD_log / np.sqrt(n)) * np.sqrt(1 + (SD_log**2 * n) / (2 * (n + 1))))
-    upper = np.exp(mu_log + 0.5 * SD_log**2 + t * (SD_log / np.sqrt(n)) * np.sqrt(1 + (SD_log**2 * n) / (2 * (n + 1))))
+    lower = np.exp(mean_log + 0.5 * std_log**2 - t * (std_log / np.sqrt(n)) * np.sqrt(1 + (std_log**2 * n) / (2 * (n + 1))))
+    upper = np.exp(mean_log + 0.5 * std_log**2 + t * (std_log / np.sqrt(n)) * np.sqrt(1 + (std_log**2 * n) / (2 * (n + 1))))
     interval = upper - lower
 
-    return lower, upper, interval
+    return (lower, upper), interval
 
 
 def GCI_ci(data, ci=0.95, runs=10000):
-    """ Estimate a confidence interval for the lognormal arithmetic mean
-    using the generalized confidence interval (GCI) method of Krishnamoorthy
-    and Mathew (2003). This is a method optimized from lognormal populations.
+    """ Ruturns the confidence interval for the arithmetic mean using the
+    generalized confidence interval (GCI) method (Krishnamoorthy and Mathew,
+    2003). This is a Monte Carlo method optimized for lognormal populations.
 
     Parameters
     ----------
-
-    data : numpy array
+    data : array_like
         the dataset
 
     ci : float, scalar between 0 and 1
@@ -334,7 +405,8 @@ def GCI_ci(data, ci=0.95, runs=10000):
 
     Returns
     -------
-    the lower and upper confidence intervals and the length
+    the lower and upper confidence intervals (tuple)
+    the interval length (scalar)
     """
 
     # estimate the log-transformed population y = ln(x) and the degrees of freedom
@@ -360,7 +432,7 @@ def GCI_ci(data, ci=0.95, runs=10000):
     upper = np.percentile(T_array, 100 * (1 - (alpha / 2)))
     interval = upper - lower
 
-    return lower, upper, interval
+    return (lower, upper), interval
 
 
 def GCI_equation(mu_log, var_log, z, u, n):
@@ -382,8 +454,7 @@ def GCI_equation(mu_log, var_log, z, u, n):
 
     Returns
     -------
-    [type]
-        [description]
+    scalar or array-like
     """
 
     # estimate the second and third terms of the equation
@@ -393,47 +464,15 @@ def GCI_equation(mu_log, var_log, z, u, n):
     return np.exp(mu_log - second_term + third_term)
 
 
-def CLT_ci(data, ci=0.95):
-    """ Estimate the ci 95% error margins of the geometric mean based
-    on the central limit theorem and the standard error of the mean of
-    the log-transformed population. It uses the t-score and Bessel
-    corrected standard deviation.
-
-    Parameters
-    ----------
-    data : numpy array
-        the dataset
-
-    ci : float, scalar between 0 and 1
-        the confidence interval, default = 0.95
-
-    Returns
-    -------
-    the lower and upper confidence intervals and the length
-    """
-    data, n = np.log(data), len(data)
-    t = critical_t(confidence=0.95, sample_size=n)
-    mu_log, SD_log = np.mean(data), np.std(data, ddof=1)
-    err = t * SD_log / np.sqrt(n)
-
-    lower_log = mu_log - err
-    upper_log = mu_log + err
-
-    lower, upper = np.exp(lower_log), np.exp(upper_log)
-    interval = upper - lower
-
-    return lower, upper, interval
-
-
 def bayesian_ci(data, ci=0.95):
     """ Use a bayesian approach to estimate the confidence intervals
-    of the geometric mean. For this it estimates the bayesian error
-    intervals of the log-transformed data using the scipy bayes_msv
-    routine for then estimate the back-transformed values.
+    of the geometric mean. It uses the scipy bayes_msv routine over
+    the log-transformed data and then estimate the back-transformed
+    values.
 
     Parameters
     ----------
-    data : numpy array
+    data : array_like
         the dataset
 
     ci : float, scalar between 0 and 1
@@ -453,26 +492,33 @@ def bayesian_ci(data, ci=0.95):
 
     Returns
     -------
-    the lower and upper confidence intervals and the length
+    the lower and upper confidence intervals (tuple)
+    the interval length (scalar)
     """
 
     data = np.log(data)
-    mu_log, var_log, SD_log = bayes_mvs(data, alpha=0.95)
+    mu_log, var_log, SD_log = bayes_mvs(data, alpha=ci)
     mu, (lower_log, uppper_log) = mu_log
     lower, upper = np.exp(lower_log), np.exp(uppper_log)
     interval = upper - lower
 
-    return lower, upper, interval
+    return (lower, upper), interval
 
 
-def median_ci(data, ci=0.95):
+def median_ci(pop, n, ci=0.95):
     """ Estimate the approximate ci 95% error margins for the median
     using a rule of thumb based on Hollander and Wolfe (1999).
 
     Parameters
     ----------
-    data : numpy array
-        the dataset
+    pop : numpy array
+        a sorted dataset
+
+    n : scalar, positive int
+        the sample size
+
+    ci : float, scalar between 0 and 1
+        the confidence interval, default = 0.95
 
     Reference
     ---------
@@ -484,19 +530,23 @@ def median_ci(data, ci=0.95):
 
     Returns
     -------
-    the lower and upper confidence intervals and the length
+    the lower and upper confidence intervals (tuple)
+    the interval length (scalar)
     """
 
-    data, n = np.sort(data), len(data)
-    z = TODO
+    z_score = norm.ppf(1 - (1 - ci) / 2)  # two-tailed z score
 
-    # compute confidence intervals
-    id_upper = 1 + (n / 2) + z * np.sqrt(n) / 2
-    id_lower = (n / 2) - z * np.sqrt(n) / 2
-    upper, lower = data[int(np.ceil(id_upper))], data[int(np.floor(id_lower))]
-    interval = upper - lower
+    id_upper = 1 + (n / 2) + (z_score * np.sqrt(n)) / 2
+    id_lower = (n / 2) - (z_score * np.sqrt(n)) / 2
+    upper_ci, lower_ci = pop[int(np.ceil(id_upper))], pop[int(np.floor(id_lower))]
+    interval = upper_ci - lower_ci
 
-    return lower, upper, interval
+    return (lower_ci, upper_ci), interval
+
+
+# ============================================================================ #
+# OTHERS                                                                       #
+# ============================================================================ #
 
 
 def critical_t(confidence, sample_size):
@@ -512,11 +562,10 @@ def critical_t(confidence, sample_size):
 
     Assumptions
     -----------
-    - the population is symetric
+    - the population is symmetric
     """
 
     # recalculate confidence for the two-tailed t-distribution
     confidence = confidence + ((1 - confidence) / 2)
 
     return t.ppf(confidence, sample_size)
-
