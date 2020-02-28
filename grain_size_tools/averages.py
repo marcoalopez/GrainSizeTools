@@ -26,7 +26,6 @@
 
 # Imports
 from scipy.stats import bayes_mvs, gaussian_kde, iqr, t, norm
-import tools as tools
 import numpy as np
 
 # ============================================================================ #
@@ -112,10 +111,9 @@ def gmean(pop, ci=0.95, method='CLT'):
     Assumptions
     -----------
     - geometric mean is optimal for lognormal-like distributions
-    - the multiplicative SD is a measure of the lognormal shape of
-    the distribution
-    - The bayes method is slighly superior to CLT for very small (< 30)
-    sample sizes
+    - the multiplicative SD is a measure of the lognormal shape
+    - The bayes method is sometimesslighly superior to CLT for
+    very small (< 100) sample sizes
 
     Call functions
     --------------
@@ -152,9 +150,9 @@ def gmean(pop, ci=0.95, method='CLT'):
 
 
 def median(pop, ci=0.95):
-    """ Returns the median, the interquartile length, and the
-    confidence intervals for the median based on th rule-of-
-    thumb method of Hollander and Wolfe (1999).
+    """ Returns the median, the interquartile length, and the confidence
+    intervals for the median based on th rule-of-thumb method of Hollander
+    and Wolfe (1999).
 
     Parameters
     ----------
@@ -167,7 +165,8 @@ def median(pop, ci=0.95):
     Assumptions
     -----------
     - median is optimal for both normal and lognormal-like distributions.
-    It behaves better than the means when data contamination is expected.
+    It behaves better than means when data contamination is expected
+    (i.e. more robust).
     - the interquertile length/range is a measure of the spread of
     the distribution
 
@@ -178,7 +177,7 @@ def median(pop, ci=0.95):
 
     Call functions
     --------------
-    - norm.ppf and iqr from Scipy
+    - iqr from Scipy
 
     Returns
     -------
@@ -196,31 +195,31 @@ def median(pop, ci=0.95):
     return median, iqr_range, ci_limis, length
 
 
-def calc_freq_peak(diameters, bandwidth, max_precision):
+def calc_freq_peak(pop, bandwidth='silverman', max_precision=0.05):
     """ Returns the peak of the frequency ("mode") of a continuous
     distribution based on the Gaussian kernel density estimator. It
     uses Scipy's gaussian kde method.
 
     Parameters
     ----------
-    diameters : array_like
+    pop : array_like
         the diameters of the grains
 
     bandwidth : string, positive scalar or callable
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. Methods can be 'silverman' or 'scott'.
 
-    max_precision : positive scalar
+    max_precision : positive scalar, default is 0.05
         the maximum precision expected for the "peak" estimator.
 
     Call functions
     --------------
-    - gen_xgrid from tools
-    - kde (from scipy)
+    - gen_xgrid
+    - gaussian_kde from scipy
 
     Returns
     -------
-    the x and y values to contruct the kde,
+    the x and y values to contruct the kde (tuple),
     the mode or peak grain size,
     the density value of the peak,
     the bandwidth
@@ -228,22 +227,22 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
 
     # check bandwidth and estimate Gaussian kernel density function
     if isinstance(bandwidth, (int, float)):
-        bw = bandwidth / np.std(diameters, ddof=1)
-        kde = gaussian_kde(diameters, bw_method=bw)
+        bw = bandwidth / np.std(pop, ddof=1)
+        kde = gaussian_kde(pop, bw_method=bw)
 
     elif isinstance(bandwidth, str):
-        kde = gaussian_kde(diameters, bw_method=bandwidth)
-        bw = round(kde.covariance_factor() * diameters.std(ddof=1), 2)
+        kde = gaussian_kde(pop, bw_method=bandwidth)
+        bw = round(kde.covariance_factor() * pop.std(ddof=1), 2)
 
     else:
         raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
     # locate and get the frequency peak
-    xgrid = tools.gen_xgrid(diameters.min(), diameters.max(), max_precision)
+    xgrid = gen_xgrid(pop.min(), pop.max(), max_precision)
     densities = kde(xgrid)
     y_max, peak_grain_size = np.max(densities), xgrid[np.argmax(densities)]
 
-    return xgrid, densities, peak_grain_size, y_max, bw
+    return (xgrid, densities), peak_grain_size, y_max, bw
 
 
 # ============================================================================ #
@@ -254,7 +253,7 @@ def calc_freq_peak(diameters, bandwidth, max_precision):
 def CLT_ci(amean, std, n, ci=0.95):
     """ Estimate the error margin for the arithmetic mean based
     on the central limit theorem and the t-statistics. This is
-    the method describet in the ASTM norm E112-12.
+    the method described in the ASTM norm E112-12.
 
     Parameters
     ----------
@@ -350,8 +349,8 @@ def mCox_ci(data, ci=0.95):
 
     Reference
     ---------
-    Anderson....
-    Lopez-Sanchez (2020)
+    Armstrong (1992) https://doi.org/10.1080/15298669291360003
+    Lopez-Sanchez (2020) TODO
 
     Call
     ----
@@ -377,8 +376,8 @@ def mCox_ci(data, ci=0.95):
 
 def GCI_ci(data, ci=0.95, runs=10000):
     """ Ruturns the confidence interval for the arithmetic mean using the
-    generalized confidence interval (GCI) method (Krishnamoorthy and Mathew,
-    2003). This is a Monte Carlo method optimized for lognormal populations.
+    generalized confidence interval (GCI) method of Krishnamoorthy and Mathew
+    (2003). This is a Monte Carlo method optimized for lognormal populations.
 
     Parameters
     ----------
@@ -423,7 +422,7 @@ def GCI_ci(data, ci=0.95, runs=10000):
     u2_array = np.random.noncentral_chisquare(df=ddof, nonc=0, size=runs)
     u_array = np.sqrt(u2_array)
 
-    # Compute the test statistic T values and sort them
+    # Compute the T values and sort them
     T_array = GCI_equation(mu_log, var_log, z_array, u_array, n)
     T_array = np.sort(T_array)
 
@@ -497,9 +496,9 @@ def bayesian_ci(data, ci=0.95):
     """
 
     data = np.log(data)
-    mu_log, var_log, SD_log = bayes_mvs(data, alpha=ci)
-    mu, (lower_log, uppper_log) = mu_log
-    lower, upper = np.exp(lower_log), np.exp(uppper_log)
+    mu_log, var_log, std_log = bayes_mvs(data, alpha=ci)
+    mu, (lower_log, upper_log) = mu_log
+    lower, upper = np.exp(lower_log), np.exp(upper_log)
     interval = upper - lower
 
     return (lower, upper), interval
@@ -527,6 +526,7 @@ def median_ci(pop, n, ci=0.95):
 
     Call
     ----
+    norm.ppf from scipy
 
     Returns
     -------
@@ -569,3 +569,28 @@ def critical_t(confidence, sample_size):
     confidence = confidence + ((1 - confidence) / 2)
 
     return t.ppf(confidence, sample_size)
+
+
+def gen_xgrid(start, stop, precision):
+    """ Returns a mesh of values (i.e. discretize the
+    sample space) with a fixed range and desired precision.
+
+    Parameters
+    ----------
+    start : scalar
+        the starting value of the sequence
+    stop : scalar
+        the end value of the sequence
+    precision : scalar, int or float
+        the desired precision (density) of the mesh
+    """
+
+    rango = stop - start
+
+    # num = range / precision; as long as range > precision
+    if rango < precision:
+        raise ValueError('The precision must be smaller than the range of grain sizes')
+    else:
+        n = int(round(rango / precision, 0))
+
+    return np.linspace(start, stop, num=n)
