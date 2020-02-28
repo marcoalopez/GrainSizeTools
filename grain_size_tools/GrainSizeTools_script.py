@@ -32,6 +32,8 @@
 
 # import grain_size_tools modules
 import plots as plots
+import averages as averages
+import stereology as stereology
 import tools as tools
 from piezometers import quartz, olivine, calcite, feldspar
 
