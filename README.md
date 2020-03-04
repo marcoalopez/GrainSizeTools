@@ -1,4 +1,4 @@
-![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.png)
+![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
 *Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/09/08*
 
@@ -111,8 +111,10 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 
 ---
-*Copyright © 2019 Marco A. Lopez-Sanchez*  
+*Copyright © 2020 Marco A. Lopez-Sanchez*  
 
 *Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.*  
 
 *Hosted on GitHub Pages — This website was created with [Typora](https://typora.io/)*
+
+![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/footer.webp)

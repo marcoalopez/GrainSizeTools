@@ -160,8 +160,8 @@ def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
             color='#1F1F1F',
             label='area weighted mean',
             linewidth=2)
-    ax.set_ylabel('% of area fraction', fontsize=15)
-    ax.set_xlabel(r'apparent diameter ($\mu m$)', fontsize=15)
+    ax.set_ylabel('area fraction (%)', fontsize=15)
+    ax.set_xlabel('apparent diameter ($\mu m$)', fontsize=15)
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
@@ -250,7 +250,7 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
 
     ax.set_ylabel('freq. (per unit vol.)', fontsize=15)
     ax.legend(loc='best', fontsize=15)
-    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=15)
+    ax.set_xlabel('diameter ($\mu m$)', fontsize=15)
 
     fig.tight_layout()
 
@@ -264,11 +264,16 @@ def qq_plot(theoretical_data, obs_data):
 
     fig, ax = plt.subplots()
 
-    ax.plot([min_val, max_val], [min_val, max_val], '-', color='#2F4858', label='perfect lognormal')
-    ax.plot(theoretical_data, obs_data, 'o', color='C0', alpha=0.5)
+    ax.plot([min_val, max_val], [min_val, max_val],
+            '-',
+            color='#2F4858',
+            label='perfect lognormal')
+    ax.plot(theoretical_data, obs_data,
+            'o',
+            color='C0',
+            alpha=0.5)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-
     ax.set_xlabel('theoretical', fontsize=16)
     ax.set_ylabel('observed', fontsize=16)
     ax.legend(loc='best', fontsize=15)
