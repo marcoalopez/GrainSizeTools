@@ -190,12 +190,12 @@ def median(pop, ci=0.95):
     median, iqr_range = np.median(pop), iqr(pop)
 
     # compute confidence intervals
-    ci_limis, length = median_ci(pop, n, ci=0.95)
+    ci_limits, length = median_ci(pop, n, ci)
 
-    return median, iqr_range, ci_limis, length
+    return median, iqr_range, ci_limits, length
 
 
-def calc_freq_peak(pop, bandwidth='silverman', max_precision=0.05):
+def freq_peak(pop, bandwidth='silverman', max_precision=0.05):
     """ Returns the peak of the frequency ("mode") of a continuous
     distribution based on the Gaussian kernel density estimator. It
     uses Scipy's gaussian kde method.

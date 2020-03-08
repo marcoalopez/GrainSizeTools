@@ -29,10 +29,12 @@
 # Save this file in the same directory as GrainSizeTools                       #
 # ============================================================================ #
 
-# imports
+# import Python scientific modules
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 from cycler import cycler
+import numpy as np
+from scipy.stats import norm, gaussian_kde
 
 # Set the plot style
 #mpl.rcParams['font.family'] = 'Helvetica Neue'  # set your own font family
@@ -79,94 +81,177 @@ mpl.rcParams['figure.facecolor'] = 'ffffff'
 
 
 # plotting funtions
-def freq_plot(diameters, binList, xgrid, y_values, y_max, x_peak, mean_GS, median_GS, plot, gmean=None):
-    """ Generate a frequency vs grain size plot"""
+def distribution(data,
+                 plot=('hist', 'kde'),
+                 avg=('amean', 'gmean', 'median', 'mode'),
+                 binsize='auto', bandwidth='silverman', precision=None):
+    """ Return a plot with the ditribution of (apparent or actual) grain sizes
+    in a dataset.
+
+    Parameters
+    ----------
+    diameters : array_like
+        the apparent diameters of the grains
+
+    binsize : string or positive scalar, optional
+        If 'auto', it defines the plug-in method to calculate the bin size.
+        When integer or float, it directly specifies the bin size.
+        Default: the 'auto' method.
+
+        | Available plug-in methods:
+        | 'auto' (fd if sample_size > 1000 or Sturges otherwise)
+        | 'doane' (Doane's rule)
+        | 'fd' (Freedman-Diaconis rule)
+        | 'rice' (Rice's rule)
+        | 'scott' (Scott rule)
+        | 'sqrt' (square-root rule)
+        | 'sturges' (Sturge's rule)
+
+    bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
+        the method to estimate the bandwidth or a scalar directly defining the
+        bandwidth. It uses the Silverman plug-in method by default.
+
+    precision : positive scalar or None, optional
+        the maximum precision expected for the "peak" kde-based estimator.
+        Default is None
+
+    Call functions
+    --------------
+    - gaussian_kde (from Scipy stats)
+
+    Examples
+    --------
+    >>> distribution(data['diameters'])
+
+    Returns
+    -------
+    A plot showing the distribution of (apparent) grain sizes and
+    the location of the averages defined.
+    """
 
     fig, ax = plt.subplots()
 
-    ax.hist(diameters,
-            bins=binList,
-            range=(0, diameters.max()),
-            density=True,
-            color='#80419d',
-            edgecolor='#C59fd7',
-            alpha=0.7)
-    ax.plot([mean_GS, mean_GS], [0, y_max],
-            linestyle='-',
-            color='#2F4858',
-            label='arith. mean',
-            linewidth=2.5)
-    ax.plot([median_GS, median_GS], [0, y_max],
-            linestyle='--',
-            color='#2F4858',
-            label='median',
-            linewidth=2.5)
+    if 'hist' in plot:
+        ax.hist(data,
+                bins=binsize,
+                range=(data.min(), data.max()),
+                density=True,
+                color='#80419d',
+                edgecolor='#C59fd7',
+                alpha=0.7)
+
+    if 'kde' in plot:
+        # estimate kde first
+        if isinstance(bandwidth, (int, float)):
+            bw = bandwidth / np.std(data, ddof=1)
+            kde = gaussian_kde(data, bw_method=bw)
+        elif isinstance(bandwidth, str):
+            kde = gaussian_kde(data, bw_method=bandwidth)
+            bw = round(kde.covariance_factor() * data.std(ddof=1), 2)
+        else:
+            raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
+
+        x_values = np.linspace(data.min(), data.max(), num=1000)
+        y_values = kde(x_values)
+
+        if 'hist' in plot:
+            ax.plot(x_values, y_values,
+                    color='#2F4858',
+                    label='KDE')
+        else:
+            ax.plot(x_values, y_values,
+                    color='#C59fd7')
+            ax.fill_between(x_values, y_values,
+                            color='#80419d',
+                            alpha=0.5,
+                            label='KDE')
+
+    # plot the location of the averages
+    if 'amean' in avg:
+        amean = np.mean(data)
+        ax.vlines(amean, 0, np.max(y_values),
+                  linestyle='solid',
+                  color='#2F4858',
+                  label='arith. mean',
+                  linewidth=2.5)
+
+    if 'gmean' in avg:
+        gmean = np.exp(np.mean(np.log(data)))
+        ax.vlines(gmean, 0, np.max(y_values),
+                  linestyle='solid',
+                  color='#fec44f',
+                  label='geo. mean')
+
+    if 'median' in avg:
+        median = np.median(data)
+        ax.vlines(median, 0, np.max(y_values),
+                  linestyle='dashed',
+                  color='#2F4858',
+                  label='median',
+                  linewidth=2.5)
+
+    if 'mode' in avg:
+        mode = x_values[np.argmax(y_values)]
+        ax.vlines(mode, 0, np.max(y_values),
+                  linestyle='dotted',
+                  color='#2F4858',
+                  label='mode',
+                  linewidth=2.5)
 
     ax.set_ylabel('density', color='#252525')
-
-    if plot == 'linear':
-        ax.plot([gmean, gmean], [0, y_max],
-                linestyle='-',
-                color='#fec44f',
-                label='geo. mean')
-        ax.set_xlabel(r'apparent diameter ($\mu m$)', color='#252525')
-
-    elif plot == 'log':
-        ax.set_xlabel(r'apparent diameter $\log_e{(\mu m)}$', color='#252525')
-
-    elif plot == 'log10':
-        ax.set_xlabel(r'apparent diameter $\log_{10}{(\mu m)}$', color='#252525')
-
-    elif plot == 'norm':
-        ax.set_xlabel(r'normalized apparent diameter $\log_e{(\mu m)}$', color='#252525')
-
-    elif plot == 'sqrt':
-        ax.set_xlabel(r'Square root apparent diameter ($\sqrt{\mu m}$)', color='#252525')
-
-    ax.plot(xgrid, y_values,
-            color='#2F4858')
-
-    ax.vlines(x_peak, 0, y_max,
-              linestyle=':',
-              color='#2F4858',
-              label='kde peak',
-              linewidth=2.5)
-
+    ax.set_xlabel(r'apparent diameter ($\mu m$)', color='#252525')
     ax.legend(loc='best', fontsize=16)
-    ax.set_ylim(bottom=-0.001)
+#    ax.set_ylim(bottom=-0.001)
 
     fig.tight_layout()
 
-    return plt.show()
+    return fig, ax
 
 
-def area_weighted_plot(intValues, cumulativeAreas, h, weightedMean):
-    """ Generate the area-weighted frequency vs grain size plot"""
+def area_weighted(diameters, areas, binsize='auto'):
+    """ Generate the area-weighted histogram normalized so that
+    the integral of the density over the range is one"""
 
-    # normalize the y-axis values to percentage of the total area
-    totalArea = sum(cumulativeAreas)
-    cumulativeAreasNorm = [(x / float(totalArea)) * 100 for x in cumulativeAreas]
-    maxValue = max(cumulativeAreasNorm)
+    # estimate weighted mean
+    area_total = np.sum(areas)
+    weighted_areas = areas / area_total
+    weighted_mean = np.sum(diameters * weighted_areas)
 
+    #make plot
     fig, ax = plt.subplots()
 
     # figure aesthetics
-    ax.bar(intValues, cumulativeAreasNorm, width=h,
-           color='#55A868',
-           edgecolor='#FEFFFF',
-           align='edge')
-    ax.plot([weightedMean, weightedMean], [0.0001, maxValue],
-            linestyle='--',
-            color='#1F1F1F',
-            label='area weighted mean',
-            linewidth=2)
-    ax.set_ylabel('area fraction (%)', fontsize=15)
-    ax.set_xlabel('apparent diameter ($\mu m$)', fontsize=15)
+    ax.hist(diameters,
+            bins=binsize,
+            range=(diameters.min(), diameters.max()),
+            weights=weighted_areas,
+            color='#55A868',
+            edgecolor='#FEFFFF',
+            alpha=0.8)
+    ax.vlines(weighted_mean, ymin=0, ymax=np.mean(weighted_mean) * 2,
+              linestyle='--',
+              color='#1F1F1F',
+              label='area weighted mean',
+              linewidth=2)
+    ax.set_ylabel('normalized area fraction (%)', fontsize=15)
+    ax.set_xlabel(r'apparent diameter ($\mu m$)', fontsize=15)
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
 
-    return plt.show()
+    return fig, ax
+
+
+def normalized_distribution(data, binsize='auto'):
+    pass
+
+
+def log_distribution(data, binsize='auto'):
+    pass
+
+
+def sqrt_distribution(data, binsize='auto'):
+    pass
 
 
 def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
@@ -250,25 +335,50 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
 
     ax.set_ylabel('freq. (per unit vol.)', fontsize=15)
     ax.legend(loc='best', fontsize=15)
-    ax.set_xlabel('diameter ($\mu m$)', fontsize=15)
+    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=15)
 
     fig.tight_layout()
 
     return plt.show()
 
 
-def qq_plot(theoretical_data, obs_data):
-    """ Return a q-q plot"""
+def qq_plot(data, percent=2):
+    """ Plot quantile–quantile (q-q) plot to test whether the
+    the underlying distribution follows a lognormal distribution.
+
+    Parameters
+    ----------
+    data : array-like
+        the apparent diameters or any other type of data
+
+    percent : scalar between 0 and 100
+        the percentil interval to estimate, default is 2 %
+
+    Call functions
+    --------------
+    probplot from scipy's stats
+    """
+
+    data = np.sort(np.log(data))
+
+    # estimate percentiles in the actual data
+    percentil = np.arange(1, 100, percent)
+    actual_data = np.percentile(data, percentil)
+
+    # estimate percentiles for theoretical data
+    mean, std = np.mean(data), np.std(data)
+    theoretical_data = norm.ppf(percentil / 100, loc=mean, scale=std)
 
     min_val, max_val = theoretical_data.min(), theoretical_data.max()
 
+    # make the plot
     fig, ax = plt.subplots()
 
     ax.plot([min_val, max_val], [min_val, max_val],
             '-',
             color='#2F4858',
             label='perfect lognormal')
-    ax.plot(theoretical_data, obs_data,
+    ax.plot(theoretical_data, actual_data,
             'o',
             color='C0',
             alpha=0.5)
