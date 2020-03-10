@@ -47,7 +47,7 @@ def amean(pop, ci=0.95, method='CLT'):
 
     method : string
         the method to estimate the confidence interval, either
-        'CLT': central limit theorem based (ASTM default)
+        'ASTM': central limit theorem based (ASTM default)
         'GCI': generalized confidence interval method
         'mCox': modified Cox method
 
@@ -75,7 +75,7 @@ def amean(pop, ci=0.95, method='CLT'):
     mean, std = np.mean(pop), np.std(pop, ddof=1)  # SD using n-1 degrees of freedom (Bessel corrected)
 
     # confidence interval
-    if method == 'CLT':
+    if method == 'ASTM':
         conf_int, length = CLT_ci(mean, std, n, ci)
         return mean, std, conf_int, length
 
@@ -117,7 +117,7 @@ def gmean(pop, ci=0.95, method='CLT'):
 
     Call functions
     --------------
-    - CLT_ci
+    - CLT2_ci
     - bayesian_ci
 
     Returns

@@ -24,8 +24,9 @@
 # ============================================================================ #
 
 import numpy as np
-import plots as plots
+import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+import template  # this is to set a custom plot style
 
 
 def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
@@ -65,7 +66,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
     Call functions
     --------------
     - unfold_population
-    - Saltykov_plot (from plots) TODO
+    - Saltykov_plot
 
     Examples
     --------
@@ -157,7 +158,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
 
     elif return_data is False:
         print('bin size =', round(binsize, 2))
-        return plots.Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
+        return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
     else:
         raise TypeError('return_data must be set as True or False')
@@ -189,7 +190,7 @@ def calc_shape(diameters, class_range=(10, 20)):
     - fit_log,
     - log_function
     - gen_xgrid
-    - twostep_plot (from plots)
+    - twostep_plot
 
     Examples
     --------
@@ -250,7 +251,7 @@ def calc_shape(diameters, class_range=(10, 20)):
     # Estimate the standard deviation of the all values obtained
     fit_error = np.std(values, axis=0)
 
-    return plots.twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error)
+    return twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error)
 
 
 def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
@@ -462,3 +463,91 @@ def gen_xgrid(start, stop, precision):
         n = int(round(rango / precision, 0))
 
     return np.linspace(start, stop, num=n)
+
+
+def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
+    """ Generate two plots once the Saltykov method is applied:
+
+    i)  a bar plot (ax1)
+    ii) a volume-weighted cumulative frequency plot (ax2)
+    """
+
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
+
+    # frequency vs grain size plot
+    ax1.bar(left_edges, freq3D,
+            width=binsize,
+            color='#404040',
+            edgecolor='#d9d9d9',
+            align='edge')
+    ax1.set_ylabel('density',
+                   fontsize=15)
+    ax1.set_xlabel(r'diameter ($\mu m$)',
+                   fontsize=15)
+    ax1.set_title('estimated 3D grain size distribution',
+                  color='#1F1F1F',
+                  fontsize=15,
+                  y=1.02)
+
+    # volume-weighted cumulative frequency curve
+    ax2.set_ylim([-2, 105])
+    ax2.plot(mid_points, cdf_norm,
+             'o-',
+             color='#ed4256',
+             label='volume weighted CFD',
+             linewidth=2)
+    ax2.set_ylabel('cumulative volume (%)',
+                   fontsize=15)
+    ax2.set_xlabel(r'diameter ($\mu m$)',
+                   fontsize=15)
+    ax2.set_title('volume-weighted cumulative freq. distribution',
+                  color='#1F1F1F',
+                  fontsize=15,
+                  y=1.02)
+
+    fig.tight_layout()
+
+    return fig, (ax1, ax2)
+
+
+def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
+    """ Generate a plot with the best fitting lognormal distribution (two-step method)"""
+
+    # matplotlib stuff
+    fig, ax = plt.subplots()
+
+    # bar plot from Saltykov method
+    ax.bar(mid_points, frequencies,
+           width=mid_points[1] - mid_points[0],
+           edgecolor='#1F1F1F',
+           hatch='//',
+           color='#fff2ae',
+           fill=False,
+           linewidth=1,
+           label='Saltykov method',
+           alpha=0.65)
+
+    # log-normal distribution
+    ax.plot(xgrid, best_fit,
+            color='#1F1F1F',
+            label='best fit',
+            linewidth=2)
+
+    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
+                    color='#525252',
+                    label='trust region',
+                    alpha=0.5)
+
+#    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
+#            'o',
+#            color='#d53e4f',
+#            label='datapoints',
+#            linewidth=1.5)
+
+    ax.set_ylabel('freq. (per unit vol.)', fontsize=15)
+    ax.legend(loc='best', fontsize=15)
+    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=15)
+
+    fig.tight_layout()
+
+    return fig, ax

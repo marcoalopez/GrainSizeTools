@@ -31,60 +31,16 @@
 
 # import Python scientific modules
 import matplotlib.pyplot as plt
-import matplotlib as mpl
-from cycler import cycler
+import template  # this is to set a custom plot style
 import numpy as np
 from scipy.stats import norm, gaussian_kde
-
-# Set the plot style
-#mpl.rcParams['font.family'] = 'Helvetica Neue'  # set your own font family
-mpl.rcParams['font.size'] = 14.0
-mpl.rcParams['svg.fonttype'] = 'path'
-mpl.rcParams['lines.linewidth'] = 3.0
-mpl.rcParams['lines.markersize'] = 12.0
-mpl.rcParams['lines.solid_capstyle'] = 'butt'
-mpl.rcParams['legend.fancybox'] = True
-
-mpl.rcParams['axes.prop_cycle'] = cycler(color=['#008fd5', '#fc4f30', '#e5ae38', '#6d904f', '#8b8b8b', '#810f7c'])
-mpl.rcParams['axes.facecolor'] = 'ffffff'
-mpl.rcParams['axes.labelsize'] = 'large'
-mpl.rcParams['axes.axisbelow'] = True
-mpl.rcParams['axes.grid'] = True
-mpl.rcParams['axes.edgecolor'] = 'ffffff'
-mpl.rcParams['axes.linewidth'] = 2.0
-mpl.rcParams['axes.titlesize'] = 'x-large'
-
-mpl.rcParams['patch.edgecolor'] = 'f0f0f0'
-mpl.rcParams['patch.linewidth'] = 0.5
-
-mpl.rcParams['grid.linestyle'] = '-'
-mpl.rcParams['grid.linewidth'] = 1.0
-mpl.rcParams['grid.color'] = 'cbcbcb'
-
-mpl.rcParams['xtick.major.size'] = 0
-mpl.rcParams['xtick.minor.size'] = 0
-mpl.rcParams['ytick.major.size'] = 0
-mpl.rcParams['ytick.minor.size'] = 0
-mpl.rcParams['xtick.labelsize'] = 16
-mpl.rcParams['ytick.labelsize'] = 16
-mpl.rcParams['xtick.color'] = '#252525'
-mpl.rcParams['ytick.color'] = '#252525'
-
-mpl.rcParams['savefig.edgecolor'] = 'ffffff'
-mpl.rcParams['savefig.facecolor'] = 'ffffff'
-
-mpl.rcParams['figure.subplot.left'] = 0.125
-mpl.rcParams['figure.subplot.right'] = 0.9
-mpl.rcParams['figure.subplot.bottom'] = 0.11
-mpl.rcParams['figure.subplot.top'] = 0.88
-mpl.rcParams['figure.facecolor'] = 'ffffff'
 
 
 # plotting funtions
 def distribution(data,
                  plot=('hist', 'kde'),
                  avg=('amean', 'gmean', 'median', 'mode'),
-                 binsize='auto', bandwidth='silverman', precision=None):
+                 binsize='auto', bandwidth='silverman'):
     """ Return a plot with the ditribution of (apparent or actual) grain sizes
     in a dataset.
 
@@ -209,13 +165,45 @@ def distribution(data,
 
 
 def area_weighted(diameters, areas, binsize='auto'):
-    """ Generate the area-weighted histogram normalized so that
-    the integral of the density over the range is one"""
+    """ Generate the area-weighted histogram"""
 
     # estimate weighted mean
     area_total = np.sum(areas)
     weighted_areas = areas / area_total
     weighted_mean = np.sum(diameters * weighted_areas)
+
+    # estimate mode interval
+    if type(binsize) is str:
+        histogram, bin_edges = np.histogram(diameters, bins=binsize, range=(0.0, diameters.max()))
+        h = bin_edges[1]
+    else:
+        bin_edges = np.arange(0.0, diameters.max() + binsize, binsize)
+        h = binsize
+
+    # estimate the cumulative areas of each grain size interval
+    cumulativeAreas = np.zeros(len(bin_edges))
+    for index, values in enumerate(bin_edges):
+        mask = np.logical_and(diameters >= values, diameters < (values + h))
+        area_sum = np.sum(areas[mask])
+        cumulativeAreas[index] = round(area_sum, 1)
+
+    # get the the modal interval and the midpoint
+    getIndex = np.argmax(cumulativeAreas)
+    mode = bin_edges[getIndex] + (bin_edges[getIndex] + h) / 2.0
+
+    print(' ')
+    print('DESCRIPTIVE STATISTICS')
+    print(' ')
+    print('Area-weighted mean grain size = {:0.2f} microns' .format(weighted_mean))
+    print(' ')
+    print('HISTOGRAM FEATURES')
+    print('The modal interval is {left:0.2f} - {right:0.2f} microns' .format(left=bin_edges[getIndex],
+                                                                             right=bin_edges[getIndex] + h))
+    print('Midpoint (of modal interval) = {:0.2f} microns' .format(mode))
+    print('The number of classes are {}' .format(len(histogram)))
+    if type(binsize) is str:
+        print('The bin size is {bin:0.2f} according to the {rule} rule' .format(bin=h, rule=binsize))
+    print(' ')
 
     #make plot
     fig, ax = plt.subplots()
@@ -242,104 +230,74 @@ def area_weighted(diameters, areas, binsize='auto'):
     return fig, ax
 
 
-def normalized_distribution(data, binsize='auto'):
-    pass
+def normalized(data, avg='amean', bandwidth='silverman'):
+    """Return the normalized...TODO
 
-
-def log_distribution(data, binsize='auto'):
-    pass
-
-
-def sqrt_distribution(data, binsize='auto'):
-    pass
-
-
-def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
-    """ Generate two plots once the Saltykov method is applied:
-
-    i)  a bar plot (ax1)
-    ii) a volume-weighted cumulative frequency plot (ax2)
+    Parameters
+    ----------
+    data : [type]
+        [description]
+    avg : str, optional
+        [description], by default 'amean'
+    bandwidth : str, optional
+        [description], by default 'silverman'
     """
 
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
+    data = np.log(data)
 
-    # frequency vs grain size plot
-    ax1.bar(left_edges, freq3D,
-            width=binsize,
-            color='#404040',
-            edgecolor='#d9d9d9',
-            align='edge')
-    ax1.set_ylabel('density',
-                   fontsize=15)
-    ax1.set_xlabel(r'diameter ($\mu m$)',
-                   fontsize=15)
-    ax1.set_title('estimated 3D grain size distribution',
-                  color='#1F1F1F',
-                  fontsize=15,
-                  y=1.02)
+    # estimate kde
+    if isinstance(bandwidth, (int, float)):
+        bw = bandwidth / np.std(data, ddof=1)
+        kde = gaussian_kde(data, bw_method=bw)
+    elif isinstance(bandwidth, str):
+        kde = gaussian_kde(data, bw_method=bandwidth)
+        bw = round(kde.covariance_factor() * data.std(ddof=1), 2)
+    else:
+        raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
-    # volume-weighted cumulative frequency curve
-    ax2.set_ylim([-2, 105])
-    ax2.plot(mid_points, cdf_norm,
-             'o-',
-             color='#ed4256',
-             label='volume weighted CFD',
-             linewidth=2)
-    ax2.set_ylabel('cumulative volume (%)',
-                   fontsize=15)
-    ax2.set_xlabel(r'diameter ($\mu m$)',
-                   fontsize=15)
-    ax2.set_title('volume-weighted cumulative freq. distribution',
-                  color='#1F1F1F',
-                  fontsize=15,
-                  y=1.02)
+    amean = np.mean(data)
+    median = np.median(data)
 
-    fig.tight_layout()
+    # normalize
+    if avg == 'amean':
+        norm_data = data / amean
+    elif avg == 'median':
+        norm_data = data / median
+#    elif avg == 'mode':
+#        norm_data = data / mode
+    else:
+        raise ValueError('Normalization factor has to be defined as amean, median, or mode')
 
-    return plt.show()
+    # estimate kde
+    if isinstance(bandwidth, (int, float)):
+        bw = bandwidth / np.std(data, ddof=1)
+        kde = gaussian_kde(data, bw_method=bw)
+    elif isinstance(bandwidth, str):
+        kde = gaussian_kde(data, bw_method=bandwidth)
+        bw = round(kde.covariance_factor() * data.std(ddof=1), 2)
+    else:
+        raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
+    x_values = np.linspace(norm_data.min(), norm_data.max(), num=1000)
+    y_values = kde(x_values)
 
-def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
-    """ Generate a plot with the best fitting lognormal distribution (two-step method)"""
-
-    # matplotlib stuff
+    #make plot
     fig, ax = plt.subplots()
 
-    # bar plot from Saltykov method
-    ax.bar(mid_points, frequencies,
-           width=mid_points[1] - mid_points[0],
-           edgecolor='#1F1F1F',
-           hatch='//',
-           color='#fff2ae',
-           fill=False,
-           linewidth=1,
-           label='Saltykov method',
-           alpha=0.65)
+    ax.plot(x_values, y_values,
+            color='#C59fd7')
+    ax.fill_between(x_values, y_values,
+                    color='#80419d',
+                    alpha=0.5,
+                    label='KDE')
 
-    # log-normal distribution
-    ax.plot(xgrid, best_fit,
-            color='#1F1F1F',
-            label='best fit',
-            linewidth=2)
-
-    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
-                    color='#525252',
-                    label='trust region',
-                    alpha=0.5)
-
-#    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
-#            'o',
-#            color='#d53e4f',
-#            label='datapoints',
-#            linewidth=1.5)
-
-    ax.set_ylabel('freq. (per unit vol.)', fontsize=15)
+    ax.set_ylabel('density', fontsize=15)
+    ax.set_xlabel(r'normalized grain size ($\mu m$)', fontsize=15)
     ax.legend(loc='best', fontsize=15)
-    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=15)
 
     fig.tight_layout()
 
-    return plt.show()
+    return fig, ax
 
 
 def qq_plot(data, percent=2):
