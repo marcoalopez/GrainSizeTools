@@ -33,7 +33,7 @@ import numpy as np
 # ============================================================================ #
 
 
-def amean(pop, ci=0.95, method='CLT'):
+def amean(pop, ci=0.95, method='ASTM'):
     """ Returns the arithmetic mean, the Bessel corrected SD,
     and the confidence interval based on the chosen method.
 
@@ -594,3 +594,9 @@ def gen_xgrid(start, stop, precision):
         n = int(round(rango / precision, 0))
 
     return np.linspace(start, stop, num=n)
+
+
+if __name__ == '__main__':
+    pass
+else:
+    print('module averages imported')

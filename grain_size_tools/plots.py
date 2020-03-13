@@ -31,7 +31,6 @@
 
 # import Python scientific modules
 import matplotlib.pyplot as plt
-import template  # this is to set a custom plot style
 import numpy as np
 from scipy.stats import norm, gaussian_kde
 
@@ -88,13 +87,13 @@ def distribution(data,
     fig, ax = plt.subplots()
 
     if 'hist' in plot:
-        ax.hist(data,
-                bins=binsize,
-                range=(data.min(), data.max()),
-                density=True,
-                color='#80419d',
-                edgecolor='#C59fd7',
-                alpha=0.7)
+        y_values, __, __ = ax.hist(data,
+                                   bins=binsize,
+                                   range=(data.min(), data.max()),
+                                   density=True,
+                                   color='#80419d',
+                                   edgecolor='#C59fd7',
+                                   alpha=0.7)
 
     if 'kde' in plot:
         # estimate kde first
@@ -112,15 +111,13 @@ def distribution(data,
 
         if 'hist' in plot:
             ax.plot(x_values, y_values,
-                    color='#2F4858',
-                    label='KDE')
+                    color='#2F4858')
         else:
             ax.plot(x_values, y_values,
-                    color='#C59fd7')
+                    color='#2F4858')
             ax.fill_between(x_values, y_values,
                             color='#80419d',
-                            alpha=0.5,
-                            label='KDE')
+                            alpha=0.65)
 
     # plot the location of the averages
     if 'amean' in avg:
@@ -146,7 +143,7 @@ def distribution(data,
                   label='median',
                   linewidth=2.5)
 
-    if 'mode' in avg:
+    if 'mode' in avg and 'kde' in plot:
         mode = x_values[np.argmax(y_values)]
         ax.vlines(mode, 0, np.max(y_values),
                   linestyle='dotted',
@@ -244,37 +241,29 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     """
 
     data = np.log(data)
-
-    # estimate kde
-    if isinstance(bandwidth, (int, float)):
-        bw = bandwidth / np.std(data, ddof=1)
-        kde = gaussian_kde(data, bw_method=bw)
-    elif isinstance(bandwidth, str):
-        kde = gaussian_kde(data, bw_method=bandwidth)
-        bw = round(kde.covariance_factor() * data.std(ddof=1), 2)
-    else:
-        raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
-
     amean = np.mean(data)
     median = np.median(data)
 
     # normalize
     if avg == 'amean':
-        norm_data = data / amean
+        norm_factor = amean
+        norm_data = data / norm_factor
     elif avg == 'median':
+        norm_factor = median
         norm_data = data / median
 #    elif avg == 'mode':
+#        __, __, mode, __, __ = avrages.freq_peak(data, bandwidth)
 #        norm_data = data / mode
     else:
         raise ValueError('Normalization factor has to be defined as amean, median, or mode')
 
     # estimate kde
     if isinstance(bandwidth, (int, float)):
-        bw = bandwidth / np.std(data, ddof=1)
-        kde = gaussian_kde(data, bw_method=bw)
+        bw = bandwidth / np.std(norm_data, ddof=1)
+        kde = gaussian_kde(norm_data, bw_method=bw)
     elif isinstance(bandwidth, str):
-        kde = gaussian_kde(data, bw_method=bandwidth)
-        bw = round(kde.covariance_factor() * data.std(ddof=1), 2)
+        kde = gaussian_kde(norm_data, bw_method=bandwidth)
+        bw = round(kde.covariance_factor() * norm_data.std(ddof=1), 2)
     else:
         raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
@@ -285,14 +274,23 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     fig, ax = plt.subplots()
 
     ax.plot(x_values, y_values,
-            color='#C59fd7')
+            color='#2F4858')
     ax.fill_between(x_values, y_values,
-                    color='#80419d',
-                    alpha=0.5,
-                    label='KDE')
+                    color='#d1346b',
+                    alpha=0.5)
+    ax.vlines(amean / norm_factor, 0, np.max(y_values),
+              linestyle='solid',
+              color='#2F4858',
+              label='arith. mean',
+              linewidth=2.5)
+    ax.vlines(median / norm_factor, 0, np.max(y_values),
+              linestyle='dashed',
+              color='#2F4858',
+              label='median',
+              linewidth=2.5)
 
-    ax.set_ylabel('density', fontsize=15)
-    ax.set_xlabel(r'normalized grain size ($\mu m$)', fontsize=15)
+    ax.set_ylabel('density', fontsize=18)
+    ax.set_xlabel(r'normalized grain size ($\mu m$)', fontsize=18)
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
@@ -342,10 +340,16 @@ def qq_plot(data, percent=2):
             alpha=0.5)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('theoretical', fontsize=16)
-    ax.set_ylabel('observed', fontsize=16)
-    ax.legend(loc='best', fontsize=15)
+    ax.set_xlabel('theoretical', fontsize=18)
+    ax.set_ylabel('observed', fontsize=18)
+    ax.legend(loc='best', fontsize=18)
 
     fig.tight_layout()
 
     return fig, ax
+
+
+if __name__ == '__main__':
+    pass
+else:
+    print('module plots imported')

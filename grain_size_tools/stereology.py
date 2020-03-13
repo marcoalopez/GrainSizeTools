@@ -26,7 +26,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-import template  # this is to set a custom plot style
 
 
 def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
@@ -230,7 +229,7 @@ def calc_shape(diameters, class_range=(10, 20)):
 
     print(' ')
     print('OPTIMAL VALUES')
-    print('Number of clasess: {}' .format(optimal_num_classes))
+    print('Number of classes: {}' .format(optimal_num_classes))
     print('MSD (log-normal shape) = {msd:0.2f} ± {err:0.2f}'
           .format(msd=optimal_params[0], err=3 * sigma_err[0]))
     print('Geometric mean (scale) = {gmean:0.2f} ± {err:0.2f}'
@@ -239,7 +238,7 @@ def calc_shape(diameters, class_range=(10, 20)):
     # print(' Covariance matrix:\n', covm)
 
     # prepare data for the plot
-    xgrid = gen_xgrid(0.1, diameters.max())
+    xgrid = np.linspace(0.1, diameters.max(), 1000)
     best_fit = log_function(xgrid, optimal_params[0], optimal_params[1])
 
     # Estimate all the combinatorial posibilities for fit curves taking into account the uncertainties
@@ -477,7 +476,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     # frequency vs grain size plot
     ax1.bar(left_edges, freq3D,
             width=binsize,
-            color='#404040',
+            color='#415e9d',
             edgecolor='#d9d9d9',
             align='edge')
     ax1.set_ylabel('density',
@@ -519,10 +518,8 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
     # bar plot from Saltykov method
     ax.bar(mid_points, frequencies,
            width=mid_points[1] - mid_points[0],
-           edgecolor='#1F1F1F',
-           hatch='//',
-           color='#fff2ae',
-           fill=False,
+           edgecolor=None,
+           color='#415e9d',
            linewidth=1,
            label='Saltykov method',
            alpha=0.65)
@@ -551,3 +548,9 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
     fig.tight_layout()
 
     return fig, ax
+
+
+if __name__ == '__main__':
+    pass
+else:
+    print('module stereology imported')

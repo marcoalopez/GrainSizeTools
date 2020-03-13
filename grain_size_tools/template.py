@@ -68,3 +68,8 @@ mpl.rcParams['figure.subplot.right'] = 0.9
 mpl.rcParams['figure.subplot.bottom'] = 0.11
 mpl.rcParams['figure.subplot.top'] = 0.88
 mpl.rcParams['figure.facecolor'] = 'ffffff'
+
+if __name__ == '__main__':
+    pass
+else:
+    print('module template imported')

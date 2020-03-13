@@ -300,3 +300,9 @@ def feldspar(piezometer=None):
         raise ValueError('Piezometer name misspelled. Please choose between valid piezometers')
 
     return B, m, warn, linear_interceps, correction_factor
+
+
+if __name__ == '__main__':
+    pass
+else:
+    print('module piezometers imported')
