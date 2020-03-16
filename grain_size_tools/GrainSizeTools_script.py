@@ -31,7 +31,7 @@
 # ============================================================================ #
 
 # import grain_size_tools modules
-import plots
+import plot
 import averages
 import stereology
 import piezometers
@@ -87,7 +87,7 @@ def conf_interval(data, confidence=0.95):
     return sample_mean, err, (low, high)
 
 
-def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
+def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
               bandwidth='silverman', precision=0.1):
     """ Estimate different grain size statistics. This includes different means,
     the median, the frequency peak grain size via KDE, the confidence intervals
@@ -95,10 +95,10 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
 
     Parameters
     ----------
-    diameters : array_like
-        the apparent diameters of the grains
+    data : array_like
+        the diameters (apparent or not) of the grains
 
-    avg : tuple or list, optional
+    avg : string, tuple or list. Optional
         the averages to be estimated
 
         | Types:
@@ -134,9 +134,20 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
     TODO
     """
 
+    # check and remove for negative values
+    if data[data < 0].size > 0:
+        print('I found negative and/or zero values in your dataset!')
+        data = data[data > 0]
+        print('Negative/zero values automatically removed')
+
+    std = np.std(data)
+
     if 'amean' in avg:
-        amean, std, ci, length = averages.amean(diameters, ci_level, method='ASTM')
-        __, __, (low_ci, high_ci), length2 = averages.amean(diameters, ci_level, method='mCox')
+        amean, __, ci, length = averages.amean(data, ci_level, method='ASTM')
+        if len(data) > 99:
+            __, __, (low_ci, high_ci), length2 = averages.amean(data, ci_level, method='mCox')
+        else:
+            __, __, (low_ci, high_ci), length2 = averages.amean(data, ci_level, method='GCI')
 
         # estimate coefficients of variation
         lower_cvar = 100 * (amean - low_ci) / amean
@@ -150,12 +161,16 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
         print('Confidence intervals at {:0.1f} %' .format(ci_level * 100))
         print('ASTM method: {:0.2f} - {:0.2f}, (±{:0.1f}%), length = {:0.3f}'
               .format(ci[0], ci[1], 100 * (ci[1] - amean) / amean, length))
-        print('mCox method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-              .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+        if len(data) > 99:
+            print('mCox method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
+                  .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+        else:
+            print('GCI method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
+                  .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
 
     if 'gmean' in avg:
-        m = 'CLT' if len(diameters) > 99 else 'bayes'  # choose optimal method to estimate confidence intervals
-        gmean, msd, (low_ci, high_ci), length = averages.gmean(diameters, ci_level, method=m)
+        m = 'CLT' if len(data) > 99 else 'bayes'  # choose optimal method to estimate confidence intervals
+        gmean, msd, (low_ci, high_ci), length = averages.gmean(data, ci_level, method=m)
 
         # estimate coefficients of variation
         lower_cvar = 100 * (gmean - low_ci) / gmean
@@ -168,7 +183,7 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
         .format(m, low_ci, high_ci, lower_cvar, upper_cvar, length))
 
     if 'median' in avg:
-        median, iqr, (low_ci, high_ci), length = averages.median(diameters, ci_level)
+        median, iqr, (low_ci, high_ci), length = averages.median(data, ci_level)
 
         # estimate coefficients of variation
         lower_cvar = 100 * (median - low_ci) / median
@@ -181,7 +196,7 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
         .format(low_ci, high_ci, lower_cvar, upper_cvar, length))
 
     if 'mode' in avg:
-        __, mode, __, bw = averages.freq_peak(diameters, bandwidth, precision)
+        __, mode, __, bw = averages.freq_peak(data, bandwidth, precision)
 
         print('============================================================================')
         print('Mode (KDE-based) = {:0.2f} microns' .format(mode))
@@ -193,16 +208,18 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
             print('KDE bandwidth =', bandwidth)
 
     # estimate Shapiro-Wilk test to check normality and lognormality
-    W, p_value = shapiro(diameters)
-    W2, p_value2 = shapiro(np.log(diameters))
+    W, p_value = shapiro(data)
+    W2, p_value2 = shapiro(np.log(data))
 
     print(' ')
     print('============================================================================')
     print('DISTRIBUTION FEATURES')
     print('============================================================================')
     print('Standard deviation = {:0.2f} (1-sigma)' .format(std))
-    print('Interquartile range (IQR) = {:0.2f}' .format(iqr))
-    print('Lognormal shape (Multiplicative Standard Deviation) = {:0.2f}' .format(msd))
+    if 'median' in avg:
+        print('Interquartile range (IQR) = {:0.2f}' .format(iqr))
+    if 'gmean' in avg:
+        print('Lognormal shape (Multiplicative Standard Deviation) = {:0.2f}' .format(msd))
     print('============================================================================')
     print('Shapiro-Wilk test warnings:')
     if p_value < 0.05:
@@ -216,6 +233,27 @@ def summarize(diameters, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95
     print('============================================================================')
 
     return None
+
+
+def get_filepath():
+    """ Get a file path through a file selection dialog."""
+
+    try:
+        import os
+        import tkinter as tk
+        from tkinter import filedialog
+        root = tk.Tk()
+        root.withdraw()
+        root.attributes("-topmost", True)
+        file_path = filedialog.askopenfilename(initialdir=os.getcwd(),
+                                               title="Select file",
+                                               filetypes=[('Text files', '*.txt'),
+                                                          ('Text files', '*.csv'),
+                                                          ('Excel files', '*.xlsx')])
+    except ImportError:
+        print('Requires Python 3.6+')
+
+    return file_path
 
 
 if float(np.__version__[0:4]) < 1.11:

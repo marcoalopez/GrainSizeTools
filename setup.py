@@ -21,7 +21,7 @@ sys.path.append(os.path.join(sys.path[0], 'grain_size_tools'))
 
 setup(
     name="grain_size_tools",
-    version="2.0.1",
+    version="3.0",
     author="Marco A. Lopez-Sanchez",
     author_email="marcoalopez@outlook.com",
     description="A Python script for estimating grain size, grain size populations, and differential stress via piezometers from thin sections",

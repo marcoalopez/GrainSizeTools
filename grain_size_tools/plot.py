@@ -48,6 +48,15 @@ def distribution(data,
     diameters : array_like
         the apparent diameters of the grains
 
+    plot : string, tuple or list
+        the type of plot, either histogram ('hist'), kernel density estimate
+        ('kde') or both ('hist', 'kde'). Default is both.
+
+    avg : string, tuple or list
+        the central tendency measures o show, either the arithmetic ('amean')
+        or geometric ('gmean') means, the median ('median'), and/or the
+        KDE-based mode ('mode'). Default all averages.
+
     binsize : string or positive scalar, optional
         If 'auto', it defines the plug-in method to calculate the bin size.
         When integer or float, it directly specifies the bin size.
@@ -66,10 +75,6 @@ def distribution(data,
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
 
-    precision : positive scalar or None, optional
-        the maximum precision expected for the "peak" kde-based estimator.
-        Default is None
-
     Call functions
     --------------
     - gaussian_kde (from Scipy stats)
@@ -87,13 +92,16 @@ def distribution(data,
     fig, ax = plt.subplots()
 
     if 'hist' in plot:
-        y_values, __, __ = ax.hist(data,
-                                   bins=binsize,
-                                   range=(data.min(), data.max()),
-                                   density=True,
-                                   color='#80419d',
-                                   edgecolor='#C59fd7',
-                                   alpha=0.7)
+        y_values, bins, __ = ax.hist(data,
+                                     bins=binsize,
+                                     range=(data.min(), data.max()),
+                                     density=True,
+                                     color='#80419d',
+                                     edgecolor='#C59fd7',
+                                     alpha=0.7)
+        print('=======================================')
+        print('Number of classes = ', len(bins) - 1)
+        print('binsize =', bins[1])
 
     if 'kde' in plot:
         # estimate kde first
@@ -108,6 +116,10 @@ def distribution(data,
 
         x_values = np.linspace(data.min(), data.max(), num=1000)
         y_values = kde(x_values)
+
+        print('=======================================')
+        print('KDE bandwidth= ', bw)
+        print('=======================================')
 
         if 'hist' in plot:
             ax.plot(x_values, y_values,
@@ -158,7 +170,7 @@ def distribution(data,
 
     fig.tight_layout()
 
-    return fig, ax
+    return None
 
 
 def area_weighted(diameters, areas, binsize='auto'):
@@ -224,20 +236,23 @@ def area_weighted(diameters, areas, binsize='auto'):
 
     fig.tight_layout()
 
-    return fig, ax
+    return None
 
 
 def normalized(data, avg='amean', bandwidth='silverman'):
-    """Return the normalized...TODO
+    """Return a log-transformed normalized ditribution of the grain
+    population. This is useful to compare grain size distributions
+    beween samples with different average values.
 
     Parameters
     ----------
-    data : [type]
-        [description]
+    data : array-like
+        the dataset
     avg : str, optional
-        [description], by default 'amean'
+        the normalization factor, either 'amean', 'median', or
+        'mode'. Default: 'amean'
     bandwidth : str, optional
-        [description], by default 'silverman'
+        the bandwidth of the KDE, by default 'silverman'
     """
 
     data = np.log(data)
@@ -270,6 +285,10 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     x_values = np.linspace(norm_data.min(), norm_data.max(), num=1000)
     y_values = kde(x_values)
 
+    print('=======================================')
+    print('KDE bandwidth= ', bw)
+    print('=======================================')
+
     #make plot
     fig, ax = plt.subplots()
 
@@ -290,7 +309,7 @@ def normalized(data, avg='amean', bandwidth='silverman'):
               linewidth=2.5)
 
     ax.set_ylabel('density', fontsize=18)
-    ax.set_xlabel(r'normalized grain size ($\mu m$)', fontsize=18)
+    ax.set_xlabel(r'normalized log grain size ($\mu m$)', fontsize=18)
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()

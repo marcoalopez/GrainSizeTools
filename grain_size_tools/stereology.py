@@ -406,7 +406,8 @@ def fit_log(x, y, initial_guess):
     -------
     The optimal params and the error of the fit
     """
-    # fit a log normal function (it assumes that shape is within the 1-10 range)
+    # fit a log normal function (it assumes that shape is within the 1-10 range
+    # and location is positive)
     optimal_params, cov_matrix = curve_fit(log_function, x, y, initial_guess,
                                            bounds=((1, 0), (10, np.inf)))
 
