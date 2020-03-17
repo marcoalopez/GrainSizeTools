@@ -32,7 +32,7 @@
 # import Python scientific modules
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import norm, gaussian_kde
+from scipy.stats import norm, gaussian_kde, shapiro
 
 
 # plotting funtions
@@ -101,16 +101,17 @@ def distribution(data,
                                      alpha=0.7)
         print('=======================================')
         print('Number of classes = ', len(bins) - 1)
-        print('binsize =', bins[1])
+        print('binsize = ', round(bins[1], 2))
+        print('=======================================')
 
     if 'kde' in plot:
         # estimate kde first
         if isinstance(bandwidth, (int, float)):
-            bw = bandwidth / np.std(data, ddof=1)
-            kde = gaussian_kde(data, bw_method=bw)
+            fixed_bw = bandwidth / np.std(data, ddof=1)
+            kde = gaussian_kde(data, bw_method=fixed_bw)
         elif isinstance(bandwidth, str):
             kde = gaussian_kde(data, bw_method=bandwidth)
-            bw = round(kde.covariance_factor() * data.std(ddof=1), 2)
+            bandwidth = round(kde.covariance_factor() * data.std(ddof=1), 2)
         else:
             raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
@@ -118,7 +119,7 @@ def distribution(data,
         y_values = kde(x_values)
 
         print('=======================================')
-        print('KDE bandwidth= ', bw)
+        print('KDE bandwidth = ', round(bandwidth, 2))
         print('=======================================')
 
         if 'hist' in plot:
@@ -200,11 +201,10 @@ def area_weighted(diameters, areas, binsize='auto'):
     getIndex = np.argmax(cumulativeAreas)
     mode = bin_edges[getIndex] + (bin_edges[getIndex] + h) / 2.0
 
-    print(' ')
+    print('=======================================')
     print('DESCRIPTIVE STATISTICS')
-    print(' ')
     print('Area-weighted mean grain size = {:0.2f} microns' .format(weighted_mean))
-    print(' ')
+    print('=======================================')
     print('HISTOGRAM FEATURES')
     print('The modal interval is {left:0.2f} - {right:0.2f} microns' .format(left=bin_edges[getIndex],
                                                                              right=bin_edges[getIndex] + h))
@@ -212,20 +212,23 @@ def area_weighted(diameters, areas, binsize='auto'):
     print('The number of classes are {}' .format(len(histogram)))
     if type(binsize) is str:
         print('The bin size is {bin:0.2f} according to the {rule} rule' .format(bin=h, rule=binsize))
-    print(' ')
+    print('=======================================')
+
+    # normalize the y-axis values to percentage of the total area
+    totalArea = sum(cumulativeAreas)
+    cumulativeAreasNorm = [(x / float(totalArea)) * 100 for x in cumulativeAreas]
+    maxValue = max(cumulativeAreasNorm)
 
     #make plot
     fig, ax = plt.subplots()
 
     # figure aesthetics
-    ax.hist(diameters,
-            bins=binsize,
-            range=(diameters.min(), diameters.max()),
-            weights=weighted_areas,
-            color='#55A868',
-            edgecolor='#FEFFFF',
-            alpha=0.8)
-    ax.vlines(weighted_mean, ymin=0, ymax=np.mean(weighted_mean) * 2,
+    ax.bar(bin_edges, cumulativeAreasNorm, width=h,
+           color='#55A868',
+           edgecolor='#FEFFFF',
+           align='edge',
+           alpha=0.9)
+    ax.vlines(weighted_mean, ymin=0, ymax=maxValue,
               linestyle='--',
               color='#1F1F1F',
               label='area weighted mean',
@@ -274,11 +277,11 @@ def normalized(data, avg='amean', bandwidth='silverman'):
 
     # estimate kde
     if isinstance(bandwidth, (int, float)):
-        bw = bandwidth / np.std(norm_data, ddof=1)
-        kde = gaussian_kde(norm_data, bw_method=bw)
+        fixed_bw = bandwidth / np.std(norm_data, ddof=1)
+        kde = gaussian_kde(norm_data, bw_method=fixed_bw)
     elif isinstance(bandwidth, str):
         kde = gaussian_kde(norm_data, bw_method=bandwidth)
-        bw = round(kde.covariance_factor() * norm_data.std(ddof=1), 2)
+        bandwidth = round(kde.covariance_factor() * norm_data.std(ddof=1), 2)
     else:
         raise ValueError("bandwidth must be integer, float, or plug-in methods 'silverman' or 'scott'")
 
@@ -286,7 +289,7 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     y_values = kde(x_values)
 
     print('=======================================')
-    print('KDE bandwidth= ', bw)
+    print('KDE bandwidth = ', round(bandwidth, 2))
     print('=======================================')
 
     #make plot
@@ -365,7 +368,20 @@ def qq_plot(data, percent=2):
 
     fig.tight_layout()
 
-    return fig, ax
+    # Shapiro-Wilk test
+    W, p_value = shapiro(data)
+    print('=======================================')
+    print('Shapiro-Wilk test (lognormal):')
+    print('{:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
+    if p_value <= 0.05:
+        print('It looks like a lognormal distribution')
+        print('(⌐■_■)')
+    else:
+        print('It doesnt look like a lognormal distribution (p-value > 0.05)')
+        print('(╯°□°）╯︵ ┻━┻')
+    print('=======================================')
+
+    return None
 
 
 if __name__ == '__main__':

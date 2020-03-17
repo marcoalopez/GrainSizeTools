@@ -127,11 +127,13 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
         angle = np.arctan((y[index] - y[index - 1]) / (x[index] - x[index - 1]))
         volume = y[index - 1] + np.tan(angle) * (calc_vol - x[index - 1])
         if volume < 100.0:
-            print(' ')
+            print('=======================================')
             print('volume fraction (up to', calc_vol, 'microns) =', round(volume, 2), '%')
+            print('=======================================')
         else:
-            print(' ')
+            print('=======================================')
             print('volume fraction (up to', calc_vol, 'microns) =', 100, '%')
+            print('=======================================')
 
     # Create a text file (if apply) with the midpoints, class frequencies, and
     # cumulative volumes
@@ -148,15 +150,18 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
             df.to_csv(text_file, sep=';')
         else:
             raise ValueError('text file must be specified as .csv or .txt')
-        print(' ')
+        print('=======================================')
         print('The file {} was created' .format(text_file))
+        print('=======================================')
 
     # return data or figure (if apply)
     if return_data is True:
         return mid_points, freq3D
 
     elif return_data is False:
+        print('=======================================')
         print('bin size =', round(binsize, 2))
+        print('=======================================')
         return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
     else:
@@ -227,14 +232,14 @@ def calc_shape(diameters, class_range=(10, 20)):
     mid_points, frequencies = Saltykov(diameters, numbins=optimal_num_classes, return_data=True)
     optimal_params, sigma_err = fit_log(mid_points, frequencies, (shape, scale))
 
-    print(' ')
+    print('=======================================')
     print('OPTIMAL VALUES')
     print('Number of classes: {}' .format(optimal_num_classes))
     print('MSD (log-normal shape) = {msd:0.2f} ± {err:0.2f}'
           .format(msd=optimal_params[0], err=3 * sigma_err[0]))
     print('Geometric mean (scale) = {gmean:0.2f} ± {err:0.2f}'
           .format(gmean=optimal_params[1], err=3 * sigma_err[1]))
-    print(' ')
+    print('=======================================')
     # print(' Covariance matrix:\n', covm)
 
     # prepare data for the plot
@@ -507,7 +512,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
     fig.tight_layout()
 
-    return fig, (ax1, ax2)
+    return None
 
 
 def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
@@ -548,7 +553,7 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
 
     fig.tight_layout()
 
-    return fig, ax
+    return None
 
 
 if __name__ == '__main__':
