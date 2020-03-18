@@ -222,10 +222,10 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Lognormal shape (Multiplicative Standard Deviation) = {:0.2f}' .format(msd))
     print('============================================================================')
     print('Shapiro-Wilk test warnings:')
-    if p_value < 0.05:
+    if p_value < 0.1:
         print('Data is not normally distributed!')
         print('Normality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
-    elif p_value2 < 0.05:
+    elif p_value2 < 0.1:
         print('Data is not lognormally distributed!')
         print('Lognormality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W2, p_value2))
     else:
