@@ -4,8 +4,8 @@
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) estimating average grain size in polycrystalline materials, (2) characterizing the distribution of grain sizes (either from apparent distributions or approximating 3D grain size distributions via stereology), and (3) estimating differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
-**Latest release: v2.0.3**  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
-**Date of the latest release: 2019/04/22**  
+**Latest stable release: v2.0.3**  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
+**Date of the latest stable release: 2019/04/22**  
 **IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.**
 
 
@@ -81,19 +81,8 @@ https://sourceforge.net/projects/grainsizetools/
 
 ## Citation guidelines
 
-In case you need references, the following are available:
-
 ***Script reference***   
 Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
-
-***Frequency peak apparent grain size based on the Gaussian kernel density estimator***  
-Lopez-Sanchez MA and Llana-Fúnez S (2015) An evaluation of different measures of dynamically recrystallized grain size for paleopiezometry or paleowattmetry studies. *Solid Earth* 6, 475-495. http://doi.org/10.5194/se-6-475-2015
-
-***Two-step method***  
-Lopez-Sanchez MA and Llana-Fúnez (2016) An extension of the Saltykov method to quantify 3D grain size distributions in mylonites. *Journal of Structural Geology*, 93, 149-161. http://doi.org/10.1016/j.jsg.2016.10.008
-
-***Saltykov method***  
-The procedure implemented in the GrainSizeTools script is partially based on the general formulation provided in Sahagian and Proussevitch (1998) *J. Volcanol. Geotherm. Res.* 84, 173–196. [http://doi.org/10.1016/S0377-0273(98)00043-2](http://doi.org/10.1016/S0377-0273(98)00043-2), but taken the midpoints of the classes instead of the left edges as described in the Appendix A in Lopez-Sanchez and Llana-Fúnez (2016) http://doi.org/10.5194/se-6-475-2015
 
 ## License
 

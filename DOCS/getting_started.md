@@ -27,7 +27,9 @@ module template imported
 ===================================================================================
 Welcome to GrainSizeTools script v3.0
 ===================================================================================
-GrainSizeTools is a free open-source cross-platform script to visualize and characterize the grain size in polycrystalline materials and estimate differential stress via paleopizometers.
+GrainSizeTools is a free open-source cross-platform script to visualize and
+characterize the grain size in polycrystalline materials and estimate
+differential stress via paleopizometers.
 
 Get a list of the main methods using: get.function_list()
 ```
@@ -69,7 +71,8 @@ Pandas' reading methods give you a lot of control over how a file is read. To ke
 sep or delimier
 # Delimiter to use.
 header
-# Row number(s) to use as the column names. By default it takes the first row as the column names (header=0). If there is no columns names in the file you must set header=None
+# Row number(s) to use as the column names. By default it takes the first row as the column names (header=0).
+# If there is no columns names in the file you must set header=None
 skiprows
 # Number of lines to skip (int) at the start of the file
 na_filter
