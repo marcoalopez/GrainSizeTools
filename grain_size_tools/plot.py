@@ -373,11 +373,11 @@ def qq_plot(data, percent=2):
     print('=======================================')
     print('Shapiro-Wilk test (lognormal):')
     print('{:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
-    if p_value >= 0.1:
+    if p_value >= 0.05:
         print('It looks like a lognormal distribution')
         print('(⌐■_■)')
     else:
-        print('It doesnt look like a lognormal distribution (p-value > 0.1)')
+        print('It doesnt look like a lognormal distribution (p-value > 0.05)')
         print('(╯°□°）╯︵ ┻━┻')
     print('=======================================')
 

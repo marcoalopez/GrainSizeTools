@@ -136,9 +136,10 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
 
     # check and remove for negative values
     if data[data < 0].size > 0:
-        print('I found negative and/or zero values in your dataset!')
+        print('Warning: I found negative and/or zero values in your dataset!')
         data = data[data > 0]
         print('Negative/zero values automatically removed')
+        print('')
 
     std = np.std(data)
 
@@ -180,7 +181,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Geometric mean = {:0.2f} microns' .format(gmean))
         print('Confidence interval at {:0.1f} %' .format(ci_level * 100))
         print('{} method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-        .format(m, low_ci, high_ci, lower_cvar, upper_cvar, length))
+              .format(m, low_ci, high_ci, lower_cvar, upper_cvar, length))
 
     if 'median' in avg:
         median, iqr, (low_ci, high_ci), length = averages.median(data, ci_level)
@@ -193,7 +194,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Median = {:0.2f} microns' .format(median))
         print('Confidence interval at {:0.1f} %' .format(ci_level * 100))
         print('robust method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-        .format(low_ci, high_ci, lower_cvar, upper_cvar, length))
+              .format(low_ci, high_ci, lower_cvar, upper_cvar, length))
 
     if 'mode' in avg:
         __, mode, __, bw = averages.freq_peak(data, bandwidth, precision)
@@ -222,14 +223,12 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Lognormal shape (Multiplicative Standard Deviation) = {:0.2f}' .format(msd))
     print('============================================================================')
     print('Shapiro-Wilk test warnings:')
-    if p_value < 0.1:
+    if p_value < 0.05:
         print('Data is not normally distributed!')
         print('Normality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
-    elif p_value2 < 0.1:
+    if p_value2 < 0.05:
         print('Data is not lognormally distributed!')
         print('Lognormality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W2, p_value2))
-    else:
-        print('None')
     print('============================================================================')
 
     return None
