@@ -31,8 +31,8 @@
 
 
 def quartz(piezometer=None):
-    """ Data base for quartz piezometers. It returns the material parameter, the exponent
-    and a warn with the "average" grain size measure to use.
+    """ Data base for quartz piezometers. It returns the material parameter,
+    the exponent and a warn with the "average" grain size measure to use.
 
     Parameter
     ---------
@@ -122,7 +122,7 @@ def quartz(piezometer=None):
 
     elif piezometer == 'Twiss':
         B, m = 550, 0.68
-        warn = 'Ensure that you entered the apparent grain size as the mean grain size!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmeic mean grain size!'
         linear_interceps = True
         correction_factor = 1.5
 
@@ -134,8 +134,8 @@ def quartz(piezometer=None):
 
 
 def calcite(piezometer=None):
-    """ Data base for calcite piezometers. It returns the material parameter, the exponent
-    parameter and a warn with the "average" grain size measure to be use.
+    """ Data base for calcite piezometers. It returns the material parameter,
+    the exponent parameter and a warn with the "average" grain size measure to be use.
 
     Parameter
     ---------
@@ -167,31 +167,31 @@ def calcite(piezometer=None):
 
     elif piezometer == 'Rutter_SGR':
         B, m = 812.83, 0.88
-        warn = 'Ensure that you entered the apparent grain size as the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Rutter_GBM':
         B, m = 2691.53, 0.89
-        warn = 'Ensure that you entered the apparent grain size as the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Barnhoorn':
         B, m = 537.03, 0.82
-        warn = 'Ensure that you entered the apparent grain size as the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Platt_Bresser':
         B, m = 538.40, 0.82
-        warn = 'Ensure that you entered the apparent grain size as the RMS mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square in linear scale!'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Valcke':
         B, m = 1467.92, 1.67
-        warn = 'Ensure that you entered the apparent grain size the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size the arithmetic mean in linear scale!'
         linear_interceps = False
         correction_factor = False
 
@@ -203,8 +203,8 @@ def calcite(piezometer=None):
 
 
 def olivine(piezometer=None):
-    """ Data base for calcite piezometers. It returns the material parameter, the exponent
-    parameter and a warn with the "average" grain size measure to be use.
+    """ Data base for calcite piezometers. It returns the material parameter,
+    the exponent parameter and a warn with the "average" grain size measure to be use.
 
     Parameter
     ---------
@@ -241,13 +241,13 @@ def olivine(piezometer=None):
 
     elif piezometer == 'Jung_Karato':
         B, m = 5461.03, 0.85
-        warn = 'Ensure that you entered the apparent grain size as the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
         linear_interceps = True
         correction_factor = 1.5
 
     elif piezometer == 'VanderWal_wet':
         B, m = 4250, 0.75
-        warn = 'Ensure that you entered the apparent grain size as the mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
         linear_interceps = True
         correction_factor = 1.2
 

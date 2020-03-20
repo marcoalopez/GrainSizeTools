@@ -73,18 +73,18 @@ def conf_interval(data, confidence=0.95):
     """
 
     dof = len(data) - 1
-    sample_mean = np.mean(data)
+    amean = np.mean(data)
     std_err = sem(data)  # Standard error of the mean SD / sqrt(n)
-    low, high = t.interval(confidence, dof, sample_mean, std_err)
-    err = high - sample_mean
+    low, high = t.interval(confidence, dof, amean, std_err)
+    err = high - amean
 
     print(' ')
     print('Confidence set at {} %' .format(confidence * 100))
-    print('Mean = {mean:0.2f} ± {err:0.2f}' .format(mean=sample_mean, err=err))
+    print('Mean = {mean:0.2f} ± {err:0.2f}' .format(mean=amean, err=err))
     print('Max / min = {max:0.2f} / {min:0.2f}' .format(max=high, min=low))
-    print('Coefficient of variation = {:0.1f} %' .format(100 * err / sample_mean))
+    print('Coefficient of variation = {:0.1f} %' .format(100 * err / amean))
 
-    return sample_mean, err, (low, high)
+    return amean, err, (low, high)
 
 
 def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
@@ -230,6 +230,100 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Data is not lognormally distributed!')
         print('Lognormality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W2, p_value2))
     print('============================================================================')
+
+    return None
+
+
+def calc_diffstress(grain_size, phase, piezometer, correction=False):
+    """ Apply different piezometric relations to estimate the differential
+    stress from average apparent grain sizes. The piezometric relation has
+    the following general form:
+
+    df = B * grain_size**-m
+
+    where df is the differential stress in [MPa], B is an experimentally
+    derived parameter in [MPa micron**m], grain_size is the aparent grain
+    size in [microns], and m is an experimentally derived exponent.
+
+    Parameters
+    ----------
+    grain_size : positive scalar
+        the apparent grain size in microns
+
+    phase : string {'quartz', 'olivine', 'calcite', or 'feldspar'}
+        the mineral phase
+
+    piezometer : string
+        the piezometric relation to be use
+
+    correction : bool, default False
+        correct the stress values for plane stress (Paterson and Olgaard, 2000)
+
+     References
+    -----------
+    Paterson and Olgaard (2000) https://doi.org/10.1016/S0191-8141(00)00042-0
+    de Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
+
+    Call functions
+    --------------
+    piezometers.quartz
+    piezometers.olivine
+    piezometers.calcite
+    piezometers.albite
+
+    Assumptions
+    -----------
+    - Independence of temperature (excepting Shimizu piezometer), total strain,
+    flow stress, and water content.
+    - Recrystallized grains are equidimensional or close to equidimensional when
+    using a single section.
+    - The piezometer relations requires entering the grain size as "average"
+    apparent grain size values calculated using equivalent circular diameters
+    (ECD) with no stereological correction. See documentation for more details.
+    - When required, the grain size value will be converted from ECD to linear
+    intercept (LI) using a correction factor based on de Hoff and Rhines (1968):
+    LI = (correction factor / sqrt(4/pi)) * ECD
+    - Stress estimates can be corrected from uniaxial compression (experiments)
+    to plane strain (nature) multiplying the paleopiezometer by 2/sqrt(3)
+    (Paterson and Olgaard, 2000)
+
+    Returns
+    -------
+    The differential stress in MPa (a float)
+    """
+
+    if phase == 'quartz':
+        B, m, warn, linear_interceps, correction_factor = piezometers.quartz(piezometer)
+    elif phase == 'olivine':
+        B, m, warn, linear_interceps, correction_factor = piezometers.olivine(piezometer)
+    elif phase == 'calcite':
+        B, m, warn, linear_interceps, correction_factor = piezometers.calcite(piezometer)
+    elif phase == 'feldspar':
+        B, m, warn, linear_interceps, correction_factor = piezometers.feldspar(piezometer)
+    else:
+        raise ValueError('Phase name misspelled. Please choose between valid mineral names')
+
+    # Special cases (convert from ECD to linear intercepts)
+    if linear_interceps is True:
+        grain_size = (correction_factor / (np.sqrt(4 / np.pi))) * grain_size
+
+    # Estimate differential stress
+    if piezometer == 'Shimizu':
+        T = float(input("Please, enter the temperature [in C degrees] during deformation: "))
+        diff_stress = B * grain_size**(-m) * np.exp(698 / (T + 273.15))
+        if correction is True:
+            diff_stress = diff_stress * 2 / np.sqrt(3)
+        print(' ')
+        print('differential stress = {:0.2f} MPa' .format(diff_stress))
+        print(warn)
+    else:
+        diff_stress = B * grain_size**-m
+        if correction is True:
+            diff_stress = diff_stress * 2 / np.sqrt(3)
+        print(' ')
+        print('differential stress = {:0.2f} MPa' .format(diff_stress))
+        print(warn)
+        print(' ')
 
     return None
 
