@@ -1,6 +1,6 @@
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v3.0
+Welcome to GrainSizeTools script v3.0beta1
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials and estimate differential stress via

@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.0                                                               #
+#    Version 3.0beta1                                                          #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -377,7 +377,7 @@ def qq_plot(data, percent=2):
         print('It looks like a lognormal distribution')
         print('(⌐■_■)')
     else:
-        print('It doesnt look like a lognormal distribution (p-value > 0.05)')
+        print('It doesnt look like a lognormal distribution (p-value < 0.05)')
         print('(╯°□°）╯︵ ┻━┻')
     print('=======================================')
 

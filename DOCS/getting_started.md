@@ -12,10 +12,10 @@ First of all, make sure you have the latest version of the GrainSizeTools script
 If you are in Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open```. The script will appear in the code editor as shown in figure 1 and then run the script clicking on the "play" green icon in the tool bar (or go to ```Run>Run file``` in the menu bar). If you are using jupyter notebooks, you should run the script as follows:
 
 ```python
-%run .../GrainSizeTools_script.py  # substitute ...with the file path
+%run .../GrainSizeTools_script.py  # substitute ...with the full file path
 ```
 
-The following text will appear in the console or below:
+The following text will appear (in the console):
 
 ```
 module plot imported
@@ -25,7 +25,7 @@ module piezometers imported
 module template imported
 
 ===================================================================================
-Welcome to GrainSizeTools script v3.0
+Welcome to GrainSizeTools script v3.0beta1
 ===================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and
 characterize the grain size in polycrystalline materials and estimate
