@@ -5,6 +5,8 @@ Getting Started: A step-by-step tutorial
 
 [TOC]
 
+---
+
 ## Open and running the script
 
 First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two options here: (1) work with the [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a powerful MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python; or (2) with [Jupyter notebooks](https://jupyter.org/) (Fig. 2), which is a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text. Make your choice and launch it.
@@ -49,7 +51,9 @@ runfile('C:/...grain_size_tools/GrainSizeTools_script.py', wdir='C:/.../grain_si
 get.functions_list()
 ```
 
+![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/function_list.png)
 
+---
 
 ## Reading and manipulating (tabular) data with Pandas
 
@@ -79,6 +83,8 @@ dataset = pd.read_table('DATA/data_set.txt')
 # show the DataFrame in the console
 dataset
 ```
+
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output.png?raw=true)
 
 Pandas' reading methods give you a lot of control over how a file is read. To keep things simple, the most commonly used arguments are listed below:
 
@@ -123,9 +129,9 @@ dataset['Area']  # select the column named 'Area'
 dataset['Area', 'diameters']  # select columns 'Area' and 'diameters'
 ```
 
-If the dataset imported does no contain the diameters of the grains but the sectional areas, we can estimate the apparent diameters using the equivalent circular diameter formula which is:
+If the dataset imported does no contain the diameters of the grains but the sectional areas, we can estimate the apparent diameters using the equivalent circular diameter (ECD) formula which is:
 
-$d = 2 \cdot \sqrt{areas / \pi}$
+ECD = 2 * √(area / π)
 
 and store them in a new column. For this, we write in the console:
 
@@ -136,7 +142,11 @@ dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)
 dataset.head()
 ```
 
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_diameters.png?raw=true)
+
 TODO
+
+---
 
 ## Grain size population characterization
 
@@ -191,7 +201,57 @@ By default, the ```summarize``` function returns:
 - The lognormal shape or MSD
 - A Shapiro-Wilk test warning indicating when the data deviates from normally and/or lognormally distributed (when p-value < 0.05).
 
+The ```sumarize()``` method contains different input parameters/arguments that we will commented on in turn:
 
+```python
+def summarize(data,
+              avg=('amean', 'gmean', 'median', 'mode'),
+              ci_level=0.95,
+              bandwidth='silverman',
+              precision=0.1):
+    """ Estimate different grain size statistics. This includes different means,
+    the median, the frequency peak grain size via KDE, the confidence intervals
+    using different methods, and the distribution features.
+
+    Parameters
+    ----------
+    data : array_like
+        the diameters (apparent or not) of the grains
+
+    avg : string, tuple or list. Optional
+        the averages to be estimated
+
+        | Types:
+        | 'amean' - arithmetic mean
+        | 'gmean' - geometric mean
+        | 'median' - median
+        | 'mode' - the kernel-based frequency peak of the distribution
+
+    ci_level : scalar between 0 and 1, optional
+        the certainty of the confidence interval (default = 0.95)
+
+    bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
+        the method to estimate the bandwidth or a scalar directly defining the
+        bandwidth. It uses the Silverman plug-in method by default.
+
+    precision : positive scalar or None, optional
+        the maximum precision expected for the "peak" kde-based estimator.
+        Default is None
+
+    Call functions
+    --------------
+    - amean, gmean, median, and freq_peak (from averages)
+
+    Examples
+    --------
+    >>> summarize(dataset['diameters'])
+    >>> summarize(dataset['diameters'], ci_level=0.99)
+    >>> summarize(np.log(dataset['diameters']), avg=('amean', 'median', 'mode'))
+```
+
+TODO
+
+---
 
 ## Visualizing the properties of the grain size distribution (the plot module)
 
@@ -217,7 +277,7 @@ plot.distribution(dataset['diameters'])
 
 *Figure X. The default distribution plot showing the histogram and the kernel density estimate (KDE) of the distribution and the location of the arithmetic and geometric means, the median, and the KDE-based mode.*
 
-Note that the methods returns a plot, the number of classes and the bin size of the histogram and the bandwidth (or the kernel) of the KDE. The ```plot.distribution()``` method contains different arguments/parameters/inputs that we will commented on in turn:
+Note that the methods returns a plot, the number of classes and the bin size of the histogram and the bandwidth (or the kernel) of the KDE. The ```plot.distribution()``` method contains different input parameters that we will commented on in turn:
 
 ```python
 def distribution(data,
@@ -296,7 +356,15 @@ plot.distribution(dataset['diameters'], plot='hist', binsize=10.5)
 
 The  ```avg``` parameter allows us to define which central tendency measure to show, either the arithmetic mean ```amean```, the geometric mean ```gmean``` means, the median ```median```, and/or the KDE-based mode ```mode```. All are displayed by default.
 
-Lastly, the parameter ``bandwidth`` allows you to define a method to estimate an optimal bandwidth to construct the KDE, either the ``'silverman'`` (the default) or the ``scott`` rules. You can also define your own bandwidth/kernel value by declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using over log-transformed grain sizes. 
+Lastly, the parameter ``bandwidth`` allows you to define a method to estimate an optimal bandwidth to construct the KDE, either the ``'silverman'`` (the default) or the ``scott`` rules. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using over log-transformed grain sizes. You can also define your own bandwidth/kernel value by declaring a positive scalar instead. For example:
+
+```python
+plot.distribution(dataset['diameters'], plot='kde', bandwidth=5.0)
+```
+
+Note, however, that the bandwidth affects the location of the KDE-based mode. For consistency, you should use the same method or bandwidth that you used when you used the ```summarize``` method.
+
+
 
 ### Plotting the area-weighted distribution
 
@@ -324,14 +392,20 @@ plot.area_weighted(dataset['diameters'], dataset['Area'])
 Sometimes we will need to test whether the data follows or deviates from a lognormal distribution. For example, to find out if the data set is suitable for applying the two-step stereological method or which confidence interval method is best for the arithmetic mean. The script use two methods to test whether the distribution of grain size follows a lognormal distribution. One is a visual method named [quantile-quantile (q-q) plots]([https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot](https://en.wikipedia.org/wiki/Q–Q_plot)) and the other is a quantitative test named the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro–Wilk_test). For this we use the GST function ```test_lognorm``` as follows :
 
 ```python
->>> test_lognorm(dataset['diameters'])
+plot.qq_plot(dataset['diameters'])
 
-# show output
+#output
+=======================================
+Shapiro-Wilk test (lognormal):
+0.99, 0.00 (test statistic, p-value)
+It doesnt look like a lognormal distribution (p-value < 0.05)
+(╯°□°）╯︵ ┻━┻
+=======================================
 ```
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_qqplot.png?raw=true)
 
-*Figure. q-q plot of the test dataset*
+*Figure X. q-q plot of the test dataset*
 
 Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values...TODO. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
 
@@ -342,6 +416,8 @@ In such case, the dataset is appropriate for using the two-step method or charac
 ### Normalized grain size distributions
 
 TODO
+
+---
 
 ## Differential stress estimate using piezometric relations (paleopiezometry)
 
@@ -472,7 +548,7 @@ Ensure that you entered the apparent grain size as the root mean square (RMS)!
 
 
 
-
+---
 
 ## Stereology (the stereology module)
 
