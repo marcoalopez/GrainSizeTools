@@ -3,9 +3,18 @@ Getting Started: A step-by-step tutorial
 
 > **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that this is a beta version and the documentation is still unfinished. If you find a bug or have any questions check the community guidelines. I would be glad to answer it (although it may take a while).**
 
-[TOC]
-
----
+- [Getting Started: A step-by-step tutorial](#getting-started--a-step-by-step-tutorial)
+  * [Open and running the script](#open-and-running-the-script)
+  * [Reading and manipulating (tabular) data with Pandas](#reading-and-manipulating--tabular--data-with-pandas)
+  * [Grain size population characterization](#grain-size-population-characterization)
+    + [Describing the dataset](#describing-the-dataset)
+  * [Visualizing the properties of the grain size distribution (the plot module)](#visualizing-the-properties-of-the-grain-size-distribution--the-plot-module-)
+    + [Plotting the area-weighted distribution](#plotting-the-area-weighted-distribution)
+    + [Testing lognormality](#testing-lognormality)
+    + [Normalized grain size distributions](#normalized-grain-size-distributions)
+  * [Differential stress estimate using piezometric relations (paleopiezometry)](#differential-stress-estimate-using-piezometric-relations--paleopiezometry-)
+  * [Stereology (the stereology module)](#stereology--the-stereology-module-)
+  
 
 ## Open and running the script
 
@@ -13,9 +22,9 @@ First of all, make sure you have the latest version of the GrainSizeTools (GST) 
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help window (upper right). This is a MATLAB-like IDE for Python. They also provide a variable explorer, a history log, MATLAB-like cells, code autocompletion, etc.*
 
-![]()
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Jupyter_lab.png?raw=true)
 
-*Figure 2. Jupyter Lab, a browser-based notebook that allows you to create documents that may contain live code, equations (using Latex), visualizations and narrative text* 
+*Figure 2. Jupyter Lab development environment, a browser-based notebook that allows you to create documents that may contain live code, equations (using Latex), visualizations and narrative text*.
 
 If you are in Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the tool bar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
 
@@ -40,11 +49,10 @@ Alternatively, if you are using a Jupyter notebook or want to call the GST scrip
 
 ```python
 # run the script in Jupyter notebook/lab
-%run C:/.../GrainSizeTools_script.py  # substitute ...with the full file path
+%run C:/.../GrainSizeTools_script.py  # substitute ... with the full file path
 
 # run the script in Spyder using a script or the console
-runfile('C:/...grain_size_tools/GrainSizeTools_script.py', wdir='C:/.../grain_size_tools')
-# wdir is the working directory
+runfile('C:/...grain_size_tools/GrainSizeTools_script.py', wdir='C:/.../grain_size_tools')  # wdir is the working directory
 ```
 
 ```python
@@ -247,6 +255,7 @@ def summarize(data,
     >>> summarize(dataset['diameters'])
     >>> summarize(dataset['diameters'], ci_level=0.99)
     >>> summarize(np.log(dataset['diameters']), avg=('amean', 'median', 'mode'))
+    """
 ```
 
 TODO
@@ -393,8 +402,8 @@ Sometimes we will need to test whether the data follows or deviates from a logno
 
 ```python
 plot.qq_plot(dataset['diameters'])
-
-#output
+```
+```
 =======================================
 Shapiro-Wilk test (lognormal):
 0.99, 0.00 (test statistic, p-value)
@@ -409,13 +418,17 @@ It doesnt look like a lognormal distribution (p-value < 0.05)
 
 Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values...TODO. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
 
-In such case, the dataset is appropriate for using the two-step method or characterize the population of apparent diameters using the multiplicative (geometric) standard deviation. To know more about this type of plot see https://serialmentor.com/dataviz/
+To know more about this type of plot see https://serialmentor.com/dataviz/
 
 
 
 ### Normalized grain size distributions
 
 TODO
+
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_normalized.png?raw=true)
+
+
 
 ---
 
