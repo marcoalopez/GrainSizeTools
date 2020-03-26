@@ -1,25 +1,29 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2019/09/08*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/03/26*
 
-[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) estimating average grain size in polycrystalline materials, (2) characterizing the distribution of grain sizes (either from apparent distributions or approximating 3D grain size distributions via stereology), and (3) estimating differential stress via paleopizometers. The script requires as the input the areas of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
+[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Characterizing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script requires as the input the diameters of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
-**Latest stable release: v2.0.3**  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
-**Date of the latest stable release: 2019/04/22**  
-**IMPORTANT! Versions 2.0+ are only compatible with Python 3.5 or higher.**
+**Latest stable release: v2.0.3**  
+**Date: 2019/04/22**  
+
+**NEW!**
+**Latest (beta) release: v3.0beta1** (still in development)  
+**Date: 2020/03/26**  
+See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0-beta.1
 
 
 ## Features at a glance
 
-- Extract data automatically from tabular-like files including txt, csv, or excel formats.
+- Import and manipulate tabular-like files including txt, csv, or excel formats.
 - Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the arithmetic, geometric, RMS and area-weighted means, median, and frequency peak ("mode") via Gaussian Kernel Density Estimator. Grain size can be represented in linear, logarithmic, and square root scales.
 - Estimate normalized apparent grain size distributions to compare between different grain size populations.
-- Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar.
+- Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar (others planned!)
 - Estimate robust confidence intervals using the student's *t*-Distribution
 - Include several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on population features.
 - Approximate the actual 3D grain size distribution from data collected in plane sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.
 - Approximate the lognormal shape of the 3D grain size distribution via the two-step method and characterize the shape using a single parameter (the MSD - *Multiplicative Standard Deviation*) .
-- Check lognormality using quantile-quantile plots (**new in v2.0.3!**)
+- Check lognormality using quantile-quantile plots and Shapiro-Wilk tests (**new in v3.0!**)
 - Ready-to-publish plots in bitmap or vector format (see screenshots below for examples).
 
 ## Download
@@ -81,7 +85,7 @@ https://sourceforge.net/projects/grainsizetools/
 
 ## Citation guidelines
 
-***Script reference***   
+***Script reference***  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
 Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
 
 ## License
