@@ -193,9 +193,13 @@ By default, the ```summarize``` function returns:
 
 
 
-## Visualizing the grain size distribution and testing lognormality (the plot module)
+## Visualizing the properties of the grain size distribution (the plot module)
 
-To visualize grain size distribution we will use the methods implemented in the module named ```plot```.  The main method is called ```plot.distribution()```. We will see a few examples of its use below:
+To visualize grain size distribution we will use the methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
+
+> 👉 If you write ``plot.`` and then press the tab key a menu will pop up with all the methods implemented in the plot module
+
+The main method of the module is ```plot.distribution()```. By default, this method allows to visualize the grain size population using the histogram and the kernel density estimate (KDE) as well as the location of the different averages in the distribution. To use it we invoke this function and pass as an argument the population of grain sizes as follows:
 
 ```python
 plot.distribution(dataset['diameters'])
@@ -213,7 +217,52 @@ plot.distribution(dataset['diameters'])
 
 *Figure X. The default distribution plot showing the histogram and the kernel density estimate (KDE) of the distribution and the location of the arithmetic and geometric means, the median, and the KDE-based mode.*
 
+Note that the methods returns a plot, the number of classes and the bin size of the histogram and the bandwidth (or the kernel) of the KDE. The ```plot.distribution()``` method contains different arguments/parameters/inputs that we will commented on in turn:
 
+```python
+def distribution(data,
+                 plot=('hist', 'kde'),
+                 avg=('amean', 'gmean', 'median', 'mode'),
+                 binsize='auto', bandwidth='silverman'):
+    """ Return a plot with the ditribution of (apparent or actual) grain sizes
+    in a dataset.
+
+    Parameters
+    ----------
+    data : array_like
+        the apparent diameters of the grains
+
+    plot : string, tuple or list
+        the type of plot, either histogram ('hist'), kernel density estimate
+        ('kde') or both ('hist', 'kde'). Default is both.
+
+    avg : string, tuple or list
+        the central tendency measures o show, either the arithmetic ('amean')
+        or geometric ('gmean') means, the median ('median'), and/or the
+        KDE-based mode ('mode'). Default all averages.
+
+    binsize : string or positive scalar, optional
+        If 'auto', it defines the plug-in method to calculate the bin size.
+        When integer or float, it directly specifies the bin size.
+        Default: the 'auto' method.
+
+        | Available plug-in methods:
+        | 'auto' (fd if sample_size > 1000 or Sturges otherwise)
+        | 'doane' (Doane's rule)
+        | 'fd' (Freedman-Diaconis rule)
+        | 'rice' (Rice's rule)
+        | 'scott' (Scott rule)
+        | 'sqrt' (square-root rule)
+        | 'sturges' (Sturge's rule)
+
+    bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
+        the method to estimate the bandwidth or a scalar directly defining the
+        bandwidth. It uses the Silverman plug-in method by default.
+    
+    ..."""
+```
+
+As we have just seen in the previous example, the only mandatory parameter is ```data``` which corresponds to the populations of diameters. The ``plot`` parameter allows you to define the method to visualize the population, either the histogram, the kernel density estimate or both (the default option). If we want to plot only the KDE or the histogram we do it as follows:
 
 
 ```python
@@ -225,8 +274,6 @@ plot.distribution(dataset['diameters'], plot='kde')
     =======================================
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution_kde.png?raw=true)
-
-
 
 ```python
 plot.distribution(dataset['diameters'], plot='hist', binsize='doane')
@@ -240,6 +287,16 @@ plot.distribution(dataset['diameters'], plot='hist', binsize='doane')
 
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution_hist.png?raw=true)
+
+In the example above using the histogram we passed as input the argument ```binsize```. This parameter allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of histograms. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule when using large datasets and the Sturges rule otherwise. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. You can also define a specific bin size if you pass as input a positive scalar, for example:
+
+```python
+plot.distribution(dataset['diameters'], plot='hist', binsize=10.5)
+```
+
+The  ```avg``` parameter allows us to define which central tendency measure to show, either the arithmetic mean ```amean```, the geometric mean ```gmean``` means, the median ```median```, and/or the KDE-based mode ```mode```. All are displayed by default.
+
+Lastly, the parameter ``bandwidth`` allows you to define a method to estimate an optimal bandwidth to construct the KDE, either the ``'silverman'`` (the default) or the ``scott`` rules. You can also define your own bandwidth/kernel value by declaring a positive scalar instead. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using over log-transformed grain sizes. 
 
 ### Plotting the area-weighted distribution
 
@@ -278,9 +335,13 @@ Sometimes we will need to test whether the data follows or deviates from a logno
 
 Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values...TODO. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
 
-In such case, the dataset is appropriate for using the two-step method or characterize the population of apparent diameters using the multiplicative (geometric) standard deviation. To know more about this type of plots see https://serialmentor.com/dataviz/
+In such case, the dataset is appropriate for using the two-step method or characterize the population of apparent diameters using the multiplicative (geometric) standard deviation. To know more about this type of plot see https://serialmentor.com/dataviz/
 
 
+
+### Normalized grain size distributions
+
+TODO
 
 ## Differential stress estimate using piezometric relations (paleopiezometry)
 

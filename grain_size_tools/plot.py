@@ -45,7 +45,7 @@ def distribution(data,
 
     Parameters
     ----------
-    diameters : array_like
+    data : array_like
         the apparent diameters of the grains
 
     plot : string, tuple or list
