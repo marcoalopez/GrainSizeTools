@@ -126,7 +126,6 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     --------
     >>> summarize(dataset['diameters'])
     >>> summarize(dataset['diameters'], ci_level=0.99)
-    >>> summarize(dataset['diameters'], ci_method='GCI')
     >>> summarize(np.log(dataset['diameters']), avg=('amean', 'median', 'mode'))
 
     Returns
