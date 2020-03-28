@@ -24,7 +24,7 @@ First of all, make sure you have the latest version of the GrainSizeTools (GST) 
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Jupyter_lab.png?raw=true)
 
-*Figure 2. Jupyter Lab development environment, a browser-based notebook that allows you to create documents that may contain live code, equations (using Latex), visualizations and narrative text*.
+*Figure 2. The Jupyter Lab development environment, a browser-based notebook that allows you to create documents that may contain live code, equations (using Latex), visualizations and narrative text*.
 
 If you are in Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the tool bar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
 
@@ -45,15 +45,11 @@ differential stress via paleopizometers.
 Get a list of the main methods using: get.function_list()
 ```
 
-Alternatively, if you are using a Jupyter notebook or want to call the GST script from Spyder using a script you should do it as follows:
+Alternatively, if you are using a Jupyter notebook you have an example in the link below:
 
-```python
-# run the script in Jupyter notebook/lab
-%run C:/.../GrainSizeTools_script.py  # substitute ... with the full file path
+https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/notebook_example.ipynb
 
-# run the script in Spyder using a script or the console
-runfile('C:/...grain_size_tools/GrainSizeTools_script.py', wdir='C:/.../grain_size_tools')  # wdir is the working directory
-```
+
 
 ```python
 get.functions_list()
