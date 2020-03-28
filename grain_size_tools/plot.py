@@ -39,7 +39,9 @@ from scipy.stats import norm, gaussian_kde, shapiro
 def distribution(data,
                  plot=('hist', 'kde'),
                  avg=('amean', 'gmean', 'median', 'mode'),
-                 binsize='auto', bandwidth='silverman'):
+                 binsize='auto',
+                 bandwidth='silverman',
+                 **fig_kw):
     """ Return a plot with the ditribution of (apparent or actual) grain sizes
     in a dataset.
 
@@ -75,6 +77,11 @@ def distribution(data,
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
 
+    **fig_kw :
+        additional keyword arguments to control the size (figsize) and
+        resolution (dpi) of the plot. Default figsize is (6.4, 4.8).
+        Default resolution is 100 dpi.
+
     Call functions
     --------------
     - gaussian_kde (from Scipy stats)
@@ -82,6 +89,7 @@ def distribution(data,
     Examples
     --------
     >>> distribution(data['diameters'])
+    >>> distribution(data['diameters'], figsize=(6.4, 4.8), dpi=300)
 
     Returns
     -------
@@ -89,7 +97,7 @@ def distribution(data,
     the location of the averages defined.
     """
 
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(**fig_kw)
 
     if 'hist' in plot:
         y_values, bins, __ = ax.hist(data,
@@ -171,7 +179,7 @@ def distribution(data,
 
     fig.tight_layout()
 
-    return None
+    return fig, ax
 
 
 def area_weighted(diameters, areas, binsize='auto'):
