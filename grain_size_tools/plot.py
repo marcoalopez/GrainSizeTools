@@ -32,7 +32,7 @@
 # import Python scientific modules
 import matplotlib.pyplot as plt
 import numpy as np
-from scipy.stats import norm, gaussian_kde, shapiro
+from scipy.stats import norm, gaussian_kde, shapiro, iqr
 
 
 # plotting funtions
@@ -182,8 +182,43 @@ def distribution(data,
     return fig, ax
 
 
-def area_weighted(diameters, areas, binsize='auto'):
-    """ Generate the area-weighted histogram"""
+def area_weighted(diameters, areas, binsize='auto', **fig_kw):
+    """ Generate an area-weighted histogram and returns different
+    area-weighted statistics.
+
+    Parameters
+    ----------
+    diameters : array_like
+        the apparent diameters of the grains
+
+    areas : array_like
+        the sectional areas of the grains
+
+    binsize : string or positive scalar, optional
+        If 'auto', it defines the plug-in method to calculate the bin size.
+        When integer or float, it directly specifies the bin size.
+        Default: the 'auto' method.
+
+        | Available plug-in methods:
+        | 'auto' (fd if sample_size > 1000 or Sturges otherwise)
+        | 'doane' (Doane's rule)
+        | 'fd' (Freedman-Diaconis rule)
+        | 'rice' (Rice's rule)
+        | 'scott' (Scott rule)
+        | 'sqrt' (square-root rule)
+        | 'sturges' (Sturge's rule)
+
+    **fig_kw :
+        additional keyword arguments to control the size (figsize) and
+        resolution (dpi) of the plot. Default figsize is (6.4, 4.8).
+        Default resolution is 100 dpi.
+
+
+    Examples
+    --------
+    >>> area_weighted(data['diameters'], data['Areas'])
+    >>> area_weighted(data['diameters'], data['Areas'], binsize='doane', dpi=300)
+    """
 
     # estimate weighted mean
     area_total = np.sum(areas)
@@ -205,9 +240,8 @@ def area_weighted(diameters, areas, binsize='auto'):
         area_sum = np.sum(areas[mask])
         cumulativeAreas[index] = round(area_sum, 1)
 
-    # get the the modal interval and the midpoint
+    # get the index of the modal interval
     getIndex = np.argmax(cumulativeAreas)
-    mode = bin_edges[getIndex] + (bin_edges[getIndex] + h) / 2.0
 
     print('=======================================')
     print('DESCRIPTIVE STATISTICS')
@@ -216,7 +250,6 @@ def area_weighted(diameters, areas, binsize='auto'):
     print('HISTOGRAM FEATURES')
     print('The modal interval is {left:0.2f} - {right:0.2f} microns' .format(left=bin_edges[getIndex],
                                                                              right=bin_edges[getIndex] + h))
-    print('Midpoint (of modal interval) = {:0.2f} microns' .format(mode))
     print('The number of classes are {}' .format(len(histogram)))
     if type(binsize) is str:
         print('The bin size is {bin:0.2f} according to the {rule} rule' .format(bin=h, rule=binsize))
@@ -228,7 +261,7 @@ def area_weighted(diameters, areas, binsize='auto'):
     maxValue = max(cumulativeAreasNorm)
 
     #make plot
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(**fig_kw)
 
     # figure aesthetics
     ax.bar(bin_edges, cumulativeAreasNorm, width=h,
@@ -247,10 +280,10 @@ def area_weighted(diameters, areas, binsize='auto'):
 
     fig.tight_layout()
 
-    return None
+    return fig, ax
 
 
-def normalized(data, avg='amean', bandwidth='silverman'):
+def normalized(data, avg='amean', bandwidth='silverman', **fig_kw):
     """Return a log-transformed normalized ditribution of the grain
     population. This is useful to compare grain size distributions
     beween samples with different average values.
@@ -259,31 +292,35 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     ----------
     data : array-like
         the dataset
+
     avg : str, optional
-        the normalization factor, either 'amean', 'median', or
-        'mode'. Default: 'amean'
-    bandwidth : str, optional
+        the normalization factor, either 'amean' or 'median'.
+        Default: 'amean'
+
+    bandwidth : str or scalar, optional
         the bandwidth of the KDE, by default 'silverman'
+
+    **fig_kw :
+        additional keyword arguments to control the size (figsize) and
+        resolution (dpi) of the plot. Default figsize is (6.4, 4.8).
+        Default resolution is 100 dpi.
     """
 
     data = np.log(data)
     amean = np.mean(data)
     median = np.median(data)
 
-    # normalize
+    # normalize the data
     if avg == 'amean':
         norm_factor = amean
         norm_data = data / norm_factor
     elif avg == 'median':
         norm_factor = median
         norm_data = data / median
-#    elif avg == 'mode':
-#        __, __, mode, __, __ = avrages.freq_peak(data, bandwidth)
-#        norm_data = data / mode
     else:
-        raise ValueError('Normalization factor has to be defined as amean, median, or mode')
+        raise ValueError("Normalization factor has to be defined as 'amean' or 'median'")
 
-    # estimate kde
+    # estimate KDE
     if isinstance(bandwidth, (int, float)):
         fixed_bw = bandwidth / np.std(norm_data, ddof=1)
         kde = gaussian_kde(norm_data, bw_method=fixed_bw)
@@ -296,12 +333,17 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     x_values = np.linspace(norm_data.min(), norm_data.max(), num=1000)
     y_values = kde(x_values)
 
+    # Provide details
     print('=======================================')
+    if avg == 'amean':
+        print('Normalized SD = {:0.3f}' .format(np.std(norm_data)))
+    if avg == 'median':
+        print('Normalized IQR = {:0.3f}' .format(iqr(norm_data)))
     print('KDE bandwidth = ', round(bandwidth, 2))
     print('=======================================')
 
     #make plot
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(**fig_kw)
 
     ax.plot(x_values, y_values,
             color='#2F4858')
@@ -328,9 +370,10 @@ def normalized(data, avg='amean', bandwidth='silverman'):
     return fig, ax
 
 
-def qq_plot(data, percent=2):
-    """ Plot quantile–quantile (q-q) plot to test whether the
-    the underlying distribution follows a lognormal distribution.
+def qq_plot(data, percent=2, **fig_kw):
+    """ Test whether the underlying distribution follows a lognormal
+    distribution using a quantile–quantile (q-q) plot and a Shapiro-
+    Wilk test.
 
     Parameters
     ----------
@@ -342,7 +385,7 @@ def qq_plot(data, percent=2):
 
     Call functions
     --------------
-    probplot from scipy's stats
+    shapiro from scipy's stats
     """
 
     data = np.sort(np.log(data))
@@ -358,7 +401,7 @@ def qq_plot(data, percent=2):
     min_val, max_val = theoretical_data.min(), theoretical_data.max()
 
     # make the plot
-    fig, ax = plt.subplots()
+    fig, ax = plt.subplots(**fig_kw)
 
     ax.plot([min_val, max_val], [min_val, max_val],
             '-',
