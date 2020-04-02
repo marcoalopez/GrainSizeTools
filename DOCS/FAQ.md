@@ -19,8 +19,8 @@ That depends on your target and your dataset. First, if you want to use a specif
 
 - **Use the geometric mean**. It performs better than other central tendency measures in lognormal-like populations regardless of asymmetry and sample size.
 - The **median** is the preferred option when data contamination (outliers and/or observations from mixed distributions) could be an issue.
-- The arithmetic mean is the most backwards-compatible average due to their common use in the past. Theoretically, it outperforms the median in low to moderately skewed distributions (MSD < 1.7) as long the presence of extreme values (outliers) remains small. Note, however, that the estimation of error margins remains problematic in real samples (Lopez-Sanchez, 2020), and the geometric mean or the median is preferred.
-- The behaviour of the KDE-based mode is complex and, overall, it performs worse than other central tendency measures. This average is, however, the only one that remains robust in some specific situations that are likely to occur in grain size studies such as notable different resolution limits and size cut-offs.
+- The **arithmetic mean** is the most backwards-compatible average due to their common use in the past. Theoretically, it outperforms the median in low to moderately skewed distributions (MSD < 1.7) as long the presence of extreme values (outliers) remains small. The estimation of error margins for the arithmetic mean remains problematic in real samples (Lopez-Sanchez, 2020) and thus the geometric mean or the median is preferred.
+- The behaviour of the **KDE-based mode** is complex and, overall, it performs worse than other central tendency measures. This average is, however, the only one that remains robust in some specific situations that are likely to occur in grain size studies such as notable different resolution limits and size cut-offs.
 - **Avoid the use of root mean squared (RMS) or the area-weighted mean**, both perform poorly.
 
 More details [here](https://github.com/marcoalopez/marcoalopez.github.io/blob/master/docs/2020_JSG_SG_104042.pdf)

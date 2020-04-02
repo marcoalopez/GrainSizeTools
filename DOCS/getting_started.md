@@ -130,7 +130,6 @@ dataset.tail()  # show only the last rows
 
 # select and show a specific column of the dataset
 dataset['Area']  # select the column named 'Area'
-dataset['Area', 'diameters']  # select columns 'Area' and 'diameters'
 ```
 
 If the dataset imported does no contain the diameters of the grains but the sectional areas, we can estimate the apparent diameters using the equivalent circular diameter (ECD) formula which is:
@@ -383,7 +382,6 @@ plot.area_weighted(dataset['diameters'], dataset['Area'])
     =======================================
     HISTOGRAM FEATURES
     The modal interval is 40.85 - 44.26 microns
-    Midpoint (of modal interval) = 62.98 microns
     The number of classes are 46
     The bin size is 3.40 according to the auto rule
     =======================================
@@ -412,17 +410,29 @@ It doesnt look like a lognormal distribution (p-value < 0.05)
 
 *Figure X. q-q plot of the test dataset*
 
-Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values...TODO. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
+Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values, the test statistic and a p-value. The Shapiro-Wilk test, as put in GST script, considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
 
-To know more about this type of plot see https://serialmentor.com/dataviz/
+> To know more about the q-q plot see https://serialmentor.com/dataviz/
 
 
 
 ### Normalized grain size distributions
 
-TODO
+Standardized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of standardized distributions is that they allow comparison of whether or not the grain size distribution is similar, even when the average grain size between the different distributions differs. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, to facilitate the comparison, the standardized method shows the normalized distribution on a logarithmic scale based on e and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
+
+```python
+plot.normalized(dataset['diameters'], avg='amean')
+```
+```
+=======================================
+Normalized SD = 0.16
+KDE bandwidth =  0.04
+=======================================
+```
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_normalized.png?raw=true)
+
+*Figure X. KDE of the log-transformed grain size distribution normalized to the arithmetic mean (note that amean = 1).*
 
 
 
