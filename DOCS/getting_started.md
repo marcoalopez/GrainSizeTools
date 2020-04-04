@@ -49,7 +49,7 @@ Alternatively, if you are using a Jupyter notebook you have an example in the li
 
 https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/notebook_example.ipynb
 
-
+As indicated in the welcome message, we can get a list of the main methods at anytime by using:
 
 ```python
 get.functions_list()
@@ -76,7 +76,7 @@ pd.read_clipboard()    # read text from clipboard (copy-paste)
 
 For other supported file types see https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html
 
-The only mandatory argument for the reading methods (except in the case of "read_clipboard") is to set the path  (local or URL) where the file to be imported is located. For example:
+The only mandatory argument for the reading methods (except in the case of "read_clipboard") is to set the path  (local or URL) with the location of the file to be imported. For example:
 
 
 ```python
@@ -97,7 +97,11 @@ sep or delimier  # Delimiter to use.
 header  # Row number(s) to use as the column names. By default it takes the first row as the column names (header=0). If there is no columns names in the file you must set header=None
 skiprows  # Number of lines to skip at the start of the file (an integer).
 na_filter  # Detect missing value markers. False by default.
+
+
 ```
+
+> more details here: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
 An example might be:
 
@@ -105,10 +109,12 @@ An example might be:
 dataset = pd.read_csv('data_set.csv', sep=';', skiprows=5, na_filter=True)
 ```
 
-To get the path of the file through a file selection dialog instead of writing it, GrainSizeTools has the function ```get_filepath()```. This can be used in two ways:
+where the delimiter is set to ``;``, the first five lines of the text file are ignored, and missing values are handled during import.
+
+The GST script includes a method named ```get_filepath()``` to get the path of a file through a file selection dialog instead of writing it. This can be used in two ways:
 
 ```python
-# store the path in a variable named filepath and then use it when calling the read method
+# store the path in a variable (here named filepath) and then use it when calling the read method
 filepath = get_filepath()
 dataset = pd.read_csv(filepath, sep=';')
 
@@ -118,14 +124,14 @@ dataset = pd.read_csv(get_filepath(), sep=';')
 
 ***Manipulating tabular data***
 
-When importing a dataset, the Pandas library creates what is called a *dataframe* which for simplicity is just an “object” containing tabular data. For visualizing the data you can use the variable explorer in Spyder or write the variable that contains the dataframe in the console and press enter. For example:
+When importing a dataset, the Pandas library creates what is called a *dataframe*, which for simplicity is just an “object” containing tabular data. For visualizing the data, you can use the variable explorer in Spyder or directly calling the name of the variable that contains the dataframe in the console and press enter. For example:
 
 ```python
-# visualize the data (in the Spyder console or a Jupyter notebook)
+# visualize the data (in the Spyder console or in a Jupyter notebook cell)
 dataset
 
 # Alternatively
-dataset.head()  # show only the first rows
+dataset.head()  # show only the first rows, you can define the number of lines whithin the parentheses
 dataset.tail()  # show only the last rows
 
 # select and show a specific column of the dataset
@@ -147,15 +153,19 @@ dataset.head()
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_diameters.png?raw=true)
 
-TODO
+> 👉 Note that we define the square root and pi as ``np.sqrt`` and ``np.pi``. In this case, ``np.`` stems for numerical Python, a basic package for scientific computing with Python, and the word after the dot the method or scientific variables to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
+
+
 
 ---
+
+
 
 ## Grain size population characterization
 
 ### Describing the dataset
 
-First we are going to generate descriptive statistics to characterize the grain size population. For this, we use the GST function ```summarize``` and pass the population of diameters:
+First we are going to generate descriptive statistics to characterize the grain size population. For this, we use the GST function ```summarize``` and pass as input the population of diameters:
 
 
 ```python
@@ -200,11 +210,11 @@ By default, the ```summarize``` function returns:
 - Different **central tendency estimators** ("averages") including by default the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
 - The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region.
 - The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features (Lopez-Sanchez, 2020). For more details on how the methods are chosen see TODO.
-- Two dispersion measures of the population: the standard deviation and the interquartile range.
-- The lognormal shape or MSD
+- Two dispersion measures of the population: the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
+- The shape of the lognormal distribution using the multiplicative standard deviation or MSD
 - A Shapiro-Wilk test warning indicating when the data deviates from normally and/or lognormally distributed (when p-value < 0.05).
 
-The ```sumarize()``` method contains different input parameters/arguments that we will commented on in turn:
+The ```sumarize()``` method contains different input parameters/arguments that we will commented on in turn. The head  of the function looks like this in the script: 
 
 ```python
 def summarize(data,
@@ -255,7 +265,11 @@ def summarize(data,
 
 TODO
 
+
+
 ---
+
+
 
 ## Visualizing the properties of the grain size distribution (the plot module)
 
@@ -263,7 +277,7 @@ To visualize grain size distribution we will use the methods implemented in the 
 
 > 👉 If you write ``plot.`` and then press the tab key a menu will pop up with all the methods implemented in the plot module
 
-The main method of the module is ```plot.distribution()```. By default, this method allows to visualize the grain size population using the histogram and the kernel density estimate (KDE) as well as the location of the different averages in the distribution. To use it we invoke this function and pass as an argument the population of grain sizes as follows:
+The main method of the module is ```plot.distribution()```. By default, this method allows to visualize the grain size population using the histogram and/or the kernel density estimate (KDE) as well as the location of the different averages in the distribution. To use it we invoke this function and pass as an argument the population of grain sizes as follows:
 
 ```python
 plot.distribution(dataset['diameters'])
@@ -281,7 +295,7 @@ plot.distribution(dataset['diameters'])
 
 *Figure X. The default distribution plot showing the histogram and the kernel density estimate (KDE) of the distribution and the location of the arithmetic and geometric means, the median, and the KDE-based mode.*
 
-Note that the methods returns a plot, the number of classes and the bin size of the histogram and the bandwidth (or the kernel) of the KDE. The ```plot.distribution()``` method contains different input parameters that we will commented on in turn:
+Note that the methods returns a plot, the number of classes and bin size of the histogram, and the bandwidth (or kernel) of the KDE. The ```plot.distribution()``` method contains different input parameters that we will commented on in turn:
 
 ```python
 def distribution(data,
@@ -352,13 +366,13 @@ plot.distribution(dataset['diameters'], plot='hist', binsize='doane')
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution_hist.png?raw=true)
 
-In the example above using the histogram we passed as input the argument ```binsize```. This parameter allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of histograms. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule when using large datasets and the Sturges rule otherwise. Other available rules are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. You can also define a specific bin size if you pass as input a positive scalar, for example:
+In the example above using the histogram we passed as input the argument ```binsize```. This parameter allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of histograms. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule when using large datasets and the Sturges rule otherwise. Other available plug-in methods are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. You can also define an ad-hoc bin size if you pass as input a positive scalar, for example:
 
 ```python
 plot.distribution(dataset['diameters'], plot='hist', binsize=10.5)
 ```
 
-The  ```avg``` parameter allows us to define which central tendency measure to show, either the arithmetic mean ```amean```, the geometric mean ```gmean``` means, the median ```median```, and/or the KDE-based mode ```mode```. All are displayed by default.
+The  ```avg``` parameter allows us to define which central tendency measure to show, either the arithmetic mean ```amean```, the geometric mean ```gmean``` means, the median ```median```, and/or the KDE-based mode ```mode```. By default, all averages are displayed.
 
 Lastly, the parameter ``bandwidth`` allows you to define a method to estimate an optimal bandwidth to construct the KDE, either the ``'silverman'`` (the default) or the ``scott`` rules. The ``'silverman'`` and the ``'scott'`` rules, are both optimized for normal-like distributions, so they perform better when using over log-transformed grain sizes. You can also define your own bandwidth/kernel value by declaring a positive scalar instead. For example:
 
@@ -366,11 +380,13 @@ Lastly, the parameter ``bandwidth`` allows you to define a method to estimate an
 plot.distribution(dataset['diameters'], plot='kde', bandwidth=5.0)
 ```
 
-Note, however, that the bandwidth affects the location of the KDE-based mode. For consistency, you should use the same method or bandwidth that you used when you used the ```summarize``` method.
+Note, however, that the bandwidth affects the location of the KDE-based mode. For consistency, you should use the same method or bandwidth used when calling the ```summarize``` method.
 
 
 
 ### Plotting the area-weighted distribution
+
+In case you want to plot the area-weighted distribution of grain sizes you can use:
 
 ```python
 plot.area_weighted(dataset['diameters'], dataset['Area'])
@@ -389,6 +405,10 @@ plot.area_weighted(dataset['diameters'], dataset['Area'])
 
 
 ![png](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_area_weighted.png?raw=true)
+
+*Figure X. The area-weighted apparent grain size distribution and the location of the area-weighted mean*
+
+TODO
 
 ### Testing lognormality
 
@@ -412,7 +432,7 @@ It doesnt look like a lognormal distribution (p-value < 0.05)
 
 Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values, the test statistic and a p-value. The Shapiro-Wilk test, as put in GST script, considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
 
-> To know more about the q-q plot see https://serialmentor.com/dataviz/
+> 👉 To know more about the q-q plot see https://serialmentor.com/dataviz/
 
 
 
