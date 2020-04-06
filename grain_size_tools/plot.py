@@ -100,6 +100,8 @@ def distribution(data,
     fig, ax = plt.subplots(**fig_kw)
 
     if 'hist' in plot:
+        if isinstance(binsize, (int, float)):
+            binsize = int(np.ceil((data.max() - data.min()) / binsize))
         y_values, bins, __ = ax.hist(data,
                                      bins=binsize,
                                      range=(data.min(), data.max()),
@@ -109,7 +111,7 @@ def distribution(data,
                                      alpha=0.7)
         print('=======================================')
         print('Number of classes = ', len(bins) - 1)
-        print('binsize = ', round(bins[1], 2))
+        print('binsize = ', round(bins[1] - bins[0], 2))
         print('=======================================')
 
     if 'kde' in plot:

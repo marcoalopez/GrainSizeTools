@@ -219,6 +219,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     print('============================================================================')
     print('DISTRIBUTION FEATURES')
     print('============================================================================')
+    print('Sample size (n) = {}' . format(len(data)))
     print('Standard deviation = {:0.2f} (1-sigma)' .format(std))
     if 'median' in avg:
         print('Interquartile range (IQR) = {:0.2f}' .format(iqr))
