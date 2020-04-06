@@ -134,7 +134,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     """
 
     # check and remove for negative values
-    if data[data < 0].size > 0:
+    if data[data <= 0].size > 0:
         print('Warning: I found negative and/or zero values in your dataset!')
         data = data[data > 0]
         print('Negative/zero values automatically removed')
@@ -142,16 +142,22 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
 
     std = np.std(data)
 
-    if 'amean' in avg:
-        amean, __, ci, length = averages.amean(data, ci_level, method='ASTM')
-        if len(data) > 99:
-            __, __, (low_ci, high_ci), length2 = averages.amean(data, ci_level, method='mCox')
-        else:
-            __, __, (low_ci, high_ci), length2 = averages.amean(data, ci_level, method='GCI')
+    # estimate Shapiro-Wilk test to check normality and lognormality
+    W, p_value = shapiro(data)
+    W2, p_value2 = shapiro(np.log(data))
 
-        # estimate coefficients of variation
-        lower_cvar = 100 * (amean - low_ci) / amean
-        upper_cvar = 100 * (high_ci - amean) / amean
+    if 'amean' in avg:
+        if p_value2 < 0.05:
+            amean, __, ci, length = averages.amean(data, ci_level, method='ASTM')
+        else:
+            if len(data) > 99:
+                amean, __, (low_ci, high_ci), length2 = averages.amean(data, ci_level, method='mCox')
+            else:
+                amean, __, (low_ci, high_ci), length2 = averages.amean(data, ci_level, method='GCI')
+
+            # estimate coefficients of variation
+            lower_cvar = 100 * (amean - low_ci) / amean
+            upper_cvar = 100 * (high_ci - amean) / amean
 
         print(' ')
         print('============================================================================')
@@ -159,14 +165,16 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('============================================================================')
         print('Arithmetic mean = {:0.2f} microns' .format(amean))
         print('Confidence intervals at {:0.1f} %' .format(ci_level * 100))
-        print('ASTM method: {:0.2f} - {:0.2f}, (±{:0.1f}%), length = {:0.3f}'
-              .format(ci[0], ci[1], 100 * (ci[1] - amean) / amean, length))
-        if len(data) > 99:
-            print('mCox method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-                  .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+        if p_value2 < 0.05:
+            print('ASTM method: {:0.2f} - {:0.2f}, (±{:0.1f}%), length = {:0.3f}'
+                  .format(ci[0], ci[1], 100 * (ci[1] - amean) / amean, length))
         else:
-            print('GCI method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-                  .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+            if len(data) > 99:
+                print('mCox method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
+                      .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+            else:
+                print('GCI method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
+                      .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
 
     if 'gmean' in avg:
         m = 'CLT' if len(data) > 99 else 'bayes'  # choose optimal method to estimate confidence intervals
@@ -206,10 +214,6 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
             print('KDE bandwidth = {} ({} rule)' .format(bw, bandwidth))
         else:
             print('KDE bandwidth =', bandwidth)
-
-    # estimate Shapiro-Wilk test to check normality and lognormality
-    W, p_value = shapiro(data)
-    W2, p_value2 = shapiro(np.log(data))
 
     print(' ')
     print('============================================================================')

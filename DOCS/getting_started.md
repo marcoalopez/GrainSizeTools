@@ -153,7 +153,7 @@ dataset.head()
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_diameters.png?raw=true)
 
-> 👉 Note that we define the square root and pi as ``np.sqrt`` and ``np.pi``. In this case, ``np.`` stems for numerical Python, a basic package for scientific computing with Python, and the word after the dot the method or scientific variables to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
+> 👉 Note that we define the square root and pi as ``np.sqrt`` and ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot the method or scientific variables to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
 
 
 

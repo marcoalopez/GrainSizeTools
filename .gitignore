@@ -228,3 +228,8 @@ pip-log.txt
 *.ai
 twoStep_output.csv
 Saltykov_output.csv
+
+#############
+## Notebook checkpoints
+#############
+.ipynb_checkpoints
