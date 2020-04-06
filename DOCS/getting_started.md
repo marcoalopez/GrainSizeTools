@@ -45,7 +45,7 @@ differential stress via paleopizometers.
 Get a list of the main methods using: get.function_list()
 ```
 
-Alternatively, if you are using a Jupyter notebook you have an example in the link below:
+Alternatively, if you are using a Jupyter notebook you have an example in the link below (you can also find this example notebook on your hard drive inside the ``grain_size_tools`` folder):
 
 https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/notebook_example.ipynb
 
