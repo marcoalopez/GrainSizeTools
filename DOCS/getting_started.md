@@ -36,7 +36,7 @@ module piezometers imported
 module template imported
 
 ===================================================================================
-Welcome to GrainSizeTools script v3.0beta1
+Welcome to GrainSizeTools script v3.0beta2
 ===================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and
 characterize the grain size in polycrystalline materials and estimate
@@ -179,7 +179,6 @@ summarize(dataset['diameters'])
     Arithmetic mean = 34.79 microns
     Confidence intervals at 95.0 %
     ASTM method: 34.09 - 35.48, (±2.0%), length = 1.393
-    mCox method: 34.43 - 36.04 (-1.0%, +3.6%), length = 1.616
     ============================================================================
     Geometric mean = 30.10 microns
     Confidence interval at 95.0 %
@@ -196,6 +195,7 @@ summarize(dataset['diameters'])
     ============================================================================
     DISTRIBUTION FEATURES
     ============================================================================
+    Sample size (n) = 2661
     Standard deviation = 18.32 (1-sigma)
     Interquartile range (IQR) = 23.98
     Lognormal shape (Multiplicative Standard Deviation) = 1.75
@@ -203,6 +203,8 @@ summarize(dataset['diameters'])
     Shapiro-Wilk test warnings:
     Data is not normally distributed!
     Normality test: 0.94, 0.00 (test statistic, p-value)
+    Data is not lognormally distributed!
+    Lognormality test: 0.99, 0.00 (test statistic, p-value)
     ============================================================================
 
 By default, the ```summarize``` function returns:
@@ -210,7 +212,7 @@ By default, the ```summarize``` function returns:
 - Different **central tendency estimators** ("averages") including by default the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
 - The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region.
 - The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features (Lopez-Sanchez, 2020). For more details on how the methods are chosen see TODO.
-- Two dispersion measures of the population: the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
+- Two dispersion measures of the population: the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) (Bessel corrected) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
 - The shape of the lognormal distribution using the multiplicative standard deviation or MSD
 - A Shapiro-Wilk test warning indicating when the data deviates from normally and/or lognormally distributed (when p-value < 0.05).
 

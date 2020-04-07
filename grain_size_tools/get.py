@@ -1,13 +1,17 @@
 welcome = """
 ======================================================================================
-Welcome to GrainSizeTools script v3.0beta2
+Welcome to GrainSizeTools script
 ======================================================================================
 GrainSizeTools is a free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials and estimate differential stress via
 paleopizometers.
 
-Get a list of the main methods using: get.function_list()
+Version: v3.0beta3 (2020-05-xx)
+Documentation: https://marcoalopez.github.io/GrainSizeTools/
+
+Type get.function_list() to get a list of the main methods
 """
+
 info = """
 ======================================================================================
 List of main functions
@@ -28,7 +32,7 @@ stereology.calc_shape  -> approximate the lognormal shape of the actual distribu
 You can get more information about the methods using the following ways:
     (1) Typing help plus the name of the function e.g. help(summarize)
     (2) In the Spyder IDE by writing the name of the function and clicking Ctrl + I
-    (3) Visiting the script documentation at https://marcoalopez.github.io/GrainSizeTools/
+    (3) Visiting the script documentation at 
 """
 
 
