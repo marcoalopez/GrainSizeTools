@@ -35,14 +35,17 @@ module stereology imported
 module piezometers imported
 module template imported
 
-===================================================================================
-Welcome to GrainSizeTools script v3.0beta2
-===================================================================================
-GrainSizeTools is a free open-source cross-platform script to visualize and
-characterize the grain size in polycrystalline materials and estimate
-differential stress via paleopizometers.
+======================================================================================
+Welcome to GrainSizeTools script
+======================================================================================
+GrainSizeTools is a free open-source cross-platform script to visualize and characterize
+the grain size in polycrystalline materials and estimate differential stress via
+paleopizometers.
 
-Get a list of the main methods using: get.function_list()
+Version: v3.0beta3 (2020-05-xx)
+Documentation: https://marcoalopez.github.io/GrainSizeTools/
+
+Type get.function_list() to get a list of the main methods
 ```
 
 Alternatively, if you are using a Jupyter notebook you have an example in the link below (you can also find this example notebook on your hard drive inside the ``grain_size_tools`` folder):
@@ -124,36 +127,53 @@ dataset = pd.read_csv(get_filepath(), sep=';')
 
 ***Manipulating tabular data***
 
-When importing a dataset, the Pandas library creates what is called a *dataframe*, which for simplicity is just an “object” containing tabular data. For visualizing the data, you can use the variable explorer in Spyder or directly calling the name of the variable that contains the dataframe in the console and press enter. For example:
+When importing a dataset, the Pandas library creates what is called a *dataframe*, which for simplicity is just an “object” containing tabular data.
 
 ```python
-# visualize the data (in the Spyder console or in a Jupyter notebook cell)
-dataset
-
-# Alternatively
-dataset.head()  # show only the first rows, you can define the number of lines whithin the parentheses
-dataset.tail()  # show only the last rows
-
-# select and show a specific column of the dataset
-dataset['Area']  # select the column named 'Area'
+type(dataset)  # show the variable type
 ```
 
-If the dataset imported does no contain the diameters of the grains but the sectional areas, we can estimate the apparent diameters using the equivalent circular diameter (ECD) formula which is:
+```
+pandas.core.frame.DataFrame
+```
+
+For visualizing the data, you can use the variable explorer in Spyder or directly calling the name of the variable that contains the *dataframe* in the console and press enter as in the example above. ALternatively, if you want to view only a few rows fo the 
+
+```python
+# view the first rows, you can define the number of rows whithin the parentheses
+dataset.head()
+# view the last rows
+dataset.tail()
+```
+
+If you want to view or interact with one of the columns of the *dataframe*, you can do it as follows:
+
+```python
+# select a specific column of the dataset
+dataset['AR']  # select the column named 'AR'
+
+# select several columns
+dataset[['Area', 'Feret']]  # note the double brackets!
+```
+
+For example, the imported dataset does no contain the diameters of the grains but the sectional areas of the grains. Then, we can estimate the apparent diameters using the equivalent circular diameter (ECD) formula which is:
 
 ECD = 2 * √(area / π)
 
-and store them in a new column. For this, we write in the console:
+and store them in a new column. For this, we do:
 
 
 ```python
-# Estimate the equivalent circular diameters and store them in a column named 'diameters'
+# Estimate the ECDs and store them in a column named 'diameters'
 dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)
 dataset.head()
 ```
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_diameters.png?raw=true)
 
-> 👉 Note that we define the square root and pi as ``np.sqrt`` and ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot the method or scientific variables to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
+Now, you can see that a new column named diameters appear when displaying the dataset.
+
+> 👉 Note that we define the square root as ``np.sqrt`` and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot with the method or the scientific value to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
 
 
 
@@ -165,7 +185,7 @@ dataset.head()
 
 ### Describing the dataset
 
-First we are going to generate descriptive statistics to characterize the grain size population. For this, we use the GST function ```summarize``` and pass as input the population of diameters:
+To describe the properties of the grain size population we use the function ```summarize``` and pass as input the population of diameters:
 
 
 ```python
@@ -209,10 +229,10 @@ summarize(dataset['diameters'])
 
 By default, the ```summarize``` function returns:
 
-- Different **central tendency estimators** ("averages") including by default the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
+- Different **central tendency estimators** ("averages") including the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
 - The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region.
-- The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features (Lopez-Sanchez, 2020). For more details on how the methods are chosen see TODO.
-- Two dispersion measures of the population: the [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) (Bessel corrected) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
+- The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features ([Lopez-Sanchez, 2020](https://doi.org/10.1016/j.jsg.2020.104042)). For more details on how the methods are chosen see...TODO.
+- The sample size and two dispersion measures of the population: the (Bessel corrected) [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
 - The shape of the lognormal distribution using the multiplicative standard deviation or MSD
 - A Shapiro-Wilk test warning indicating when the data deviates from normally and/or lognormally distributed (when p-value < 0.05).
 
@@ -233,7 +253,7 @@ def summarize(data,
     data : array_like
         the diameters (apparent or not) of the grains
 
-    avg : string, tuple or list. Optional
+    avg : string, tuple or list, optional
         the averages to be estimated
 
         | Types:
@@ -251,7 +271,8 @@ def summarize(data,
 
     precision : positive scalar or None, optional
         the maximum precision expected for the "peak" kde-based estimator.
-        Default is None
+        Default is 0.1. Note that this has nothing to do with the
+        confidence intervals
 
     Call functions
     --------------
@@ -273,7 +294,7 @@ TODO
 
 
 
-## Visualizing the properties of the grain size distribution (the plot module)
+## Visualizing the grain size distribution and their properties (the plot module)
 
 To visualize grain size distribution we will use the methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
@@ -287,7 +308,7 @@ plot.distribution(dataset['diameters'])
 
     =======================================
     Number of classes =  45
-    binsize =  6.6
+    binsize =  3.41
     =======================================
     =======================================
     KDE bandwidth =  4.01
@@ -361,7 +382,7 @@ plot.distribution(dataset['diameters'], plot='hist', binsize='doane')
 
     =======================================
     Number of classes =  17
-    binsize =  12.22
+    binsize =  9.02
     =======================================
 
 
@@ -447,7 +468,7 @@ plot.normalized(dataset['diameters'], avg='amean')
 ```
 ```
 =======================================
-Normalized SD = 0.16
+Normalized SD = 0.165
 KDE bandwidth =  0.04
 =======================================
 ```
@@ -481,26 +502,55 @@ Available piezometers:
 The ``calc_diffstress`` requires entering three different inputs: (1) the apparent grain size, (2) the mineral phase, and (3) the piezometric relation. We provide some examples below:
 
 ```python
->>> calc_diffstress(grain_size=5.7, phase='quartz', piezometer='Stipp_Tullis')
+calc_diffstress(12, phase='quartz', piezometer='Twiss')
+```
+```
+============================================================================
+differential stress = 83.65 MPa
 
-differential stress = 169.16 MPa
-Ensure that you entered the apparent grain size as the root mean square (RMS)!
+INFO:
+Ensure that you entered the apparent grain size as the arithmeic mean grain size
+ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
+============================================================================
+```
 
->>> calc_diffstress(grain_size=35, phase='olivine', piezometer='VanderWal_wet')
+```python
+# you can correct the differential stress estimate for plane strain using
+# the correction proposed by Paterson and Olgaard (2000)
+calc_diffstress(12, phase='quartz', piezometer='Twiss', correction=True)
+```
 
-differential stress = 282.03 MPa
-Ensure that you entered the apparent grain size as the mean in linear scale!
+```
+============================================================================
+differential stress = 96.59 MPa
 
->>> calc_diffstress(grain_size=35, phase='calcite', piezometer='Rutter_SGR')
+INFO:
+Ensure that you entered the apparent grain size as the arithmeic mean grain size
+ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
+============================================================================
+```
 
-differential stress = 35.58 MPa
-Ensure that you entered the apparent grain size as the mean in linear scale!
+```python
+# you can use (numpy) arrays as the input instead of scalar values
+ameans = np.array([12.23, 13.71, 12.76, 11.73, 12.69, 10.67])
+estimates = calc_diffstress(ameans, phase='olivine', piezometer='VanderWal_wet')
+estimates
+```
+
+```
+============================================================================
+INFO:
+Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
+ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
+Differential stresses in MPa
+
+array([167.41, 153.66, 162.16, 172.73, 162.83, 185.45])
 ```
 
 It is key to note that different piezometers require entering **different apparent grain size averages** to provide meaningful estimates. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square (RMS) using equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v3.0+ and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific grain size average measured as equivalent circular diameters (ECD). The script will automatically approximate the ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation. Also, the script takes into account if the authors originally used a specific correction factor for the grain size. For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
 
 ```python
->>> help(calc_diffstress)
+>>> help(calc_diffstress)  # in Jupyterlab: ?calc_diffstress
 ```
 
 **Table 1.** Relation of piezometers (in alphabetical order) and the apparent grain size required to obtain meaningful differential stress estimates

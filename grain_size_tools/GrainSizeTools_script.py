@@ -98,7 +98,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     data : array_like
         the diameters (apparent or not) of the grains
 
-    avg : string, tuple or list. Optional
+    avg : string, tuple or list, optional
         the averages to be estimated
 
         | Types:
@@ -116,7 +116,8 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
 
     precision : positive scalar or None, optional
         the maximum precision expected for the "peak" kde-based estimator.
-        Default is None
+        Default is 0.1. Note that this has nothing to do with the
+        confidence intervals
 
     Call functions
     --------------
