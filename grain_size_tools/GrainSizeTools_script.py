@@ -317,17 +317,16 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
         diff_stress = B * grain_size**(-m) * np.exp(698 / (T + 273.15))
         if correction is True:
             diff_stress = diff_stress * 2 / np.sqrt(3)
-        print(' ')
-        print('differential stress = {:0.2f} MPa' .format(diff_stress))
-        print(warn)
+
     else:
         diff_stress = B * grain_size**-m
         if correction is True:
             diff_stress = diff_stress * 2 / np.sqrt(3)
-        print(' ')
-        print('differential stress = {:0.2f} MPa' .format(diff_stress))
-        print(warn)
-        print(' ')
+
+    print(' ')
+    print('differential stress = {:0.2f} MPa' .format(diff_stress))
+    print(warn)
+    print(' ')
 
     return None
 

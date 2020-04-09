@@ -552,10 +552,10 @@ It is key to note that different piezometers require entering **different appare
 
 **Table 3**. Parameters relating the average apparent size of dynamically recrystallized grains and differential stress in olivine
 
-|         Reference         |    phase     | DRX  | A†,‡  |  p†  |  B†,‡   |  m†  |
-| :-----------------------: | :----------: | :--: | :---: | :--: | :-----: | :--: |
-|  Jung and Karato (2001)   | olivine, wet | BLG  | 25704 | 1.18 | 5461.03 | 0.85 |
-| Van der Wal et al. (1993) | olivine, wet |      | 14800 | 1.33 |  4250   | 0.75 |
+|         Reference         |      phase       | DRX  | A†,‡  |  p†  |  B†,‡   |  m†  |
+| :-----------------------: | :--------------: | :--: | :---: | :--: | :-----: | :--: |
+|  Jung and Karato (2001)   |   olivine, wet   | BLG  | 25704 | 1.18 | 5461.03 | 0.85 |
+| Van der Wal et al. (1993) | olivine, dry/wet |      | 15000 | 1.33 | 1355.4  | 0.75 |
 
 
 

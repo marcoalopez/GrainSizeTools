@@ -222,8 +222,8 @@ def olivine(piezometer=None):
     grain size in microns calculated from equivalent circular diameters (ECD) with no
     stereological correction. The function will convert automatically this value to
     linear intercept (LI) grain size using the De Hoff and Rhines (1968) correction.
-    Since LI was originally multiplied by 1.2 (correction factor), the final relation
-    is: LI = (1.2 / sqrt(4/pi)) * ECD
+    It is assumed that LI was multiplied by 1.5 (correction factor), the final relation
+    is: LI = (1.5 / sqrt(4/pi)) * ECD
 
     - The piezometer of Jung and Karato (2001) requires entering the linear mean
     apparent grain size in microns calculated from equivalent circular diameters
@@ -246,10 +246,10 @@ def olivine(piezometer=None):
         correction_factor = 1.5
 
     elif piezometer == 'VanderWal_wet':
-        B, m = 4250, 0.75
+        B, m = 1355.4, 0.75
         warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
         linear_interceps = True
-        correction_factor = 1.2
+        correction_factor = 1.5
 
     else:
         olivine()
