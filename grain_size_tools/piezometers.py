@@ -80,49 +80,49 @@ def quartz(piezometer=None):
 
     elif piezometer == 'Stipp_Tullis':
         B, m = 669.0, 0.79
-        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Stipp_Tullis_BLG':
         B, m = 1264.1, 1.64
-        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Holyoke':
         B, m = 490.3, 0.79
-        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Holyoke_BLG':
         B, m = 883.9, 1.85
-        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Cross':
         B, m = 593.0, 0.71
-        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Cross_hr':
         B, m = 450.9, 0.63
-        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square (RMS)'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Shimizu':
         B, m = 352, 0.8
-        warn = 'Ensure that you entered the apparent grain size as the median in log(e) scale!'
+        warn = 'Ensure that you entered the apparent grain size as the median in log(e) scale'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Twiss':
         B, m = 550, 0.68
-        warn = 'Ensure that you entered the apparent grain size as the arithmeic mean grain size!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmeic mean grain size'
         linear_interceps = True
         correction_factor = 1.5
 
@@ -167,31 +167,31 @@ def calcite(piezometer=None):
 
     elif piezometer == 'Rutter_SGR':
         B, m = 812.83, 0.88
-        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Rutter_GBM':
         B, m = 2691.53, 0.89
-        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Barnhoorn':
         B, m = 537.03, 0.82
-        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Platt_Bresser':
         B, m = 538.40, 0.82
-        warn = 'Ensure that you entered the apparent grain size as the root mean square in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the root mean square in linear scale'
         linear_interceps = False
         correction_factor = False
 
     elif piezometer == 'Valcke':
         B, m = 1467.92, 1.67
-        warn = 'Ensure that you entered the apparent grain size the arithmetic mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size the arithmetic mean in linear scale'
         linear_interceps = False
         correction_factor = False
 
@@ -241,13 +241,13 @@ def olivine(piezometer=None):
 
     elif piezometer == 'Jung_Karato':
         B, m = 5461.03, 0.85
-        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = True
         correction_factor = 1.5
 
     elif piezometer == 'VanderWal_wet':
         B, m = 1355.4, 0.75
-        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = True
         correction_factor = 1.5
 
@@ -291,7 +291,7 @@ def feldspar(piezometer=None):
 
     elif piezometer == 'Post_Tullis_BLG':
         B, m = 433.4, 1.52
-        warn = 'Ensure that you entered the apparent grain size as the median in linear scale!'
+        warn = 'Ensure that you entered the apparent grain size as the median in linear scale'
         linear_interceps = True
         correction_factor = 1.0
 

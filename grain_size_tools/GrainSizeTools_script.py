@@ -251,14 +251,14 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
 
     Parameters
     ----------
-    grain_size : positive scalar
+    grain_size : positive scalar or array-like
         the apparent grain size in microns
 
     phase : string {'quartz', 'olivine', 'calcite', or 'feldspar'}
         the mineral phase
 
     piezometer : string
-        the piezometric relation to be use
+        the piezometric relation
 
     correction : bool, default False
         correct the stress values for plane stress (Paterson and Olgaard, 2000)
@@ -323,12 +323,24 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
         if correction is True:
             diff_stress = diff_stress * 2 / np.sqrt(3)
 
-    print(' ')
-    print('differential stress = {:0.2f} MPa' .format(diff_stress))
-    print(warn)
-    print(' ')
+    print('============================================================================')
+    if isinstance(diff_stress, (int, float)):
+        print('differential stress = {:0.2f} MPa' .format(diff_stress))
+        print('')
+        print('INFO:')
+        print(warn)
+        if linear_interceps is True:
+            print('ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction')
+        print('============================================================================')
+        return None
+    else:
+        print('INFO:')
+        print(warn)
+        if linear_interceps is True:
+            print('ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction')
+        print('Differential stresses in MPa')
 
-    return None
+        return np.around(diff_stress, 2)
 
 
 def get_filepath():
