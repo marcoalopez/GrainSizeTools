@@ -3,20 +3,21 @@ Getting Started: A step-by-step tutorial
 
 > **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that this is a beta version and the documentation is still unfinished. If you find a bug or have any questions check the community guidelines. I would be glad to answer it (although it may take a while).**
 
-- [Getting Started: A step-by-step tutorial](#getting-started--a-step-by-step-tutorial)
-  * [Open and running the script](#open-and-running-the-script)
-  * [Reading and manipulating (tabular) data with Pandas](#reading-and-manipulating--tabular--data-with-pandas)
-  * [Grain size population characterization](#grain-size-population-characterization)
-    + [Describing the dataset](#describing-the-dataset)
-  * [Visualizing the properties of the grain size distribution (the plot module)](#visualizing-the-properties-of-the-grain-size-distribution--the-plot-module-)
-    + [Plotting the area-weighted distribution](#plotting-the-area-weighted-distribution)
-    + [Testing lognormality](#testing-lognormality)
-    + [Normalized grain size distributions](#normalized-grain-size-distributions)
-  * [Differential stress estimate using piezometric relations (paleopiezometry)](#differential-stress-estimate-using-piezometric-relations--paleopiezometry-)
-  * [Stereology (the stereology module)](#stereology--the-stereology-module-)
+- [Loading the script](#loading-the-script)
+- [Reading and manipulating (tabular) data with Pandas](#reading-and-manipulating--tabular--data-with-pandas)
+- [Grain size characterization](#grain-size-characterization)
+  
+  * [Describing the dataset](#describing-the-dataset)
+- [Visualizing grain size distributions and their properties (the plot module)](#visualizing-grain-size-distributions-and-their-properties--the-plot-module-)
+  * [Plotting the area-weighted distribution](#plotting-the-area-weighted-distribution)
+  * [Testing lognormality](#testing-lognormality)
+  * [Normalized grain size distributions](#normalized-grain-size-distributions)
+- [Differential stress estimate using paleopiezometry](#differential-stress-estimate-using-paleopiezometry)
+- [Stereology (the stereology module)](#stereology--the-stereology-module-)
+
   
 
-## Open and running the script
+## Loading the script
 
 First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two options here: (1) work with the [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a powerful MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python; or (2) with [Jupyter notebooks](https://jupyter.org/) (Fig. 2), which is a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text. Make your choice and launch it.
 
@@ -38,7 +39,7 @@ module template imported
 ======================================================================================
 Welcome to GrainSizeTools script
 ======================================================================================
-GrainSizeTools is a free open-source cross-platform script to visualize and characterize
+A free open-source cross-platform script to visualize and characterize
 the grain size in polycrystalline materials and estimate differential stress via
 paleopizometers.
 
@@ -60,7 +61,11 @@ get.functions_list()
 
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/function_list.png)
 
+
+
 ---
+
+
 
 ## Reading and manipulating (tabular) data with Pandas
 
@@ -181,7 +186,7 @@ Now, you can see that a new column named diameters appear when displaying the da
 
 
 
-## Grain size population characterization
+## Grain size characterization
 
 ### Describing the dataset
 
@@ -191,7 +196,6 @@ To describe the properties of the grain size population we use the function ```s
 ```python
 summarize(dataset['diameters'])
 ```
-
 
     ============================================================================
     CENTRAL TENDENCY ESTIMATORS
@@ -231,10 +235,14 @@ By default, the ```summarize``` function returns:
 
 - Different **central tendency estimators** ("averages") including the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
 - The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region.
-- The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features ([Lopez-Sanchez, 2020](https://doi.org/10.1016/j.jsg.2020.104042)). For more details on how the methods are chosen see...TODO.
+- The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features (Fig. X)
 - The sample size and two dispersion measures of the population: the (Bessel corrected) [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
 - The shape of the lognormal distribution using the multiplicative standard deviation or MSD
 - A Shapiro-Wilk test warning indicating when the data deviates from normally and/or lognormally distributed (when p-value < 0.05).
+
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/avg_map.png?raw=true)
+
+*Figure X. Decision tree flowchart for choosing the optimal confidence interval estimation method. For details on this see [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042)*
 
 The ```sumarize()``` method contains different input parameters/arguments that we will commented on in turn. The head  of the function looks like this in the script: 
 
@@ -288,13 +296,11 @@ def summarize(data,
 
 TODO
 
-
-
 ---
 
 
 
-## Visualizing the grain size distribution and their properties (the plot module)
+## Visualizing grain size distributions and their properties (the plot module)
 
 To visualize grain size distribution we will use the methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
@@ -481,9 +487,11 @@ KDE bandwidth =  0.04
 
 ---
 
-## Differential stress estimate using piezometric relations (paleopiezometry)
 
-The script includes a function for estimating differential stress via paleopiezomers based on "average" apparent grain sizes called ``calc_diffstress`` . This includes common mineral phases such as quartz, calcite, olivine and albite. The function requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns*** although the type of "average" grain size to be entered depends on the piezometric relation. We provide a list of the all piezometric relations available, the average grain size value to use, and the different experimentally-derived parameters in Tables 1 to 5. In addition, you can get a list of the available piezometric relations in the console just by calling``piezometers.*()``, where * is the mineral phase, either quartz, calcite, olivine, or feldspar. An example below:
+
+## Differential stress estimate using paleopiezometry
+
+The script includes a function for estimating differential stress via paleopiezomers based on "average" apparent grain sizes called ``calc_diffstress`` . This includes common mineral phases such as quartz, calcite, olivine and albite. The function requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns*** although the type of "average" grain size to be entered depends on the piezometric relation. We provide a list of the all piezometric relations available, the average grain size value to use, and the different experimentally-derived parameters in Tables 1 to 5. In addition, you can get a list of the available piezometric relations in the console just by calling``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
 
 ```python
 >>> piezometers.quartz()
@@ -499,7 +507,7 @@ Available piezometers:
 'Twiss'
 ```
 
-The ``calc_diffstress`` requires entering three different inputs: (1) the apparent grain size, (2) the mineral phase, and (3) the piezometric relation. We provide some examples below:
+The ``calc_diffstress`` requires  at least entering three different inputs: (1) the apparent grain size, (2) the mineral phase, and (3) the piezometric relation. We provide few examples below:
 
 ```python
 calc_diffstress(12, phase='quartz', piezometer='Twiss')
@@ -513,10 +521,9 @@ Ensure that you entered the apparent grain size as the arithmeic mean grain size
 ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
 ============================================================================
 ```
+The ``calc_diffstress`` function allows correcting the differential stress estimate for plane stress using the correction factor proposed by Paterson and Olgaard (2000). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Paterson and Olgaard (2000) (see also Behr and Platt, 2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
 
 ```python
-# you can correct the differential stress estimate for plane strain using
-# the correction proposed by Paterson and Olgaard (2000)
 calc_diffstress(12, phase='quartz', piezometer='Twiss', correction=True)
 ```
 
@@ -529,9 +536,9 @@ Ensure that you entered the apparent grain size as the arithmeic mean grain size
 ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
 ============================================================================
 ```
+You can pass an array of values instead of a scalar as input 
 
 ```python
-# you can use (numpy) arrays as the input instead of scalar values
 ameans = np.array([12.23, 13.71, 12.76, 11.73, 12.69, 10.67])
 estimates = calc_diffstress(ameans, phase='olivine', piezometer='VanderWal_wet')
 estimates
@@ -550,29 +557,32 @@ array([167.41, 153.66, 162.16, 172.73, 162.83, 185.45])
 It is key to note that different piezometers require entering **different apparent grain size averages** to provide meaningful estimates. For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square (RMS) using equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v3.0+ and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific grain size average measured as equivalent circular diameters (ECD). The script will automatically approximate the ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation. Also, the script takes into account if the authors originally used a specific correction factor for the grain size. For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
 
 ```python
->>> help(calc_diffstress)  # in Jupyterlab: ?calc_diffstress
+help(calc_diffstress)
+
+# alternatively in Jupyterlab:
+?calc_diffstress
 ```
 
 **Table 1.** Relation of piezometers (in alphabetical order) and the apparent grain size required to obtain meaningful differential stress estimates
 
-|         Piezometer         |  Apparent grain size†  | DRX mechanism  |    Phase     |           Reference           |
-| :------------------------: | :--------------------: | :------------: | :----------: | :---------------------------: |
-|       ``Barnhoorn``        |          Mean          |    SRG, GBM    |   calcite    |    Barnhoorn et al. (2004)    |
-| ``Cross`` and ``Cross_hr`` |        RMS mean        |    BLG, SGR    |    quartz    |      Cross et al. (2017)      |
-|       ``'Holyoke'``        |        RMS mean        |  Regimes 2, 3  |    quartz    | Holyoke and Kronenberg (2010) |
-|     ``'Holyoke_BLG'``      |        RMS mean        | Regime 1 (BLG) |    quartz    | Holyoke and Kronenberg (2010) |
-|   ```'Jung_Karato'```*§*   |          Mean          |      BLG       | olivine, wet |     Jung & Karato (2001)      |
-|   `` 'Platt_Bresser' ``    |        RMS mean        |    BLG, SGR    |   calcite    |  Platt and De Bresser (2017)  |
-| ```'Post_Tullis_BLG'```*§* |         Median         |      BLG       |    albite    |    Post and Tullis (1999)     |
-|     ```'Rutter_SGR'```     |          Mean          |      SGR       |   calcite    |         Rutter (1995)         |
-|     ```'Rutter_GBM'```     |          Mean          |      GBM       |   calcite    |         Rutter (1995)         |
-|     `` 'Schmid' ``*§*      |                        |      SGR       |   calcite    |     Schmid et al. (1980)      |
-|     ```'Shimizu'```*‡*     | Median in log(e) scale |   SGR + GBM    |    quartz    |        Shimizu (2008)         |
-|    ```'Stipp_Tullis'```    |        RMS mean        |  Regimes 2, 3  |    quartz    |     Stipp & Tullis (2003)     |
-|  ```'Stipp_Tullis_BLG'```  |        RMS mean        | Regime 1 (BLG) |    quartz    |     Stipp & Tullis (2003)     |
-|      ```'Twiss'```*§*      |          Mean          |  Regimes 2, 3  |    quartz    |         Twiss (1977)          |
-|       ``'Valcke' ``        |          Mean          |    BLG, SGR    |   calcite    |     Valcke et al. (2015)      |
-|  ```'VanderWal_wet'```*§*  |          Mean          |                | Olivine, wet |   Van der Wal et al. (1993)   |
+|         Piezometer         |  Apparent grain size†  | DRX mechanism  |      Phase       |           Reference           |
+| :------------------------: | :--------------------: | :------------: | :--------------: | :---------------------------: |
+|       ``Barnhoorn``        |          Mean          |    SRG, GBM    |     calcite      |    Barnhoorn et al. (2004)    |
+| ``Cross`` and ``Cross_hr`` |        RMS mean        |    BLG, SGR    |      quartz      |      Cross et al. (2017)      |
+|       ``'Holyoke'``        |        RMS mean        |  Regimes 2, 3  |      quartz      | Holyoke and Kronenberg (2010) |
+|     ``'Holyoke_BLG'``      |        RMS mean        | Regime 1 (BLG) |      quartz      | Holyoke and Kronenberg (2010) |
+|   ```'Jung_Karato'```*§*   |          Mean          |      BLG       |   olivine, wet   |     Jung & Karato (2001)      |
+|   `` 'Platt_Bresser' ``    |        RMS mean        |    BLG, SGR    |     calcite      |  Platt and De Bresser (2017)  |
+| ```'Post_Tullis_BLG'```*§* |         Median         |      BLG       |      albite      |    Post and Tullis (1999)     |
+|     ```'Rutter_SGR'```     |          Mean          |      SGR       |     calcite      |         Rutter (1995)         |
+|     ```'Rutter_GBM'```     |          Mean          |      GBM       |     calcite      |         Rutter (1995)         |
+|     `` 'Schmid' ``*§*      |                        |      SGR       |     calcite      |     Schmid et al. (1980)      |
+|     ```'Shimizu'```*‡*     | Median in log(e) scale |   SGR + GBM    |      quartz      |        Shimizu (2008)         |
+|    ```'Stipp_Tullis'```    |        RMS mean        |  Regimes 2, 3  |      quartz      |     Stipp & Tullis (2003)     |
+|  ```'Stipp_Tullis_BLG'```  |        RMS mean        | Regime 1 (BLG) |      quartz      |     Stipp & Tullis (2003)     |
+|      ```'Twiss'```*§*      |          Mean          |  Regimes 2, 3  |      quartz      |         Twiss (1977)          |
+|       ``'Valcke' ``        |          Mean          |    BLG, SGR    |     calcite      |     Valcke et al. (2015)      |
+|  ```'VanderWal_wet'```*§*  |          Mean          |                | Olivine, dry/wet |   Van der Wal et al. (1993)   |
 
 *† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns. The use of non-linear scales are indicated*  
 *‡ Shimizu piezometer requires to provide the temperature during deformation in K*  
@@ -627,19 +637,11 @@ It is key to note that different piezometers require entering **different appare
 | :--------------------: | :----: | :--: | :--: | :--: | :---: | :--: |
 | Post and Tullis (1999) | albite | BLG  |  55  | 0.66 | 433.4 | 1.52 |
 
-Since *v2.0.1*, the ``calc_diffstress`` function allows correcting the differential stress estimates for plane stress using the correction factor proposed by Paterson and Olgaard (2000). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Paterson and Olgaard (2000) (see also Behr and Platt, 2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
-
-```python
-# Note that we set the parameter 'correction' to True
->>> calc_diffstress(grain_size=5.7, phase='quartz', piezometer='Stipp_Tullis', correction=True)
-
-differential stress = 195.32 MPa
-Ensure that you entered the apparent grain size as the root mean square (RMS)!
-```
-
 
 
 ---
+
+
 
 ## Stereology (the stereology module)
 
