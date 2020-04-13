@@ -1,9 +1,9 @@
 Getting Started: A step-by-step tutorial
 =============
 
-> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that this is a beta version and the documentation is still unfinished. If you find a bug or have any questions check the community guidelines. I would be glad to answer it (although it may take a while).**
+> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that this is a beta version and the documentation is still unfinished. If you find a bug or have any question check the community guidelines. I would be glad to answer it (although it may take a while).**
 
-- [Loading the script](#loading-the-script)
+- [Running the script](#running-the-script)
 - [Reading and manipulating (tabular) data with Pandas](#reading-and-manipulating--tabular--data-with-pandas)
 - [Grain size characterization](#grain-size-characterization)
   
@@ -17,9 +17,15 @@ Getting Started: A step-by-step tutorial
 
   
 
-## Loading the script
+## Running the script
 
-First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two options here: (1) work with the [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a powerful MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python; or (2) with [Jupyter notebooks](https://jupyter.org/) (Fig. 2), which is a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text. Make your choice and launch it.
+First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two main options after opening the Anaconda Python distribution:
+
+1. The [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a powerful MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python.
+
+2.  The [Jupyter notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text.
+
+Make your choice and launch it.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help window (upper right). This is a MATLAB-like IDE for Python. They also provide a variable explorer, a history log, MATLAB-like cells, code autocompletion, etc.*
 
@@ -27,7 +33,7 @@ First of all, make sure you have the latest version of the GrainSizeTools (GST) 
 
 *Figure 2. The Jupyter Lab development environment, a browser-based notebook that allows you to create documents that may contain live code, equations (using Latex), visualizations and narrative text*.
 
-If you are in Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the tool bar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
+In Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the tool bar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
 
 ```
 module plot imported
@@ -49,7 +55,7 @@ Documentation: https://marcoalopez.github.io/GrainSizeTools/
 Type get.function_list() to get a list of the main methods
 ```
 
-Alternatively, if you are using a Jupyter notebook you have an example in the link below (you can also find this example notebook on your hard drive inside the ``grain_size_tools`` folder):
+Alternatively, if you are using a Jupyter notebook you have a similar step-by-step tutorial in the link below (you can also find this Jupyter notebook on your hard drive inside the ``grain_size_tools`` folder):
 
 https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/notebook_example.ipynb
 
@@ -105,7 +111,7 @@ sep or delimier  # Delimiter to use.
 header  # Row number(s) to use as the column names. By default it takes the first row as the column names (header=0). If there is no columns names in the file you must set header=None
 skiprows  # Number of lines to skip at the start of the file (an integer).
 na_filter  # Detect missing value markers. False by default.
-
+sheet_name  # Only for excel files, the excel sheet name either a number or the full name of the sheet
 
 ```
 
@@ -114,7 +120,7 @@ na_filter  # Detect missing value markers. False by default.
 An example might be:
 
 ```python
-dataset = pd.read_csv('data_set.csv', sep=';', skiprows=5, na_filter=True)
+dataset = pd.read_csv('DATA/data_set.csv', sep=';', skiprows=5, na_filter=True)
 ```
 
 where the delimiter is set to ``;``, the first five lines of the text file are ignored, and missing values are handled during import.
@@ -142,10 +148,10 @@ type(dataset)  # show the variable type
 pandas.core.frame.DataFrame
 ```
 
-For visualizing the data, you can use the variable explorer in Spyder or directly calling the name of the variable that contains the *dataframe* in the console and press enter as in the example above. ALternatively, if you want to view only a few rows fo the 
+For visualizing the data, you can use the variable explorer in Spyder or directly calling the name of the variable that contains the *dataframe* in the console and press enter as in the example above. Alternatively, if you want to view only few rows use: 
 
 ```python
-# view the first rows, you can define the number of rows whithin the parentheses
+# visualize the first rows, you can define the number of rows whithin the parentheses
 dataset.head()
 # view the last rows
 dataset.tail()
@@ -161,7 +167,7 @@ dataset['AR']  # select the column named 'AR'
 dataset[['Area', 'Feret']]  # note the double brackets!
 ```
 
-For example, the imported dataset does no contain the diameters of the grains but the sectional areas of the grains. Then, we can estimate the apparent diameters using the equivalent circular diameter (ECD) formula which is:
+For example, the imported dataset does no contain the diameters of the grains but the sectional areas of the grains. Then, we need to estimate the apparent diameters via the equivalent circular diameter (ECD) formula which is:
 
 ECD = 2 * √(area / π)
 
@@ -244,7 +250,7 @@ By default, the ```summarize``` function returns:
 
 *Figure X. Decision tree flowchart for choosing the optimal confidence interval estimation method. For details on this see [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042)*
 
-The ```sumarize()``` method contains different input parameters/arguments that we will commented on in turn. The head  of the function looks like this in the script: 
+The ```sumarize()``` method contains different input parameters (arguments) that we will commented on in turn. The head  of the function looks like this in the script: 
 
 ```python
 def summarize(data,
@@ -489,9 +495,9 @@ KDE bandwidth =  0.04
 
 
 
-## Differential stress estimate using paleopiezometry
+## Paleopiezometry
 
-The script includes a function for estimating differential stress via paleopiezomers based on "average" apparent grain sizes called ``calc_diffstress`` . This includes common mineral phases such as quartz, calcite, olivine and albite. The function requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns*** although the type of "average" grain size to be entered depends on the piezometric relation. We provide a list of the all piezometric relations available, the average grain size value to use, and the different experimentally-derived parameters in Tables 1 to 5. In addition, you can get a list of the available piezometric relations in the console just by calling``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
+The script includes a function for estimating differential stress via paleopiezometers based on "average" apparent grain sizes called ``calc_diffstress`` . This includes common mineral phases such as quartz, calcite, olivine and albite. The estimation requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns*** although the type of "average" grain size to be entered depends on the piezometric relation. We provide a list of the all piezometric relations available, the average grain size value to use, and the different experimentally-derived parameters in Tables 1 to 5. In addition, you can get a list of the available piezometric relations in the console just by calling``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
 
 ```python
 >>> piezometers.quartz()
@@ -510,7 +516,7 @@ Available piezometers:
 The ``calc_diffstress`` requires  at least entering three different inputs: (1) the apparent grain size, (2) the mineral phase, and (3) the piezometric relation. We provide few examples below:
 
 ```python
-calc_diffstress(12, phase='quartz', piezometer='Twiss')
+calc_diffstress(12.0, phase='quartz', piezometer='Twiss')
 ```
 ```
 ============================================================================
@@ -521,7 +527,7 @@ Ensure that you entered the apparent grain size as the arithmeic mean grain size
 ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
 ============================================================================
 ```
-The ``calc_diffstress`` function allows correcting the differential stress estimate for plane stress using the correction factor proposed by Paterson and Olgaard (2000). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Paterson and Olgaard (2000) (see also Behr and Platt, 2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
+The ``calc_diffstress`` function allows **correcting the differential stress estimate for plane stress** using the correction factor proposed by Paterson and Olgaard (2000). The rationale behind this is that experiments designed to calibrate paleopiezometers are performed in uniaxial compression while shear zones approximately behave as plane stress volumes. To correct this Paterson and Olgaard (2000) (see also Behr and Platt, 2013) proposed to multiply the estimates by 2 / √3. To do this we specify:
 
 ```python
 calc_diffstress(12, phase='quartz', piezometer='Twiss', correction=True)
@@ -536,7 +542,7 @@ Ensure that you entered the apparent grain size as the arithmeic mean grain size
 ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction
 ============================================================================
 ```
-You can pass an array of values instead of a scalar as input 
+You can pass  as input an array of grain size values instead of a scalar 
 
 ```python
 ameans = np.array([12.23, 13.71, 12.76, 11.73, 12.69, 10.67])
@@ -567,22 +573,22 @@ help(calc_diffstress)
 
 |         Piezometer         |  Apparent grain size†  | DRX mechanism  |      Phase       |           Reference           |
 | :------------------------: | :--------------------: | :------------: | :--------------: | :---------------------------: |
-|       ``Barnhoorn``        |          Mean          |    SRG, GBM    |     calcite      |    Barnhoorn et al. (2004)    |
+|       ``Barnhoorn``        |      arith. mean       |    SRG, GBM    |     calcite      |    Barnhoorn et al. (2004)    |
 | ``Cross`` and ``Cross_hr`` |        RMS mean        |    BLG, SGR    |      quartz      |      Cross et al. (2017)      |
 |       ``'Holyoke'``        |        RMS mean        |  Regimes 2, 3  |      quartz      | Holyoke and Kronenberg (2010) |
 |     ``'Holyoke_BLG'``      |        RMS mean        | Regime 1 (BLG) |      quartz      | Holyoke and Kronenberg (2010) |
-|   ```'Jung_Karato'```*§*   |          Mean          |      BLG       |   olivine, wet   |     Jung & Karato (2001)      |
+|   ```'Jung_Karato'```*§*   |      arith. mean       |      BLG       |   olivine, wet   |     Jung & Karato (2001)      |
 |   `` 'Platt_Bresser' ``    |        RMS mean        |    BLG, SGR    |     calcite      |  Platt and De Bresser (2017)  |
 | ```'Post_Tullis_BLG'```*§* |         Median         |      BLG       |      albite      |    Post and Tullis (1999)     |
-|     ```'Rutter_SGR'```     |          Mean          |      SGR       |     calcite      |         Rutter (1995)         |
-|     ```'Rutter_GBM'```     |          Mean          |      GBM       |     calcite      |         Rutter (1995)         |
+|     ```'Rutter_SGR'```     |      arith. mean       |      SGR       |     calcite      |         Rutter (1995)         |
+|     ```'Rutter_GBM'```     |      arith. mean       |      GBM       |     calcite      |         Rutter (1995)         |
 |     `` 'Schmid' ``*§*      |                        |      SGR       |     calcite      |     Schmid et al. (1980)      |
 |     ```'Shimizu'```*‡*     | Median in log(e) scale |   SGR + GBM    |      quartz      |        Shimizu (2008)         |
 |    ```'Stipp_Tullis'```    |        RMS mean        |  Regimes 2, 3  |      quartz      |     Stipp & Tullis (2003)     |
 |  ```'Stipp_Tullis_BLG'```  |        RMS mean        | Regime 1 (BLG) |      quartz      |     Stipp & Tullis (2003)     |
-|      ```'Twiss'```*§*      |          Mean          |  Regimes 2, 3  |      quartz      |         Twiss (1977)          |
-|       ``'Valcke' ``        |          Mean          |    BLG, SGR    |     calcite      |     Valcke et al. (2015)      |
-|  ```'VanderWal_wet'```*§*  |          Mean          |                | Olivine, dry/wet |   Van der Wal et al. (1993)   |
+|      ```'Twiss'```*§*      |      arith. mean       |  Regimes 2, 3  |      quartz      |         Twiss (1977)          |
+|       ``'Valcke' ``        |      arith. mean       |    BLG, SGR    |     calcite      |     Valcke et al. (2015)      |
+|  ```'VanderWal_wet'```*§*  |      arith. mean       |                | Olivine, dry/wet |   Van der Wal et al. (1993)   |
 
 *† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns. The use of non-linear scales are indicated*  
 *‡ Shimizu piezometer requires to provide the temperature during deformation in K*  

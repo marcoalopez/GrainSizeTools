@@ -58,8 +58,8 @@ def quartz(piezometer=None):
     as the logarithmic median apparent grain size calculated using equivalent
     circular diameters with no stereological correction.
 
-    - The piezometer of Twiss (1977) requires entering the mean apparent grain
-    size calculated from equivalent circular diameters (ECD) with no stereological
+    - The piezometer of Twiss (1977) requires entering the arithmetic mean apparent
+    grain size calculated from equivalent circular diameters (ECD) with no stereological
     correction. The function will convert this value to mean linear intercept (LI)
     grain size using the De Hoff and Rhines (1968) empirical relation and assuming
     that LI was originally multiplied by 1.5 (correction factor). Then the final
