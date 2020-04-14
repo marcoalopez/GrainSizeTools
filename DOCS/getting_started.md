@@ -3,7 +3,17 @@ Getting Started: A step-by-step tutorial
 
 > **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that this is a beta version and the documentation is still unfinished. If you find a bug or have any question check the community guidelines. I would be glad to answer it (although it may take a while).**
 
-[TOC]
+- [Running the script](#running-the-script)
+- [Importing the data using the Spyder data importer](#importing-the-data-using-the-spyder-data-importer)
+- [Importing (tabular) data with Pandas (Spyder and Jupyter lab)](#importing--tabular--data-with-pandas--spyder-and-jupyter-lab-)
+- [Manipulating tabular data (Pandas dataframes)](#manipulating-tabular-data--pandas-dataframes-)
+- [Grain size characterization](#grain-size-characterization)
+- [Visualizing grain size distributions and their properties (the plot module)](#visualizing-grain-size-distributions-and-their-properties--the-plot-module-)
+  * [Plotting the area-weighted distribution](#plotting-the-area-weighted-distribution)
+  * [Testing lognormality](#testing-lognormality)
+  * [Normalized grain size distributions](#normalized-grain-size-distributions)
+- [Paleopiezometry](#paleopiezometry)
+- [Stereology (the stereology module)](#stereology--the-stereology-module-)
 
 ## Running the script
 
@@ -60,11 +70,11 @@ get.functions_list()
 
 If you are in Spyder, the easiest way to import data is through the Spyder data importer. To do this, select the variable browser and then click on the import data icon in the upper left (Fig. 3). A new window will pop up showing different import options (Fig. 4).
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/variable_explorer.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_variable_explorer.png?raw=true)
 
 *Figure 3. The variable explorer window in the Spyder IDE. Note that the option variable explorer is selected at the bottom (indicated with an arrow). To launch the data importer click on the icon at the top left (indicated by a circle).*
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/import_data01.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/import_data.png?raw=true)
 
 *Figure 4. The two-step process for importing data with the Spyder data importer. At left, the first step where you can set the (1) the variable name (at the top), (2) the type of data to import (set to data), (3) the column separator, in this case set to Tab, and (4) the rows to skip, in this case set to 0 (this assumes that the first row are the column names). At right, the second step where you can preview the data and set the variable type. In this case, choose import as Dataframe, which is the best choice for tabular data.*
 
