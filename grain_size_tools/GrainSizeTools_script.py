@@ -131,12 +131,12 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
 
     Returns
     -------
-    TODO
+    None
     """
 
     # check and remove for negative values
     if data[data <= 0].size > 0:
-        print('Warning: I found negative and/or zero values in your dataset!')
+        print('Warning: There are negative and/or zero values in your dataset!')
         data = data[data > 0]
         print('Negative/zero values automatically removed')
         print('')
@@ -167,7 +167,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Arithmetic mean = {:0.2f} microns' .format(amean))
         print('Confidence intervals at {:0.1f} %' .format(ci_level * 100))
         if p_value2 < 0.05:
-            print('ASTM method: {:0.2f} - {:0.2f}, (±{:0.1f}%), length = {:0.3f}'
+            print('CLT (ASTM) method: {:0.2f} - {:0.2f}, (±{:0.1f}%), length = {:0.3f}'
                   .format(ci[0], ci[1], 100 * (ci[1] - amean) / amean, length))
         else:
             if len(data) > 99:

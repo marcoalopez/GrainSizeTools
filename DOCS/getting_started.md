@@ -72,17 +72,17 @@ If you are in Spyder, the easiest way to import data is through the Spyder data 
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_variable_explorer.png?raw=true)
 
-*Figure 3. The variable explorer window in the Spyder IDE. Note that the option variable explorer is selected at the bottom (indicated with an arrow). To launch the data importer click on the icon at the top left (indicated by a circle).*
+*Figure 3. The variable explorer window in Spyder. Note that the variable explorer is selected at the bottom (indicated with an arrow). To launch the data importer click on the top left icon (indicated by a circle).*
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/import_data.png?raw=true)
 
-*Figure 4. The two-step process for importing data with the Spyder data importer. At left, the first step where you can set the (1) the variable name (at the top), (2) the type of data to import (set to data), (3) the column separator, in this case set to Tab, and (4) the rows to skip, in this case set to 0 (this assumes that the first row are the column names). At right, the second step where you can preview the data and set the variable type. In this case, choose import as Dataframe, which is the best choice for tabular data.*
+*Figure 4. The two-step process for importing data with the Spyder data importer. At left, the first step where the main options are the (1) the variable name, (2) the type of data to import (set to data), (3) the column separator (set to Tab), and (4) the rows to skip (set to 0 as this assumes that the first row are the column names). At right, the second step where you can preview the data and set the variable type. In this case, choose import as DataFrame, which is the best choice for tabular data.*
 
 Once you press "Done" (in the bottom right) the dataset will appear within the variable explorer window as shown in figure 3. Note that it provides information about the type of variable (a Dataframe), the number of rows and columns (2661 x 11), and the column names. If you want to get more details or edit something, double-click on this variable and a new window will pop up (Fig. 5). Also you can do a right-click on this variable and several options will appear.
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/variable_explorer02.png?raw=true)
 
-Figure 5. Representation of the dataset in the Spyder variable explorer.
+*Figure 5. Representation of the dataset in the Spyder variable explorer.*
 
 More info here: https://docs.spyder-ide.org/variableexplorer.html
 
@@ -119,11 +119,11 @@ sep or delimier  # Delimiter to use.
 header  # Row number(s) to use as the column names. By default it takes the first row as the column names (header=0). If there is no columns names in the file you must set header=None
 skiprows  # Number of lines to skip at the start of the file (an integer).
 na_filter  # Detect missing value markers. False by default.
-sheet_name  # Only for excel files, the excel sheet name either a number or the full name of the sheet
+sheet_name  # Only for excel files, the excel sheet name either a number or the full name of the sheet.
 
 ```
 
-A random example might be:
+A random example using several optional arguments might be:
 
 ```python
 dataset = pd.read_csv('DATA/data_set.csv', sep=';', skiprows=5, na_filter=True)
@@ -134,14 +134,14 @@ where we import a csv file delimited by ``;`` ignoring the first five lines of t
 The GST script includes a method named ```get_filepath()``` to get the path of a file through a file selection dialog instead of writing it. This can be used in two ways:
 
 ```python
-# store the path in a variable (here named filepath) and then use it when calling the read method
+# store the path in a variable (here named filepath for convenience) and then use it when calling the read method
 filepath = get_filepath()
 dataset = pd.read_csv(filepath, sep=';')
 
 # use get_filepath() directly within the read method
 dataset = pd.read_csv(get_filepath(), sep=';')
 ```
-> more details here: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+> more details on Pandas csv read method: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
 ## Manipulating tabular data (Pandas dataframes)
 
@@ -155,7 +155,7 @@ type(dataset)  # show the variable type
 pandas.core.frame.DataFrame
 ```
 
-For visualizing the data, you can use the variable explorer in Spyder (Fig. 5) or directly calling the name of the variable that contains the *Dataframe* in the console and press enter.
+For visualizing the data at any time, you can use the variable explorer in Spyder (Fig. 5) or directly calling the name of the variable that contains the *Dataframe* in the console and press enter.
 
 ```python
 # show the DataFrame in the console
@@ -179,8 +179,9 @@ For interacting with one of the columns of the *dataframe*, you can do it as fol
 # select a specific column of the dataset
 dataset['AR']  # select the column named 'AR'
 
-# select several columns
-dataset[['Area', 'Feret']]  # note the double brackets!
+# select several columns and estimate the arithmetic mean
+# note the double brackets when calling more than one column!
+np.mean(dataset[['Area', 'Feret']])
 ```
 
 For example, the imported dataset does no contain the diameters of the grains but the sectional areas of the grains. Then, we need to estimate the apparent diameters via the equivalent circular diameter (ECD) formula which is:
@@ -200,7 +201,7 @@ dataset.head()
 
 Now, you can see that a new column named diameters appear when displaying the dataset.
 
-> 👉 Note that we define the square root as ``np.sqrt`` and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot with the method or the scientific value to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
+> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot with the method or the scientific value to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
 
 
 
@@ -210,11 +211,11 @@ Now, you can see that a new column named diameters appear when displaying the da
 
 ## Grain size characterization
 
-To describe the properties of the grain size population we use the function ```summarize``` and pass as input the population of diameters:
+To describe the properties of the grain size population use the function ```summarize``` and pass the population of diameters as input:
 
 
 ```python
-summarize(dataset['diameters'])
+summarize(dataset['diameters']) # the column name may change depending on your dataset
 ```
 
     ============================================================================
@@ -222,7 +223,7 @@ summarize(dataset['diameters'])
     ============================================================================
     Arithmetic mean = 34.79 microns
     Confidence intervals at 95.0 %
-    ASTM method: 34.09 - 35.48, (±2.0%), length = 1.393
+    CLT (ASTM) method: 34.09 - 35.48, (±2.0%), length = 1.393
     ============================================================================
     Geometric mean = 30.10 microns
     Confidence interval at 95.0 %
@@ -254,17 +255,17 @@ summarize(dataset['diameters'])
 By default, the ```summarize``` function returns:
 
 - Different **central tendency estimators** ("averages") including the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
-- The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region.
+- The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region. It is provides the lower and upper bounds, the error in percentage respect to the average, and the length of the confidence interval. 
 - The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features (Fig. X)
-- The sample size and two dispersion measures of the population: the (Bessel corrected) [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
-- The shape of the lognormal distribution using the multiplicative standard deviation or MSD
-- A Shapiro-Wilk test warning indicating when the data deviates from normally and/or lognormally distributed (when p-value < 0.05).
+- The sample size and two population dispersion measures: the (Bessel corrected) [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
+- The shape of the lognormal distribution using the multiplicative standard deviation (MSD)
+- A Shapiro-Wilk test warning indicating when the data deviates from normal and/or lognormal (when p-value < 0.05).
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/avg_map.png?raw=true)
 
 *Figure X. Decision tree flowchart for choosing the optimal confidence interval estimation method. For details on this see [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042)*
 
-The ```sumarize()``` method contains different input parameters (arguments) that we will commented on in turn. The head  of the function looks like this in the script: 
+The ```summarize()``` method contains different input parameters (arguments) that we will commented on in turn. The help of the function looks like this in the script (use ``?summarize`` or CTRL+I in the console to obtain this): 
 
 ```python
 def summarize(data,
@@ -322,11 +323,11 @@ TODO
 
 ## Visualizing grain size distributions and their properties (the plot module)
 
-To visualize grain size distribution we will use the methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
+To visualize the grain size distribution there are several methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
 > 👉 If you write ``plot.`` and then press the tab key a menu will pop up with all the methods implemented in the plot module
 
-The main method of the module is ```plot.distribution()```. By default, this method allows to visualize the grain size population using the histogram and/or the kernel density estimate (KDE) as well as the location of the different averages in the distribution. To use it we invoke this function and pass as an argument the population of grain sizes as follows:
+The main method is ```plot.distribution()```. This method allows to visualize the grain size population using the histogram and/or the kernel density estimate (KDE) as well as the location of the different averages in the distribution. To use it we invoke this function and pass as an argument the population of grain sizes as follows:
 
 ```python
 plot.distribution(dataset['diameters'])
@@ -385,8 +386,8 @@ def distribution(data,
     bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
-    
-    ..."""
+    ...
+    """
 ```
 
 As we have just seen in the previous example, the only mandatory parameter is ```data``` which corresponds to the populations of diameters. The ``plot`` parameter allows you to define the method to visualize the population, either the histogram, the kernel density estimate or both (the default option). If we want to plot only the KDE or the histogram we do it as follows:
@@ -415,7 +416,7 @@ plot.distribution(dataset['diameters'], plot='hist', binsize='doane')
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution_hist.png?raw=true)
 
-In the example above using the histogram we passed as input the argument ```binsize```. This parameter allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of histograms. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule when using large datasets and the Sturges rule otherwise. Other available plug-in methods are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. You can also define an ad-hoc bin size if you pass as input a positive scalar, for example:
+In the example above using the histogram we passed as input the optional argument ```binsize```. This parameter allows us to use different plug-in methods implemented in the Numpy package to estimate "optimal" bin sizes for the construction of the histograms. The default mode, called ```'auto'```, uses the Freedman-Diaconis rule for large datasets and the Sturges rule otherwise. Other available plug-in methods are the Freedman-Diaconis ```'fd'```, Scott ```'scott'```, Rice ```'rice'```, Sturges ```'sturges'```, Doane ```'doane'```, and square-root ```'sqrt'```. For more details on these methods see [here](https://docs.scipy.org/doc/numpy/reference/generated/numpy.histogram_bin_edges.html#numpy.histogram_bin_edges).  We encourage you to use the default method ```'auto'```. Empirical experience indicates that the ```'doane'``` and ```'scott'``` methods work also pretty well when you have lognormal- and normal-like distributions, respectively. You can also define an ad-hoc bin size if you pass as input a positive scalar, for example:
 
 ```python
 plot.distribution(dataset['diameters'], plot='hist', binsize=10.5)
@@ -477,9 +478,9 @@ It doesnt look like a lognormal distribution (p-value < 0.05)
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_qqplot.png?raw=true)
 
-*Figure X. q-q plot of the test dataset*
+*Figure X. The q-q plot of the test dataset. Note that the distribution of apparent grain sizes deviates from the logarithmic at the ends*.
 
-Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values, the test statistic and a p-value. The Shapiro-Wilk test, as put in GST script, considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot has the advantage that it shows where the distribution deviates from the lognormal distribution. 
+Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values, the test statistic and a p-value. The Shapiro-Wilk test, as put in GST script, considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot has the advantage over the Shapiro-Wilk test that it shows where the distribution deviates from the lognormal distribution. 
 
 > 👉 To know more about the q-q plot see https://serialmentor.com/dataviz/
 
@@ -487,7 +488,7 @@ Regarding the q-q plot, if the points fall right onto the reference line, it mea
 
 ### Normalized grain size distributions
 
-Standardized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of standardized distributions is that they allow comparison of whether or not the grain size distribution is similar, even when the average grain size between the different distributions differs. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, to facilitate the comparison, the standardized method shows the normalized distribution on a logarithmic scale based on e and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
+Standardized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of standardized distributions is that they allow comparison of whether or not the grain size distribution is similar to others when the average grain size between the different distributions differs significantly. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, to facilitate the comparison, the standardized method shows the normalized distribution on a logarithmic scale based on e and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
 
 ```python
 plot.normalized(dataset['diameters'], avg='amean')
@@ -511,7 +512,7 @@ KDE bandwidth =  0.04
 
 ## Paleopiezometry
 
-The script includes a function for estimating differential stress via paleopiezometers based on "average" apparent grain sizes called ``calc_diffstress`` . This includes common mineral phases such as quartz, calcite, olivine and albite. The estimation requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns*** although the type of "average" grain size to be entered depends on the piezometric relation. We provide a list of the all piezometric relations available, the average grain size value to use, and the different experimentally-derived parameters in Tables 1 to 5. In addition, you can get a list of the available piezometric relations in the console just by calling``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
+The script includes a function for estimating differential stress via paleopiezometers based on "average" apparent grain sizes called ``calc_diffstress()`` . This includes common mineral phases such as quartz, calcite, olivine and albite. The estimation requires measuring the grain size as equivalent circular diameters and entering the apparent grain sizes ***in microns*** although the type of "average" grain size to be entered depends on the piezometric relation. We provide a list of the all piezometric relations available, the average grain size value to use, and the different experimentally-derived parameters in Tables 1 to 5. In addition, you can get a list of the available piezometric relations in the console just by calling``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
 
 ```python
 >>> piezometers.quartz()
