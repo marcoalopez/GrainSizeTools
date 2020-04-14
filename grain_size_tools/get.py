@@ -5,10 +5,10 @@ Welcome to GrainSizeTools script
 A free open-source cross-platform script to visualize and characterize grain size
 population and estimate differential stress via paleopizometers.
 
-Version: v3.0beta3 (2020-05-xx)
+Version: v3.0beta3 (2020-04-xx)
 Documentation: https://marcoalopez.github.io/GrainSizeTools/
 
-Type get.function_list() to get a list of the main methods
+Type get.functions_list() to get a list of the main methods
 """
 
 info = """
@@ -31,7 +31,7 @@ stereology.calc_shape  -> approximate the lognormal shape of the actual distribu
 You can get more information about the methods using the following ways:
     (1) Typing help plus the name of the function e.g. help(summarize)
     (2) In the Spyder IDE by writing the name of the function and clicking Ctrl + I
-    (3) Visiting the script documentation at 
+    (3) In Jupyter lab/notebook by writing ? or ?? after the function
 """
 
 
