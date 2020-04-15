@@ -637,6 +637,7 @@ help(calc_diffstress)
 | :-----------------------: | :--------------: | :--: | :---: | :--: | :-----: | :--: |
 |  Jung and Karato (2001)   |   olivine, wet   | BLG  | 25704 | 1.18 | 5461.03 | 0.85 |
 | Van der Wal et al. (1993) | olivine, dry/wet |      | 15000 | 1.33 | 1355.4  | 0.75 |
+|   Tasaka et al. (2015)    |   olivine wet    |      | 6310  | 1.33 |  719.7  | 0.75 |
 
 
 

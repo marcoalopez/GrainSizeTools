@@ -482,16 +482,16 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     # frequency vs grain size plot
     ax1.bar(left_edges, freq3D,
             width=binsize,
-            color='#415e9d',
+            color='xkcd:azure',
             edgecolor='#d9d9d9',
             align='edge')
     ax1.set_ylabel('density',
-                   fontsize=15)
+                   fontsize=18)
     ax1.set_xlabel(r'diameter ($\mu m$)',
-                   fontsize=15)
+                   fontsize=18)
     ax1.set_title('estimated 3D grain size distribution',
                   color='#1F1F1F',
-                  fontsize=15,
+                  fontsize=18,
                   y=1.02)
 
     # volume-weighted cumulative frequency curve
@@ -502,17 +502,17 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
              label='volume weighted CFD',
              linewidth=2)
     ax2.set_ylabel('cumulative volume (%)',
-                   fontsize=15)
+                   fontsize=18)
     ax2.set_xlabel(r'diameter ($\mu m$)',
-                   fontsize=15)
+                   fontsize=18)
     ax2.set_title('volume-weighted cumulative freq. distribution',
                   color='#1F1F1F',
-                  fontsize=15,
+                  fontsize=18,
                   y=1.02)
 
     fig.tight_layout()
 
-    return None
+    return fig, (ax1, ax2)
 
 
 def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
@@ -524,22 +524,28 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
     # bar plot from Saltykov method
     ax.bar(mid_points, frequencies,
            width=mid_points[1] - mid_points[0],
-           edgecolor=None,
-           color='#415e9d',
+           edgecolor='#1F1F1F',
+           hatch='//',
+           color='#fff2ae',
+           fill=False,
            linewidth=1,
            label='Saltykov method',
            alpha=0.65)
 
     # log-normal distribution
     ax.plot(xgrid, best_fit,
-            color='#1F1F1F',
-            label='best fit',
+            color='#2F4858',
+            label='best lognormal fit',
             linewidth=2)
 
-    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
-                    color='#525252',
-                    label='trust region',
-                    alpha=0.5)
+    ax.fill_between(xgrid, best_fit,
+                    color='xkcd:azure',
+                    alpha=0.65)
+
+#    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
+#                    color='#525252',
+#                    label='trust region',
+#                    alpha=0.5)
 
 #    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
 #            'o',
@@ -547,13 +553,13 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
 #            label='datapoints',
 #            linewidth=1.5)
 
-    ax.set_ylabel('freq. (per unit vol.)', fontsize=15)
+    ax.set_ylabel('freq. (per unit vol.)', fontsize=18)
     ax.legend(loc='best', fontsize=15)
-    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=15)
+    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=18)
 
     fig.tight_layout()
 
-    return None
+    return fig, ax
 
 
 if __name__ == '__main__':

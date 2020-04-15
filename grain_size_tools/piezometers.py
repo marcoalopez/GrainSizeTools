@@ -237,6 +237,7 @@ def olivine(piezometer=None):
         print('Available piezometers:')
         print("'Jung_Karato'")
         print("'VanderWal_wet'")
+        print("'Tasaka_wet'")
         return None
 
     elif piezometer == 'Jung_Karato':
@@ -250,6 +251,12 @@ def olivine(piezometer=None):
         warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = True
         correction_factor = 1.5
+
+    elif piezometer == 'Tasaka_wet':
+        B, m = 719.7, 0.75
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
+        linear_interceps = False
+        correction_factor = 1.2
 
     else:
         olivine()
