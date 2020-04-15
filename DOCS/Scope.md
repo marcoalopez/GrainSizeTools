@@ -1,4 +1,10 @@
-*Last update: 2018/09/03*
+*Last update: 2020/04/15*
+
+**Important note: The text below is outdated and will be completely modified with the release of version 3 of the script. For the scope of the script and the average to be used we recommend the following publications:**
+
+Lopez-Sanchez, Marco A. (2018) GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
+
+Lopez-Sanchez, Marco A. (2020) Which average, how many grains, and how to estimate robust confidence intervals in unimodal grain size populations. *Journal of Structural Geology* **135**: 104042 https://doi.org/10.1016/j.jsg.2020.104042 [PDF](https://github.com/marcoalopez/marcoalopez.github.io/blob/master/docs/2020_JSG_SG_104042.pdf)
 
 Scope
 -------------
