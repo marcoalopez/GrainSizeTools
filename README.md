@@ -40,7 +40,7 @@ https://sourceforge.net/projects/grainsizetools/
 * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
 * [Requirements & Development](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
 * [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md)
-* [Getting started: A step-by-step tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
+* [Getting started: A step-by-step tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md) (for version 3.0beta see [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/getting_started.md))
 * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 * [How to reconstruct the grains from SEM-EBSD data using the MTEX toolbox (available soon!)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/ebsd_mtex_tutorial.md)
 * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
