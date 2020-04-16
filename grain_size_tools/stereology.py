@@ -235,7 +235,7 @@ def calc_shape(diameters, class_range=(10, 20)):
     print('=======================================')
     print('OPTIMAL VALUES')
     print('Number of classes: {}' .format(optimal_num_classes))
-    print('MSD (log-normal shape) = {msd:0.2f} ± {err:0.2f}'
+    print('MSD (lognormal shape) = {msd:0.2f} ± {err:0.2f}'
           .format(msd=optimal_params[0], err=3 * sigma_err[0]))
     print('Geometric mean (scale) = {gmean:0.2f} ± {err:0.2f}'
           .format(gmean=optimal_params[1], err=3 * sigma_err[1]))

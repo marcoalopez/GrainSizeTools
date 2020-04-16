@@ -1,16 +1,16 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/04/10*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/04/16*
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Characterizing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script requires as the input the diameters of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
+**NEW!**
+**Latest (beta) release: v3.0beta3** (still in development)  
+**Date: 2020/04/16**  
+See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0-beta.3
+
 **Latest stable release: v2.0.4**  
 **Date: 2020/04/09**  
-
-**NEW!**
-**Latest (beta) release: v3.0beta2** (still in development)  
-**Date: 2020/04/07**  
-See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0-beta.2
 
 
 ## Features at a glance
@@ -45,7 +45,7 @@ https://sourceforge.net/projects/grainsizetools/
 * [How to reconstruct the grains from SEM-EBSD data using the MTEX toolbox (available soon!)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/ebsd_mtex_tutorial.md)
 * [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
 
-## Screenshots
+## Screenshots (v3.0+)
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/summarize_output.png?raw=true)
 

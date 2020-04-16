@@ -5,7 +5,7 @@ Welcome to GrainSizeTools script
 A free open-source cross-platform script to visualize and characterize grain size
 population and estimate differential stress via paleopizometers.
 
-Version: v3.0beta3 (2020-04-xx)
+Version: v3.0beta3 (2020-04-16)
 Documentation: https://marcoalopez.github.io/GrainSizeTools/
 
 Type get.functions_list() to get a list of the main methods
