@@ -141,11 +141,16 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('Negative/zero values automatically removed')
         print('')
 
-    std = np.std(data)
-
     # estimate Shapiro-Wilk test to check normality and lognormality
-    W, p_value = shapiro(data)
-    W2, p_value2 = shapiro(np.log(data))
+    # In Sahpiro-wilk tests the chances of the null hypothesis being
+    # rejected becomes larger for large sample sizes
+    # samples...TODO
+    if len(data) > 250:
+        W, p_value = shapiro(np.random.choice(data, size=250))
+        W2, p_value2 = shapiro(np.random.choice(np.log(data), size=250))
+    else:
+        W, p_value = shapiro(data)
+        W2, p_value2 = shapiro(np.log(data))
 
     if 'amean' in avg:
         if p_value2 < 0.05:
@@ -221,7 +226,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     print('DISTRIBUTION FEATURES')
     print('============================================================================')
     print('Sample size (n) = {}' . format(len(data)))
-    print('Standard deviation = {:0.2f} (1-sigma)' .format(std))
+    print('Standard deviation = {:0.2f} (1-sigma)' .format(np.std(data)))
     if 'median' in avg:
         print('Interquartile range (IQR) = {:0.2f}' .format(iqr))
     if 'gmean' in avg:

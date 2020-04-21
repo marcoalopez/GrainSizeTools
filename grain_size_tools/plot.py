@@ -422,7 +422,10 @@ def qq_plot(data, percent=2, **fig_kw):
     fig.tight_layout()
 
     # Shapiro-Wilk test
-    W, p_value = shapiro(data)
+    if len(data) > 250:
+        W, p_value = shapiro(np.random.choice(data, size=250))
+    else:
+        W, p_value = shapiro(data)
     print('=======================================')
     print('Shapiro-Wilk test (lognormal):')
     print('{:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
