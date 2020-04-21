@@ -15,23 +15,23 @@ Getting Started: A step-by-step tutorial
 - [Paleopiezometry](#paleopiezometry)
 - [Stereology (the stereology module)](#stereology--the-stereology-module-)
 
-## Running the script
+## Open and running the script
 
-First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two main options after opening the Anaconda Python distribution:
+First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two main options if you installed the Anaconda Python distribution:
 
 1. The [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python.
 
 2.  The [Jupyter notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text.
 
-Make your choice and launch it from the Anaconda navigator or just typing Spyder or Jupyter lab in the console.
+Make your choice and launch it from the Anaconda navigator or just typing ``Spyder`` or ``jupyter lab`` in the terminal.
 
-![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help-variable explorer window (top right). This is a MATLAB-like IDE for Python. They also provide a variable explorer, a history log, MATLAB-like cells, code autocompletion, etc.*
+![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help-variable explorer window (top right). This is a MATLAB-like IDE for Python that provides a variable explorer, a history log, MATLAB-like cells, code auto-completion, etc.*
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Jupyter_lab.png?raw=true)
 
-*Figure 2. The Jupyter Lab development environment, a browser-based notebook that allows you to create documents that may contain live code, equations (using Latex), visualizations and narrative text*.
+*Figure 2. The Jupyter Lab development environment, a browser-based notebook that allows creating documents that may contain live code, equations (using Latex), visualizations and narrative text*.
 
-In Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the tool bar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
+In Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the toolbar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
 
 ```
 module plot imported
@@ -46,7 +46,7 @@ Welcome to GrainSizeTools script
 A free open-source cross-platform script to visualize and characterize grain size
 population and estimate differential stress via paleopizometers.
 
-Version: v3.0beta3 (2020-04-xx)
+Version: v3.0 (2020-05-xx)
 Documentation: https://marcoalopez.github.io/GrainSizeTools/
 
 Type get.functions_list() to get a list of the main methods
@@ -56,7 +56,7 @@ Alternatively, if you are using Jupyter lab/notebook you have a similar step-by-
 
 https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/notebook_example.ipynb
 
-As indicated in the welcome message, we can get a list of the main methods at anytime by using:
+As indicated in the welcome message, we can get a list of the main methods at any time by using:
 
 ```python
 get.functions_list()
@@ -72,13 +72,13 @@ If you are in Spyder, the easiest way to import data is through the Spyder data 
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_variable_explorer.png?raw=true)
 
-*Figure 3. The variable explorer window in Spyder. Note that the variable explorer is selected at the bottom (indicated with an arrow). To launch the data importer click on the top left icon (indicated by a circle).*
+*Figure 3. The variable explorer window in Spyder. Note that the variable explorer label is selected at the bottom (indicated with an arrow). To launch the data importer click on the top left icon (indicated by a circle).*
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/import_data.png?raw=true)
 
-*Figure 4. The two-step process for importing data with the Spyder data importer. At left, the first step where the main options are the (1) the variable name, (2) the type of data to import (set to data), (3) the column separator (set to Tab), and (4) the rows to skip (set to 0 as this assumes that the first row are the column names). At right, the second step where you can preview the data and set the variable type. In this case, choose import as DataFrame, which is the best choice for tabular data.*
+*Figure 4. The two-step process for importing data with the Spyder data importer. At left, the first step where the main options are the (1) the variable name, (2) the type of data to import (set to data), (3) the column separator (set to Tab), and (4) the rows to skip (set to 0 as this assumes that the first row is the column names). At right, the second step where you can preview the data and set the variable type. In this case, choose import as DataFrame, which is the best choice for tabular data.*
 
-Once you press "Done" (in the bottom right) the dataset will appear within the variable explorer window as shown in figure 3. Note that it provides information about the type of variable (a Dataframe), the number of rows and columns (2661 x 11), and the column names. If you want to get more details or edit something, double-click on this variable and a new window will pop up (Fig. 5). Also you can do a right-click on this variable and several options will appear.
+Once you press "Done" (in the bottom right) the dataset will appear within the variable explorer window as shown in figure 3. Note that it provides information about the type of variable (a Dataframe), the number of rows and columns (2661 x 11), and the column names. If you want to get more details or edit something, double-click on this variable and a new window will pop up (Fig. 5). Also, you can do a right-click on this variable and several options will appear.
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/variable_explorer02.png?raw=true)
 
@@ -86,9 +86,9 @@ Once you press "Done" (in the bottom right) the dataset will appear within the v
 
 More info here: https://docs.spyder-ide.org/variableexplorer.html
 
-## Importing (tabular) data with Pandas (Spyder and Jupyter lab)
+## Importing tabular data using the console (Spyder and Jupyter lab)
 
-An alternative option is to import the data using the console. For this, [Pandas](https://pandas.pydata.org/about/index.html) is the de facto standard Python library for data analysis and manipulation of table-like datasets (csv, excel or txt files among others). The library includes several tools for reading files and handling of missing data and when running the GrainSizeTools script pandas is imported as ```pd``` for its general use.
+An alternative option is to import the data using the console. For this, [Pandas](https://pandas.pydata.org/about/index.html) is the de facto standard Python library for data analysis and manipulation of table-like datasets (CSV, excel or text files among others). The library includes several tools for reading files and handling of missing data and when running the GrainSizeTools script pandas is imported as ```pd``` for its general use.
 
 All Pandas methods to read data are all named ```pd.read_*``` where * is the file type. For example:
 
@@ -123,15 +123,15 @@ sheet_name  # Only for excel files, the excel sheet name either a number or the 
 
 ```
 
-A random example using several optional arguments might be:
+An example using several optional arguments might be:
 
 ```python
 dataset = pd.read_csv('DATA/data_set.csv', sep=';', skiprows=5, na_filter=True)
 ```
 
-where we import a csv file delimited by ``;`` ignoring the first five lines of the file, and we want all missing values to be handled during import.
+which in plain language means that we import a csv file named ``data_set`` that is located in the folder ``DATA``. The data is delimited by a semicolon and we want to ignore the first five lines of the file (*i.e.* column names appear in the sixth row). Last, we want all missing values to be handled during the import. 
 
-The GST script includes a method named ```get_filepath()``` to get the path of a file through a file selection dialog instead of writing it. This can be used in two ways:
+The script includes a method named ```get_filepath()``` to get the path of a file through a file selection dialog instead of writing it. This can be used in two ways:
 
 ```python
 # store the path in a variable (here named filepath for convenience) and then use it when calling the read method
@@ -155,7 +155,7 @@ type(dataset)  # show the variable type
 pandas.core.frame.DataFrame
 ```
 
-For visualizing the data at any time, you can use the variable explorer in Spyder (Fig. 5) or directly calling the name of the variable that contains the *Dataframe* in the console and press enter.
+For visualizing the data at any time, you can use the variable explorer in Spyder (Fig. 5) or directly calling the name of the variable in the console and press enter.
 
 ```python
 # show the DataFrame in the console
@@ -201,7 +201,7 @@ dataset.head()
 
 Now, you can see that a new column named diameters appear when displaying the dataset.
 
-> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot with the method or the scientific value to be applied. If you write in the console ``np.`` and then press press the TAB key, you will see a huge list of methods available. In general, the name of the methods used are equivalent to those used in MATLAB but always adding the ``np.`` first.
+> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot with the method or the scientific value to be applied. If you write in the console ``np.`` and then press the TAB key, you will see a large list of available methods. In general, the method names are equivalent to those used in MATLAB but always by adding the ``np.`` first.
 
 
 
@@ -255,17 +255,17 @@ summarize(dataset['diameters']) # the column name may change depending on your d
 By default, the ```summarize``` function returns:
 
 - Different **central tendency estimators** ("averages") including the arithmetic and geometric means, the median, and the KDE-based mode (i.e. frequency peak).
-- The **confidence intervals** for the different means and the median at 95% of certainty in absolute and percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals are that given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible region. It is provides the lower and upper bounds, the error in percentage respect to the average, and the length of the confidence interval. 
-- The methods used to estimate the confidence intervals for each average (excepting for the mode). By default the function ```summarize``` will choose the optimal method depending on distribution features (Fig. X)
+- The **confidence intervals** for the different means and the median at 95% of certainty in absolute value and in percentage relative to the average (*a.k.a* coefficient of variation). The meaning of these intervals is that, given the observed data, there is a 95% probability (one in 20) that the true value of grain size falls within this credible interval. The function provides the lower and upper bounds of the confidence interval, the error in percentage respect to the average, and the interval length. 
+- The methods used to estimate the confidence intervals for each average (excepting for the mode). The function ```summarize``` automatically choose the optimal method depending on distribution features (Fig. 6)
 - The sample size and two population dispersion measures: the (Bessel corrected) [standard deviation](https://en.wikipedia.org/wiki/Standard_deviation) and the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range).
 - The shape of the lognormal distribution using the multiplicative standard deviation (MSD)
 - A Shapiro-Wilk test warning indicating when the data deviates from normal and/or lognormal (when p-value < 0.05).
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/avg_map.png?raw=true)
 
-*Figure X. Decision tree flowchart for choosing the optimal confidence interval estimation method. For details on this see [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042)*
+*Figure 6. Decision tree flowchart for choosing the optimal confidence interval estimation method. For details see [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042)*
 
-The ```summarize()``` method contains different input parameters (arguments) that we will commented on in turn. The help of the function looks like this in the script (use ``?summarize`` or CTRL+I in the console to obtain this): 
+The ```summarize()``` method contains different input parameters (arguments) that we will commented on in turn. The help of the function looks like this in the script (use ``?summarize`` or CTRL+I in the console to see this): 
 
 ```python
 def summarize(data,
@@ -327,7 +327,7 @@ To visualize the grain size distribution there are several methods implemented i
 
 > 👉 If you write ``plot.`` and then press the tab key a menu will pop up with all the methods implemented in the plot module
 
-The main method is ```plot.distribution()```. This method allows to visualize the grain size population using the histogram and/or the kernel density estimate (KDE) as well as the location of the different averages in the distribution. To use it we invoke this function and pass as an argument the population of grain sizes as follows:
+The main method is ```plot.distribution()```. This method allows to visualize the grain size population through the histogram and/or the kernel density estimate (KDE), as well as the location of the different averages in the distribution (Fig. 7). To use it we call this function and pass as an argument the population of grain sizes as follows:
 
 ```python
 plot.distribution(dataset['diameters'])
@@ -343,9 +343,9 @@ plot.distribution(dataset['diameters'])
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution.png?raw=true)
 
-*Figure X. The default distribution plot showing the histogram and the kernel density estimate (KDE) of the distribution and the location of the arithmetic and geometric means, the median, and the KDE-based mode.*
+*Figure 7. The ```plot.distribution()``` return with default options. This shows the histogram, the kernel density estimate (KDE) of the distribution, and the location of the different averages*
 
-Note that the methods returns a plot, the number of classes and bin size of the histogram, and the bandwidth (or kernel) of the KDE. The ```plot.distribution()``` method contains different input parameters that we will commented on in turn:
+The methods returns a plot, the number of classes and bin size of the histogram, and the bandwidth (or kernel) of the KDE. The ```plot.distribution()``` method contains different options that we will commented on in turn:
 
 ```python
 def distribution(data,
@@ -436,7 +436,7 @@ Note, however, that the bandwidth affects the location of the KDE-based mode. Fo
 
 ### Plotting the area-weighted distribution
 
-In case you want to plot the area-weighted distribution of grain sizes you can use:
+The plot module also allows plotting the area-weighted distribution of grain sizes using the function ``area_weighted()``. This function also returns some basic statistics such as the area-weighted mean and the histogram features. For example:
 
 ```python
 plot.area_weighted(dataset['diameters'], dataset['Area'])
@@ -458,11 +458,11 @@ plot.area_weighted(dataset['diameters'], dataset['Area'])
 
 *Figure X. The area-weighted apparent grain size distribution and the location of the area-weighted mean*
 
-TODO
+In any case, it should be noted that it is not advisable to use the area-weighted mean for the calibration of paleopiezometers or for the comparison of grain size populations, as this is a poorly optimised central tendency measure ([Lopez-Sanchez, 2020](https://doi.org/10.1016/j.jsg.2020.104042)). On the other hand, the area-weighted distribution is useful...TODO
 
 ### Testing lognormality
 
-Sometimes we will need to test whether the data follows or deviates from a lognormal distribution. For example, to find out if the data set is suitable for applying the two-step stereological method or which confidence interval method is best for the arithmetic mean. The script use two methods to test whether the distribution of grain size follows a lognormal distribution. One is a visual method named [quantile-quantile (q-q) plots]([https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot](https://en.wikipedia.org/wiki/Q–Q_plot)) and the other is a quantitative test named the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro–Wilk_test). For this we use the GST function ```test_lognorm``` as follows :
+Sometimes can be helpful to test whether the data follows or deviates from a lognormal distribution. For example, to find out if the data set is suitable for applying the two-step stereological method or which confidence interval method is best for the arithmetic mean. The script use two methods to test whether the distribution of grain size follows a lognormal distribution. One is a visual method named [quantile-quantile (q-q) plots]([https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot](https://en.wikipedia.org/wiki/Q–Q_plot)) and the other is a quantitative test named the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro–Wilk_test). For this we use the GrainSizeTools function ```test_lognorm``` as follows :
 
 ```python
 plot.qq_plot(dataset['diameters'])
@@ -470,7 +470,7 @@ plot.qq_plot(dataset['diameters'])
 ```
 =======================================
 Shapiro-Wilk test (lognormal):
-0.99, 0.00 (test statistic, p-value)
+0.99, 0.03 (test statistic, p-value)
 It doesnt look like a lognormal distribution (p-value < 0.05)
 (╯°□°）╯︵ ┻━┻
 =======================================
@@ -480,7 +480,7 @@ It doesnt look like a lognormal distribution (p-value < 0.05)
 
 *Figure X. The q-q plot of the test dataset. Note that the distribution of apparent grain sizes deviates from the logarithmic at the ends*.
 
-Regarding the q-q plot, if the points fall right onto the reference line, it means that the grain size values are lognormally or approximately lognormally distributed. The Shapiro-Wilk test will return two different values, the test statistic and a p-value. The Shapiro-Wilk test, as put in GST script, considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot has the advantage over the Shapiro-Wilk test that it shows where the distribution deviates from the lognormal distribution. 
+The Shapiro-Wilk test will return two different values, the test statistic and the p-value. This test considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot is a visual test that when the points fall right onto the reference line it means that the grain size values are lognormally distributed. The q-q plot has the advantage over the Shapiro-Wilk test that it shows where the distribution deviates from lognormality. 
 
 > 👉 To know more about the q-q plot see https://serialmentor.com/dataviz/
 
@@ -488,7 +488,7 @@ Regarding the q-q plot, if the points fall right onto the reference line, it mea
 
 ### Normalized grain size distributions
 
-Standardized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of standardized distributions is that they allow comparison of whether or not the grain size distribution is similar to others when the average grain size between the different distributions differs significantly. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, to facilitate the comparison, the standardized method shows the normalized distribution on a logarithmic scale based on e and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
+Standardized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of standardized distributions is that they allow comparison of whether or not the grain size distribution is similar to others when the average grain size between the different distributions differs significantly. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, to facilitate the comparison, the standardized method shows the normalized distribution on a logarithmic scale based on *e* and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
 
 ```python
 plot.normalized(dataset['diameters'], avg='amean')

@@ -142,9 +142,9 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('')
 
     # estimate Shapiro-Wilk test to check normality and lognormality
-    # In Sahpiro-wilk tests the chances of the null hypothesis being
-    # rejected becomes larger for large sample sizes
-    # samples...TODO
+    # In Shapiro-Wilk tests, the chances of the null hypothesis being
+    # rejected becomes larger for large sample sizes. We limit the
+    # sample size to a maximum of 250
     if len(data) > 250:
         W, p_value = shapiro(np.random.choice(data, size=250))
         W2, p_value2 = shapiro(np.random.choice(np.log(data), size=250))
