@@ -18,7 +18,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the "License".                                          #
 #                                                                              #
-#    Version 3.0beta3                                                          #
+#    Version 3.0rc                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -412,7 +412,7 @@ def GCI_ci(data, ci=0.95, runs=10000):
     data = np.log(data)
     mu_log, var_log, n = np.mean(data), np.var(data), len(data)
     ddof = n - 1
-    alpha = 0.05
+    alpha = 1 - ci
 
     # Generate random values from the normal N(0,1) distribution
     z_array = np.random.normal(loc=0, scale=1.0, size=runs)

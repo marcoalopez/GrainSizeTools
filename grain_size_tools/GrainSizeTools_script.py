@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.0beta3                                                          #
+#    Version 3.0rc                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -134,11 +134,14 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     None
     """
 
-    # check and remove for negative values
+    # remove missing and infinite values
+    data = data[~np.isnan(data) & np.isinf(data)]
+
+    # check for negative values and remove
     if data[data <= 0].size > 0:
-        print('Warning: There are negative and/or zero values in your dataset!')
+        print('Warning: There were negative and/or zero values in your dataset!')
         data = data[data > 0]
-        print('Negative/zero values automatically removed')
+        print('Negative/zero values were automatically removed')
         print('')
 
     # estimate Shapiro-Wilk test to check normality and lognormality
