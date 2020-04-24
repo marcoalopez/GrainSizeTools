@@ -135,7 +135,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     """
 
     # remove missing and infinite values
-    data = data[~np.isnan(data) & np.isinf(data)]
+    data = data[~np.isnan(data) & ~np.isinf(data)]
 
     # check for negative values and remove
     if data[data <= 0].size > 0:
