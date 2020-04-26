@@ -1,10 +1,10 @@
 Getting Started: A step-by-step tutorial
 =============
 
-> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that this is a beta version and the documentation is still unfinished. If you find a bug or have any question check the community guidelines. I would be glad to answer it (although it may take a while).**
+> **IMPORTANT NOTE: This documentation only applies to GrainSizeTools v3.0+ Please check your script version before using this tutorial. You will be able to reproduce all the results shown in this tutorial using the dataset provided with the script, the file ``data_set.txt``. Note that the documentation is still unfinished in some parts. If you find a bug or have any question check the community guidelines. I would be glad to answer it (although it may take a while).**
 
 - [Running the script](#running-the-script)
-- [Importing the data using the Spyder data importer](#importing-the-data-using-the-spyder-data-importer)
+- [Importing data using the Spyder data importer](#importing-data-using-the-spyder-data-importer)
 - [Importing (tabular) data with Pandas (Spyder and Jupyter lab)](#importing--tabular--data-with-pandas--spyder-and-jupyter-lab-)
 - [Manipulating tabular data (Pandas dataframes)](#manipulating-tabular-data--pandas-dataframes-)
 - [Grain size characterization](#grain-size-characterization)
@@ -17,13 +17,13 @@ Getting Started: A step-by-step tutorial
 
 ## Open and running the script
 
-First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [requirements](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md) for more details). If you are not familiarized with Python, you have two main options if you installed the Anaconda Python distribution:
+First of all, make sure you have the latest version of the GrainSizeTools (GST) script and a Python scientific distribution installed (see [Installing Python for data science](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/installing_Python.md) for more details). If you are not familiarized with Python, I propose two main options:
 
-1. The [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python.
+1. Use the [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python. If you are familiar with MATLAB this is probably the easiest way to go.
 
-2.  The [Jupyter notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text.
+2.  Use the [Jupyter notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text.
 
-Make your choice and launch it from the Anaconda navigator or just typing ``Spyder`` or ``jupyter lab`` in the terminal.
+Make your choice and launch it from the Anaconda navigator or just by typing ``Spyder`` or ``jupyter lab`` in the terminal.
 
 ![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help-variable explorer window (top right). This is a MATLAB-like IDE for Python that provides a variable explorer, a history log, MATLAB-like cells, code auto-completion, etc.*
 
@@ -46,7 +46,7 @@ Welcome to GrainSizeTools script
 A free open-source cross-platform script to visualize and characterize grain size
 population and estimate differential stress via paleopizometers.
 
-Version: v3.0 (2020-05-xx)
+Version: v3.0RC0 (2020-05-xx)
 Documentation: https://marcoalopez.github.io/GrainSizeTools/
 
 Type get.functions_list() to get a list of the main methods
@@ -56,7 +56,7 @@ Alternatively, if you are using Jupyter lab/notebook you have a similar step-by-
 
 https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/notebook_example.ipynb
 
-As indicated in the welcome message, we can get a list of the main methods at any time by using:
+As indicated in the welcome message, we can get a list of the main methods at any time by typing in the console:
 
 ```python
 get.functions_list()
@@ -66,7 +66,7 @@ get.functions_list()
 
 
 
-## Importing the data using the Spyder data importer
+## Importing data using the Spyder data importer
 
 If you are in Spyder, the easiest way to import data is through the Spyder data importer. To do this, select the variable browser and then click on the import data icon in the upper left (Fig. 3). A new window will pop up showing different import options (Fig. 4).
 
@@ -82,11 +82,11 @@ Once you press "Done" (in the bottom right) the dataset will appear within the v
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/variable_explorer02.png?raw=true)
 
-*Figure 5. Representation of the dataset in the Spyder variable explorer.*
+*Figure 5. Representation of the dataset in the Spyder variable explorer. Note that the colours change with values.*
 
-More info here: https://docs.spyder-ide.org/variableexplorer.html
+> 👉 More info on the Spyder variable explorer here: https://docs.spyder-ide.org/variableexplorer.html
 
-## Importing tabular data using the console (Spyder and Jupyter lab)
+## Importing tabular data using the console
 
 An alternative option is to import the data using the console. For this, [Pandas](https://pandas.pydata.org/about/index.html) is the de facto standard Python library for data analysis and manipulation of table-like datasets (CSV, excel or text files among others). The library includes several tools for reading files and handling of missing data and when running the GrainSizeTools script pandas is imported as ```pd``` for its general use.
 
@@ -97,13 +97,12 @@ pd.read_csv()          # read csv or txt files, default delimiter is ','
 pd.read_table()        # read general delimited file, default delimiter is '\t' (TAB)
 pd.read_excel()        # read excel files
 pd.read_html()         # read HTML tables
-pd.read_clipboard()    # read text from clipboard (copy-paste)
 # etc.
 ```
 
 For other supported file types see https://pandas.pydata.org/pandas-docs/stable/user_guide/io.html
 
-The only mandatory argument for the reading methods (leaving aside``pd.read_clipboard()``) is to define the path (local or URL) with the location of the file to be imported. For example:
+The only mandatory argument for the reading methods is to define the path (local or URL) with the location of the file to be imported. For example:
 
 
 ```python
@@ -112,7 +111,7 @@ The only mandatory argument for the reading methods (leaving aside``pd.read_clip
 dataset = pd.read_table('DATA/data_set.txt')
 ```
 
-Pandas' reading methods give you a lot of control over how a file is read. To keep things simple, the most commonly used arguments are listed below:
+Pandas' reading methods give you a lot of control over how a file is read. To keep things simple, we list here the most commonly used arguments:
 
 ```python
 sep or delimier  # Delimiter to use.
@@ -129,9 +128,11 @@ An example using several optional arguments might be:
 dataset = pd.read_csv('DATA/data_set.csv', sep=';', skiprows=5, na_filter=True)
 ```
 
-which in plain language means that we import a csv file named ``data_set`` that is located in the folder ``DATA``. The data is delimited by a semicolon and we want to ignore the first five lines of the file (*i.e.* column names appear in the sixth row). Last, we want all missing values to be handled during the import. 
+which in plain language means that we are importing a ``csv`` file named ``data_set`` that is located in the folder ``DATA``. The data is delimited by a semicolon and we ignore the first five lines of the file (*i.e.* column names are supposed to appear in the sixth row). Last, we want all missing values to be handled during the import. 
 
-The script includes a method named ```get_filepath()``` to get the path of a file through a file selection dialog instead of writing it. This can be used in two ways:
+> 👉 more details on Pandas csv read method: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
+
+The script includes a method named ```get_filepath()``` to get the path of a file through a file selection dialog instead of directly writing it. This can be used in two ways:
 
 ```python
 # store the path in a variable (here named filepath for convenience) and then use it when calling the read method
@@ -141,9 +142,16 @@ dataset = pd.read_csv(filepath, sep=';')
 # use get_filepath() directly within the read method
 dataset = pd.read_csv(get_filepath(), sep=';')
 ```
-> more details on Pandas csv read method: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
-## Manipulating tabular data (Pandas dataframes)
+Lastly, Pandas also allows to directly import tabular data from the clipboard (i.e. data copied using copy-paste commands). For this, after copying the table (from a text/excel file or a website) use the method: 
+
+```python
+pd.read_clipboard()
+```
+
+---
+
+## Basic tabular data manipulation (Pandas dataframes)
 
 In the examples above, we imported the data as a *Dataframe*, which for simplicity is just a Python “object” containing tabular data.
 
@@ -155,16 +163,16 @@ type(dataset)  # show the variable type
 pandas.core.frame.DataFrame
 ```
 
-For visualizing the data at any time, you can use the variable explorer in Spyder (Fig. 5) or directly calling the name of the variable in the console and press enter.
+For visualizing the data at any time, you can use the variable explorer in Spyder (Fig. 5) or directly typing the name of the variable in the console and press enter.
 
 ```python
-# show the DataFrame in the console
+# show the DataFrame in the console or the notebook
 dataset
 ```
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output.png?raw=true)
 
-Alternatively, if you want to view only few rows use: 
+Alternatively, if you want to view few rows use: 
 
 ```python
 # visualize the first rows, you can define the number of rows whithin the parentheses
@@ -201,6 +209,12 @@ dataset.head()
 
 Now, you can see that a new column named diameters appear when displaying the dataset.
 
+
+
+TODO -> Example showing how to estimate the RMS mean?
+
+
+
 > 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the word after the dot with the method or the scientific value to be applied. If you write in the console ``np.`` and then press the TAB key, you will see a large list of available methods. In general, the method names are equivalent to those used in MATLAB but always by adding the ``np.`` first.
 
 
@@ -211,11 +225,11 @@ Now, you can see that a new column named diameters appear when displaying the da
 
 ## Grain size characterization
 
-To describe the properties of the grain size population use the function ```summarize``` and pass the population of diameters as input:
+To describe the properties of the grain size population use the function ```summarize``` and pass the population of grain sizes (apparent or not) as the input:
 
 
 ```python
-summarize(dataset['diameters']) # the column name may change depending on your dataset
+summarize(dataset['diameters']) # the column name in quotes may change depending on your dataset
 ```
 
     ============================================================================
@@ -321,7 +335,7 @@ TODO
 
 
 
-## Visualizing grain size distributions and their properties (the plot module)
+## Visualizing grain size distributions and their properties
 
 To visualize the grain size distribution there are several methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 

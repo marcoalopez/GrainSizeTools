@@ -96,9 +96,9 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     Parameters
     ----------
     data : array_like
-        the diameters (apparent or not) of the grains
+        the size of the grains
 
-    avg : string, tuple or list, optional
+    avg : string, tuple or list; optional
         the averages to be estimated
 
         | Types:
@@ -107,14 +107,14 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         | 'median' - median
         | 'mode' - the kernel-based frequency peak of the distribution
 
-    ci_level : scalar between 0 and 1, optional
+    ci_level : scalar between 0 and 1; optional
         the certainty of the confidence interval (default = 0.95)
 
-    bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
+    bandwidth : string {'silverman' or 'scott'} or positive scalar; optional
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
 
-    precision : positive scalar or None, optional
+    precision : positive scalar or None; optional
         the maximum precision expected for the "peak" kde-based estimator.
         Default is 0.1. Note that this has nothing to do with the
         confidence intervals

@@ -48,18 +48,18 @@ def distribution(data,
     Parameters
     ----------
     data : array_like
-        the apparent diameters of the grains
+        the size of the grains
 
-    plot : string, tuple or list
+    plot : string, tuple or list; optional
         the type of plot, either histogram ('hist'), kernel density estimate
         ('kde') or both ('hist', 'kde'). Default is both.
 
-    avg : string, tuple or list
+    avg : string, tuple or list; optional
         the central tendency measures o show, either the arithmetic ('amean')
         or geometric ('gmean') means, the median ('median'), and/or the
         KDE-based mode ('mode'). Default all averages.
 
-    binsize : string or positive scalar, optional
+    binsize : string or positive scalar; optional
         If 'auto', it defines the plug-in method to calculate the bin size.
         When integer or float, it directly specifies the bin size.
         Default: the 'auto' method.
@@ -73,7 +73,7 @@ def distribution(data,
         | 'sqrt' (square-root rule)
         | 'sturges' (Sturge's rule)
 
-    bandwidth : string {'silverman' or 'scott'} or positive scalar, optional
+    bandwidth : string {'silverman' or 'scott'} or positive scalar; optional
         the method to estimate the bandwidth or a scalar directly defining the
         bandwidth. It uses the Silverman plug-in method by default.
 
@@ -89,7 +89,7 @@ def distribution(data,
     Examples
     --------
     >>> distribution(data['diameters'])
-    >>> distribution(data['diameters'], figsize=(6.4, 4.8), dpi=300)
+    >>> distribution(data['diameters'], figsize=(6.4, 4.8))
 
     Returns
     -------
@@ -191,7 +191,7 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     Parameters
     ----------
     diameters : array_like
-        the apparent diameters of the grains
+        the size of the grains
 
     areas : array_like
         the sectional areas of the grains
@@ -276,8 +276,8 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
               color='#1F1F1F',
               label='area weighted mean',
               linewidth=2)
-    ax.set_ylabel('normalized area fraction (%)', fontsize=15)
-    ax.set_xlabel(r'apparent diameter ($\mu m$)', fontsize=15)
+    ax.set_ylabel('normalized area fraction (%)', fontsize=18)
+    ax.set_xlabel(r'apparent diameter ($\mu m$)', fontsize=18)
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
@@ -364,7 +364,10 @@ def normalized(data, avg='amean', bandwidth='silverman', **fig_kw):
               linewidth=2.5)
 
     ax.set_ylabel('density', fontsize=18)
-    ax.set_xlabel(r'normalized log grain size ($\mu m$)', fontsize=18)
+    if avg == 'amean':
+        ax.set_xlabel(r'normalized log grain size ($y / \mu_{y}$)', fontsize=18)
+    else:
+        ax.set_xlabel(r'normalized log grain size ($y / med_{y}$)', fontsize=18)
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
