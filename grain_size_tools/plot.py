@@ -421,6 +421,7 @@ def qq_plot(data, percent=2, **fig_kw):
     ax.set_xlabel('theoretical', fontsize=18)
     ax.set_ylabel('observed', fontsize=18)
     ax.legend(loc='best', fontsize=18)
+    ax.set_aspect('equal')
 
     fig.tight_layout()
 

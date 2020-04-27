@@ -1,31 +1,29 @@
-# Paleopiezometry
+# Paleopiezometry based on dynamically recrystallized grain size
 
-*Define paleopizometry -> TODO*
 
-The script includes a function for estimating differential stress via paleopiezometers based on "average" apparent grain sizes called ``calc_diffstress()`` and requires
+
+The script includes a function for estimating differential stress based on "average" recrystallized grain sizes called ``calc_diffstress()`` that requires
 
 - define the mineral phase and the piezometer relation to use
 
--  entering the (apparent) grain size as equivalent circular diameters in microns **with no stereological correction**
-- entering a specific type of "average" grain size that depends on the piezometric relation used
+-  measuring the (apparent) grain size as the **equivalent circular diameter in microns**
+- entering a **specific type of "average" grain size with no stereological correction**
 - set the type of stress, either uniaxial compression/extension or plane stress, for proper stress correction
 
-For the first requirement, the GrainSizeTools script includes common mineral phases such as quartz, calcite, olivine and albite (more available soon). 
+For the first requirement, the GrainSizeTools script includes common mineral phases such as quartz, calcite, olivine and albite (more available soon) and a large list of piezometer relations (17 so far). Also, the script facilitates to write your piezometric relation.
 
-For the second requirement, the ``calc_diffstress()`` function will automatically convert the equivalent circular diameter to linear intercepts using de Hoff and Rhines (1968) correction where applicable. Likewise, if the original author(s) of the piezometer used any type of stereological correction, this will be automatically applied to correct the value. This is, you don't have to worry about whether the piezometer was calibrated using linear intercepts or stereological corrections, always use the equivalent circular diameters in microns **with no stereological correction**
+For the second requirement, the function will automatically convert the equivalent circular diameter to linear intercepts where applicable using de Hoff and Rhines (1968) correction. This is, you don't have to worry about whether the piezometer was originally calibrated using linear intercepts, always use the equivalent circular diameters in microns.
 
-The third requirement is key for a correct estimation of the stress since each paleopiezometer was calibrated for a specific average grain size and, hence, **only provide valid results if the same type of average (arithmetic mean, median...) is used**.
+The third requirement is key for a correct estimation of the differential stress since each paleopiezometer was calibrated for a specific average grain size (arithmetic mean, median, RMS mean, etc.) and, hence, **only provides valid results if the same type of average is used**. Also, **you should not use any type of stereological correction for the estimation of the grain size**, if the original author(s) of the piezometer used any type of stereological correction, this will be automatically applied to correct the average grain size. 
 
-The fourth requirement means that the user has to decide whether or not **to correct the estimate of the differential stress for plane stress** using the correction factor proposed by Paterson and Olgaard (2000). The rationale for this is that the experiments designed to calibrate piezometers are mainly performed in uniaxial compression while natural shear zones approximately behave as plane stress volumes.
+The fourth requirement means that the user has to decide whether to correct or not the estimate of the differential stress for plane stress using the correction factor proposed by Paterson and Olgaard (2000). The rationale for this is that the experiments designed to calibrate piezometers are mainly performed in uniaxial compression while natural shear zones approximately behave as plane stress volumes.
 
 Below are examples of how to obtain information about the different piezometers and define these parameters.
 
 
-## Get information on paleopizometric relations
+## Get information on piezometric relations
 
-Table 1 provides a list of the all piezometric relations currently available in the GrainSizeTools script with features (the type of average to use and DRX mechanism) and references. The different experimentally-derived parameters can be seen in Tables 2 to 5.
-
-You can get information from the console on the available piezometric relations  just by typing ``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
+Table 1 provides a list of the all piezometric relations currently available in the GrainSizeTools script with features (the type of average to use and DRX mechanism) and references. The different experimentally-derived parameters are provided in Tables 2 to 5. Besides, you can get information from the console on the different available piezometric relations  just by typing ``piezometers.*()``, where * is the mineral phase, either ``quartz``, ``calcite``, ``olivine``, or ``feldspar``. For example:
 
 ```python
 piezometers.quartz()
@@ -76,7 +74,7 @@ where...TODO
 |       ``'Valcke' ``        |      arith. mean       |    BLG, SGR    |     calcite      |     Valcke et al. (2015)      |
 |  ```'VanderWal_wet'```*§*  |      arith. mean       |                | Olivine, dry/wet |   Van der Wal et al. (1993)   |
 
-*† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns. The use of non-linear scales are indicated*  
+*† Apparent grain size measured as equivalent circular diameters (ECD) with no stereological correction and reported in microns. The use of non-linear scales is indicated*  
 *‡ Shimizu piezometer requires to provide the temperature during deformation in K*  
 *§ These piezometers were originally calibrated using linear intercepts (LI) instead of ECD*
 
@@ -191,7 +189,7 @@ Differential stresses in MPa
 array([167.41, 153.66, 162.16, 172.73, 162.83, 185.45])
 ```
 
-For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square (RMS) using equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v3.0+ and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific grain size average measured as equivalent circular diameters (ECD). The script will automatically approximate the ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation. Also, the script takes into account if the authors originally used a specific correction factor for the grain size. For more details on the piezometers and the assumption made use the command ```help()```  in the console as follows:
+For example, the piezometer relation of Stipp and Tullis (2003) requires entering the grain size as *the root mean square (RMS) using equivalent circular diameters with no stereological correction*, and so on. Table 1 show all the implemented piezometers in GrainSizeTools v3.0+ and the apparent grain size required for each one. Despite some piezometers were originally calibrated using linear intercepts (LI), the script will always require entering a specific grain size average measured as equivalent circular diameters (ECD). The script will automatically approximate the ECD value to linear intercepts using the De Hoff and Rhines (1968) empirical relation. Also, the script takes into account if the authors originally used a specific correction factor for the grain size. For more details on the piezometers and the assumption made using the command ```help()```  in the console as follows:
 
 ```python
 help(calc_diffstress)
