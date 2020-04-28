@@ -1,10 +1,10 @@
 # The plot module: visualizing grain size distributions
 
-To visualize the grain size distribution there are several methods implemented in the module named ```plot```.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
+The plot module allows several visualizations of the grain size distribution.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
 > 👉 If you write ``plot.`` and then press the tab key a menu will pop up with all the methods implemented in the plot module
 
-The main method is ```plot.distribution()```. This method allows to visualize the grain size population through the histogram and/or the kernel density estimate (KDE), as well as the location of the different averages in the distribution (Fig. 7). To use it we call this function and pass as an argument the population of grain sizes as follows:
+The main method is named ```plot.distribution()``` and it allows to visualize the grain size population through the histogram and/or the kernel density estimate (KDE), as well as the location of the different averages in the distribution (Fig. 7). To use it we call this function and pass as an argument the population of grain sizes as follows:
 
 ```python
 plot.distribution(dataset['diameters'])
@@ -111,7 +111,7 @@ Note, however, that the bandwidth affects the location of the KDE-based mode. Fo
 
 
 
-### Plotting the area-weighted distribution
+### The area-weighted distribution
 
 The plot module also allows plotting the area-weighted distribution of grain sizes using the function ``area_weighted()``. This function also returns some basic statistics such as the area-weighted mean and the histogram features. For example: 
 
@@ -168,7 +168,7 @@ The Shapiro-Wilk test will return two different values, the test statistic and t
 
 ### Normalized grain size distributions
 
-Standardized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of standardized distributions is that they allow comparison of whether or not the grain size distribution is similar to others when the average grain size between the different distributions differs significantly. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, to facilitate the comparison, the standardized method shows the normalized distribution on a logarithmic scale based on *e* and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
+Normalized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of normalized distributions is that they allow comparison of grain size distribution when the average grain size between distributions differs significantly. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, the method shows the normalized distribution on a logarithmic scale and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
 
 ```python
 plot.normalized(dataset['diameters'], avg='amean')
