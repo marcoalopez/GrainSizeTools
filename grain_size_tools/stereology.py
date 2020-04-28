@@ -233,7 +233,7 @@ def calc_shape(diameters, class_range=(10, 20)):
     optimal_params, sigma_err = fit_log(mid_points, frequencies, (shape, scale))
 
     print('=======================================')
-    print('OPTIMAL VALUES')
+    print('PREDICTED OPTIMAL VALUES')
     print('Number of classes: {}' .format(optimal_num_classes))
     print('MSD (lognormal shape) = {msd:0.2f} ± {err:0.2f}'
           .format(msd=optimal_params[0], err=3 * sigma_err[0]))
@@ -477,7 +477,7 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     ii) a volume-weighted cumulative frequency plot (ax2)
     """
 
-    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(13, 5))
+    fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
 
     # frequency vs grain size plot
     ax1.bar(left_edges, freq3D,
@@ -489,10 +489,10 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
                    fontsize=18)
     ax1.set_xlabel(r'diameter ($\mu m$)',
                    fontsize=18)
-    ax1.set_title('estimated 3D grain size distribution',
-                  color='#1F1F1F',
-                  fontsize=18,
-                  y=1.02)
+    # ax1.set_title('estimated 3D grain size distribution',
+    #               color='#1F1F1F',
+    #               fontsize=18,
+    #               y=1.02)
 
     # volume-weighted cumulative frequency curve
     ax2.set_ylim([-2, 105])
@@ -502,13 +502,13 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
              label='volume weighted CFD',
              linewidth=2)
     ax2.set_ylabel('cumulative volume (%)',
-                   fontsize=18)
+                   color='#252525')
     ax2.set_xlabel(r'diameter ($\mu m$)',
-                   fontsize=18)
-    ax2.set_title('volume-weighted cumulative freq. distribution',
-                  color='#1F1F1F',
-                  fontsize=18,
-                  y=1.02)
+                   color='#252525')
+    # ax2.set_title('volume-weighted cumulative freq. distribution',
+    #               color='#1F1F1F',
+    #               fontsize=18,
+    #               y=1.02)
 
     fig.tight_layout()
 
@@ -553,9 +553,9 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
 #            label='datapoints',
 #            linewidth=1.5)
 
-    ax.set_ylabel('freq. (per unit vol.)', fontsize=18)
+    ax.set_ylabel('freq. (per unit vol.)', color='#252525')
     ax.legend(loc='best', fontsize=15)
-    ax.set_xlabel(r'diameter ($\mu m$)', fontsize=18)
+    ax.set_xlabel(r'diameter ($\mu m$)', color='#252525')
 
     fig.tight_layout()
 

@@ -276,8 +276,8 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
               color='#1F1F1F',
               label='area weighted mean',
               linewidth=2)
-    ax.set_ylabel('normalized area fraction (%)', fontsize=18)
-    ax.set_xlabel(r'apparent diameter ($\mu m$)', fontsize=18)
+    ax.set_ylabel('normalized area fraction (%)', color='#252525')
+    ax.set_xlabel(r'apparent diameter ($\mu m$)', color='#252525')
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
@@ -363,11 +363,11 @@ def normalized(data, avg='amean', bandwidth='silverman', **fig_kw):
               label='median',
               linewidth=2.5)
 
-    ax.set_ylabel('density', fontsize=18)
+    ax.set_ylabel('density', color='#252525')
     if avg == 'amean':
-        ax.set_xlabel(r'normalized log grain size ($y / \mu_{y}$)', fontsize=18)
+        ax.set_xlabel(r'normalized log grain size ($y / \bar{y}$)', color='#252525')
     else:
-        ax.set_xlabel(r'normalized log grain size ($y / med_{y}$)', fontsize=18)
+        ax.set_xlabel(r'normalized log grain size ($y / med_{y}$)', color='#252525')
     ax.legend(loc='best', fontsize=15)
 
     fig.tight_layout()
@@ -418,10 +418,10 @@ def qq_plot(data, percent=2, **fig_kw):
             alpha=0.5)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    ax.set_xlabel('theoretical', fontsize=18)
-    ax.set_ylabel('observed', fontsize=18)
+    ax.set_xlabel('theoretical', color='#252525')
+    ax.set_ylabel('observed', color='#252525')
     ax.legend(loc='best', fontsize=18)
-    ax.set_aspect('equal')
+    # ax.set_aspect('equal')
 
     fig.tight_layout()
 
@@ -441,7 +441,7 @@ def qq_plot(data, percent=2, **fig_kw):
         print('(╯°□°）╯︵ ┻━┻')
     print('=======================================')
 
-    return None
+    return fig, ax
 
 
 if __name__ == '__main__':
