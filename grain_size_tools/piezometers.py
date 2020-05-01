@@ -122,7 +122,7 @@ def quartz(piezometer=None):
 
     elif piezometer == 'Twiss':
         B, m = 550, 0.68
-        warn = 'Ensure that you entered the apparent grain size as the arithmeic mean grain size'
+        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean grain size'
         linear_interceps = True
         correction_factor = 1.5
 
