@@ -1,6 +1,4 @@
-*last update 2020/05/02*
-
-# Getting started using the GrainSizeTools script: first steps
+# Getting started: first steps using the GrainSizeTools script
 
 Installing Python for data science
 -------------
@@ -77,7 +75,7 @@ and provide the required parameters within the parenthesis.
 
 To access the methods within a module, type the module name plus the dot and hit the tab key and a complete list of methods will pop up.
 
-### Get detailed information on methods
+#### Get detailed information on methods
 
 You can get detailed information about any method or function of the script in different ways. The first is through the console using the character ? before the method
 
@@ -134,21 +132,31 @@ filepath = 'C:/Users/marco/Documents/GitHub/GrainSizeTools/grain_size_tools/DATA
 
 # import the data
 dataset = pd.read_table(filepath)
+
+#display the data
+dataset
 ```
 
-Once the data is imported the dataset will appear in the variable explorer. Some important things to note about the code snippet used above is that we used the ``pd.read_table()`` method to import the file. By default, this method assumes that the data to import is stored in a text file separated by tabs. Alternatively you can use the ``pd.read_csv()`` method (note that csv means comma-separated values) and set the delimiter to ``'\t'`` as follows: ``pd.read_csv(filepath, sep='\t')``.
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output.png?raw=true)
+
+Some important things to note about the code snippet used above are:
+
+- We used the ``pd.read_table()`` method to import the file. By default, this method assumes that the data to import is stored in a text file separated by tabs. Alternatively you can use the ``pd.read_csv()`` method (note that csv means comma-separated values) and set the delimiter to ``'\t'`` as follows: ``pd.read_csv(filepath, sep='\t')``.
+- When calling the variable ``dataset`` it returs a visualization of the dataset imported, which is a tabular-like dataset with 2661 entries and 11 columns with different grain properties.
 
 In Python, this type of tabular-like objects are called (Pandas) *DataFrame* and allow a flexible and easy to use data analysis. Just for checking:
 
 ```python
+# show the variable type
 type(dataset)
+
 pandas.core.frame.DataFrame
 ```
 
 Pandas' reading methods give you a lot of control over how a file is read. To keep things simple, I list the most commonly used arguments:
 
 ```python
-sep         # Delimiter to use.
+sep         # Delimiter/separator to use.
 header      # Row number(s) to use as the column names. By default it takes the first row as the column names (header=0). If there is no columns names in the file you must set header=None
 skiprows    # Number of lines to skip at the start of the file (an integer).
 na_filter   # Detect missing value markers. False by default.
@@ -162,7 +170,7 @@ An example using several optional arguments might be:
 dataset = pd.read_csv('DATA/data_set.csv', sep=';', skiprows=5, na_filter=True)
 ```
 
-which in plain language means that we are importing a ``csv`` file named ``data_set`` that is located in the folder ``DATA``. The data is delimited by a semicolon and we ignore the first five lines of the file (*i.e.* column names are supposed to appear in the sixth row). Last, we want all missing values to be handled during the import. 
+which in plain language means that we are importing a (fictitious) ``csv`` file named ``data_set`` that is located in the folder ``DATA``. The data is delimited by a semicolon and we ignore the first five lines of the file (*i.e.* column names are supposed to appear in the sixth row). Last, we want all missing values to be handled during the import. 
 
 > 👉 more details on Pandas csv read method: https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html
 
@@ -180,40 +188,20 @@ dataset = pd.read_csv(get_filepath(), sep='\t')
 Lastly, Pandas also allows to directly import tabular data from the clipboard (i.e. data copied using copy-paste commands). For example, after copying the table from a text file, excel spreadsheet or a website using: 
 
 ```python
-pd.read_clipboard()
+dataset = pd.read_clipboard()
 ```
 
----
+
 
 ## Basic data manipulation (using Pandas)
 
 Let's first see how the data set looks like. Instead of calling the variable (as in the example before) we now use the ``head()`` and ``tail()`` methods so that it only shows us the first (or last) rows of the data set
 
 ```python
-type(dataset)  # show the variable type
-```
-
-```
-pandas.core.frame.DataFrame
-```
-
-For visualizing the data at any time, you can use the variable explorer in Spyder (Fig. 5) or directly typing the name of the variable in the console and press enter.
-
-```python
-# show the DataFrame in the console
-dataset
+dataset.head()  # returns 5 rows by default, you can define any number within the parenthesis
 ```
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output.png?raw=true)
-
-Alternatively, if you want to view just few rows use: 
-
-```python
-# visualize the first rows, you can define the number of rows whithin the parentheses
-dataset.head()
-# view the last rows
-dataset.tail()
-```
 
 The example dataset has 11 different columns (one without a name). To interact with one of the columns we must call its name in square brackets with the name in quotes as follows:
 
@@ -245,7 +233,10 @@ dataset = dataset.drop(' ', axis=1)
 dataset.head(3)
 ```
 
+![]()
+
 If you want to remove more than one column pass a list of columns instead as in the example below:
+
 ```python
 dataset.drop(['FeretX', 'FeretY'], axis=1)
 ```
@@ -269,7 +260,7 @@ dataset.head()
 
 You can see a new column named diameters.
 
-> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for Numpy or numerical Python, a basic package for scientific computing with Python, and the keyword after the dot is the method or the scientific value to be applied. If you write in the console ``np.`` and then press the TAB key, you will see a large list of available methods. In general, the method names are equivalent to those used in MATLAB but always by adding the ``np.`` first.
+> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for NumPy or numerical Python, a basic package for scientific computing with Python, and the keyword after the dot is the method or the scientific value to be applied. If you write in the console ``np.`` and then press the TAB key, you will see a large list of available methods. In general, the method names are equivalent to those used in MATLAB but always by adding the ``np.`` first.
 
 ### A list of useful Pandas methods
 

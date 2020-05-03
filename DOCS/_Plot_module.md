@@ -1,10 +1,10 @@
 # The plot module: visualizing grain size distributions
 
-The plot module allows several visualizations of the grain size distribution.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
+The plot module includes a series of plots to visualize and characterize grain size populations.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
-> 👉 If you write ``plot.`` and then press the tab key a menu will pop up with all the methods implemented in the plot module
+> 👉 If you write ``plot.`` and then hit the tab key a menu will pop up with all the methods implemented in the module
 
-The main method is named ```plot.distribution()``` and it allows to visualize the grain size population through the histogram and/or the kernel density estimate (KDE), as well as the location of the different averages in the distribution (Fig. 7). To use it we call this function and pass as an argument the population of grain sizes as follows:
+The main method is ```plot.distribution()```. The method allows to visualize the grain size population using the histogram and/or the kernel density estimate (KDE) and provides the location of the different averages (Fig 1). The simplest example of use would be to pass the column with the diameters as follows:
 
 ```python
 plot.distribution(dataset['diameters'])
@@ -20,7 +20,7 @@ plot.distribution(dataset['diameters'])
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution.png?raw=true)
 
-*Figure 7. The ```plot.distribution()``` return with default options. This shows the histogram, the kernel density estimate (KDE) of the distribution, and the location of the different averages*
+*Figure 1. The ```plot.distribution()``` plot with default options. This shows the histogram and the kernel density estimate (KDE) of the distribution, and the location of the averages estimated by the function ``summarize`` by default*
 
 The method returns a plot, the number of classes and bin size of the histogram, and the bandwidth (or kernel) of the KDE. The ```plot.distribution()``` method contains different options that we will commented on in turn:
 
@@ -111,9 +111,36 @@ Note, however, that the bandwidth affects the location of the KDE-based mode. Fo
 
 
 
-### The area-weighted distribution
+## Testing lognormality
 
-The plot module also allows plotting the area-weighted distribution of grain sizes using the function ``area_weighted()``. This function also returns some basic statistics such as the area-weighted mean and the histogram features. For example: 
+Sometimes can be helpful to test whether the data follows or deviates from a lognormal distribution. For example, to find out if the dataset is suitable for applying the two-step stereological method or which confidence interval method is best. The script uses two methods to test whether the distribution of grain size follows a lognormal distribution. One is a visual method named [quantile-quantile (q-q) plots]([https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot](https://en.wikipedia.org/wiki/Q–Q_plot)) and the other is a quantitative test named the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro–Wilk_test). For this we use the GrainSizeTools function ```test_lognorm``` as follows :
+
+```python
+plot.qq_plot(dataset['diameters'], figsize=(6, 5))
+```
+
+```
+=======================================
+Shapiro-Wilk test (lognormal):
+0.99, 0.01 (test statistic, p-value)
+It doesnt look like a lognormal distribution (p-value < 0.05)
+(╯°□°）╯︵ ┻━┻
+=======================================
+```
+
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_qqplot.png?raw=true)
+
+*Figure X. The q-q plot of the test dataset. Note that the distribution of apparent grain sizes deviates from the logarithmic at the ends*.
+
+The Shapiro-Wilk test returns two different values, the test statistic and the p-value. This test considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot is a visual test that when the points fall right onto the reference line it means that the grain size values are lognormally distributed. The q-q plot has the advantage over the Shapiro-Wilk test that it shows where the distribution deviates from lognormality. 
+
+> 👉 To know more about the q-q plot see https://serialmentor.com/dataviz/
+
+
+
+## The area-weighted distribution
+
+The plot module also allows plotting the area-weighted distribution of grain sizes using the function ``area_weighted()``. This function also returns some basic statistics such as the area-weighted mean and the histogram features. For example:
 
 ```python
 plot.area_weighted(dataset['diameters'], dataset['Area'])
@@ -137,38 +164,13 @@ plot.area_weighted(dataset['diameters'], dataset['Area'])
 
 >  👉 ***When to use and not to use the area-weighted approach?***
 >
-> You **should not use** the area-weighted mean for the calibration of paleopiezometers or for the comparison of grain size populations, as this is a poorly optimised central tendency measure ([Lopez-Sanchez, 2020](https://doi.org/10.1016/j.jsg.2020.104042)). On the other hand, the area-weighted distribution is useful to visualize...TODO
-
-### Testing lognormality
-
-Sometimes can be helpful to test whether the data follows or deviates from a lognormal distribution. For example, to find out if the data set is suitable for applying the two-step stereological method or which confidence interval method is best for the arithmetic mean. The script use two methods to test whether the distribution of grain size follows a lognormal distribution. One is a visual method named [quantile-quantile (q-q) plots]([https://en.wikipedia.org/wiki/Q%E2%80%93Q_plot](https://en.wikipedia.org/wiki/Q–Q_plot)) and the other is a quantitative test named the [Shapiro-Wilk test](https://en.wikipedia.org/wiki/Shapiro–Wilk_test). For this we use the GrainSizeTools function ```test_lognorm``` as follows :
-
-```python
-plot.qq_plot(dataset['diameters'])
-```
-
-```
-=======================================
-Shapiro-Wilk test (lognormal):
-0.99, 0.03 (test statistic, p-value)
-It doesnt look like a lognormal distribution (p-value < 0.05)
-(╯°□°）╯︵ ┻━┻
-=======================================
-```
-
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_qqplot.png?raw=true)
-
-*Figure X. The q-q plot of the test dataset. Note that the distribution of apparent grain sizes deviates from the logarithmic at the ends*.
-
-The Shapiro-Wilk test will return two different values, the test statistic and the p-value. This test considers the distribution to be lognormally distributed when the p-value is greater than 0.05. The q-q plot is a visual test that when the points fall right onto the reference line it means that the grain size values are lognormally distributed. The q-q plot has the advantage over the Shapiro-Wilk test that it shows where the distribution deviates from lognormality. 
-
-> 👉 To know more about the q-q plot see https://serialmentor.com/dataviz/
+> You **should not use** the area-weighted mean for the calibration of paleopiezometers or for the comparison of grain size populations, as this is a poorly optimised central tendency measure ([Lopez-Sanchez, 2020](https://doi.org/10.1016/j.jsg.2020.104042)). On the other hand, the area-weighted distribution is useful to visualize the coarser size range, since in number-weighted distributions these sizes are diluted but can represent a significant area or volume.
 
 
 
 ### Normalized grain size distributions
 
-Normalized grain size distributions are representations of the entire grain population standardized using an average, usually the arithmetic mean or median. The advantage of normalized distributions is that they allow comparison of grain size distribution when the average grain size between distributions differs significantly. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR).  In this case, the method shows the normalized distribution on a logarithmic scale and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
+Normalized grain size distributions are representations of the entire grain population standardized using an average of the population, usually the arithmetic mean or the median. The advantage of normalized distribution is that it allows the comparison of grain size distribution with different average grain sizes. For example, to check whether two or more grain size distributions have similar shapes we can compare their standard deviations (SD) or their interquartile ranges (IQR). In this case, the method `plot.normalized()` display the distribution on a logarithmic scale and provides the SD or IQR of the normalized population depending on the chosen normalizing factor.
 
 ```python
 plot.normalized(dataset['diameters'], avg='amean')
@@ -184,3 +186,20 @@ KDE bandwidth =  0.04
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_normalized.png?raw=true)
 
 *Figure X. KDE of the log-transformed grain size distribution normalized to the arithmetic mean (note that amean = 1).*
+
+Let's play by changing some of the function parameters. In this case, we are going to establish the median as an alternative normalization factor, and we are also going to smooth the kernel density estimator by increasing the value from 0.04 (estimated according to the Silverman rule) to 0.1. Also, we will set the appearance of the figure using the figsize parameter, where the values within the parentheses are the (width, height) in inches.
+
+```python
+plot.normalized(dataset['diameters'], avg='median', bandwidth=0.1, figsize=(6, 5))
+```
+
+```
+=======================================
+Normalized IQR = 0.221
+KDE bandwidth =  0.1
+=======================================
+```
+
+![]()
+
+Note that in this case, the method returns the normalized inter-quartile range (IQR) rather than the normalized standard deviation. Also, note that the kernel density estimate appears smoother resembling an almost perfect normal distribution.

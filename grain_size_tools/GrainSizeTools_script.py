@@ -82,7 +82,7 @@ def conf_interval(data, confidence=0.95):
     print('Mean = {mean:0.2f} ± {err:0.2f}' .format(mean=amean, err=err))
     print('Confidence set at {} %' .format(confidence * 100))
     print('Max / min = {max:0.2f} / {min:0.2f}' .format(max=high, min=low))
-    print('Coefficient of variation = {:0.1f} %' .format(100 * err / amean))
+    print('Coefficient of variation = ±{:0.1f} %' .format(100 * err / amean))
 
     return amean, err, (low, high)
 
