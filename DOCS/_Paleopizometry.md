@@ -43,7 +43,7 @@ Available piezometers:
 'Twiss'
 ```
 
-If you want to get the details of a particular piezometric relationship you can do so as follows. Remember that the relationship between recrystallized grain size and differential stress is ***σ~d~ = Bg^-m^***  where σ~d~ and g are the differential stress and the average grain size respectively.
+If you want to get the details of a particular piezometric relationship you can do so as follows. Remember that the relationship between recrystallized grain size and differential stress is ![](https://render.githubusercontent.com/render/math?math=\sigma_d=Bg^{-m}) where ![](https://render.githubusercontent.com/render/math?math=\sigma_d) and ![](https://render.githubusercontent.com/render/math?math=g) are the differential stress and the average grain size respectively.
 
 ```python
 piezometers.quartz('Twiss')
@@ -254,8 +254,9 @@ piezometers.quartz('Stipp_Tullis')
  False)
 ```
 
-In this case you should estimate the RMS as  
-$RMS = \sqrt{\dfrac{1}{n} (x_{1}^2 + x_{2}^2 + ... + x_{n}^2)}$
+In this case you should estimate the RMS as
+
+![](https://render.githubusercontent.com/render/math?math=RMS = \sqrt{\dfrac{1}{n} (x_{1}^2 + x_{2}^2 + ... + x_{n}^2)})   
 
 ```python
 # Import the example dataset
