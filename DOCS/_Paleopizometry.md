@@ -93,7 +93,7 @@ Note the five different outputs separated by commas which correspond with:
 
 
 
-**Table 2**. Parameters relating the average apparent size of dynamically recrystallized grains and differential stress in quartz using a relation in the form ***d = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bd<sup>-m</sup>***
+**Table 2**. Parameters relating the average apparent size of dynamically recrystallized grains and differential stress in quartz using a relation in the form ***g = A&sigma;<sup>-p</sup>*** or ***&sigma; = Bg<sup>-m</sup>***
 
 |           Reference            |   phase   |     DRX      |  A†,‡   |  p†  |  B†,‡  |  m†  |
 | :----------------------------: | :-------: | :----------: | :-----: | :--: | :----: | :--: |
@@ -256,7 +256,7 @@ piezometers.quartz('Stipp_Tullis')
 
 In this case you should estimate the RMS as
 
-![](https://render.githubusercontent.com/render/math?math=RMS = \sqrt{\dfrac{1}{n} (x_{1}^2 + x_{2}^2 + ... + x_{n}^2)})   
+![](https://render.githubusercontent.com/render/math?math=RMS=\sqrt{\dfrac{1}{n}(x_{1}^2+x_{2}^2+...+x_{n}^2)})   
 
 ```python
 # Import the example dataset
