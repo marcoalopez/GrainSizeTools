@@ -9,18 +9,18 @@ dataset = pd.read_csv(filepath, sep='\t')
 
 # estimate equivalent circular diameters (ECDs)
 dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)
-dataset
+dataset.head()
 ```
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_newcol.png?raw=true)
 
 ```python
-# Set the population properties
+# Set the population properties for the toy dataset
 scale = np.log(20)  # set sample geometric mean to 20
 shape = np.log(1.5)  # set the lognormal shape to 1.5
 
 # generate a random lognormal population of size 500
-np.random.seed(seed=1)  # this is to generate always the same population for reproducibility
+np.random.seed(seed=1)  # this is for reproducibility
 toy_dataset = np.random.lognormal(mean=scale, sigma=shape, size=500)
 ```
 
@@ -73,9 +73,7 @@ By default, the `summarize()` function returns:
 - The shape of the lognormal distribution using the multiplicative standard deviation (MSD)
 - A Shapiro-Wilk test warning indicating when the data deviates from normal and/or lognormal (when p-value < 0.05).
 
-Note that here the Shapiro-Wilk test warning tells us that the distribution is not normally distributed, which is to be expected since we know that this is a lognormal distribution. Note that the geometric mean and the lognormal shape are very close to the values used to generate the synthetic dataset, 20 and 1.5 respectively.
-
-Now, let's do the same using the dataset that comes from a real rock, for this, we have to pass the column with the diameters:
+In the example above, the Shapiro-Wilk test tells us that the distribution is not normally distributed, which is to be expected since we know that this is a lognormal distribution. Note that the geometric mean and the lognormal shape are very close to the values used to generate the synthetic random dataset, 20 and 1.5 respectively. Now, let's do the same using the dataset that comes from a real rock, for this, we have to pass the column with the diameters:
 
 ```python
 summarize(dataset['diameters'])
@@ -117,7 +115,7 @@ Lognormality test: 0.99, 0.03 (test statistic, p-value)
 ============================================================================
 ```
 
-Leaving aside the difference in numbers, there are some subtle differences compared to the results obtained with the toy dataset. First, the confidence interval method for the arithmetic mean is no longer the modified Cox (mCox) but the one based on the central limit theorem (CLT) advised by the [ASTM](https://en.wikipedia.org/wiki/ASTM_International). As previously noted, the function ```summarize()``` automatically choose the optimal confidence interval method depending on distribution features. We show below the decision tree flowchart for choosing the optimal confidence interval estimation method, which is based on [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042).
+Leaving aside the different numbers, there are some subtle differences compared to the results obtained with the toy dataset. First, the confidence interval method for the arithmetic mean is no longer the modified Cox (mCox) but the one based on the central limit theorem (CLT) advised by the [ASTM](https://en.wikipedia.org/wiki/ASTM_International). As previously noted, the function ```summarize()``` automatically choose the optimal confidence interval method depending on distribution features. We show below the decision tree flowchart for choosing the optimal confidence interval estimation method, which is based on [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042).
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/avg_map.png?raw=true)
 
@@ -125,61 +123,56 @@ The reason why the CLT method applies in this case is that the grain size distri
 
 Now, let's focus on the different options of the ``summarize()`` method.
 
-```
-Signature:
-summarize(
-    data,
-    avg=('amean', 'gmean', 'median', 'mode'),
-    ci_level=0.95,
-    bandwidth='silverman',
-    precision=0.1,
-)
-Docstring:
-Estimate different grain size statistics. This includes different means,
-the median, the frequency peak grain size via KDE, the confidence intervals
-using different methods, and the distribution features.
+```python
+def summarize(data,
+              avg=('amean', 'gmean', 'median', 'mode'),
+              ci_level=0.95,
+              bandwidth='silverman',
+              precision=0.1):
+    """ Estimate different grain size statistics. This includes different means,
+    the median, the frequency peak grain size via KDE, the confidence intervals
+    using different methods, and the distribution features.
 
-Parameters
-----------
-data : array_like
-    the size of the grains
+    Parameters
+    ----------
+    data : array_like
+        the size of the grains
 
-avg : string, tuple or list; optional
-    the averages to be estimated
+    avg : string, tuple or list; optional
+        the averages to be estimated
 
-    | Types:
-    | 'amean' - arithmetic mean
-    | 'gmean' - geometric mean
-    | 'median' - median
-    | 'mode' - the kernel-based frequency peak of the distribution
+        | Types:
+        | 'amean' - arithmetic mean
+        | 'gmean' - geometric mean
+        | 'median' - median
+        | 'mode' - the kernel-based frequency peak of the distribution
 
-ci_level : scalar between 0 and 1; optional
-    the certainty of the confidence interval (default = 0.95)
+    ci_level : scalar between 0 and 1; optional
+        the certainty of the confidence interval (default = 0.95)
 
-bandwidth : string {'silverman' or 'scott'} or positive scalar; optional
-    the method to estimate the bandwidth or a scalar directly defining the
-    bandwidth. It uses the Silverman plug-in method by default.
+    bandwidth : string {'silverman' or 'scott'} or positive scalar; optional
+        the method to estimate the bandwidth or a scalar directly defining the
+        bandwidth. It uses the Silverman plug-in method by default.
 
-precision : positive scalar or None; optional
-    the maximum precision expected for the "peak" kde-based estimator.
-    Default is 0.1. Note that this has nothing to do with the
-    confidence intervals
+    precision : positive scalar or None; optional
+        the maximum precision expected for the "peak" kde-based estimator.
+        Default is 0.1. Note that this is not related with the confidence
+        intervals
 
-Call functions
---------------
-- amean, gmean, median, and freq_peak (from averages)
+    Call functions
+    --------------
+    - amean, gmean, median, and freq_peak (from averages)
 
-Examples
---------
->>> summarize(dataset['diameters'])
->>> summarize(dataset['diameters'], ci_level=0.99)
->>> summarize(np.log(dataset['diameters']), avg=('amean', 'median', 'mode'))
+    Examples
+    --------
+    >>> summarize(dataset['diameters'])
+    >>> summarize(dataset['diameters'], ci_level=0.99)
+    >>> summarize(np.log(dataset['diameters']), avg=('amean', 'median', 'mode'))
 
-Returns
--------
-None
-File:      c:\users\marco\documents\github\grainsizetools\grain_size_tools\grainsizetools_script.py
-Type:      function
+    Returns
+    -------
+    None
+    """
 ```
 
 

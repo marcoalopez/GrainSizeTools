@@ -28,7 +28,8 @@ The method returns a plot, the number of classes and bin size of the histogram, 
 def distribution(data,
                  plot=('hist', 'kde'),
                  avg=('amean', 'gmean', 'median', 'mode'),
-                 binsize='auto', bandwidth='silverman'):
+                 binsize='auto',
+                 bandwidth='silverman'):
     """ Return a plot with the ditribution of (apparent or actual) grain sizes
     in a dataset.
 
@@ -200,6 +201,6 @@ KDE bandwidth =  0.1
 =======================================
 ```
 
-![]()
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_normalized_median.png?raw=true)
 
 Note that in this case, the method returns the normalized inter-quartile range (IQR) rather than the normalized standard deviation. Also, note that the kernel density estimate appears smoother resembling an almost perfect normal distribution.

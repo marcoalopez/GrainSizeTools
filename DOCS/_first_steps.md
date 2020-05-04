@@ -3,7 +3,7 @@
 Installing Python for data science
 -------------
 
-GrainSizeTools script requires [Python](https://www.python.org/ ) 3.5+ or higher and the Python scientific libraries [*Numpy*](http://www.numpy.org/ ) [*Scipy*](http://www.scipy.org/ ), [*Pandas*](http://pandas.pydata.org ) and [*Matplotlib*](http://matplotlib.org/ ). If you have no previous experience with Python, I recommend downloading and installing the [Anaconda Python distribution](https://www.anaconda.com/distribution/ ) (Python 3.x version), as it includes all the required the scientific packages (> 5 GB disk space). In case you have a limited space in your hard disk, there is a distribution named [miniconda](http://conda.pydata.org/miniconda.html ) that only installs the Python packages you actually need. For both cases you have versions for Windows, MacOS and Linux.
+GrainSizeTools script requires [Python](https://www.python.org/ ) 3.5+ or higher and the Python scientific libraries [*NumPy*](http://www.numpy.org/ ) [*SciPy*](http://www.scipy.org/ ), [*Pandas*](http://pandas.pydata.org ) and [*Matplotlib*](http://matplotlib.org/ ). If you have no previous experience with Python, I recommend downloading and installing the [Anaconda Python distribution](https://www.anaconda.com/distribution/ ) (Python 3.x version), as it includes all the required the scientific packages (> 5 GB disk space). In case you have a limited space in your hard disk, there is a distribution named [miniconda](http://conda.pydata.org/miniconda.html ) that only installs the Python packages you actually need. For both cases you have versions for Windows, MacOS and Linux.
 
 Anaconda Python Distribution: https://www.anaconda.com/distribution/ 
 
@@ -201,7 +201,7 @@ Let's first see how the data set looks like. Instead of calling the variable (as
 dataset.head()  # returns 5 rows by default, you can define any number within the parenthesis
 ```
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output_head5.png?raw=true)
 
 The example dataset has 11 different columns (one without a name). To interact with one of the columns we must call its name in square brackets with the name in quotes as follows:
 
@@ -233,7 +233,7 @@ dataset = dataset.drop(' ', axis=1)
 dataset.head(3)
 ```
 
-![]()
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_head3.png?raw=true)
 
 If you want to remove more than one column pass a list of columns instead as in the example below:
 
@@ -256,7 +256,7 @@ dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)
 dataset.head()
 ```
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_diameters.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_newcol.png?raw=true)
 
 You can see a new column named diameters.
 
@@ -285,9 +285,10 @@ dataset.info()       # display info of the DataFrame
 dataset.shape()      # (rows, columns)
 dataset.count()      # number of non-null values
 
+# Data cleaning
 dataset.dropna()        # remove missing values from the data
 
-# writing to disk
+# Writing to disk
 dataset.to_csv(filename)    # save as csv file, the filename must be within quotes
 dataset.to_excel(filename)  # save as excel file
 ```
