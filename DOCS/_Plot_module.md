@@ -1,6 +1,6 @@
 # The plot module: visualizing grain size distributions
 
-> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder and [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/plot_module_examples.ipynb).
+> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/plot_module_examples.ipynb).
 
 The plot module includes a series of plots to visualize and characterize grain size populations.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
@@ -206,3 +206,19 @@ KDE bandwidth =  0.1
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_normalized_median.png?raw=true)
 
 Note that in this case, the method returns the normalized inter-quartile range (IQR) rather than the normalized standard deviation. Also, note that the kernel density estimate appears smoother resembling an almost perfect normal distribution.
+
+
+
+***Well, I'm afraid you've come to the end. Where do you want to go?***
+
+[return me to the home page](https://marcoalopez.github.io/GrainSizeTools/)  
+
+[take me to “Getting started: first steps using the GrainSizeTools script”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
+
+[take me to “Describing the population of grain sizes”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
+
+[take me to “The plot module: visualizing grain size distributions”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
+
+[take me to “Paleopiezometry based on dynamically recrystallized grain size”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+
+[take me to “The stereology module”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)

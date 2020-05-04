@@ -1,6 +1,6 @@
 # Paleopiezometry based on dynamically recrystallized grain size
 
-> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder and [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/paleopiezometry_examples.ipynb).
+> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/paleopiezometry_examples.ipynb).
 
 The script includes a function for estimating differential stress based on "average" recrystallized grain sizes named ``calc_diffstress()``. This function requires
 
@@ -343,3 +343,18 @@ Max / min = 178.79 / 155.96
 Coefficient of variation = ±6.8 %
 ```
 
+
+
+***Well, I'm afraid you've come to the end. Where do you want to go?***
+
+[return me to the home page](https://marcoalopez.github.io/GrainSizeTools/)  
+
+[take me to “Getting started: first steps using the GrainSizeTools script”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
+
+[take me to “Describing the population of grain sizes”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
+
+[take me to “The plot module: visualizing grain size distributions”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
+
+[take me to “Paleopiezometry based on dynamically recrystallized grain size”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+
+[take me to “The stereology module”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)

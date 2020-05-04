@@ -1,5 +1,7 @@
 # Describing the population of grain sizes
 
+> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/grain_size_description.ipynb).
+
 The method to describe the properties of the grain size population is named ``summarize()``. Before we get into the details of the method, let's run the GrainSizeTools script, load the example dataset, and create a toy dataset with known parameters.
 
 ```python
@@ -180,3 +182,19 @@ def summarize(data,
 > **TODO:**
 - explain the different options of ``summarize()`` through examples
 - examples using log-transformed populations
+
+
+
+***Well, I'm afraid you've come to the end. Where do you want to go?***
+
+[return me to the home page](https://marcoalopez.github.io/GrainSizeTools/)  
+
+[take me to “Getting started: first steps using the GrainSizeTools script”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
+
+[take me to “Describing the population of grain sizes”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
+
+[take me to “The plot module: visualizing grain size distributions”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
+
+[take me to “Paleopiezometry based on dynamically recrystallized grain size”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+
+[take me to “The stereology module”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)

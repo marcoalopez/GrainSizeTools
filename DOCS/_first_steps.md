@@ -52,7 +52,7 @@ Documentation: https://marcoalopez.github.io/GrainSizeTools/
 Type get.functions_list() to get a list of the main methods
 ```
 
-> Alternatively, if you are using **Jupyter lab/notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder and [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb)
+> 👉 Alternatively, if you are using **Jupyter lab or notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb)
 
 
 
@@ -293,3 +293,18 @@ dataset.to_csv(filename)    # save as csv file, the filename must be within quot
 dataset.to_excel(filename)  # save as excel file
 ```
 
+
+
+***Well, I'm afraid you've come to the end. Where do you want to go?***
+
+[return me to the home page](https://marcoalopez.github.io/GrainSizeTools/)  
+
+[take me to “Getting started: first steps using the GrainSizeTools script”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
+
+[take me to “Describing the population of grain sizes”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
+
+[take me to “The plot module: visualizing grain size distributions”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
+
+[take me to “Paleopiezometry based on dynamically recrystallized grain size”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+
+[take me to “The stereology module”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)

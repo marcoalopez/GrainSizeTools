@@ -1,6 +1,6 @@
 # The stereology module
 
-> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder and [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/stereology_module_examples.ipynb).
+> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/stereology_module_examples.ipynb).
 
 The main purpose of stereology is to extract quantitative information from microscope images. It is a set of mathematical methods relating two-dimensional measures obtained on sections to three-dimensional parameters defining the structure. Note that the aim of stereology is not to reconstruct the 3D geometry of the material (as in tomography) but to estimate  a particular 3D feature. In this particular case, to approximate the actual (3D) grain size distribution from the apparent (2D) grain size distribution obtained in sections. In this particular case, to approximate the actual (3D) grain size distribution from the apparent (2D) grain size distribution obtained in sections. 
 
@@ -50,3 +50,19 @@ Geometric mean (scale) = 36.05 ± 1.27
 ```
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/2step.png?raw=true)
+
+
+
+***Well, I'm afraid you've come to the end. Where do you want to go?***
+
+[return me to the home page](https://marcoalopez.github.io/GrainSizeTools/)  
+
+[take me to “Getting started: first steps using the GrainSizeTools script”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
+
+[take me to “Describing the population of grain sizes”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
+
+[take me to “The plot module: visualizing grain size distributions”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
+
+[take me to “Paleopiezometry based on dynamically recrystallized grain size”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+
+[take me to “The stereology module”](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)
