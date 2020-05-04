@@ -180,4 +180,3 @@ def summarize(data,
 > **TODO:**
 - explain the different options of ``summarize()`` through examples
 - examples using log-transformed populations
-

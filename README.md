@@ -1,30 +1,40 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/04/16*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/05/04*
 
-[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Characterizing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script requires as the input the diameters of the grain profiles measured grain-by-grain on planar sections and **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
+[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
-**NEW!**
-**Latest (beta) release: v3.0beta3** (still in development)  
-**Date: 2020/04/16**  
-See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0-beta.3
+**Latest release: v3.0RC0**  
+**Date: 2020/05/04**  
+See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0RC
 
-**Latest stable release: v2.0.4**  
-**Date: 2020/04/09**  
+> **Important note**: The script has been completely reorganized in v3.x, including new modules and features. **Its use is no longer compatible with previous versions (v2.x).** Check the new documentation for use.
 
 
 ## Features at a glance
 
-- Import and manipulate tabular-like files including txt, csv, or excel formats.
-- Estimate different statistical descriptors to characterize grain size distributions. Average grain size measures include the arithmetic, geometric, RMS and area-weighted means, median, and frequency peak ("mode") via Gaussian Kernel Density Estimator. Grain size can be represented in linear, logarithmic, and square root scales.
-- Estimate normalized apparent grain size distributions to compare between different grain size populations.
-- Estimate differential stress via paleopiezometers including multiple piezometric relations for quartz, olivine, calcite, and feldspar (others planned!)
-- Estimate robust confidence intervals using the student's *t*-Distribution
-- Include several algorithms to estimate the optimal bin size of histograms and the optimal bandwidth of the Gaussian KDE based on population features.
-- Approximate the actual 3D grain size distribution from data collected in plane sections (2D data) using the Saltykov method. This includes estimating the volume of a particular grain size fraction.
-- Approximate the lognormal shape of the 3D grain size distribution via the two-step method and characterize the shape using a single parameter (the MSD - *Multiplicative Standard Deviation*) .
-- Check lognormality using quantile-quantile plots and Shapiro-Wilk tests (**new in v3.0!**)
-- Ready-to-publish plots in bitmap or vector format (see screenshots below for examples).
+- Import and manipulate tabular-like datasets including txt, csv, or excel formats.
+
+- Full automatic descriptive statistics of grain size populations including:
+
+  - Several averages (arithmetic and geometric means, median, and frequency peak ("mode") via Gaussian Kernel Density Estimator)
+  - Estimation of robust confidence intervals including different methods (including some specific methods for lognormal populations such as the modified Cox or the GCI method)
+  - Measures of dispersion and shape of the population
+  - Normality and lognormality test
+
+- Estimate differential stress using paleopiezometers. It includes multiple piezometric relations for quartz, olivine, calcite, and feldspar (others planned!)
+
+- Ready-to-publish plots in bitmap or vector format (see screenshots below), including:
+
+  - Histograms and kernel density estimates
+  - Area- or volume-weighted plots
+  - Normalized plots
+  - Quantile-quantile plots, and more
+
+- Stereology methods (approximate the actual 3D grain size distribution from data collected in plane sections):
+
+  - Saltykov method
+  - Two-step method (lognormal fitting, shape characterization)
 
 ## Download
 
@@ -38,43 +48,21 @@ https://sourceforge.net/projects/grainsizetools/
 ## Documentation
 
 * [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
-* [Requirements & Development](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Requirements.md)
-* [Scope](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/Scope.md)
-* [Getting started: A step-by-step tutorial](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md) (for version 3.0beta see [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/getting_started.md))
+* [Getting started: first steps using the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
+* [Describing the population of grain sizes](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
+* [The plot module: visualizing grain size distributions](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
+* [The paleopiezometry module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+* [The stereology module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)
+
+***Others***
+
+* [Documentation for old versions (v2.0.4)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
 * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
 * [How to reconstruct the grains from SEM-EBSD data using the MTEX toolbox (available soon!)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/ebsd_mtex_tutorial.md)
-* [References](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/references.md)
 
 ## Screenshots (v3.0+)
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/summarize_output.png?raw=true)
-
-*Comprehensive description of grain size distributions*
-
-  
-
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_distribution.png?raw=true)
-
-*Apparent (2D) or actual (3D) grain size distribution using histograms and kernel density estimates*
-
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_qqplot.png?raw=true)  
-
-*Quantile-quantile plots*
-
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_area_weighted.png?raw=true)  
-*Area-weighted grain size distribution*
-
-![](![new_normalized.png](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/new_normalized.png?raw=true)  
-*Normalized apparent grain size distributions*
-
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/figure_2.png?raw=true)  
-*Estimate of the actual (3D) grain size distribution and volume of a particular grain size fraction using the Saltykov method*
-
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/2step.png?raw=true)   
-*Estimate of the shape of the grain size distribution using the two-step method*
-
-![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/readme05.png)  
-*Boxplots comparing different unimodal grain size distributions*
+![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots-01.webp)
 
 ## Citation guidelines
 
