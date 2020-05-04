@@ -1,5 +1,7 @@
 # The plot module: visualizing grain size distributions
 
+> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder and [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/plot_module_examples.ipynb).
+
 The plot module includes a series of plots to visualize and characterize grain size populations.  All methods of the *plot* module can be invoked by writing ```plot.*```, where * refers to the plot to be used.
 
 > 👉 If you write ``plot.`` and then hit the tab key a menu will pop up with all the methods implemented in the module

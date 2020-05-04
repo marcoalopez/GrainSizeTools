@@ -52,9 +52,9 @@ Documentation: https://marcoalopez.github.io/GrainSizeTools/
 Type get.functions_list() to get a list of the main methods
 ```
 
-Alternatively, if you are using Jupyter lab/notebook you have a similar step-by-step tutorial in the link below and within the ``grain_size_tools`` folder in your hard disk:
+> Alternatively, if you are using **Jupyter lab/notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder and [here](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb)
 
-https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb
+
 
 ## Get information on the GrainSizeTools methods
 
