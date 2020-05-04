@@ -12,7 +12,7 @@ dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)
 dataset.head()
 ```
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_newcol.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output_newcol.png?raw=true)
 
 ```python
 # Set the population properties for the toy dataset

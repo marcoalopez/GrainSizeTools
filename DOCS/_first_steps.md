@@ -233,7 +233,7 @@ dataset = dataset.drop(' ', axis=1)
 dataset.head(3)
 ```
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_head3.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output_head3.png?raw=true)
 
 If you want to remove more than one column pass a list of columns instead as in the example below:
 
@@ -256,7 +256,7 @@ dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)
 dataset.head()
 ```
 
-![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_newcol.png?raw=true)
+![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/dataframe_output_newcol.png?raw=true)
 
 You can see a new column named diameters.
 
