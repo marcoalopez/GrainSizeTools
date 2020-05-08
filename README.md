@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/05/04*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/05/08*
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
@@ -18,7 +18,7 @@ See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0RC
 - Full automatic descriptive statistics of grain size populations including:
 
   - Several averages (arithmetic and geometric means, median, and frequency peak ("mode") via Gaussian Kernel Density Estimator)
-  - Estimation of robust confidence intervals including different methods (including some specific methods for lognormal populations such as the modified Cox or the GCI method)
+  - Estimation of robust confidence intervals (including some specific methods for lognormal populations such as the modified Cox or the GCI method)
   - Measures of dispersion and shape of the population
   - Normality and lognormality test
 
