@@ -2,9 +2,9 @@
 
 > 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/stereology_module_examples.ipynb).
 
-The main purpose of stereology is to extract quantitative information from microscope images. It is a set of mathematical methods relating two-dimensional measures obtained on sections to three-dimensional parameters defining the structure. Note that the aim of stereology is not to reconstruct the 3D geometry of the material (as in tomography) but to estimate  a particular 3D feature. In this particular case, to approximate the actual (3D) grain size distribution from the apparent (2D) grain size distribution obtained in sections. In this particular case, to approximate the actual (3D) grain size distribution from the apparent (2D) grain size distribution obtained in sections. 
+The main purpose of stereology is to extract quantitative information from microscope images relating two-dimensional measures obtained on sections to three-dimensional parameters defining the structure. The aim of stereology is not to reconstruct the 3D geometry of the material (as in tomography) but to estimate  a particular 3D feature. In this case, we aim to approximate the actual (3D) grain size distribution from the apparent (2D) grain size distribution obtained in sections.
 
-GrainSizeTools script includes two stereological methods: 1) the Saltykov method, and 2) the two-step method. Before looking at its functionalities, applications and limitations, let's import the example dataset.
+GrainSizeTools script includes two stereological methods: 1) the Saltykov, and 2) the two-step methods. Before looking at its functionalities, applications and limitations, let's import the example dataset.
 
 ```python
 # Import the example dataset
@@ -15,7 +15,24 @@ dataset['diameters'] = 2 * np.sqrt(dataset['Area'] / np.pi)  # estimate ECD
 
 ## The Saltykov method
 
-TODO: explain functionalities, applications and limitations
+> **What is it?**
+>
+> It is a stereological method that approximates the actual grain size distribution from the histogram of the apparent grain size distribution. The method is distribution-free, meaning that no assumption is made upon the type of statistical distribution, making the method very versatile.
+>
+> **What do I use it for?**
+>
+> Its main use (in geosciences) is to estimate the volume fraction of a specific range of grain sizes.
+>
+> **What are its limitations?**
+>
+> The method presents several limitations for its use in rocks
+>
+> - It assumes that grains are non-touching spheres uniformly distributed in a matrix (e.g. bubbles within a piece of glass). This never holds for polycrystalline rocks. To apply the method, the grains should be at least approximately equiaxed, which is normally fulfilled in recrystallized grains.
+> - Due to the use of the histogram, the number of classes determines the accuracy and success of the method. There is a trade-off here because the smaller the number of classes, the better the numerical stability of the method, but the worse the approximation of the targeted distribution and vice versa. The issue is that no method exists to find an optimal number of classes and this has to be set by the user. The use of the histogram also implies that we cannot obtain a complete description of the grain size distribution.
+> - The method lacks a formulation for estimating errors during the unfolding procedure.
+>
+
+TODO: explain the details of the method
 
 ```python
 stereology.Saltykov(dataset['diameters'], numbins=11, calc_vol=50)
@@ -34,7 +51,17 @@ bin size = 14.24
 
 ## The two-step method
 
-TODO: functionalities, applications and limitations
+> **What is it?**
+>
+> It is a stereological method that approximates the actual grain size distribution from the histogram of the apparent grain size distribution. The method is distribution-dependent, meaning that it is assumed that the distribution of grain sizes follows a lognormal distribution. The method fit a lognormal distribution on top of the Saltykov method, hence the name two-step method.
+>
+> **What do I use it for?**
+>
+> Its main use is to estimate the shape of the lognormal distribution and the volume fraction of a specific range of grain sizes (not yet implemented).
+>
+> **What are its limitations?**
+>
+>  The method is partially based on the Saltykov method and therefore inherits some of its limitations. The method however do not require to define a specific number of classes.
 
 ```python
 stereology.calc_shape(dataset['diameters'])
