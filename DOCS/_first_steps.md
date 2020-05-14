@@ -9,7 +9,7 @@ Anaconda Python Distribution: https://www.anaconda.com/distribution/
 
 Miniconda: http://conda.pydata.org/miniconda.html 
 
-Once Anaconda is installed, launch the Anaconda Navigator and you will see that you have installed at least two different scientific-oriented integrated development systems (IDEs) including **Spyder**, **Jupyter lab**, and **Jupyter notebook**. The GrainSizeTools documentation is written assuming that you will carry out the work in one of these IDEs (see next section). 
+Once Anaconda is installed, launch the Anaconda Navigator and you will see that you have installed three different scientific-oriented integrated development systems (IDEs): **Spyder**, **JupyterLab**, and **Jupyter Notebook**. The GrainSizeTools documentation is written assuming that you will carry out the work in one of these IDEs (see next section). 
 
 > 👉 Scope: The GrainSizeTools script is not designed to deal with microscopic images but to analyse and visualize grain size populations and estimate stresses via paleopiezometers. **It is therefore necessary to measure the grain diameters or the sectional areas/volumes of the grains in advance and store them in a txt/csv/excel file**. For this task, we highly encourage you to use the [*ImageJ*](http://rsbweb.nih.gov/ij/) application or one of their different flavours (see [here](http://fiji.sc/ImageJ)). ImageJ-type applications are public-domain image processing programs widely used for scientific research that runs on Windows, macOS, and Linux platforms. The documentation contains a quick tutorial on how to measure the areas of the grain profiles with ImageJ, see *Table of Contents*. The combined use of **ImageJ** and **GrainSizeTools script** is intended to ensure that all data processing steps are done through free and open-source programs/scripts that run under any operating system. If you are dealing with EBSD data instead, we encourage you to use the [MTEX toolbox](https://mtex-toolbox.github.io/) for grain reconstruction (a tutorial on this will be available soon).
 
@@ -21,7 +21,7 @@ First of all, make sure you have the latest version of the GrainSizeTools (GST) 
 
 1. Use the [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python. If you are familiar with MATLAB this is the easiest way to go.
 
-2. Use the [Jupyter notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text.
+2. Use the [JupyterLab or the Notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text. JupyterLab is just the next generation of the “classic” Jupyter Notebook so you can use either one interchangeably.
 
 Make your choice and launch it from the Anaconda navigator or just by typing ``Spyder`` or ``jupyter lab`` in the terminal.
 
@@ -29,7 +29,7 @@ Make your choice and launch it from the Anaconda navigator or just by typing ``S
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Jupyter_lab.png?raw=true)
 
-*Figure 2. The Jupyter Lab development environment, a browser-based notebook that allows creating documents that may contain live code, equations (using Latex), visualizations and narrative text*.
+*Figure 2. The JupyterLab development environment, a browser-based notebook that allows creating documents that may contain live code, equations (using Latex), visualizations and narrative text*.
 
 In Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the toolbar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
 
@@ -52,7 +52,7 @@ Documentation: https://marcoalopez.github.io/GrainSizeTools/
 Type get.functions_list() to get a list of the main methods
 ```
 
-> 👉 Alternatively, if you are using **Jupyter lab or notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb)
+Alternatively, if you are using **JupyterLab** or the **Notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script as well as [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb).
 
 
 
