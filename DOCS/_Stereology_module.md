@@ -1,6 +1,6 @@
 # The stereology module
 
-> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/stereology_module_examples.ipynb).
+> 📣 If you are using **JupyterLab** or the **Notebook**  you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/stereology_module_examples.ipynb).
 
 The main purpose of stereology is to extract quantitative information from microscope images relating two-dimensional measures obtained on sections to three-dimensional parameters defining the structure. The aim of stereology is not to reconstruct the 3D geometry of the material (as in tomography) but to estimate  a particular 3D feature. In this case, we aim to approximate the actual (3D) grain size distribution from the apparent (2D) grain size distribution obtained in sections.
 

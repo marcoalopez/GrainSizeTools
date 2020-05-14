@@ -1,6 +1,6 @@
 # Paleopiezometry based on dynamically recrystallized grain size
 
-> 📣 If you are using **Jupyter lab** or Jupyter notebooks you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/paleopiezometry_examples.ipynb).
+> 📣 If you are using **JupyterLab** or the **Notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/paleopiezometry_examples.ipynb).
 
 The script includes a function for estimating differential stress based on "average" recrystallized grain sizes named ``calc_diffstress()``. This function requires
 
