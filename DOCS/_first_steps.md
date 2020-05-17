@@ -17,19 +17,19 @@ Once Anaconda is installed, launch the Anaconda Navigator and you will see that 
 
 ## Open and running the script
 
-First of all, make sure you have the latest version of the GrainSizeTools (GST) script. If you are not familiarized with Python, I propose two main options:
+First of all, make sure you have the latest version of the GrainSizeTools (GST) script and open your IDE of choice. If you are not familiarized with Python, I propose two main options:
 
-1. Use the [Spyder](https://www.spyder-ide.org/) integrated development environment (IDE) (Fig. 1), a MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python. If you are familiar with MATLAB this is the easiest way to go.
+1. Use [Spyder](https://www.spyder-ide.org/) (Fig. 1), a MATLAB-like scientific IDE optimized for numerical computing and data analysis with Python. If you are familiar with MATLAB or Rstudio this is the easiest way to go.
 
-2. Use the [JupyterLab or the Notebook](https://jupyter.org/) (Fig. 2), a browser-based environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text. JupyterLab is just the next generation of the “classic” Jupyter Notebook so you can use either one interchangeably.
+2. Use [JupyterLab (or Jupyter Notebook)](https://jupyter.org/) (Fig. 2), an easy-to-use data science environment that allows you to create and share documents that may contain live code, equations, visualizations and narrative text. JupyterLab is just the next generation of the “classic” Jupyter Notebook so you can use either one interchangeably.
 
 Make your choice and launch it from the Anaconda navigator or just by typing ``Spyder`` or ``jupyter lab`` in the terminal.
 
-![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help-variable explorer window (top right). This is a MATLAB-like IDE for Python that provides a variable explorer, a history log, MATLAB-like cells, code auto-completion, etc.*
+![Figure 1. The Python editor and the shell in the Enthought Canopy environment](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/IDEs.png)  *Figure 1. The [Spyder](https://www.spyder-ide.org/) v.4+ integrated development environment (IDE) showing the editor (left), the IPython shell or console (bottom right), and the help-variable explorer window (top right). This is a MATLAB(RStudio)-like IDE for Python that provides a variable explorer, a history log, MATLAB-like cells, code auto-completion, etc.*
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/Jupyter_lab.png?raw=true)
 
-*Figure 2. The JupyterLab development environment, a browser-based notebook that allows creating documents that may contain live code, equations (using Latex), visualizations and narrative text*.
+*Figure 2. The JupyterLab development environment is an interactive data science environment that allows creating documents mixing code, equations (using Latex), visualizations and narrative text*.
 
 In Spyder, open the ``GrainSizeTools_script.py`` file using ```File>Open``` and then run the script clicking on the "play" green icon in the toolbar (or go to ```Run>Run file``` in the menu bar). After running, the following text will appear in the console:
 
@@ -260,7 +260,7 @@ dataset.head()
 
 You can see a new column named diameters.
 
-> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for NumPy or numerical Python, a basic package for scientific computing with Python, and the keyword after the dot is the method or the scientific value to be applied. If you write in the console ``np.`` and then press the TAB key, you will see a large list of available methods. In general, the method names are equivalent to those used in MATLAB but always by adding the ``np.`` first.
+> 👉 In the examples above we define the square root as ``np.sqrt``, the arithmetic mean as ``np.mean``, and pi as  ``np.pi``. In this case, ``np.`` stems for NumPy or numerical Python, a core package for scientific computing with Python, and the keyword after the dot is the method or the scientific value to be applied. If you write in the console ``np.`` and then press the TAB key, you will see a large list of available methods. In general, the method names are equivalent to those used in MATLAB or R but always by adding the ``np.`` first.
 
 ### A list of useful Pandas methods
 
