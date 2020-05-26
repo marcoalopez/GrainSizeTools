@@ -121,7 +121,7 @@ Leaving aside the different numbers, there are some subtle differences compared 
 
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/avg_map.png?raw=true)
 
-The reason why the CLT method applies in this case is that the grain size distribution not enough lognormal-like (note the Shapiro-Wilk test warning with a p-value < 0.05), and this might cause an inaccurate estimate of the arithmetic mean confidence interval.
+The reason why the CLT method applies in this case is that the grain size distribution is not sufficiently close to a logarithmic distribution (note the Shapiro-Wilk test warning with a p-value < 0.05), and this might cause an inaccurate estimate of the arithmetic mean confidence interval.
 
 Now, let's focus on the different options of the ``summarize()`` method.
 
