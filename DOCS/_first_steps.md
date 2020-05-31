@@ -229,7 +229,7 @@ If you want to remove one or more columns, you can do it with the ``drop()`` met
 
 ```python
 # Remove the column without a name from the DataFrame
-dataset = dataset.drop(' ', axis=1)
+dataset.drop(columns=' ', inplace=True)
 dataset.head(3)
 ```
 
@@ -238,7 +238,7 @@ dataset.head(3)
 If you want to remove more than one column pass a list of columns instead as in the example below:
 
 ```python
-dataset.drop(['FeretX', 'FeretY'], axis=1)
+dataset.drop(columns=['FeretX', 'FeretY'], inplace=True)
 ```
 
 ### Create new columns
