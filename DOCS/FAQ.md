@@ -23,7 +23,7 @@ More specifically, the script is targeted at anyone who wants to: i) visualize g
 
 ### What is paleopizometry?
 
-Paleopiezometers are microstructural features of deformed rocks that vary with the magnitude of the applied differential stress under which they formed (Twiss and Moores, 2006). They serve to infer differential stresses in the geological past, hence the name paleopiezometry, and they are an essential tool for validating rheological models of the lithosphere. The most commonly used microstructure is the average recrystallized grain size since...TODO
+Paleopiezometers are microstructural features of deformed rocks that vary with the magnitude of the applied differential stress under which they formed (Twiss and Moores, 2006). They serve to infer differential stresses in the geological past, hence the name paleopiezometry, and they are an essential tool for validating rheological models of the lithosphere. The most common microstructure is the average recrystallized (apparent) grain size as it is the easiest microstructure to measure in recrystallized rocks.
 
 ### Why use apparent grain size measures instead of measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?  
 
@@ -40,6 +40,10 @@ That depends on your target and your dataset. First, if you want to use a specif
 - **Avoid the use of root mean squared (RMS) or the area-weighted mean**, both perform poorly.
 
 More details [here](https://github.com/marcoalopez/marcoalopez.github.io/blob/master/docs/2020_JSG_SG_104042.pdf)
+
+### When to use the confidence interval for the standard deviation and the average estimate? What is the difference anyway?
+
+That depends on the information you want to provide. If the message to carry is on the spread (or variability) of the grain size population, for example to compare how between distributions...TODO, the standard deviation is the metric to use. If the interest is in the precision of the average or in comparing differences between averages the confidence intervals for the average (based on the standard error) is your metric; for example when using paleopiezometers.
 
 ### What is an MSD value? What is it used for? 
 
