@@ -72,7 +72,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
     >>> Saltykov(diameters)
     >>> Saltykov(diameters, numbins=16, calc_vol=40)
     >>> Saltykov(diameters, text_file='foo.csv')
-    >>> left_edges, frequencies = Saltykov(diameters, return_data=True)
+    >>> mid_points, frequencies = Saltykov(diameters, return_data=True)
 
     References
     ----------
@@ -143,6 +143,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
             print('text_file must be None or string type')
         df = DataFrame({'mid_points': np.around(mid_points, 3),
                         'freqs': np.around(freq3D, 4),
+                        'freqs2one': np.around(freq3D * binsize, 3),
                         'cum_vol': np.around(cdf_norm, 2)})
         if text_file.endswith('.txt'):
             df.to_csv(text_file, sep='\t')
@@ -156,11 +157,14 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
 
     # return data or figure (if apply)
     if return_data is True:
+        #print('Note: To estimate the proportions relative to one multiply the')
+        #print('density values by the bin size, which is: {:0.3f}' .format(binsize))
+        #print(' ')
         return mid_points, freq3D
 
     elif return_data is False:
         print('=======================================')
-        print('bin size =', round(binsize, 2))
+        print('bin size = {:0.2f}' .format(binsize))
         print('=======================================')
         return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
