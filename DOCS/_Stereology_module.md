@@ -50,7 +50,7 @@ bin size = 14.24
 
 Now let's assume that we want to use the class densities estimated by Saltykov's method to calculate the specific volume of each or one of the classes. We have two options here.
 
-```python
+```reStructuredText
 def Saltykov(diameters,
              numbins=10,
              calc_vol=None,
@@ -145,7 +145,7 @@ np.sum(corrected_densities)
 1.000000650312342
 ```
 
-So for example if you have a volume of rock of say 100 cm^2^ and you want to estimate what proportion of that volume is occupied by each grain size class/range, you could estimate it as follows:
+So for example if you have a volume of rock of say 100 cm² and you want to estimate what proportion of that volume is occupied by each grain size class/range, you could estimate it as follows:
 
 ```python
 # I use np.around to round the values
