@@ -44,7 +44,7 @@ More details [here](https://github.com/marcoalopez/marcoalopez.github.io/blob/ma
 
 ### When to use the standard deviation and the confidence interval for the average?
 
-That depends on the information you want to provide. If the message is on the spread (or variability) of the grain size population (e.g. to compare between different grain size distributions) the standard deviation is the metric to use. If the interest is in the precision of the average or in comparing differences averages between different grain size populations (e.g. when using paleopiezometers) the confidence interval is your metric.
+That depends on the information you want to provide. If the message is on the spread of the grain size population (e.g. to compare between different grain size distributions) the standard deviation or, alternatively, the interquartile range is the metric to use. If the interest is in the precision of the average or in comparing differences averages between different grain size populations the confidence interval is your metric (e.g. when using paleopiezometers).
 
 ### What is an MSD value? What is it used for? 
 
