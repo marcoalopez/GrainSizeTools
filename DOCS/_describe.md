@@ -1,6 +1,6 @@
 # Describing the population of grain sizes
 
-> 📣 If you are using **JupyterLab** or the **Notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/grain_size_description.ipynb).
+> 📣 If you are using **JupyterLab** or the **Notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script and [online](https://nbviewer.jupyter.org/github/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/grain_size_description.ipynb).
 
 The method to describe the properties of the grain size population is named ``summarize()``. Before we get into the details of the method, let's run the GrainSizeTools script, load the example dataset, and create a toy dataset with known parameters.
 

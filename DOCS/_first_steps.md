@@ -3,7 +3,7 @@
 Installing Python for data science
 -------------
 
-GrainSizeTools script requires [Python](https://www.python.org/ ) 3.5+ or higher and the Python scientific libraries [*NumPy*](http://www.numpy.org/ ) [*SciPy*](http://www.scipy.org/ ), [*Pandas*](http://pandas.pydata.org ) and [*Matplotlib*](http://matplotlib.org/ ). If you have no previous experience with Python, I recommend downloading and installing the [Anaconda Python distribution](https://www.anaconda.com/distribution/ ) (Python 3.x version), as it includes all the required the scientific packages (> 5 GB disk space). In case you have a limited space in your hard disk, there is a distribution named [miniconda](http://conda.pydata.org/miniconda.html ) that only installs the Python packages you actually need. For both cases you have versions for Windows, MacOS and Linux.
+GrainSizeTools script requires [Python](https://www.python.org/ ) 3.6 or higher and the Python scientific libraries [*NumPy*](http://www.numpy.org/ ) [*SciPy*](http://www.scipy.org/ ), [*Pandas*](http://pandas.pydata.org ) and [*Matplotlib*](http://matplotlib.org/ ). If you have no previous experience with Python, I recommend downloading and installing the [Anaconda Python distribution](https://www.anaconda.com/distribution/ ) (Python 3.x version), as it includes all the required the scientific packages (> 5 GB disk space). In case you have a limited space in your hard disk, there is a distribution named [miniconda](http://conda.pydata.org/miniconda.html ) that only installs the Python packages you actually need. For both cases you have versions for Windows, MacOS and Linux.
 
 Anaconda Python Distribution: https://www.anaconda.com/distribution/ 
 
@@ -52,7 +52,7 @@ Documentation: https://marcoalopez.github.io/GrainSizeTools/
 Type get.functions_list() to get a list of the main methods
 ```
 
-Alternatively, if you are using **JupyterLab** or the **Notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script as well as [online](https://github.com/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb).
+Alternatively, if you are using **JupyterLab** or the **Notebook** you have a similar step-by-step tutorial in a notebook format within the ``example_notebook`` folder that comes with the script as well as [online](https://nbviewer.jupyter.org/github/marcoalopez/GrainSizeTools/blob/master/grain_size_tools/example_notebooks/getting_started.ipynb).
 
 
 
