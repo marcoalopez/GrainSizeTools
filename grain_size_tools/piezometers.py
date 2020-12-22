@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.0rc                                                             #
+#    Version 3.0.1                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -250,7 +250,7 @@ def olivine(piezometer=None):
         B, m = 1355.4, 0.75
         warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_interceps = True
-        correction_factor = 1.5
+        correction_factor = 1.2
 
     elif piezometer == 'Tasaka_wet':
         B, m = 719.7, 0.75

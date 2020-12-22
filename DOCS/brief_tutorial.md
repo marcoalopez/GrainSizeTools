@@ -1,5 +1,3 @@
-*last update 2019/05/07* 
-
 Getting Started: A step-by-step tutorial
 =============
 
