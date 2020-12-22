@@ -1,12 +1,12 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/05/08*
+*Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/12/22*
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
-**Latest release: v3.0RC0**  
-**Date: 2020/05/04**  
-See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0RC
+**Latest release: v3.0.1**  
+**Date: 2020/12/21**  
+See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0.1  
 
 > **Important note**: The script has been completely reorganized in v3.x, including new modules and features. **Its use is no longer compatible with previous versions (v2.x).** Check the new documentation for use.
 
