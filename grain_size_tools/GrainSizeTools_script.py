@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.0.1                                                             #
+#    Version 3.0.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -79,10 +79,10 @@ def conf_interval(data, confidence=0.95):
     err = high - amean
 
     print(' ')
-    print('Mean = {mean:0.2f} ± {err:0.2f}' .format(mean=amean, err=err))
-    print('Confidence set at {} %' .format(confidence * 100))
-    print('Max / min = {max:0.2f} / {min:0.2f}' .format(max=high, min=low))
-    print('Coefficient of variation = ±{:0.1f} %' .format(100 * err / amean))
+    print(f'Mean = {amean:0.2f} ± {err:0.2f}')
+    print(f'Confidence set at {confidence * 100} %')
+    print(f'Max / min = {high:0.2f} / {low:0.2f}')
+    print(f'Coefficient of variation = ±{100 * err / amean:0.1f} %')
 
     return amean, err, (low, high)
 
@@ -172,18 +172,15 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print('============================================================================')
         print('CENTRAL TENDENCY ESTIMATORS')
         print('============================================================================')
-        print('Arithmetic mean = {:0.2f} microns' .format(amean))
-        print('Confidence intervals at {:0.1f} %' .format(ci_level * 100))
+        print(f'Arithmetic mean = {amean:0.2f} microns')
+        print(f'Confidence intervals at {ci_level * 100:0.1f} %')
         if p_value2 < 0.05:
-            print('CLT (ASTM) method: {:0.2f} - {:0.2f}, (±{:0.1f}%), length = {:0.3f}'
-                  .format(ci[0], ci[1], 100 * (ci[1] - amean) / amean, length))
+            print(f'CLT (ASTM) method: {ci[0]:0.2f} - {ci[1]:0.2f}, (±{100 * (ci[1] - amean) / amean:0.1f}%), length = {length:0.3f}')
         else:
             if len(data) > 99:
-                print('mCox method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-                      .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+                print(f'mCox method: {low_ci:0.2f} - {high_ci:0.2f} (-{lower_cvar:0.1f}%, +{upper_cvar:0.1f}%), length = {length2:0.3f}')
             else:
-                print('GCI method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-                      .format(low_ci, high_ci, lower_cvar, upper_cvar, length2))
+                print(f'GCI method: {low_ci:0.2f} - {high_ci:0.2f} (-{lower_cvar:0.1f}%, +{upper_cvar:0.1f}%), length = {length2:0.3f}')
 
     if 'gmean' in avg:
         m = 'CLT' if len(data) > 99 else 'bayes'  # choose optimal method to estimate confidence intervals
@@ -194,10 +191,9 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         upper_cvar = 100 * (high_ci - gmean) / gmean
 
         print('============================================================================')
-        print('Geometric mean = {:0.2f} microns' .format(gmean))
-        print('Confidence interval at {:0.1f} %' .format(ci_level * 100))
-        print('{} method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-              .format(m, low_ci, high_ci, lower_cvar, upper_cvar, length))
+        print(f'Geometric mean = {gmean:0.2f} microns')
+        print(f'Confidence interval at {ci_level * 100:0.1f} %')
+        print(f'{m} method: {low_ci:0.2f} - {high_ci:0.2f} (-{lower_cvar:0.1f}%, +{upper_cvar:0.1f}%), length = {length:0.3f}')
 
     if 'median' in avg:
         median, iqr, (low_ci, high_ci), length = averages.median(data, ci_level)
@@ -207,41 +203,40 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         upper_cvar = 100 * (high_ci - median) / median
 
         print('============================================================================')
-        print('Median = {:0.2f} microns' .format(median))
-        print('Confidence interval at {:0.1f} %' .format(ci_level * 100))
-        print('robust method: {:0.2f} - {:0.2f} (-{:0.1f}%, +{:0.1f}%), length = {:0.3f}'
-              .format(low_ci, high_ci, lower_cvar, upper_cvar, length))
+        print(f'Median = {median:0.2f} microns')
+        print(f'Confidence interval at {ci_level * 100:0.1f} %')
+        print(f'robust method: {low_ci:0.2f} - {high_ci:0.2f} (-{lower_cvar:0.1f}%, +{upper_cvar:0.1f}%), length = {length:0.3f}')
 
     if 'mode' in avg:
         __, mode, __, bw = averages.freq_peak(data, bandwidth, precision)
 
         print('============================================================================')
-        print('Mode (KDE-based) = {:0.2f} microns' .format(mode))
-        print('Maximum precision set to', precision)
+        print(f'Mode (KDE-based) = {mode:0.2f} microns')
+        print(f'Maximum precision set to {precision}')
 
         if type(bandwidth) is str:
-            print('KDE bandwidth = {} ({} rule)' .format(bw, bandwidth))
+            print(f'KDE bandwidth = {bw} ({bandwidth} rule)')
         else:
-            print('KDE bandwidth =', bandwidth)
+            print(f'KDE bandwidth = {bandwidth}')
 
     print(' ')
     print('============================================================================')
     print('DISTRIBUTION FEATURES')
     print('============================================================================')
-    print('Sample size (n) = {}' . format(len(data)))
-    print('Standard deviation = {:0.2f} (1-sigma)' .format(np.std(data)))
+    print(f'Sample size (n) = {len(data)}')
+    print(f'Standard deviation = {np.std(data):0.2f} (1-sigma)')
     if 'median' in avg:
-        print('Interquartile range (IQR) = {:0.2f}' .format(iqr))
+        print(f'Interquartile range (IQR) = {iqr:0.2f}')
     if 'gmean' in avg:
-        print('Lognormal shape (Multiplicative Standard Deviation) = {:0.2f}' .format(msd))
+        print(f'Lognormal shape (Multiplicative Standard Deviation) = {msd:0.2f}')
     print('============================================================================')
     print('Shapiro-Wilk test warnings:')
     if p_value < 0.05:
         print('Data is not normally distributed!')
-        print('Normality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
+        print(f'Normality test: {W:0.2f}, {p_value:0.2f} (test statistic, p-value)')
     if p_value2 < 0.05:
         print('Data is not lognormally distributed!')
-        print('Lognormality test: {:0.2f}, {:0.2f} (test statistic, p-value)' .format(W2, p_value2))
+        print(f'Lognormality test: {W2:0.2f}, {p_value2:0.2f} (test statistic, p-value)')
     print('============================================================================')
 
     return None
@@ -334,7 +329,7 @@ def calc_diffstress(grain_size, phase, piezometer, correction=False):
 
     print('============================================================================')
     if isinstance(diff_stress, (int, float)):
-        print('differential stress = {:0.2f} MPa' .format(diff_stress))
+        print(f'differential stress = {diff_stress:0.2f} MPa')
         print('')
         print('INFO:')
         print(warn)

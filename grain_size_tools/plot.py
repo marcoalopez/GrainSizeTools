@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.0.1                                                             #
+#    Version 3.0.2                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -247,14 +247,13 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
 
     print('=======================================')
     print('DESCRIPTIVE STATISTICS')
-    print('Area-weighted mean grain size = {:0.2f} microns' .format(weighted_mean))
+    print(f'Area-weighted mean grain size = {weighted_mean:0.2f} microns')
     print('=======================================')
     print('HISTOGRAM FEATURES')
-    print('The modal interval is {left:0.2f} - {right:0.2f} microns' .format(left=bin_edges[getIndex],
-                                                                             right=bin_edges[getIndex] + h))
-    print('The number of classes are {}' .format(len(histogram)))
+    print(f'The modal interval is {bin_edges[getIndex]:0.2f} - {bin_edges[getIndex] + h:0.2f} microns')
+    print(f'The number of classes are {len(histogram)}')
     if type(binsize) is str:
-        print('The bin size is {bin:0.2f} according to the {rule} rule' .format(bin=h, rule=binsize))
+        print(f'The bin size is {h:0.2f} according to the {binsize} rule')
     print('=======================================')
 
     # normalize the y-axis values to percentage of the total area
@@ -338,9 +337,9 @@ def normalized(data, avg='amean', bandwidth='silverman', **fig_kw):
     # Provide details
     print('=======================================')
     if avg == 'amean':
-        print('Normalized SD = {:0.3f}' .format(np.std(norm_data)))
+        print(f'Normalized SD = {np.std(norm_data):0.3f}')
     if avg == 'median':
-        print('Normalized IQR = {:0.3f}' .format(iqr(norm_data)))
+        print(f'Normalized IQR = {iqr(norm_data):0.3f}')
     print('KDE bandwidth = ', round(bandwidth, 2))
     print('=======================================')
 
@@ -432,7 +431,7 @@ def qq_plot(data, percent=2, **fig_kw):
         W, p_value = shapiro(data)
     print('=======================================')
     print('Shapiro-Wilk test (lognormal):')
-    print('{:0.2f}, {:0.2f} (test statistic, p-value)' .format(W, p_value))
+    print(f'{W:0.2f}, {p_value:0.2f} (test statistic, p-value)')
     if p_value >= 0.05:
         print('It looks like a lognormal distribution')
         print('(⌐■_■)')
