@@ -12,8 +12,8 @@ with open('license.txt') as fh:
 
 # Check for Python 3
 v = sys.version_info
-if (v[0] >= 3 and v[:2] < (3, 5)):
-    error = "ERROR: GrainSizeTools requires Python version 3.5 or above."
+if (v[0] >= 3 and v[:2] < (3, 6)):
+    error = "ERROR: GrainSizeTools requires Python version 3.6 or above."
     print(error, file=sys.stderr)
     sys.exit(1)
 
@@ -21,7 +21,7 @@ sys.path.append(os.path.join(sys.path[0], 'grain_size_tools'))
 
 setup(
     name="grain_size_tools",
-    version="3.0",
+    version="3.0.2",
     author="Marco A. Lopez-Sanchez",
     author_email="marcoalopez@outlook.com",
     description="A Python script for estimating grain size, grain size populations, and differential stress via piezometers from thin sections",
