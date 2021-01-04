@@ -251,8 +251,8 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     print('=======================================')
     print('HISTOGRAM FEATURES')
     print(f'The modal interval is {bin_edges[getIndex]:0.2f} - {bin_edges[getIndex] + h:0.2f} microns')
-    print(f'The number of classes are {len(histogram)}')
     if type(binsize) is str:
+        print(f'The number of classes are {len(histogram)}')
         print(f'The bin size is {h:0.2f} according to the {binsize} rule')
     print('=======================================')
 
@@ -269,7 +269,7 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
            color='#55A868',
            edgecolor='#FEFFFF',
            align='edge',
-           alpha=0.9)
+           alpha=1)
     ax.vlines(weighted_mean, ymin=0, ymax=maxValue,
               linestyle='--',
               color='#1F1F1F',
