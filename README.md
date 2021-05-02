@@ -76,12 +76,12 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 The GitHub website hosting the project provides several options (you will need a GitHub account, it’s free!):
 
-- Open a [discussion](https://github.com/marcoalopez/Jupyter4DICe/discussions): This is a place to:
+- Open a [discussion](https://github.com/marcoalopez/GrainSizeTools/discussions): This is a place to:
   - Ask questions you are wondering about.
   - Share ideas.
   - Engage with the developers (still just me).
-- Open and [issue](https://github.com/marcoalopez/Jupyter4DICe/issues): This is a place to track bugs or requests for specific features on the scripts.
-- Create a [pull request](https://github.com/marcoalopez/Jupyter4DICe/pulls): You modified, corrected or added a feature to one of the notebooks and send it for one of the developers to review it and add it to the main page.
+- Open and [issue](https://github.com/marcoalopez/GrainSizeTools/issues): This is a place to track bugs or requests for specific features on the scripts.
+- Create a [pull request](https://github.com/marcoalopez/GrainSizeTools/pulls): You modified, corrected or added a feature to one of the notebooks and send it for one of the developers to review it and add it to the main page.
 
 
 
