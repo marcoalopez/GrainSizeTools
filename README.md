@@ -1,14 +1,12 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2020/12/31_
+_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2021/05/03_
 
-[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides several tools for (1) Describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with Python programming language** (see documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
+[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides tools for (1) describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with the Python programming language** (see the documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
 **Latest release: v3.0.2**  
 **Date: 2020/12/31**  
-See: https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0.2
-
-> **Important note**: The script has been completely reorganized in v3+, including new modules and features. **Its use is no longer compatible with previous versions (v2.x).** Check the new documentation for use.
+See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0.2
 
 
 ## Features at a glance
@@ -56,9 +54,7 @@ https://sourceforge.net/projects/grainsizetools/
 
 ***Others***
 
-* [Documentation for old versions (v2.0.4)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/brief_tutorial.md)
 * [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
-* [How to reconstruct the grains from SEM-EBSD data using the MTEX toolbox (available soon!)](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/ebsd_mtex_tutorial.md)
 
 ## Screenshots (v3.0+)
 
@@ -66,7 +62,8 @@ https://sourceforge.net/projects/grainsizetools/
 
 ## Citation guidelines
 
-***Script reference***  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)  
+***Script reference***  ![DOI](http://joss.theoj.org/papers/10.21105/joss.00863/status.svg)
+
 Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
 
 ## License
@@ -77,15 +74,19 @@ The documentation of GrainSizeTools script is licensed under a [Creative Commons
 
 ## Community guidelines
 
-- *Did you find a bug in the code or an error in the documentation?* Let me know by opening an [issue](https://github.com/marcoalopez/GrainSizeTools/issues).
+The GitHub website hosting the project provides several options (you will need a GitHub account, it’s free!):
 
-- *Do you want to contribute with new ideas or do you miss a feature?* Let me know by sending me an email (see [here](https://github.com/marcoalopez )), or better open an [pull request](https://github.com/marcoalopez/GrainSizeTools/pulls) with the label ``enhancement`` and I'll see what I can do
-- *Do you want to develop your own code based on the GrainSizeTools script?* Go ahead, clone the project and develop!
+- Open a [discussion](https://github.com/marcoalopez/Jupyter4DICe/discussions): This is a place to:
+  - Ask questions you are wondering about.
+  - Share ideas.
+  - Engage with the developers (still just me).
+- Open and [issue](https://github.com/marcoalopez/Jupyter4DICe/issues): This is a place to track bugs or requests for specific features on the scripts.
+- Create a [pull request](https://github.com/marcoalopez/Jupyter4DICe/pulls): You modified, corrected or added a feature to one of the notebooks and send it for one of the developers to review it and add it to the main page.
 
 
 
 ---
-*Copyright © 2020 Marco A. Lopez-Sanchez*  
+*Copyright © 2021 Marco A. Lopez-Sanchez*  
 
 *Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.*  
 

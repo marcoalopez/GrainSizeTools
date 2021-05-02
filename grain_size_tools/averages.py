@@ -375,7 +375,7 @@ def mCox_ci(data, ci=0.95):
 
 
 def GCI_ci(data, ci=0.95, runs=10000):
-    """ Ruturns the confidence interval for the arithmetic mean using the
+    """ Returns the confidence interval for the arithmetic mean using the
     generalized confidence interval (GCI) method of Krishnamoorthy and Mathew
     (2003). This is a Monte Carlo method optimized for lognormal populations.
 
@@ -538,7 +538,11 @@ def median_ci(pop, n, ci=0.95):
 
     id_upper = 1 + (n / 2) + (z_score * np.sqrt(n)) / 2
     id_lower = (n / 2) - (z_score * np.sqrt(n)) / 2
-    upper_ci, lower_ci = pop[int(np.ceil(id_upper))], pop[int(np.floor(id_lower))]
+
+    if int(np.ceil(id_upper)) >= len(pop):
+        upper_ci, lower_ci = pop[-1], pop[int(np.floor(id_lower))]
+    else:
+        upper_ci, lower_ci = pop[int(np.ceil(id_upper))], pop[int(np.floor(id_lower))]
     interval = upper_ci - lower_ci
 
     return (lower_ci, upper_ci), interval
