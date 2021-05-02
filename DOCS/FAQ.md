@@ -11,7 +11,6 @@
 - [Is it necessary to specify the version of the script used in a publication? How can this be indicated?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#is-it-necessary-to-specify-the-version-of-the-script-used-in-a-publication-how-can-this-be-indicated)
 - [Does the script work with Python 2.7.x and 3.x versions? Which version do I choose?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#does-the-script-work-with-python-27x-and-3x-versions-which-version-do-i-choose)
 - [I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#i-get-the-results-but-not-the-plots-when-using-the-spyder-ide-valueerror-image-size-of--is-too-large)
-- [Can I report bugs or submit ideas to improve the script?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#can-i-report-bugs-or-submit-ideas-to-improve-the-script)
 
 ### Who is this script for?
 The script pursues three different goals:
@@ -70,14 +69,12 @@ Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size a
 
 ### Does the script work with Python 2.7.x and 3.x versions? Which version do I choose?  
 
-Since Python 2.7.x versions [will be discontinued in 2020](https://pythonclock.org/), I have decided that the script will only work with Python 3.6 or higher from version 2.0 onwards. Previous versions of the script has been written to run on both, so if you want to stick with Python 2.7.x you should download the v1.4.5, which is the last one compatible. However, note that old versions of the script have fewer features and bugs, if find it, will not be fixed.
+Python 2.7.x versions has been discontinued in 2020 and thus I have decided that the script will only work with Python 3.6 or higher from version 2.0 onwards. Previous versions of the script has been written to run on both, so if you want to stick with Python 2.7.x you should download the v1.4.5, which is the last one compatible. However, note that old versions of the script have fewer features and bugs, if find it, will not be fixed.
 
 ### I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_
 
 This issue is produced because the size of the figures returned by the script are too large to show them inside the console using the **inline** mode. To fix this go to the Spyder menu bar and in  ```Tools>Preferences>IPython console>Graphics``` find _Graphics backend_, select _Automatic_, and then restart Spyder. As an alternative you can type ``%matplotlib auto`` in the console without needing to restart Spyder but this change will be temporary (i.e. only valid for the current session).
 
-### Can I report bugs or submit ideas to improve the script?  
 
-Sure. If you have issues using the script, found a bug or see an error in the documentation please just let me know by dropping me an email or opening an issue [here](https://github.com/marcoalopez/GrainSizeTools/issues) (you can find my email here: https://github.com/marcoalopez ). Feedback from users is always welcome and important to develop a better and reliable script. Lastly, you can also clone the project and develop your own based on the GST script since it is open source and free.
 
 [return me to the home page](https://marcoalopez.github.io/GrainSizeTools/)  
