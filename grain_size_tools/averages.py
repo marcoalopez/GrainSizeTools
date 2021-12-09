@@ -112,7 +112,7 @@ def gmean(pop, ci=0.95, method='CLT'):
     -----------
     - geometric mean is optimal for lognormal-like distributions
     - the multiplicative SD is a measure of the lognormal shape
-    - The bayes method is sometimesslighly superior to CLT for
+    - The bayes method is sometimes slighly superior to CLT for
     very small (< 100) sample sizes
 
     Call functions
@@ -367,8 +367,14 @@ def mCox_ci(data, ci=0.95):
     data = np.log(data)
     mean_log, std_log = np.mean(data), np.std(data, ddof=1)
 
-    lower = np.exp(mean_log + 0.5 * std_log**2 - t * (std_log / np.sqrt(n)) * np.sqrt(1 + (std_log**2 * n) / (2 * (n + 1))))
-    upper = np.exp(mean_log + 0.5 * std_log**2 + t * (std_log / np.sqrt(n)) * np.sqrt(1 + (std_log**2 * n) / (2 * (n + 1))))
+    lower = np.exp(mean_log + 0.5
+                   * std_log**2 - t
+                   * (std_log / np.sqrt(n))
+                   * np.sqrt(1 + (std_log**2 * n) / (2 * (n + 1))))
+    upper = np.exp(mean_log + 0.5
+                   * std_log**2 + t
+                   * (std_log / np.sqrt(n))
+                   * np.sqrt(1 + (std_log**2 * n) / (2 * (n + 1))))
     interval = upper - lower
 
     return (lower, upper), interval
