@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2021/05/03_
+_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2022/02/03_
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides tools for (1) describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with the Python programming language** (see the documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
@@ -37,7 +37,7 @@ See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0.2
 ## Download
 
 You can download the script at the following sites:  
-https://github.com/marcoalopez/GrainSizeTools/releases  
+https://github.com/marcoalopez/GrainSizeTools/releases  (primary source)  
 http://figshare.com/articles/GrainSizeTools_script/1383130  
 https://sourceforge.net/projects/grainsizetools/
 
@@ -83,7 +83,7 @@ The GitHub website hosting the project provides several options (you will need a
 - Open and [issue](https://github.com/marcoalopez/GrainSizeTools/issues): This is a place to track bugs or requests for specific features on the scripts.
 - Create a [pull request](https://github.com/marcoalopez/GrainSizeTools/pulls): You modified, corrected or added a feature to one of the notebooks and send it for one of the developers to review it and add it to the main page.
 
-
+For a quick explanation see https://www.youtube.com/watch?v=R8OAwrcMlRw. 
 
 ---
 *Copyright © 2021 Marco A. Lopez-Sanchez*  
