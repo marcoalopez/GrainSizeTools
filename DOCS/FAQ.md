@@ -43,7 +43,13 @@ More details [here](https://github.com/marcoalopez/marcoalopez.github.io/blob/ma
 
 ### When to use the standard deviation and the confidence interval for the average?
 
-That depends on the information you want to provide. If the message is on the spread of the grain size population (e.g. to compare between different grain size distributions) the standard deviation or, alternatively, the interquartile range is the metric to use. If the interest is in the precision of the average or in comparing differences averages between different grain size populations the confidence interval is your metric (e.g. when using paleopiezometers).
+That depends on the information you want to provide. If the message is on the spread of the grain size population (e.g. to compare between different grain size distributions) the standard deviation or, alternatively, the interquartile range is the metric to use. If the interest is in the precision of the average or in comparing differences averages between different grain size populations the confidence interval is your metric (e.g. when using paleopiezometers). More precisely:
+
+The **standard deviation** (s.d.) is the typical difference between each value and the mean value. So, in this case it describes how broadly the sample grain size values are distributed.
+
+The **standard error of the mean** (s.e.m.) is an estimate of how variable the means will be if the experiment or measure is repeated multiple times. The s.e.m. may serve to check whether sets of samples are likely to come from the same or a similar population.
+
+The **95 % confidence internal** (C.I., 95%) means that the population mean will lie in this interval with 95% confidence.
 
 ### What is an MSD value? What is it used for? 
 
@@ -59,7 +65,7 @@ As you may notice, classic CSDs charts (Marsh, 1988) show in the vertical axis t
 
 ### Why the sum of all frequencies in the histograms is not equal to one?
 
-This is because the script normalized the frequencies of the different classes so that the integral over the range is one. In other words, once the frequencies are normalized to one, the script divides them by the bin size. This means that the sum of all frequency values will not be equal to one unless the bin size is one. We have chosen this normalization method because it allows comparing distributions using different bin sizes, and it is required to properly apply the two-step method.
+This is because after the frequencies are normalized to one (i.e. the integral over the range equals one), the procedure divides them by the bin size. This means that the sum of all frequency values will not be equal to one unless the bin size is one. We have chosen this normalization method because it allows comparing distributions using different bin sizes, and it is required to properly apply the two-step method.
 
 ### Is it necessary to specify the version of the script used in a publication? How can this be indicated?  
 
@@ -67,9 +73,9 @@ Yes, it is always desirable to indicate the version of the script used. The rati
 
 Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. _Journal of Open Source Software_, 3(30), 863, https://doi.org/10.21105/joss.00863
 
-### Does the script work with Python 2.7.x and 3.x versions? Which version do I choose?  
+### Does the script work with Python 2.7.x ?  
 
-Python 2.7.x versions has been discontinued in 2020 and thus I have decided that the script will only work with Python 3.6 or higher from version 2.0 onwards. Previous versions of the script has been written to run on both, so if you want to stick with Python 2.7.x you should download the v1.4.5, which is the last one compatible. However, note that old versions of the script have fewer features and bugs, if find it, will not be fixed.
+No. Python 2.7.x versions have been discontinued in 2020 and it is time to move on. GrainSizeTools script v1.4.5 or earlier are, however, compatible, but these older versions have fewer features and bugs will not be fixed if found.
 
 ### I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_
 
