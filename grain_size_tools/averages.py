@@ -18,7 +18,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the "License".                                          #
 #                                                                              #
-#    Version 3.0.2                                                             #
+#    Version 2023.11.xx                                                        #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -604,6 +604,36 @@ def gen_xgrid(start, stop, precision):
         n = int(round(rango / precision, 0))
 
     return np.linspace(start, stop, num=n)
+
+
+def gen_lognorm_population(scale, shape, n, seed=None):
+    """Draw a random sample from a log-normal distribution.
+
+    Parameters
+    ----------
+    scale : float
+        _description_
+    shape : float
+        _description_
+    n : integer
+        _description_
+    seed : scalar or None, optional
+        _description_, by default None
+
+    Returns
+    -------
+    numpy array
+        A lognormal distribution with defined scale,
+    shape and sample size (n)
+    """
+
+    # create a random generator object
+    if seed is not None:
+        rgn = np.random.default_rng(seed=seed)
+    else:
+        rgn = np.random.default_rng()
+
+    return rgn.lognormal(mean=scale, sigma=shape, size=n)
 
 
 if __name__ == '__main__':
