@@ -1,16 +1,16 @@
 # Frequently Asked Questions
 
-- [Who is this script for?](##who-is-this-script-for-)
-- [What is paleopizometry?](##what-is-paleopizometry-)
-- [Why use apparent grain size measures over measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?](##why-use-apparent-grain-size-measures-over-measures-estimated-from-unfolded-3d-grain-size-distributions-in-paleopiezometry-studies-)
-- [What measure of central tendency (i.e. average) do I have to use?](##what-measure-of-central-tendency--ie-average--do-i-have-to-use-)
-- [When to use the standard deviation and the confidence interval for the average?](##when-to-use-the-standard-deviation-and-the-confidence-interval-for-the-average-)
-- [What is an MSD value? Understanding MSD Value and its Purpose](##what-is-an-msd-value--understanding-msd-value-and-its-purpose)
-- [Why the grain size distribution plots produced by the GST script and the classic CSD charts do not use the same units on the y-axis?](##why-the-grain-size-distribution-plots-produced-by-the-gst-script-and-the-classic-csd-charts-do-not-use-the-same-units-on-the-y-axis-)
-- [Why the sum of all frequencies in the histograms is not equal to one?](##why-the-sum-of-all-frequencies-in-the-histograms-is-not-equal-to-one-)
-- [Specifying Script Version in Publications](##specifying-script-version-in-publications)
-- [Does the script work with Python 2.7.x?](##does-the-script-work-with-python-27x-)
-- [I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_](##i-get-the-results-but-not-the-plots-when-using-the-spyder-ide--valueerror---image-size-of--is-too-large-)
+- [Who is this script for?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#who-is-this-script-for-)
+- [What is paleopizometry?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#what-is-paleopizometry-)
+- [Why use apparent grain size measures over measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#why-use-apparent-grain-size-measures-over-measures-estimated-from-unfolded-3d-grain-size-distributions-in-paleopiezometry-studies-)
+- [What measure of central tendency (i.e. average) do I have to use?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#what-measure-of-central-tendency--ie-average--do-i-have-to-use-)
+- [When to use the standard deviation and the confidence interval for the average?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#when-to-use-the-standard-deviation-and-the-confidence-interval-for-the-average-)
+- [What is an MSD value? Understanding MSD Value and its Purpose](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#what-is-an-msd-value--understanding-msd-value-and-its-purpose)
+- [Why the grain size distribution plots produced by the GST script and the classic CSD charts do not use the same units on the y-axis?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#why-the-grain-size-distribution-plots-produced-by-the-gst-script-and-the-classic-csd-charts-do-not-use-the-same-units-on-the-y-axis-)
+- [Why the sum of all frequencies in the histograms is not equal to one?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#why-the-sum-of-all-frequencies-in-the-histograms-is-not-equal-to-one-)
+- [Specifying Script Version in Publications](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#specifying-script-version-in-publications)
+- [Does the script work with Python 2.7.x?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#does-the-script-work-with-python-27x-)
+- [I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#i-get-the-results-but-not-the-plots-when-using-the-spyder-ide--valueerror---image-size-of--is-too-large-)
 
 ## Who is this script for?
 The script serves three primary goals:
