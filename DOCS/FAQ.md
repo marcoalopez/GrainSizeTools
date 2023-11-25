@@ -1,16 +1,16 @@
 # Frequently Asked Questions
 
-- [Who is this script for?](#who-is-this-script-for-)
-- [What is paleopizometry?](#what-is-paleopizometry-)
-- [Why use apparent grain size measures over measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?](#why-use-apparent-grain-size-measures-over-measures-estimated-from-unfolded-3d-grain-size-distributions-in-paleopiezometry-studies-)
-- [What measure of central tendency (i.e. average) do I have to use?](#what-measure-of-central-tendency--ie-average--do-i-have-to-use-)
-- [When to use the standard deviation and the confidence interval for the average?](#when-to-use-the-standard-deviation-and-the-confidence-interval-for-the-average-)
-- [What is an MSD value? Understanding MSD Value and its Purpose](#what-is-an-msd-value--understanding-msd-value-and-its-purpose)
-- [Why the grain size distribution plots produced by the GST script and the classic CSD charts do not use the same units on the y-axis?](#why-the-grain-size-distribution-plots-produced-by-the-gst-script-and-the-classic-csd-charts-do-not-use-the-same-units-on-the-y-axis-)
-- [Why the sum of all frequencies in the histograms is not equal to one?](#why-the-sum-of-all-frequencies-in-the-histograms-is-not-equal-to-one-)
-- [Specifying Script Version in Publications](#specifying-script-version-in-publications)
-- [Does the script work with Python 2.7.x?](#does-the-script-work-with-python-27x-)
-- [I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_](#i-get-the-results-but-not-the-plots-when-using-the-spyder-ide--valueerror---image-size-of--is-too-large-)
+- [Who is this script for?](##who-is-this-script-for-)
+- [What is paleopizometry?](##what-is-paleopizometry-)
+- [Why use apparent grain size measures over measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?](##why-use-apparent-grain-size-measures-over-measures-estimated-from-unfolded-3d-grain-size-distributions-in-paleopiezometry-studies-)
+- [What measure of central tendency (i.e. average) do I have to use?](##what-measure-of-central-tendency--ie-average--do-i-have-to-use-)
+- [When to use the standard deviation and the confidence interval for the average?](##when-to-use-the-standard-deviation-and-the-confidence-interval-for-the-average-)
+- [What is an MSD value? Understanding MSD Value and its Purpose](##what-is-an-msd-value--understanding-msd-value-and-its-purpose)
+- [Why the grain size distribution plots produced by the GST script and the classic CSD charts do not use the same units on the y-axis?](##why-the-grain-size-distribution-plots-produced-by-the-gst-script-and-the-classic-csd-charts-do-not-use-the-same-units-on-the-y-axis-)
+- [Why the sum of all frequencies in the histograms is not equal to one?](##why-the-sum-of-all-frequencies-in-the-histograms-is-not-equal-to-one-)
+- [Specifying Script Version in Publications](##specifying-script-version-in-publications)
+- [Does the script work with Python 2.7.x?](##does-the-script-work-with-python-27x-)
+- [I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_](##i-get-the-results-but-not-the-plots-when-using-the-spyder-ide--valueerror---image-size-of--is-too-large-)
 
 ## Who is this script for?
 The script serves three primary goals:
@@ -57,9 +57,9 @@ The choice of the measure depends on your specific goals and dataset. Here are s
 
 That depends on the information you want to provide. If the message is on the spread of the grain size population (e.g. to compare between different grain size distributions) the standard deviation or the interquartile range is the metric you want. If the interest is in the precision of the average or in comparing averages between different grain size populations the confidence interval is your metric (e.g., when using paleopiezometers). More precisely:
 
-The **standard deviation** (s.d.) is the typical difference between each value and the mean value. So, in this case, it describes how broadly the grain size values are distributed within the sample.
+The **standard deviation** (s.d.) is the typical difference between each value and the mean value. So, in this case, it describes how broadly the grain size values are distributed within the sample. **Standard deviation describes a dataset**.
 
-The **standard error of the mean** (s.e.m.) is an estimate of how variable the means will be if the experiment or measure is repeated multiple times. The s.e.m. may serve to check whether sets of samples are likely to come from the same or a similar population.
+The **standard error of the mean** (s.e.m.) is an estimate of how variable the means will be if the experiment or measure is repeated multiple times. The s.e.m. may serve to check whether sets of samples are likely to come from the same or a similar population. **Standard error describes an estimate**.
 
 The **95 % confidence interval** (C.I., 95%) means that the population mean will lie in this interval with 95% confidence. This metric is valuable when assessing the precision of the average or comparing averages between different grain size populations. It's like  saying, "We're 95% confident that the true average grain size falls  within this range." In simpler terms, it gives you a sense of how certain you can be about the average, considering the inherent variability in your data.
 
