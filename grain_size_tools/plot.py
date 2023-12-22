@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.0.2                                                             #
+#    Version 2024.02.xx                                                        #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -228,7 +228,7 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     weighted_mean = np.sum(diameters * weighted_areas)
 
     # estimate mode interval
-    if type(binsize) is str:
+    if isinstance(binsize, str):
         histogram, bin_edges = np.histogram(diameters, bins=binsize, range=(0.0, diameters.max()))
         h = bin_edges[1]
     else:
@@ -251,7 +251,7 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     print('=======================================')
     print('HISTOGRAM FEATURES')
     print(f'The modal interval is {bin_edges[getIndex]:0.2f} - {bin_edges[getIndex] + h:0.2f} microns')
-    if type(binsize) is str:
+    if isinstance(binsize, str):
         print(f'The number of classes are {len(histogram)}')
         print(f'The bin size is {h:0.2f} according to the {binsize} rule')
     print('=======================================')
