@@ -245,6 +245,49 @@ def freq_peak(pop, bandwidth='silverman', max_precision=0.05):
     return (xgrid, densities), peak_grain_size, y_max, bw
 
 
+def weighted_mean_with_error(values, variances):
+    """
+    Calculate the weighted mean of a set of values considering estimation
+    errors. Use cases: when you want to estimate a mean of averages taking
+    into account the variances of each average.
+
+    Parameters
+    ----------
+    values : array-like
+        The array of values.
+    variances : array-like
+        The array of variances (estimation errors) corresponding to each value.
+
+    Returns
+    -------
+    weighted_mean : float
+        The weighted mean of the values.
+    error : float
+        The standard error of the weighted mean.
+    """
+    # Ensure values and variances are numpy arrays
+    values = np.array(values)
+    variances = np.array(variances)
+
+    # Check if the arrays have the same length
+    if len(values) != len(variances):
+        raise ValueError("Values and variances must have the same length.")
+
+    # Calculate weights as the inverse of variances
+    weights = 1 / variances
+
+    # Calculate the weighted mean using numpy.average
+    weighted_mean = np.average(values, weights=weights)
+
+    # Calculate the standard error of the weighted mean
+    error = np.sqrt(1 / np.sum(weights))
+
+    print(f"Weighted Mean: {weighted_mean}")
+    print(f"Standard Error: {error}")
+
+    return weighted_mean, error
+
+
 # ============================================================================ #
 # CONFIDENCE INTERVAL METHODS                                                  #
 # ============================================================================ #
