@@ -226,34 +226,12 @@ def calcite(piezometer=None):
 
 
 def olivine(piezometer=None):
-    """ Data base for calcite piezometers. It returns the material parameter,
-    the exponent parameter and a warn with the "average" grain size measure to be use.
+    """ Database for olivine piezometers
 
     Parameter
     ---------
     piezometer : string or None
         the piezometric relation
-
-    References
-    ----------
-    | Jung and Karato (2001) https://doi.org/10.1016/S0191-8141(01)00005-0
-    | Van der Wal et al. (1993) https://doi.org/10.1029/93GL01382
-
-    Assumptions
-    -----------
-    - The piezometer of Van der Wal (1993) requires entering the linear mean apparent
-    grain size in microns calculated from equivalent circular diameters (ECD) with no
-    stereological correction. The function will convert automatically this value to
-    linear intercept (LI) grain size using the De Hoff and Rhines (1968) correction.
-    It is assumed that LI was multiplied by 1.5 (correction factor), the final relation
-    is: LI = (1.5 / sqrt(4/pi)) * ECD
-
-    - The piezometer of Jung and Karato (2001) requires entering the linear mean
-    apparent grain size in microns calculated from equivalent circular diameters
-    (ECD) with no stereological correction. The function will convert automatically
-    this value to linear intercept (LI) grain size using the De Hoff and Rhines
-    (1968) empirical equation. Since LI was originally multiplied by 1.5 (correction
-    factor), the final relation is: LI = (1.5 / sqrt(4/pi)) * ECD
     """
 
     if piezometer is None:
@@ -269,6 +247,11 @@ def olivine(piezometer=None):
         linear_intercepts = True
         correction_factor = 1.5
         reference = 'https://doi.org/10.1016/S0191-8141(01)00005-0'
+        notes = 'The Jung & Karato (2001) piezometer was calibrated using the linear intercept (LI) \
+                grain size multiplied by 1.5 (correction factor). If equivalent circular diameters (ECD) \
+                without stereological correction are used, they must be converted to LIs using the \
+                empirical equation of De Hoff and Rhines (1968) as follows: \
+                LI = (1.5 / sqrt(4/pi)) * ECD'
 
     elif piezometer == 'VanderWal_wet':
         B, m = 1355.4, 0.75
@@ -276,13 +259,19 @@ def olivine(piezometer=None):
         linear_intercepts = True
         correction_factor = 1.5
         reference = 'https://doi.org/10.1029/93GL01382'
+        notes = 'The Van der Wal (1993) piezometer was calibrated using the linear intercept (LI) \
+                grain size multiplied by 1.5 (correction factor). If equivalent circular diameters (ECD) \
+                without stereological correction are used, they must be converted to LIs using the \
+                empirical equation of De Hoff and Rhines (1968) as follows: \
+                LI = (1.5 / sqrt(4/pi)) * ECD'
 
     elif piezometer == 'Tasaka_wet':
         B, m = 719.7, 0.75
         warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
         linear_intercepts = False
-        correction_factor = 1.2
-        reference = ''
+        correction_factor = 4 / 3.141592
+        reference = 'https://doi.org/10.1002/2015JB012096'
+        notes = None
 
     else:
         olivine()
@@ -293,12 +282,12 @@ def olivine(piezometer=None):
                            warn=warn,
                            linear_intercepts=linear_intercepts,
                            correction_factor=correction_factor,
-                           reference=reference)
+                           reference=reference,
+                           notes=notes)
 
 
 def feldspar(piezometer=None):
-    """ Data base for calcite piezometers. It returns the material parameter, the exponent
-    parameter and a warn with the "average" grain size measure to be use.
+    """ Database for feldspar piezometers
 
     Parameter
     ---------
@@ -309,17 +298,6 @@ def feldspar(piezometer=None):
     ----------
     | Post and Tullis (1999) https://doi.org/10.1016/S0040-1951(98)00260-1
 
-    Assumptions
-    -----------
-    - The piezometer of Post and Tullis (1999) requires entering the median
-    apparent grain size calculated from equivalent circular diameters (ECD) with
-    no stereological correction. The function will convert this value to the mean
-    linear intercept (LI) grain size using the De Hoff and Rhines (1968) empirical
-    relation LI = ECD / sqrt(4/pi)
-
-    Returns
-    -------
-    The differential stress in MPa, a floating point number
     """
 
     if piezometer is None:
@@ -333,6 +311,8 @@ def feldspar(piezometer=None):
         linear_intercepts = True
         correction_factor = 1.0
         reference = 'https://doi.org/10.1016/S0040-1951(98)00260-1'
+        notes = 'The Post and Tullis (1999) piezometer was calibrated using the median of the  \
+                equivalent circular diameters (ECD) grain size with no stereological correction.'
 
     else:
         feldspar()
@@ -343,10 +323,11 @@ def feldspar(piezometer=None):
                            warn=warn,
                            linear_intercepts=linear_intercepts,
                            correction_factor=correction_factor,
-                           reference=reference)
+                           reference=reference,
+                           notes=notes)
 
 
 if __name__ == '__main__':
     pass
 else:
-    print('module piezometers imported')
+    print('database imported')
