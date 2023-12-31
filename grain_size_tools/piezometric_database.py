@@ -31,8 +31,7 @@
 from types import SimpleNamespace
 
 def quartz(piezometer=None):
-    """ Data base for quartz piezometers. It returns the material parameter,
-    the exponent and a warn with the "average" grain size measure to use.
+    """ Database for quartz piezometers.
 
     Parameter
     ---------
@@ -46,24 +45,6 @@ def quartz(piezometer=None):
     | Shimizu (2008) https://doi.org/10.1016/j.jsg.2008.03.004
     | Stipp and Tullis (2003)  https://doi.org/10.1029/2003GL018444
     | Twiss (1977) https://www.doi.org/10.1007/BF01637105
-
-    Assumptions
-    -----------
-    - The piezometer relations of Stipp and Tullis (2003), Holyoke and Kronenberg
-    (2010) and Cross et al. (2007) requires entering the grain size as the square
-    root mean apparent grain size calculated using equivalent circular diameters
-    with no stereological correction.
-
-    - The piezometer relation of Shimizu (2008) requires entering the grain size
-    as the logarithmic median apparent grain size calculated using equivalent
-    circular diameters with no stereological correction.
-
-    - The piezometer of Twiss (1977) requires entering the arithmetic mean apparent
-    grain size calculated from equivalent circular diameters (ECD) with no stereological
-    correction. The function will convert this value to mean linear intercept (LI)
-    grain size using the De Hoff and Rhines (1968) empirical relation and assuming
-    that LI was originally multiplied by 1.5 (correction factor). Then the final
-    relation is: LI = (1.5 / sqrt(4/pi)) * ECD
     """
 
     if piezometer is None:
@@ -84,6 +65,7 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1029/2003GL018444'
+        notes = None
 
     elif piezometer == 'Stipp_Tullis_BLG':
         B, m = 1264.1, 1.64
@@ -91,6 +73,7 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1029/2003GL018444'
+        notes = None
 
     elif piezometer == 'Holyoke':
         B, m = 490.3, 0.79
@@ -98,6 +81,7 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1016/j.tecto.2010.08.001'
+        notes = None
 
     elif piezometer == 'Holyoke_BLG':
         B, m = 883.9, 1.85
@@ -105,6 +89,7 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1016/j.tecto.2010.08.001'
+        notes = None
 
     elif piezometer == 'Cross':
         B, m = 593.0, 0.71
@@ -112,6 +97,7 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1002/2017GL073836'
+        notes = None
 
     elif piezometer == 'Cross_hr':
         B, m = 450.9, 0.63
@@ -119,6 +105,7 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1002/2017GL073836'
+        notes = None
 
     elif piezometer == 'Shimizu':
         B, m = 352, 0.8
@@ -126,6 +113,11 @@ def quartz(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1016/j.jsg.2008.03.004'
+        notes = 'The Shimizu (2008) piezometer requires entering the grain size as the \
+                logarithmic median apparent grain size calculated using equivalent \
+                circular diameters with no stereological correction. It uses a different \
+                piezometer model to the Twiss model in which the stress estimation is \
+                temperature-dependent.'
 
     elif piezometer == 'Twiss':
         B, m = 550, 0.68
@@ -133,6 +125,11 @@ def quartz(piezometer=None):
         linear_intercepts = True
         correction_factor = 1.5
         reference = 'https://www.doi.org/10.1007/BF01637105'
+        notes = 'Twiss (1977) piezometer was calibrated using the linear intercept (LI) grain size \
+                multiplied by 1.5 (correction factor). If equivalent circular diameters (ECD) \
+                without stereological correction are used, they must be converted to LIs using the \
+                empirical equation of De Hoff and Rhines (1968) as follows: \
+                LI = (1.5 / sqrt(4/pi)) * ECD'
 
     else:
         quartz()
@@ -143,12 +140,12 @@ def quartz(piezometer=None):
                            warn=warn,
                            linear_intercepts=linear_intercepts,
                            correction_factor=correction_factor,
-                           reference=reference)
+                           reference=reference,
+                           notes=notes)
 
 
 def calcite(piezometer=None):
-    """ Data base for calcite piezometers. It returns the material parameter,
-    the exponent parameter and a warn with the "average" grain size measure to be use.
+    """ Database for calcite piezometers.
 
     Parameter
     ---------
@@ -161,12 +158,6 @@ def calcite(piezometer=None):
     | Platt and De Bresser (2017) https://doi.org/10.1016/j.jsg.2017.10.012
     | Rutter (1995) https://doi.org/10.1029/95JB02500
     | Valcke et al. (2015) https://doi.org/10.1144/SP409.4
-
-    Assumptions
-    -----------
-    - The piezometer of Rutter (1995) requires entering the grain size
-    as the linear mean apparent grain size calculated using equivalent
-    circular diameters with no stereological correction.
     """
 
     if piezometer is None:
@@ -184,6 +175,7 @@ def calcite(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1029/95JB02500'
+        notes = None
 
     elif piezometer == 'Rutter_GBM':
         B, m = 2691.53, 0.89
@@ -191,6 +183,7 @@ def calcite(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1029/95JB02500'
+        notes = None
 
     elif piezometer == 'Barnhoorn':
         B, m = 537.03, 0.82
@@ -198,6 +191,7 @@ def calcite(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1016/j.jsg.2003.11.024'
+        notes = None
 
     elif piezometer == 'Platt_Bresser':
         B, m = 538.40, 0.82
@@ -205,6 +199,7 @@ def calcite(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1016/j.jsg.2017.10.012'
+        notes = 'Contrary to other calcite piezometers, this one uses the RMS average.'
 
     elif piezometer == 'Valcke':
         B, m = 1467.92, 1.67
@@ -212,6 +207,7 @@ def calcite(piezometer=None):
         linear_intercepts = False
         correction_factor = False
         reference = 'https://doi.org/10.1144/SP409.4'
+        notes = None
 
     else:
         calcite()
@@ -222,7 +218,8 @@ def calcite(piezometer=None):
                            warn=warn,
                            linear_intercepts=linear_intercepts,
                            correction_factor=correction_factor,
-                           reference=reference)
+                           reference=reference,
+                           notes=notes)
 
 
 def olivine(piezometer=None):
