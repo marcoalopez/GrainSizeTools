@@ -235,7 +235,7 @@ def olivine(piezometer=None):
         print('Available piezometers:')
         print("'Jung_Karato'")
         print("'VanderWal_wet'")
-        print("'Tasaka_wet'")
+        # print("'Tasaka_wet'")
         return None
 
     elif piezometer == 'Jung_Karato':
@@ -262,13 +262,13 @@ def olivine(piezometer=None):
                 empirical equation of De Hoff and Rhines (1968) as follows: \
                 LI = (1.5 / sqrt(4/pi)) * ECD'
 
-    elif piezometer == 'Tasaka_wet':
-        B, m = 719.7, 0.75
-        warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
-        linear_intercepts = False
-        correction_factor = 4 / 3.141592
-        reference = 'https://doi.org/10.1002/2015JB012096'
-        notes = None
+    # elif piezometer == 'Tasaka_wet':
+    #     B, m = 719.7, 0.75
+    #     warn = 'Ensure that you entered the apparent grain size as the arithmetic mean in linear scale'
+    #     linear_intercepts = False
+    #     correction_factor = 4 / 3.141592
+    #     reference = 'https://doi.org/10.1002/2015JB012096'
+    #     notes = None
 
     else:
         olivine()
@@ -327,4 +327,4 @@ def feldspar(piezometer=None):
 if __name__ == '__main__':
     pass
 else:
-    print('database imported')
+    print('database v.2024.02.xx imported')
