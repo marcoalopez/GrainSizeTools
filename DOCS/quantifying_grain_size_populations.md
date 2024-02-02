@@ -13,12 +13,20 @@ TODO
 
 ## 2. Statistical description of grain size populations
 
+TODO
+
 ![](https://github.com/marcoalopez/GrainSizeTools/blob/master/FIGURES/avg_map.png?raw=true)
 
-
-
 > [!IMPORTANT]
-> **You should be probably using the median or the geometric mean, not the arithmetic mean**. In summarizing skewed distributions, the median and the interquartile range are usually more meaningful than the arithmetic mean and standard deviation...TODO
+> ### Choosing the Appropriate Measure of Central Tendency
+> The choice of the measure of central tendency, often referred to as the “average,” depends on your specific goals and dataset. Here are some guidelines based on [Lopez-Sanchez (2020)](https://doi.org/10.1016/j.jsg.2020.104042):
+> - **Geometric Mean**: This is recommended, especially for populations that follow a lognormal distribution. It shows superior performance across varying degrees of asymmetry and sample sizes.
+> - **Median**: This is preferable when dealing with data contamination, such as outliers or few (<10%) observations from mixed distributions.
+> - **Arithmetic Mean**: This is the most backwards-compatible average due to its common use in the past. Theoretically, it outperforms the median in low to moderately skewed distributions (MSD < 1.7) as long as the presence of extreme values (outliers) is limited. However, estimating error margins for the arithmetic mean can be problematic in real samples, making the geometric mean or median preferable.
+> - **KDE-based Mode**: While generally less effective than other measures, the KDE-based mode  remains robust in specific situations common in grain size studies. It  can be useful when comparing different datasets with notable differences in resolution limits and size cut-offs. In these cases, it is the only meaningful measure of central tendency when comparing different sets of data.
+> - **Root mean squared (RMS) or Area-weighted mean:** Avoid them, as they tend to perform poorly and are not recommended for grain size studies.
+>
+> **TLDR**: You should be probably using the median (plus the interquartile range) or the geometric mean, not the arithmetic mean. 
 
 
 
