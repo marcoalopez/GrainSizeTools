@@ -1,16 +1,12 @@
 # Frequently Asked Questions
 
 - [Who is this script for?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#who-is-this-script-for-)
-- [What is paleopizometry?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#what-is-paleopizometry-)
-- [Why use apparent grain size measures over measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#why-use-apparent-grain-size-measures-over-measures-estimated-from-unfolded-3d-grain-size-distributions-in-paleopiezometry-studies-)
 - [What measure of central tendency (i.e. average) do I have to use?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#what-measure-of-central-tendency--ie-average--do-i-have-to-use-)
 - [When to use the standard deviation and the confidence interval for the average?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#when-to-use-the-standard-deviation-and-the-confidence-interval-for-the-average-)
-- [What is an MSD value? Understanding MSD Value and its Purpose](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#what-is-an-msd-value--understanding-msd-value-and-its-purpose)
 - [Why the grain size distribution plots produced by the GST script and the classic CSD charts do not use the same units on the y-axis?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#why-the-grain-size-distribution-plots-produced-by-the-gst-script-and-the-classic-csd-charts-do-not-use-the-same-units-on-the-y-axis-)
 - [Why the sum of all frequencies in the histograms is not equal to one?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#why-the-sum-of-all-frequencies-in-the-histograms-is-not-equal-to-one-)
 - [Specifying Script Version in Publications](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#specifying-script-version-in-publications)
 - [Does the script work with Python 2.7.x?](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#does-the-script-work-with-python-27x-)
-- [I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md#i-get-the-results-but-not-the-plots-when-using-the-spyder-ide--valueerror---image-size-of--is-too-large-)
 
 ## Who is this script for?
 The script serves three primary goals:
@@ -28,18 +24,6 @@ Specifically, this script is designed for individuals who:
 - Aim to approximate the actual (3D) distribution of grain sizes from thin sections using stereological methods. This involves estimating the volume occupied by a particular grain size fraction and a parameter characterizing the shape of the grain size population (assuming a lognormal distribution). The stereological methods assume that grains have equant or near-equant shapes (AR < 2.0), which mostly include all recrystallized grains produced during static and dynamic recrystallization. Additional details are available [here](http://joss.theoj.org/papers/10.21105/joss.00863).
 
 > For igneous studies involving tabular grains far from near-equant objects, we recommend other approaches such as those implemented in the *CSDCorrections* software (Higgins 2000). See the references list section for details.
-
-## What is paleopizometry?
-
-Paleopiezometers refer to microstructural features of deformed rocks that vary with the magnitude of the applied differential stress under which they formed (Twiss and Moores, 2006). They serve to infer differential stresses in the geological past, hence the name paleopiezometry, and they are an essential tool for validating rheological models of the lithosphere. The most prevalent microstructure used for this purpose is the average recrystallized (apparent) grain size. This choice is due to its ease of measurement in recrystallized rocks.
-
-## Why use apparent grain size measures over measures estimated from unfolded 3D grain size distributions in paleopiezometry studies?  
-
-One might be tempted to use a stereological method to estimate the midpoint of the modal interval or another unidimensional parameter based on the actual grain size distribution rather than relying on the mean, median, or frequency peak of the apparent grain size distribution. However, we assert that there is no advantage to this approach and it comes with serious disadvantages.
-
-The reason is that 3D grain size distributions are estimated using a stereological model, making the accuracy of the estimates dependent not only on errors introduced during measurement but also on the robustness of the model itself. Unfortunately, stereological methods are founded on weak geometric assumptions, and their results will always be, at best, approximate. This implies that the precision and accuracy of average values estimated from 3D size distributions will be **significantly inferior** compared to those based on the original distribution of grain profiles. The latter, although estimating an apparent grain size, relies on real data rather than a model.
-
-In summary, utilize stereological methods only when there is a need to estimate the volume occupied by a specific grain size fraction or to investigate the shape of the true grain size distribution. Otherwise, opt for estimates based on the apparent grain size distribution for better precision and accuracy.
 
 ## What measure of central tendency (i.e. average) do I have to use?
 
@@ -62,20 +46,6 @@ The **standard deviation** (s.d.) is the typical difference between each value a
 The **standard error of the mean** (s.e.m.) is an estimate of how variable the means will be if the experiment or measure is repeated multiple times. The s.e.m. may serve to check whether sets of samples are likely to come from the same or a similar population. **Standard error describes an estimate**.
 
 The **95 % confidence interval** (C.I., 95%) means that the population mean will lie in this interval with 95% confidence. This metric is valuable when assessing the precision of the average or comparing averages between different grain size populations. It's like  saying, "We're 95% confident that the true average grain size falls  within this range." In simpler terms, it gives you a sense of how certain you can be about the average, considering the inherent variability in your data.
-
-## What is an MSD value? Understanding MSD Value and its Purpose
-
-MSD, or *Multiplicative Standard Deviation*, is a parameter used to characterize the shape of a grain size distribution using a single value, assuming the distribution follows a lognormal pattern. In simpler terms, the MSD value provides a measure of the asymmetry or skewness of the grain size distribution. For example:
-
-- an MSD value equal to one corresponds to a normal (Gaussian) distribution
-
-- Values greater than one indicate log-normal distributions of varying shapes, being the higher the MSD value the greater the asymmetry of the distribution (Figure a).
-
-This approach is advantageous because a single parameter can define the shape of the grain size distribution independently of its scale (Fig. b), which is very convenient for comparing the shape of two or more grain size distributions.
-
-![Figura](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/MSD_value.png)
-
-_Probability density functions of selected lognormal distributions taken from [Lopez-Sanchez and Llana-Fúnez (2016)](http://www.sciencedirect.com/science/article/pii/S0191814116301778). (a) Lognormal distributions with different MSD values (shapes) and the same median/geometric mean (4). (b) Lognormal distributions with the same shape corresponding to an MSD value (1.5) and different medians/geometric means (note that different medians/geometric means imply different scales in the horizontal and vertical directions)._
 
 ## Why the grain size distribution plots produced by the GST script and the classic CSD charts do not use the same units on the y-axis? 
 
@@ -105,10 +75,6 @@ Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size a
 ## Does the script work with Python 2.7.x?  
 
 No, the script does not work with Python 2.7.x. Python 2.7.x versions were officially discontinued in 2020 so it is time to move on.
-
-## I get the results but not the plots when using the Spyder IDE: ValueError: _Image size of ... is too large_
-
-This issue is produced because the size of the figure returned by the script is too large to show them inside the console using the **inline** mode. To fix this go to the Spyder menu bar and in  ```Tools>Preferences>IPython console>Graphics``` find _Graphics backend_, select _Automatic_, and then restart Spyder. As an alternative you can type ``%matplotlib auto`` in the console without needing to restart Spyder but this change will be temporary (i.e. only valid for the current session).
 
 
 
