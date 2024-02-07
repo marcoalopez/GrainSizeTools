@@ -74,10 +74,10 @@ TODO
 > **What is it?**  
 > The two-step method is a stereological technique that approximates the true grain size distribution from the histogram of the distribution of apparent grain size intervals. It differs from the Saltykov method in that the population is not described by a histogram but by a mathematical distribution. The method is thus **distribution dependent**, i.e. it assumes that the grain sizes follow a lognormal distribution. The method fits a lognormal distribution to the output of the Saltykov method, hence the name "two-step method". More info [here](https://github.com/marcoalopez/marcoalopez.github.io/blob/master/docs/2016_JSG_Lopez-Sanchez.pdf).
 >
-> **What do I use it for? **  
+> **What do I use it for?**  
 > The Two-Step Method is primarily used to estimate the lognormal distribution of grain sizes, which includes determining the shape and location of the distribution. It can also be used to estimate the volume fraction of a particular range of grain sizes.
 >
-> **What are its limitations? ** 
+> **What are its limitations?** 
 >
 > - **Distribution Dependency**. The method assumes a lognormal distribution for grain size, which may not accurately represent certain materials. Besides, the method only works properly for unimodal grain size distributions.
 > - **Inherited Limitations from the Saltykov method**. The method is partially based on the Saltykov method and therefore inherits some of its limitations. The method however do not require to define a specific number of classes. 
