@@ -52,8 +52,8 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
         occupied by the grain fraction up to that diameter.
 
     text_file : string or None, optional
-        if the user specifies a name, the function will store a csv file
-        with that name containing the Saltykov output.
+        if the user specifies a name, the function will store a csv or txt
+        file with that name containing the Saltykov output.
 
     return_data : bool, optional
        if True the function will return the position of the midpoints and
@@ -146,9 +146,9 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
                         'freqs2one': np.around(freq3D * binsize, 3),
                         'cum_vol': np.around(cdf_norm, 2)})
         if text_file.endswith('.txt'):
-            df.to_csv(text_file, sep='\t')
+            df.to_csv(text_file, sep='\t', index=False)
         elif text_file.endswith('.csv'):
-            df.to_csv(text_file, sep=';')
+            df.to_csv(text_file, sep=';', index=False)
         else:
             raise ValueError('text file must be specified as .csv or .txt')
         print('=======================================')
