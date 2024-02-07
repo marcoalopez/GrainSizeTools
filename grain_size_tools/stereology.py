@@ -128,11 +128,11 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
         volume = y[index - 1] + np.tan(angle) * (calc_vol - x[index - 1])
         if volume < 100.0:
             print('=======================================')
-            print('volume fraction (up to', calc_vol, 'microns) =', round(volume, 2), '%')
+            print(f'volume fraction (up to {calc_vol} microns) = {volume:.2f} %')
             print('=======================================')
         else:
             print('=======================================')
-            print('volume fraction (up to', calc_vol, 'microns) =', 100, '%')
+            print(f'volume fraction (up to {calc_vol} microns) = 100 %')
             print('=======================================')
 
     # Create a text file (if apply) with the midpoints, class frequencies, and
@@ -152,19 +152,16 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
         else:
             raise ValueError('text file must be specified as .csv or .txt')
         print('=======================================')
-        print('The file {} was created' .format(text_file))
+        print(f'The file {text_file} was created')
         print('=======================================')
 
     # return data or figure (if apply)
     if return_data is True:
-        #print('Note: To estimate the proportions relative to one multiply the')
-        #print('density values by the bin size, which is: {:0.3f}' .format(binsize))
-        #print(' ')
         return mid_points, freq3D
 
     elif return_data is False:
         print('=======================================')
-        print('bin size = {:0.2f}' .format(binsize))
+        print(f'bin size = {binsize:0.2f}')
         print('=======================================')
         return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
@@ -238,11 +235,9 @@ def calc_shape(diameters, class_range=(10, 20)):
 
     print('=======================================')
     print('PREDICTED OPTIMAL VALUES')
-    print('Number of classes: {}' .format(optimal_num_classes))
-    print('MSD (lognormal shape) = {msd:0.2f} ± {err:0.2f}'
-          .format(msd=optimal_params[0], err=3 * sigma_err[0]))
-    print('Geometric mean (scale) = {gmean:0.2f} ± {err:0.2f}'
-          .format(gmean=optimal_params[1], err=3 * sigma_err[1]))
+    print(f'Number of classes: {optimal_num_classes}')
+    print(f'MSD (lognormal shape) = {optimal_params[0]:0.2f} ± {3 * sigma_err[0]:0.2f}')
+    print(f'Geometric mean (scale) = {optimal_params[1]:0.2f} ± {3 * sigma_err[1]:0.2f}')
     print('=======================================')
     # print(' Covariance matrix:\n', covm)
 
@@ -270,7 +265,7 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
 
     Reference
     ----------
-    Higgins (2000) doi:10.2138/am-2000-8-901
+    Higgins (2000) http://doi.org/10.2138/am-2000-8-901
     Saltykov SA (1967) http://doi.org/10.1007/978-3-642-88260-9_31
     Sahagian and Proussevitch (1998) https://doi.org/10.1016/S0377-0273(98)00043-2
 
@@ -321,16 +316,15 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
             d_values = np.delete(d_values, -1)
             midpoints = np.delete(midpoints, -1)
 
-        # if the value of the current class is zero or negative move to the next class
-        else:
+        else:  # if the value of the current class is zero or negative move to the next class
             i -= 1
             d_values = np.delete(d_values, -1)
             midpoints = np.delete(midpoints, -1)
 
     if normalize is True:
         freq = np.clip(freq, a_min=0.0, a_max=None)  # replacing negative values with zero
-        freq_norm = freq / sum(freq)  # normalize to one
-        freq_norm = freq_norm / binsize  # normalize such that the integral over the range is one
+        freq_norm = freq / sum(freq)                 # normalize to one
+        freq_norm = freq_norm / binsize              # normalize such that the integral over the range is one
         return freq_norm
 
     else:
