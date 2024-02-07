@@ -1,6 +1,6 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2023/06/12_
+_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2024/02/107_
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides tools for (1) describing and visualizing grain size populations, (2) estimating differential stress for different mineral phases via paleopizometers and (3) apply stereology methods to approximate the actual distribution (3D) of grain size from sections. The script **does not require previous experience with the Python programming language** (see the documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with coding skills, the script is organized in a modular (functional) way facilitating the reuse and code extension.
 
@@ -50,7 +50,7 @@ https://sourceforge.net/projects/grainsizetools/
 * [Describing the population of grain sizes](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
 * [The plot module: visualizing grain size distributions](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
 * [The paleopiezometry module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
-* [The stereology module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Stereology_module.md)
+* [The stereology module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/stereology_module.md)
 
 ***Others***
 
@@ -85,12 +85,11 @@ The GitHub website hosting the project provides several options (you will need a
 - Open and [issue](https://github.com/marcoalopez/GrainSizeTools/issues): This is a place to track bugs or requests for specific features on the scripts.
 - Create a [pull request](https://github.com/marcoalopez/GrainSizeTools/pulls): You modified, corrected or added a feature to one of the notebooks and send it for one of the developers to review it and add it to the main page.
 
-For a quick explanation see https://www.youtube.com/watch?v=R8OAwrcMlRw. 
-
 ---
-*Copyright © 2017-2023 Marco A. Lopez-Sanchez*  
+*Copyright © 2017-2024 Marco A. Lopez-Sanchez*  
 
-*Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.*  
+> [!WARNING]
+> Information presented on this website and the documentation of the script is provided without any express or implied warranty and may include technical inaccuracies or typing errors; the author reserve the right to modify or enhance the content of this website as well as the documentation of the script at any time without previous notice. This webpage and the documentation is not liable for the content of external links.  
 
 *Hosted on GitHub Pages — This website was created with [Typora](https://typora.io/)*
 
