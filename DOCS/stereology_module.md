@@ -122,6 +122,7 @@ The method returns the values of the lognormal distribution that best fits our m
 ### Estimate other averages
 
 The lognormal distribution can also be used to calculate tother averages. For example, to estimate the arithmetic mean or the frequency peak we use the following formulation
+
 $$
 \overline{D} = e^{\mu + \sigma^2 / 2}
 $$
