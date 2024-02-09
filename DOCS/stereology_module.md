@@ -178,7 +178,7 @@ The method returns the values of the lognormal distribution that best fits our m
 
 ### Estimate other averages
 
-The lognormal distribution can also be used to calculate tother averages. For example, to estimate the arithmetic mean or the frequency peak we use the following formulation
+The lognormal distribution can also be used to calculate other averages. For example, to estimate the arithmetic mean or the frequency peak (mode) we use the following formulation
 
 $$
 \overline{D} = e^{\mu + \sigma^2 / 2}
@@ -216,7 +216,7 @@ mode = 28.39
 >
 > While one might be tempted to use a stereological method to estimate the midpoint of the modal interval or some other unidimensional parameter based on the calculated grain size distribution, we argue that this approach offers no advantages and comes with serious disadvantages.
 >
-> The rationale is that 3D grain size distributions are estimated using a stereological model. This means that the accuracy of the estimates depends not only on measurement errors but also on the robustness of the model itself. Unfortunately, stereological methods are based on weak geometric assumptions, and their results will always be, at best, approximate. This means that the precision and accuracy of averages estimated from 3D size distributions will be **significantly inferior in performance and reliability** to those based on the original distribution of grain sections. The latter, although estimating an apparent grain size, is based on real data rather than a model.
+> The reason for this is that the grain size distributions estimated by stereological methods are based on a stereological model. This means that the accuracy of the estimates depends not only on measurement errors but also on the robustness of the model itself. Unfortunately, stereological methods are based on weak geometric assumptions, and their results will always be, at best, approximate. As a result, the precision and accuracy of averages estimated from unfolded grain size distributions are **significantly inferior in performance and reliability** to those based on the original distribution of grain sections. The latter, although estimating an apparent grain size, is based on real data rather than a model.
 >
 > **Recommendation**. In summary, it's advisable to use stereological methods only when there’s a need to estimate the volume occupied by a particular grain size fraction, to investigate the shape of the true grain size distribution or when you need to use an average based on actual grain sizes (e.g. when you need to compare the average grain size calculated by a tomographic technique with that estimated from a section). Otherwise, for better precision and accuracy, opt for averages based on the apparent grain size distribution.
 
