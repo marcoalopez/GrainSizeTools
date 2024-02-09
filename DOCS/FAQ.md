@@ -74,7 +74,7 @@ Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size a
 
 ## Does the script work with Python 2.7.x?  
 
-No, the script does not work with Python 2.7.x. Python 2.7.x versions were officially discontinued in 2020 so it is time to move on.
+No, the script does not work with Python 2 as this Python branch was officially discontinued in 2020, so it is time to move on.
 
 
 
