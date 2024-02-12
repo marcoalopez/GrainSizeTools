@@ -79,7 +79,7 @@ To access the methods within a module, type the module name plus the dot and hit
 You can get detailed information about any method or function of the script in different ways. The first is through the console using the character ? before the method
 
 ```python
-?conf_interval
+conf_interval?
 ```
 
 Another option in Spyder is to get the information interactively without having to call it from the console. To do this, just hit Ctrl+I every time you write a method , all the information will automatically appear in the "Help" window.

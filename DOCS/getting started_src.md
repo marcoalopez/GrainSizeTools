@@ -41,12 +41,12 @@ TODO
 
 The script is organised in a modular way using different Python files and functions, both of which are intended to help modify, reuse and extend the code as necessary. In short, the script consists of seven Python files that must be in the same directory. These are the Python files and their main function:
 
-- ``GrainSizeTools.py``: This is the code that takes care of importing all the submodules needed for the script to work. It is the Python file that is executed directly from the Jupyter notebook templates.
+- ``GrainSizeTools.py``: This file takes care of importing all the submodules needed for the script to work. It is the Python file that is executed directly from the Jupyter Notebook templates.
 - ``averages.py``: This sub-module contains a set of functions for calculating different types of averages and margins of error.
 - ``plot.py``: This sub-module contains a set of functions for generating different types of ad hoc plots used by the script.
 - ``stereology.py``: This sub-module contains a set of functions to approximate true grain size distributions from sectional measurements using stereological methods.
 - ``piezometric_database.py``: This file contains the database of the various piezometers used by the script.
-- ``template.py``: This file contains the default options used by the Python matplotlib library to generate plots.
+- ``template.py``: This file contains the default options used by the Python Matplotlib library to generate plots.
 - ``get.py``: This file contains the welcome message of the script.
 
 ### Importing data using the Pandas library
