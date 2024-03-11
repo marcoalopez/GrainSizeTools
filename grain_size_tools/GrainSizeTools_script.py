@@ -249,7 +249,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         print(f'robust method: {low_ci:0.2f} - {high_ci:0.2f} (-{lower_cvar:0.1f}%, +{upper_cvar:0.1f}%), length = {length:0.3f}')
 
     if 'mode' in avg:
-        __, mode, __, bw = averages.freq_peak(data, bandwidth, precision)
+        _, mode, _, bw = averages.freq_peak(data, bandwidth, precision)
 
         print('============================================================================')
         print(f'Mode (KDE-based) = {mode:0.2f} microns')
