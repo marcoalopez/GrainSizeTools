@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2024.02.xx                                                        #
+#    Version 2024.04.26                                                        #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -258,7 +258,7 @@ def calc_shape(diameters, class_range=(10, 20)):
 
 
 def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
-    """ Applies the Saltykov-type algorithm to unfold the population of apparent
+    """ Applies the Saltykov algorithm to unfold the population of apparent
     (2D) diameters into the actual (3D) population of grain sizes. Following the
     reasoning of Higgins (2000), R (or D) is placed at the center of the classes
     (i.e. the midpoints).
@@ -323,7 +323,7 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
 
     if normalize is True:
         freq = np.clip(freq, a_min=0.0, a_max=None)  # replacing negative values with zero
-        freq_norm = freq / sum(freq)                 # normalize to one
+        freq_norm = freq / np.sum(freq)              # normalize to one
         freq_norm = freq_norm / binsize              # normalize such that the integral over the range is one
         return freq_norm
 
@@ -331,7 +331,67 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
         return freq
 
 
-def wicksell_solution(D, d1, d2):
+def unfold_population2(freq, bin_centers, bin_width, normalize=True):
+    """ AUnfolds the population of apparent diameters into the actual
+    population of grain sizes using the Saltykov algorithm. Following the
+    reasoning of Higgins (2000), R (or D) is placed at the center of the
+    classes (i.e. the midpoints).
+
+    Reference
+    ----------
+    Higgins (2000) http://doi.org/10.2138/am-2000-8-901
+    Saltykov SA (1967) http://doi.org/10.1007/978-3-642-88260-9_31
+    Sahagian and Proussevitch (1998) https://doi.org/10.1016/S0377-0273(98)00043-2
+
+    Parameters
+    ----------
+    freq : array_like
+        Frequency values of the different classes.
+
+    bin_centers : array_like
+        Midpoints of the classes (i.e., bin centers).
+
+    bin_width : float
+        Width of the bins (assumed to be constant).
+
+    normalize : bool, optional
+        If True, negative frequencies are set to zero and the
+        distribution is normalized. Defaults to True.
+
+    Call function
+    -------------
+    - wicksell_eq
+
+    Returns
+    -------
+    The normalized frequencies of the unfolded population such that the integral
+    over the range is one. If normalize is False the raw frequencies of the
+    unfolded population.
+    """
+
+    bin_edges = bin_centers + np.array([-0.5, 0.5]) * bin_width
+
+    # Calculate wicksell solution for each bin
+    wicksell_prob = wicksell_solution(
+        bin_centers[:, np.newaxis], bin_edges[1:, :], bin_edges[:-1, :]
+    )
+
+    # Unfold iteratively (vectorized approach)
+    unfolded_freq = freq.copy()
+    for i in range(len(freq) - 1, 0, -1):
+        if freq[i] > 0:
+            unfolded_freq[:i] -= wicksell_prob[i] * unfolded_freq[i]
+
+    # Handle negative frequencies and normalize if needed
+    if normalize:
+        unfolded_freq = np.clip(unfolded_freq, a_min=0.0, a_max=None)
+        total_area = np.sum(unfolded_freq) * bin_width
+        return unfolded_freq / total_area
+    else:
+        return unfolded_freq
+
+
+def wicksell_solution(diameter, lower_bound, upper_bound):
     """ Estimate the cross-section size probability for a discretized population
     of spheres based on the Wicksell (1925) and later on Scheil (1931),
     Schwartz (1934) and Saltykov (1967). This is:
@@ -345,14 +405,14 @@ def wicksell_solution(D, d1, d2):
 
     Parameters
     ----------
-    D: positive scalar
-        the midpoint of the actual class
+    diameter: positive scalar, float
+        Midpoint of the class (diameter)
 
-    d1: positive scalar
-        the lower limit of the bin/class
+    lower_bound: positive scalar, float
+        Lower limit of the class.
 
-    d2: positive scalar
-        the upper limit of the bin/class
+    upper_bound: positive scalar, float
+        Upper limit of the class.
 
     References
     ----------
@@ -367,10 +427,9 @@ def wicksell_solution(D, d1, d2):
     the cross-section probability for a especific range of grain size
     """
 
-    # convert diameters to radii
-    R, r1, r2 = D / 2, d1 / 2, d2 / 2
-
-    return 1 / R * (np.sqrt(R**2 - r1**2) - np.sqrt(R**2 - r2**2))
+    radius = diameter / 2
+    r1, r2 = lower_bound / 2, upper_bound / 2
+    return 1 / radius * (np.sqrt(radius**2 - r1**2) - np.sqrt(radius**2 - r2**2))
 
 
 # ============================================================================ #
