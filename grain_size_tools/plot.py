@@ -36,12 +36,14 @@ from scipy.stats import norm, gaussian_kde, shapiro, iqr
 
 
 # plotting funtions
-def distribution(data,
-                 plot=('hist', 'kde'),
-                 avg=('amean', 'gmean', 'median', 'mode'),
-                 binsize='auto',
-                 bandwidth='silverman',
-                 **fig_kw):
+def distribution(
+    data,
+    plot=("hist", "kde"),
+    avg=("amean", "gmean", "median", "mode"),
+    binsize="auto",
+    bandwidth="silverman",
+    **fig_kw,
+):
     """ Return a plot with the ditribution of (apparent or actual) grain sizes
     in a dataset.
 
@@ -86,15 +88,9 @@ def distribution(data,
     --------------
     - gaussian_kde (from Scipy stats)
 
-    Examples
-    --------
-    >>> distribution(data['diameters'])
-    >>> distribution(data['diameters'], figsize=(6.4, 4.8))
-
     Returns
     -------
-    A plot showing the distribution of (apparent) grain sizes and
-    the location of the averages defined.
+    figure and axes object
     """
 
     fig, ax = plt.subplots(**fig_kw)
@@ -110,8 +106,10 @@ def distribution(data,
                                      edgecolor='#C59fd7',
                                      alpha=0.7)
         print('=======================================')
+        print('Histogram features:')
         print('Number of classes = ', len(bins) - 1)
         print('binsize = ', round(bins[1] - bins[0], 2))
+        # print('method...')
         print('=======================================')
 
     if 'kde' in plot:
@@ -129,7 +127,8 @@ def distribution(data,
         y_values = kde(x_values)
 
         print('=======================================')
-        print('KDE bandwidth = ', round(bandwidth, 2))
+        print('Kernel density estimate (KDE) features:')
+        print('Bandwidth = ', round(bandwidth, 2))
         print('=======================================')
 
         if 'hist' in plot:
