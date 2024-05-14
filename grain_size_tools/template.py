@@ -27,7 +27,7 @@ import matplotlib as mpl
 from cycler import cycler
 
 # Set the plot style
-mpl.rcParams['font.family'] = 'Open Sans'  # set your own font family
+# mpl.rcParams['font.family'] = 'Open Sans'  # uncomment to set your own font family
 mpl.rcParams['font.size'] = 14.0
 mpl.rcParams['svg.fonttype'] = 'path'
 mpl.rcParams['lines.linewidth'] = 3.0
