@@ -85,28 +85,29 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
     """
 
     if isinstance(numbins, int) is False:
-        raise ValueError('Numbins must be a positive integer')
+        raise ValueError("Numbins must be a positive integer")
     if numbins <= 0:
-        raise ValueError('Numbins must be higher than zero')
+        raise ValueError("Numbins must be higher than zero")
     if isinstance(left_edge, (int, float)):
         if left_edge < 0:
             raise ValueError("left_edge must be a positive scalar or 'min'")
 
-    # compute the histogram
-    if left_edge == 'min':
-        freq, bin_edges = np.histogram(diameters,
-                                       bins=numbins,
-                                       range=(diameters.min(), diameters.max()),
-                                       density=True)
+    # set histogram left edge
+    if left_edge == "min":
+        minimo = diameters.min()
     else:
-        freq, bin_edges = np.histogram(diameters,
-                                       bins=numbins,
-                                       range=(left_edge, diameters.max()),
-                                       density=True)
+        minimo = left_edge
 
+    # compute the histogram
+    freq, bin_edges = np.histogram(
+        diameters,
+        bins=numbins,
+        range=(minimo, diameters.max()),
+        density=True,
+    )
+
+    # Create arrays with left edges and midpoints
     binsize = bin_edges[1] - bin_edges[0]
-
-    # Create an array with the left edges of the bins and other with the midpoints
     left_edges = np.delete(bin_edges, -1)
     mid_points = left_edges + binsize / 2
 
@@ -115,7 +116,7 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
 
     # Calculate the volume-weighted cumulative frequency distribution
     # TODO -> better an own function
-    x_vol = binsize * (4 / 3.) * np.pi * (mid_points**3)
+    x_vol = binsize * (4 / 3.0) * np.pi * (mid_points**3)
     freq_vol = x_vol * freq3D
     cdf = np.cumsum(freq_vol)
     cdf_norm = 100 * (cdf / cdf[-1])
@@ -127,46 +128,51 @@ def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
         angle = np.arctan((y[index] - y[index - 1]) / (x[index] - x[index - 1]))
         volume = y[index - 1] + np.tan(angle) * (calc_vol - x[index - 1])
         if volume < 100.0:
-            print('=======================================')
-            print(f'volume fraction (up to {calc_vol} microns) = {volume:.2f} %')
-            print('=======================================')
+            print("=======================================")
+            print(f"volume fraction (up to {calc_vol} microns) = {volume:.2f} %")
+            print("=======================================")
         else:
-            print('=======================================')
-            print(f'volume fraction (up to {calc_vol} microns) = 100 %')
-            print('=======================================')
+            print("=======================================")
+            print(f"volume fraction (up to {calc_vol} microns) = 100 %")
+            print("=======================================")
 
     # Create a text file (if apply) with the midpoints, class frequencies, and
     # cumulative volumes
     if text_file is not None:
         from pandas import DataFrame
+
         if isinstance(text_file, str) is False:
-            print('text_file must be None or string type')
-        df = DataFrame({'mid_points': np.around(mid_points, 3),
-                        'freqs': np.around(freq3D, 4),
-                        'freqs2one': np.around(freq3D * binsize, 3),
-                        'cum_vol': np.around(cdf_norm, 2)})
-        if text_file.endswith('.txt'):
-            df.to_csv(text_file, sep='\t', index=False)
-        elif text_file.endswith('.csv'):
-            df.to_csv(text_file, sep=';', index=False)
+            print("text_file must be None or string type")
+        df = DataFrame(
+            {
+                "mid_points": np.around(mid_points, 3),
+                "freqs": np.around(freq3D, 4),
+                "freqs2one": np.around(freq3D * binsize, 3),
+                "cum_vol": np.around(cdf_norm, 2),
+            }
+        )
+        if text_file.endswith(".txt"):
+            df.to_csv(text_file, sep="\t", index=False)
+        elif text_file.endswith(".csv"):
+            df.to_csv(text_file, sep=";", index=False)
         else:
-            raise ValueError('text file must be specified as .csv or .txt')
-        print('=======================================')
-        print(f'The file {text_file} was created')
-        print('=======================================')
+            raise ValueError("text file must be specified as .csv or .txt")
+        print("=======================================")
+        print(f"The file {text_file} was created")
+        print("=======================================")
 
     # return data or figure (if apply)
     if return_data is True:
         return mid_points, freq3D
 
     elif return_data is False:
-        print('=======================================')
-        print(f'bin size = {binsize:0.2f}')
-        print('=======================================')
+        print("=======================================")
+        print(f"bin size = {binsize:0.2f}")
+        print("=======================================")
         return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
     else:
-        raise TypeError('return_data must be set as True or False')
+        raise TypeError("return_data must be set as True or False")
 
 
 def calc_shape(diameters, class_range=(10, 20)):
@@ -225,20 +231,26 @@ def calc_shape(diameters, class_range=(10, 20)):
 
     for index, item in enumerate(class_list):
         mid_points, frequencies = Saltykov(diameters, numbins=item, return_data=True)
-        optimal_params, sigma_error = fit_log(mid_points, frequencies, initial_guess=(shape, scale))
+        optimal_params, sigma_error = fit_log(
+            mid_points, frequencies, initial_guess=(shape, scale)
+        )
         stds[index] = sigma_error[0]
 
     # get the optimal number of clases and estimate the best fit parameters
     optimal_num_classes = class_list[np.argmin(stds)]
-    mid_points, frequencies = Saltykov(diameters, numbins=optimal_num_classes, return_data=True)
+    mid_points, frequencies = Saltykov(
+        diameters, numbins=optimal_num_classes, return_data=True
+    )
     optimal_params, sigma_err = fit_log(mid_points, frequencies, (shape, scale))
 
-    print('=======================================')
-    print('PREDICTED OPTIMAL VALUES')
-    print(f'Number of classes: {optimal_num_classes}')
-    print(f'MSD (lognormal shape) = {optimal_params[0]:0.2f} ± {3 * sigma_err[0]:0.2f}')
-    print(f'Geometric mean (scale) = {optimal_params[1]:0.2f} ± {3 * sigma_err[1]:0.2f}')
-    print('=======================================')
+    print("=======================================")
+    print("PREDICTED OPTIMAL VALUES")
+    print(f"Number of classes: {optimal_num_classes}")
+    print(f"MSD (lognormal shape) = {optimal_params[0]:0.2f} ± {3 * sigma_err[0]:0.2f}")
+    print(
+        f"Geometric mean (scale) = {optimal_params[1]:0.2f} ± {3 * sigma_err[1]:0.2f}"
+    )
+    print("=======================================")
     # print(' Covariance matrix:\n', covm)
 
     # prepare data for the plot
@@ -537,15 +549,16 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(10, 4))
 
     # frequency vs grain size plot
-    ax1.bar(left_edges, freq3D,
-            width=binsize,
-            color='xkcd:azure',
-            edgecolor='#d9d9d9',
-            align='edge')
-    ax1.set_ylabel('density',
-                   fontsize=18)
-    ax1.set_xlabel(r'diameter ($\mu m$)',
-                   fontsize=18)
+    ax1.bar(
+        left_edges,
+        freq3D,
+        width=binsize,
+        color="xkcd:azure",
+        edgecolor="#d9d9d9",
+        align="edge",
+    )
+    ax1.set_ylabel("density", fontsize=18)
+    ax1.set_xlabel(r"diameter ($\mu m$)", fontsize=18)
     # ax1.set_title('estimated 3D grain size distribution',
     #               color='#1F1F1F',
     #               fontsize=18,
@@ -553,15 +566,16 @@ def Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm):
 
     # volume-weighted cumulative frequency curve
     ax2.set_ylim([-2, 105])
-    ax2.plot(mid_points, cdf_norm,
-             'o-',
-             color='#ed4256',
-             label='volume weighted CFD',
-             linewidth=2)
-    ax2.set_ylabel('cumulative volume (%)',
-                   color='#252525')
-    ax2.set_xlabel(r'diameter ($\mu m$)',
-                   color='#252525')
+    ax2.plot(
+        mid_points,
+        cdf_norm,
+        "o-",
+        color="#ed4256",
+        label="volume weighted CFD",
+        linewidth=2,
+    )
+    ax2.set_ylabel("cumulative volume (%)", color="#252525")
+    ax2.set_xlabel(r"diameter ($\mu m$)", color="#252525")
     # ax2.set_title('volume-weighted cumulative freq. distribution',
     #               color='#1F1F1F',
     #               fontsize=18,
@@ -579,40 +593,38 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
     fig, ax = plt.subplots()
 
     # bar plot from Saltykov method
-    ax.bar(mid_points, frequencies,
-           width=mid_points[1] - mid_points[0],
-           edgecolor='#1F1F1F',
-           hatch='//',
-           color='#fff2ae',
-           fill=False,
-           linewidth=1,
-           label='Saltykov method',
-           alpha=0.65)
+    ax.bar(
+        mid_points,
+        frequencies,
+        width=mid_points[1] - mid_points[0],
+        edgecolor="#1F1F1F",
+        hatch="//",
+        color="#fff2ae",
+        fill=False,
+        linewidth=1,
+        label="Saltykov method",
+        alpha=0.65,
+    )
 
     # log-normal distribution
-    ax.plot(xgrid, best_fit,
-            color='#2F4858',
-            label='best lognormal fit',
-            linewidth=2)
+    ax.plot(xgrid, best_fit, color="#2F4858", label="best lognormal fit", linewidth=2)
 
-    ax.fill_between(xgrid, best_fit,
-                    color='xkcd:azure',
-                    alpha=0.65)
+    ax.fill_between(xgrid, best_fit, color="xkcd:azure", alpha=0.65)
 
-#    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
-#                    color='#525252',
-#                    label='trust region',
-#                    alpha=0.5)
+    #    ax.fill_between(xgrid, best_fit + (3 * fit_error), best_fit - (3 * fit_error),
+    #                    color='#525252',
+    #                    label='trust region',
+    #                    alpha=0.5)
 
-#    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
-#            'o',
-#            color='#d53e4f',
-#            label='datapoints',
-#            linewidth=1.5)
+    #    ax.plot(mid_points, frequencies,  # datapoints used for the fitting procedure
+    #            'o',
+    #            color='#d53e4f',
+    #            label='datapoints',
+    #            linewidth=1.5)
 
-    ax.set_ylabel('freq. (per unit vol.)', color='#252525')
-    ax.legend(loc='best', fontsize=15)
-    ax.set_xlabel(r'diameter ($\mu m$)', color='#252525')
+    ax.set_ylabel("freq. (per unit vol.)", color="#252525")
+    ax.legend(loc="best", fontsize=15)
+    ax.set_xlabel(r"diameter ($\mu m$)", color="#252525")
 
     fig.tight_layout()
 
