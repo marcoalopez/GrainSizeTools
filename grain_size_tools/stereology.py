@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 2024.04.26                                                        #
+#    Version 2024.05.17                                                        #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -26,10 +26,15 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
+from scipy.stats import lognorm
 
 
-def Saltykov(diameters, numbins=10, calc_vol=None, text_file=None,
-             return_data=False, left_edge=0):
+def Saltykov(diameters,
+             numbins=10,
+             calc_vol=None,
+             text_file=None,
+             return_data=False,
+             left_edge=0):
     """ Estimate the actual (3D) distribution of grain size from the population
     of apparent diameters measured in a thin section using a Saltykov-type
     algorithm (Saltykov 1967; Sahagian and Proussevitch 1998).
@@ -444,9 +449,64 @@ def wicksell_solution(diameter, lower_bound, upper_bound):
     return 1 / radius * (np.sqrt(radius**2 - r1**2) - np.sqrt(radius**2 - r2**2))
 
 
+def calc_volume_fraction(lognorm_params,
+                         total_size_range,
+                         interest_size_range,
+                         n=10_000):
+    """Calculates the volume fraction of a specific range size.
+    For the range of interest, the minimum value is considered as
+    "greater than" and the maximum value as "less than or equal to".
+
+    Parameters
+    ----------
+    lognorm_params : tuple, (scalar, scalar)
+        lognormal paramenters defining the population,
+        the geometric mean and the standard deviation.
+    total_size_range : tuple, (scalar, scalar)
+        Total size range of the population
+    interest_size_range : tuple, (scalar, scalar)
+        Size range of interest
+    n : integer, optional
+        Discretization parameter, by default 10_000.
+        10_000 should provide a good enough approximation
+    """
+
+    # Calculate the lognormal distribution
+    geo_mean, sigma = lognorm_params
+    dist = lognorm(s=sigma, scale=geo_mean)
+
+    # discretize the distribution
+    min_size, max_size = total_size_range
+    diameters = np.linspace(min_size, max_size, num=n)
+
+    # calculate the volume per grain and probabilities
+    volume_per_grain = diameter_to_volume(diameters)
+    probabilities = dist.pdf(diameters)
+
+    # calculate total volume of the population
+    total_volume = np.sum(volume_per_grain * probabilities)
+
+    # calculate the volume of the interest size range
+    mini, maxi = interest_size_range
+    mask = (diameters > mini) & (diameters <= maxi)
+    volume_of_interest = np.sum(volume_per_grain[mask] * probabilities[mask])
+
+    # estimate fraction
+    volume_fraction = volume_of_interest / total_volume
+
+    print(f"Volume fraction occupied by grains between {mini} and {maxi} microns: {100 * volume_fraction:.1f} %")
+
+    return volume_fraction
+
+
 # ============================================================================ #
 # AUXILIARY FUNCTIONS                                                          #
 # ============================================================================ #
+
+
+def diameter_to_volume(d):
+    """Calculates the volume of a sphere with diameter d"""
+    return (np.pi / 6) * d**3
 
 
 def fit_log(x, y, initial_guess):
