@@ -133,13 +133,13 @@ def Saltykov(diameters,
         angle = np.arctan((y[index] - y[index - 1]) / (x[index] - x[index - 1]))
         volume = y[index - 1] + np.tan(angle) * (calc_vol - x[index - 1])
         if volume < 100.0:
-            print("=======================================")
+            print("=================================================")
             print(f"volume fraction (up to {calc_vol} microns) = {volume:.2f} %")
-            print("=======================================")
+            print("=================================================")
         else:
-            print("=======================================")
+            print("=================================================")
             print(f"volume fraction (up to {calc_vol} microns) = 100 %")
-            print("=======================================")
+            print("=================================================")
 
     # Create a text file (if apply) with the midpoints, class frequencies, and
     # cumulative volumes
@@ -171,24 +171,20 @@ def Saltykov(diameters,
         return mid_points, freq3D
 
     elif return_data is False:
-        print("=======================================")
         print(f"bin size = {binsize:0.2f}")
-        print("=======================================")
         return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
 
     else:
         raise TypeError("return_data must be set as True or False")
 
 
-def calc_shape(diameters, class_range=(10, 20)):
-    """ Approximates the shape of the actual (3D) distribution of grain size
-    from a population of apparent diameters measured in a thin section using
-    the two-step method (Lopez-Sanchez and Llana-Funez, 2016).
-
-    The method only works properly for unimodal lognormal-like grain size
-    populations and returns the MSD (i.e. shape) and the geometric mean
-    (i.e. scale) values, which describe the lognormal population of grain sizes
-    at their original (linear) scale.
+def two_step(diameters, class_range=(10, 20)):
+    """ Calculate the optimal lognormal distribution of an unfolded grain size
+    population from apparent diameters measured in a thin section by applying
+    the two-step method (Lopez-Sanchez and Llana-Funez, 2016).  The method only
+    works properly for unimodal lognormal-like grain size populations and returns
+    the MSD (i.e. shape) and the geometric mean (i.e. scale) values, which describe
+    the lognormal population of grain sizes at their original (linear) scale.
 
     Parameters
     ----------
@@ -197,7 +193,7 @@ def calc_shape(diameters, class_range=(10, 20)):
 
     class_range : tupe or list with two values, optional
         the range of classes considered. The algorithm will estimate the optimal
-        number of classes within the defined range. Default = (10, 20)
+        number of classes within the defined range. Default=(10, 20)
 
 
     Call functions
@@ -210,9 +206,8 @@ def calc_shape(diameters, class_range=(10, 20)):
 
     Examples
     --------
-    >>> calc_shape(diameters)
-    >>> calc_shape(diameters, class_range=(12, 18))
-    >>> calc_shape(diameters, initial_guess=True)
+    >>> stereology.two_step(diameters)
+    >>> stereology.two_step(diameters, class_range=(12, 18))
 
     References
     ----------
@@ -460,7 +455,7 @@ def calc_volume_fraction(lognorm_params,
     Parameters
     ----------
     lognorm_params : tuple, (scalar, scalar)
-        lognormal paramenters defining the population,
+        lognormal parameters defining the population,
         the geometric mean and the standard deviation.
     total_size_range : tuple, (scalar, scalar)
         Total size range of the population
