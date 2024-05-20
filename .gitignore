@@ -243,3 +243,4 @@ DOCS/.jupyter/desktop-workspaces/default-37a8.jupyterlab-workspace
 grain_size_tools/example_notebooks/test_distribution.png
 grain_size_tools/import_tests.ipynb
 *.jupyterlab-workspace
+grain_size_tools/saltykov.tsv
