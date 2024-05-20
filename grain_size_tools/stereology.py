@@ -97,7 +97,7 @@ def Saltykov(diameters,
         if left_edge < 0:
             raise ValueError("left_edge must be a positive scalar or 'min'")
 
-    # set histogram left edge
+    # set histogram left edge, either automatic or set by the user
     if left_edge == "min":
         minimo = diameters.min()
     else:
@@ -105,74 +105,35 @@ def Saltykov(diameters,
 
     # compute the histogram
     freq, bin_edges = np.histogram(
-        diameters,
-        bins=numbins,
-        range=(minimo, diameters.max()),
-        density=True,
+        diameters, bins=numbins, range=(minimo, diameters.max()), density=True
     )
 
     # Create arrays with left edges and midpoints
     binsize = bin_edges[1] - bin_edges[0]
-    left_edges = np.delete(bin_edges, -1)
-    mid_points = left_edges + binsize / 2
+    bin_midpoints = (bin_edges[:-1] + bin_edges[1:]) / 2
 
     # Unfold the population of apparent diameters using the Saltykov method
-    freq3D = unfold_population(freq, bin_edges, binsize, mid_points)
+    freq3D = unfold_population(freq, bin_edges, binsize, bin_midpoints)
 
     # Calculate the volume-weighted cumulative frequency distribution
-    # TODO -> better an own function
-    x_vol = binsize * (4 / 3.0) * np.pi * (mid_points**3)
-    freq_vol = x_vol * freq3D
-    cdf = np.cumsum(freq_vol)
-    cdf_norm = 100 * (cdf / cdf[-1])
+    cdf_norm = volume_weighted_cdf(freq3D, bin_midpoints)
 
-    # Estimate the volume of a particular grain size fraction (if proceed)
+    # Estimate the volume of a particular grain size fraction (if apply)
     if calc_vol is not None:
-        x, y = mid_points, cdf_norm
-        index = np.argmax(mid_points > calc_vol)
-        angle = np.arctan((y[index] - y[index - 1]) / (x[index] - x[index - 1]))
-        volume = y[index - 1] + np.tan(angle) * (calc_vol - x[index - 1])
-        if volume < 100.0:
-            print("=================================================")
-            print(f"volume fraction (up to {calc_vol} microns) = {volume:.2f} %")
-            print("=================================================")
-        else:
-            print("=================================================")
-            print(f"volume fraction (up to {calc_vol} microns) = 100 %")
-            print("=================================================")
+        calc_volume_fraction_hist(calc_vol, bin_midpoints, cdf_norm)
 
-    # Create a text file (if apply) with the midpoints, class frequencies, and
-    # cumulative volumes
+    # Create a text file with the midpoints, class frequencies, and
+    # cumulative volumes (if apply)
     if text_file is not None:
-        from pandas import DataFrame
+        create_tabular_file(text_file, binsize, bin_midpoints, freq3D, cdf_norm)
 
-        if isinstance(text_file, str) is False:
-            print("text_file must be None or string type")
-        df = DataFrame(
-            {
-                "mid_points": np.around(mid_points, 3),
-                "freqs": np.around(freq3D, 4),
-                "freqs2one": np.around(freq3D * binsize, 3),
-                "cum_vol": np.around(cdf_norm, 2),
-            }
-        )
-        if text_file.endswith(".txt"):
-            df.to_csv(text_file, sep="\t", index=False)
-        elif text_file.endswith(".csv"):
-            df.to_csv(text_file, sep=";", index=False)
-        else:
-            raise ValueError("text file must be specified as .csv or .txt")
-        print("=======================================")
-        print(f"The file {text_file} was created")
-        print("=======================================")
-
-    # return data or figure (if apply)
+    # return data or figure
     if return_data is True:
-        return mid_points, freq3D
+        return bin_midpoints, freq3D
 
     elif return_data is False:
-        print(f"bin size = {binsize:0.2f}")
-        return Saltykov_plot(left_edges, freq3D, binsize, mid_points, cdf_norm)
+        print(f"calculated bin size = {binsize:0.2f}")
+        return Saltykov_plot(bin_edges[:-1], freq3D, binsize, bin_midpoints, cdf_norm)
 
     else:
         raise TypeError("return_data must be set as True or False")
@@ -344,7 +305,7 @@ def unfold_population(freq, bin_edges, binsize, mid_points, normalize=True):
 
 
 def unfold_population2(freq, bin_centers, bin_width, normalize=True):
-    """ AUnfolds the population of apparent diameters into the actual
+    """ Unfolds the population of apparent diameters into the actual
     population of grain sizes using the Saltykov algorithm. Following the
     reasoning of Higgins (2000), R (or D) is placed at the center of the
     classes (i.e. the midpoints).
@@ -444,6 +405,35 @@ def wicksell_solution(diameter, lower_bound, upper_bound):
     return 1 / radius * (np.sqrt(radius**2 - r1**2) - np.sqrt(radius**2 - r2**2))
 
 
+def volume_weighted_cdf(freqs, bin_midpoints):
+    """Calculates the volume-weighted cumulative frequency
+    distribution of a histogram in percentage. Binsize is 
+    assumed to be constant.
+
+    Parameters
+    ----------
+    freqs : array type
+        The histogram frequencies/counts.
+    bin_midpoints : array type
+        the midpoints of the bins
+    """
+
+    # Calculate the volume for each bin assuming that
+    # particles are spherical and sizes distributed homogeneously
+    grain_volumes = diameter_to_volume(bin_midpoints)
+
+    # Weight each bin by the volume
+    vol_weighted_freqs = freqs * grain_volumes
+
+    # Compute the cumulative sum of the volume-weighted counts
+    cumulative_volume = np.cumsum(vol_weighted_freqs)
+
+    # Normalize the cumulative sum to get the cumulative frequency distribution
+    vol_cfd = cumulative_volume / cumulative_volume[-1]
+
+    return 100 * vol_cfd
+
+
 def calc_volume_fraction(lognorm_params,
                          total_size_range,
                          interest_size_range,
@@ -492,6 +482,39 @@ def calc_volume_fraction(lognorm_params,
     print(f"Volume fraction occupied by grains between {mini} and {maxi} microns: {100 * volume_fraction:.1f} %")
 
     return volume_fraction
+
+
+def calc_volume_fraction_hist(size, bin_midpoints, cdf_norm):
+    """Calculates and print the volume fraction of a
+    occuppied up to a grain size specified by the user
+    using the cumulative distribution function and interpolating
+    between bin midpoints.
+
+    Parameters
+    ----------
+    bin_midpoints : array type
+        the midpoints of the bins
+    cdf_norm : array type
+        normalized volume-weighted cumulative frequency
+    """
+
+    index = np.argmax(bin_midpoints > size)
+    angle = np.arctan(
+        (cdf_norm[index] - cdf_norm[index - 1])
+        / (bin_midpoints[index] - bin_midpoints[index - 1])
+    )
+    volume = cdf_norm[index - 1] + np.tan(angle) * (size - bin_midpoints[index - 1])
+
+    if volume < 100.0:
+        print("=================================================")
+        print(f"volume fraction (up to {size} microns) = {volume:.2f} %")
+        print("=================================================")
+    else:
+        print("=================================================")
+        print(f"volume fraction (up to {size} microns) = 100 %")
+        print("=================================================")
+
+    return None
 
 
 # ============================================================================ #
@@ -684,6 +707,42 @@ def twostep_plot(xgrid, mid_points, frequencies, best_fit, fit_error):
     fig.tight_layout()
 
     return fig, ax
+
+
+def create_tabular_file(text_file, binsize, bin_midpoints, freq3D, cdf_norm):
+    """Generate and save a tabular file with data
+
+    Returns
+    -------
+    None
+    """
+
+    if isinstance(text_file, str) is False:
+        raise TypeError("text_file must be a string type")
+    
+    from pandas import DataFrame
+
+    df = DataFrame(
+        {
+            "bin_midpoints": np.around(bin_midpoints, 3),
+            "freqs": np.around(freq3D, 4),
+            "freqs2one": np.around(freq3D * binsize, 3),
+            "cum_vol": np.around(cdf_norm, 2),
+        }
+    )
+
+    if text_file.endswith((".tsv", ".txt")):
+        df.to_csv(text_file, sep="\t", index=False)
+    elif text_file.endswith(".csv"):
+        df.to_csv(text_file, sep=";", index=False)
+    else:
+        raise ValueError("text file must be specified as .csv, .tsv or .txt")
+
+    print("=======================================")
+    print(f"The file {text_file} was created")
+    print("=======================================")
+
+    return None
 
 
 if __name__ == '__main__':
