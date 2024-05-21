@@ -51,33 +51,35 @@ class feldspar(Piezometer):
 
 
 def load_piezometers_from_yaml(filepath):
+    # read the YAML file, i.e. the database
     with open(filepath, "r") as file:
-        data = yaml.safe_load(file)
+        database = yaml.safe_load(file)
 
         # get database version
-        version = data["database"][0]["version"]
+        version = database["database"][0]["version"]
 
-        for mineral, piezos in data.items():
-            for piezo_data in piezos:
-                name = piezo_data.pop("piezometer")
+        for mineral, data in database.items():
+            for feature in data:
+                name = feature.pop("piezometer")
 
+                # Create and Store Piezometer Instances
                 if mineral == "quartz":
-                    piezo = quartz(name=name, **piezo_data)
+                    piezo = quartz(name=name, **feature)
                     quartz.piezometers[name] = piezo
                     setattr(quartz, name, piezo)
 
                 elif mineral == "olivine":
-                    piezo = olivine(name=name, **piezo_data)
+                    piezo = olivine(name=name, **feature)
                     olivine.piezometers[name] = piezo
                     setattr(olivine, name, piezo)
 
                 elif mineral == "calcite":
-                    piezo = calcite(name=name, **piezo_data)
+                    piezo = calcite(name=name, **feature)
                     calcite.piezometers[name] = piezo
                     setattr(calcite, name, piezo)
 
                 elif mineral == "feldspar":
-                    piezo = feldspar(name=name, **piezo_data)
+                    piezo = feldspar(name=name, **feature)
                     feldspar.piezometers[name] = piezo
                     setattr(feldspar, name, piezo)
     
