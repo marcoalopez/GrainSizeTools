@@ -32,22 +32,22 @@ class Piezometer:
 
 @dataclass
 class quartz(Piezometer):
-    piezometers: ClassVar[Dict[str, "Quartz"]] = {}
+    piezometers: ClassVar[Dict[str, "quartz"]] = {}
 
 
 @dataclass
 class olivine(Piezometer):
-    piezometers: ClassVar[Dict[str, "Olivine"]] = {}
+    piezometers: ClassVar[Dict[str, "olivine"]] = {}
 
 
 @dataclass
 class calcite(Piezometer):
-    piezometers: ClassVar[Dict[str, "Calcite"]] = {}
+    piezometers: ClassVar[Dict[str, "calcite"]] = {}
 
 
 @dataclass
 class feldspar(Piezometer):
-    piezometers: ClassVar[Dict[str, "Feldspar"]] = {}
+    piezometers: ClassVar[Dict[str, "feldspar"]] = {}
 
 
 def load_piezometers_from_yaml(filepath):
@@ -80,5 +80,5 @@ def load_piezometers_from_yaml(filepath):
 
 
 if __name__ == "__main__":
-    load_piezometers_from_yaml("piezometers.yaml")
-    print("database loaded")
+    load_piezometers_from_yaml("piezometric_database.yaml")
+    print("database v2024.05.21 loaded")
