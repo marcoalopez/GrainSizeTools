@@ -54,6 +54,9 @@ def load_piezometers_from_yaml(filepath):
     with open(filepath, "r") as file:
         data = yaml.safe_load(file)
 
+        # get database version
+        version = data["database"][0]["version"]
+
         for mineral, piezos in data.items():
             for piezo_data in piezos:
                 name = piezo_data.pop("piezometer")
@@ -77,8 +80,11 @@ def load_piezometers_from_yaml(filepath):
                     piezo = feldspar(name=name, **piezo_data)
                     feldspar.piezometers[name] = piezo
                     setattr(feldspar, name, piezo)
+    
+    return version
 
 
 if __name__ == "__main__":
-    load_piezometers_from_yaml("piezometric_database.yaml")
-    print("database v2024.05.21 loaded")
+    version = load_piezometers_from_yaml("piezometric_database.yaml")
+    print(f"piezometric database v{version} loaded")
+
