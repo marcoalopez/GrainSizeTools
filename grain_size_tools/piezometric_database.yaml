@@ -1,3 +1,57 @@
+# This file is part of the Open Database License (ODbL) - version 1.0
+#
+# Preamble:
+# The Piezometric Database is an open database provided as part
+# of the "GrainSizeTools Script" and it  is licensed under the Open
+# Database License (ODbL) version 1.0.
+#
+# License:
+# Copyright (c) 2014-present, Marco A. Lopez-Sanchez
+#
+# You are free:
+# 1. To Share: To copy, distribute, and use the database.
+# 2. To Create: To produce works from the database.
+# 3. To Adapt: To modify, transform, and build upon the database.
+#
+# As long as you:
+# 1. Attribute: You must attribute any public use of the database,
+# or works produced from the database, in the manner specified in
+# the attribution section below.
+# 2. Share-Alike: If you publicly use any adapted version of this
+# database or works produced from it, you must also offer that
+# adapted database under the ODbL license.
+# 3. Keep open: If you redistribute the database, you must make
+# the original data available to the public at no cost, without
+# any restrictions on the use of the database.
+#
+# Attribution:
+# The attribution requirement under this license is satisfied by
+# including the following notice:
+# "Piezometric Database by GrainSizeTools Script is licensed
+# under the Open Database License (ODbL) version 1.0."
+# If you make any changes or adaptations to this database, you must
+# indicate so and not imply that the original database is endorsed
+# by the GrainSizeTools script.
+#
+# License Text:
+# The full text of the Open Database License (ODbL) version 1.0 is
+# available at: https://opendatacommons.org/licenses/odbl/1.0/
+# For the avoidance of doubt, this summary is not a license and it
+# has no legal value. You should refer to the full text of the ODbL
+# for the complete terms and conditions that apply.
+#
+# Contact:
+# If you have any questions or need further clarifications regarding
+# this license or the Piezometric Database, you can contact
+# Marco A. Lopez-Sanchez at lopezmarco [to be found at] uniovi.es.
+#
+# End of License.
+
+# =================================================================== #
+# Save this file in the same directory as GrainSizeTools              #
+# =================================================================== #
+
+###########################################################################################
 # quartz piezometers
 quartz:
   - piezometer: Stipp_Tullis
@@ -187,3 +241,7 @@ feldspar:
     notes: |
       The Post and Tullis (1999) piezometer was calibrated using the median of the
       equivalent circular diameters (ECD) grain size with no stereological correction.
+
+
+# End of file
+###########################################################################################
