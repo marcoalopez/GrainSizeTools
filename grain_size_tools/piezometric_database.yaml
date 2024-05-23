@@ -221,7 +221,9 @@ calcite:
     warn: Ensure that you entered the apparent grain size as the root mean square (RMS) in linear scale
     linear_intercepts: false
     correction_factor: false
-    notes: Contrary to other calcite piezometers, this one uses the RMS average.
+    notes: |
+    Contrary to other calcite piezometers, this one was calibrated using the RMS mean
+    instead of the arithmetic mean.
   
   - piezometer: Valcke
     year: 2015
