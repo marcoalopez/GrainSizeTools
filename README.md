@@ -1,12 +1,13 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2024/02/08_
+_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2024-05-24_
 
 [GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides tools for (1) quantifying and visualising grain size populations, (2) applying stereological methods to approximate the true grain size distribution from 2D sections and (3) estimating differential stress for different mineral phases using paleopizometers. The script **does not require any previous experience with the Python programming language** (see the documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with programming skills, the script is organized in a modular (and functional) way to facilitate reuse and code extension.
 
-**Latest release: v3.0.2**  
-**Date: 2020/12/31**  
-See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0.2
+**Latest release: v3.1.0**  
+**Date: 2024-05-24**  
+See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.1.0
+[View project on GitHub](https://github.com/marcoalopez/GrainSizeTools)
 
 
 ## Features at a glance
@@ -33,30 +34,17 @@ See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.0.2
 
   - Saltykov method
   - Two-step method (log-normal fitting, shape characterization)
+  - Estimate the volume fraction occupied by any grain size range
 
 ## Download
 
-You can download the script at the following sites:  
-https://github.com/marcoalopez/GrainSizeTools/releases  (primary source)  
-http://figshare.com/articles/GrainSizeTools_script/1383130  
-https://sourceforge.net/projects/grainsizetools/
-
-[View project on GitHub](https://github.com/marcoalopez/GrainSizeTools)
+https://github.com/marcoalopez/GrainSizeTools/releases  
 
 ## Documentation
 
-* [FAQs](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)
-* [Getting started: first steps using the GrainSizeTools script](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_first_steps.md)
-* [Describing the population of grain sizes](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_describe.md)
-* [The plot module: visualizing grain size distributions](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Plot_module.md)
-* [The stereology module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/stereology_module.md) 🚨 **Recently updated!**
-* [The paleopiezometry module](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/_Paleopizometry.md)
+https://github.com/marcoalopez/GrainSizeTools/wiki
 
-**Supplementary material**
-
-* [How to measure the areas of the grain profiles with ImageJ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/imageJ_tutorial.md)
-
-## Screenshots (v3.0+)
+## Screenshots
 
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/screenshots-01.webp)
 
