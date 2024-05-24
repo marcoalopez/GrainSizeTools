@@ -5,7 +5,7 @@ Welcome to GrainSizeTools script
 A free open-source cross-platform script to visualize and characterize grain size
 population and estimate differential stress via paleopizometers.
 
-Version: 2024.03.RC
+Version: 3.1.0
 Documentation: https://github.com/marcoalopez/GrainSizeTools/wiki
 
 Type get.functions_list() to get a list of the main methods
@@ -25,14 +25,13 @@ plot.area_weighted     -> visualize the area-weighed distribution of grain sizes
 plot.normalized        -> visualize a normalized distribution of grain sizes
 
 stereology.Saltykov    -> approximate the actual grain size distribution via the Saltykov method
-stereology.calc_shape  -> approximate the lognormal shape of the actual distribution
+stereology.two_step    -> approximate the lognormal distribution to the actual distribution
 ======================================================================================
 
 You can get more information about the methods using the following ways:
     (1) Typing ? or ?? after the function name, e.g. summarize?
     (2) Typing help plus the name of the function, e.g. help(summarize)
-    (3) In JupyterLab by enabling the "Show contextual help", the info
-    will pop up as soon as you write the name of the function.
+    (3) In JupyterLab by enabling the "Show contextual help"
 """
 
 
