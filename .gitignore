@@ -244,7 +244,7 @@ grain_size_tools/example_notebooks/test_distribution.png
 grain_size_tools/import_tests.ipynb
 *.jupyterlab-workspace
 grain_size_tools/saltykov.tsv
-grain_size_tools/Untitled2.ipynb
-grain_size_tools/Untitled.ipynb
+grain_size_tools/piezometers_test2.ipynb
+grain_size_tools/piezometers_test.ipynb
 grain_size_tools/.jupyter/desktop-settings.json
 grain_size_tools/two_step_example.ipynb
