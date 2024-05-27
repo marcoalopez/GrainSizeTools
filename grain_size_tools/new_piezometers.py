@@ -24,7 +24,7 @@
 # ============================================================================ #
 
 from dataclasses import dataclass
-from typing import Dict, ClassVar, Any
+from typing import Dict, ClassVar, Optional, Type
 import yaml
 
 @dataclass
@@ -36,7 +36,7 @@ class Piezometer:
     m: float
     warn: str
     linear_intercepts: bool
-    correction_factor: Any
+    correction_factor: Optional[float]
     notes: str
 
     def summary(self):
@@ -52,66 +52,89 @@ class Piezometer:
             f"Notes: {self.notes}\n"
         )
 
-        return None
-
 
 @dataclass
-class quartz(Piezometer):
-    piezometers: ClassVar[Dict[str, "quartz"]] = {}
+class Quartz(Piezometer):
+    piezometers: ClassVar[Dict[str, "Quartz"]] = {}
 
+    @classmethod
+    def add_piezometer(cls, piezometer: "Quartz"):
+        cls.piezometers[piezometer.name] = piezometer
 
-@dataclass
-class olivine(Piezometer):
-    piezometers: ClassVar[Dict[str, "olivine"]] = {}
-
-
-@dataclass
-class calcite(Piezometer):
-    piezometers: ClassVar[Dict[str, "calcite"]] = {}
-
+    @classmethod
+    def get_piezometer(cls, name: str) -> Optional["Quartz"]:
+        return cls.piezometers.get(name)
 
 @dataclass
-class feldspar(Piezometer):
-    piezometers: ClassVar[Dict[str, "feldspar"]] = {}
+class Olivine(Piezometer):
+    piezometers: ClassVar[Dict[str, "Olivine"]] = {}
+
+    @classmethod
+    def add_piezometer(cls, piezometer: "Olivine"):
+        cls.piezometers[piezometer.name] = piezometer
+
+    @classmethod
+    def get_piezometer(cls, name: str) -> Optional["Olivine"]:
+        return cls.piezometers.get(name)
+
+@dataclass
+class Calcite(Piezometer):
+    piezometers: ClassVar[Dict[str, "Calcite"]] = {}
+
+    @classmethod
+    def add_piezometer(cls, piezometer: "Calcite"):
+        cls.piezometers[piezometer.name] = piezometer
+
+    @classmethod
+    def get_piezometer(cls, name: str) -> Optional["Calcite"]:
+        return cls.piezometers.get(name)
+
+@dataclass
+class Feldspar(Piezometer):
+    piezometers: ClassVar[Dict[str, "Feldspar"]] = {}
+
+    @classmethod
+    def add_piezometer(cls, piezometer: "Feldspar"):
+        cls.piezometers[piezometer.name] = piezometer
+
+    @classmethod
+    def get_piezometer(cls, name: str) -> Optional["Feldspar"]:
+        return cls.piezometers.get(name)
 
 
-def load_piezometers_from_yaml(filepath):
-    # read the YAML file, i.e. the database
+# Map to relate mineral names to classes
+mineral_class_map = {
+    "quartz": Quartz,
+    "olivine": Olivine,
+    "calcite": Calcite,
+    "feldspar": Feldspar,
+}
+
+def load_piezometers_from_yaml(filepath: str) -> str:
     with open(filepath, "r") as file:
         database = yaml.safe_load(file)
 
-        # get database version
-        version = database["database"][0]["version"]
+    version = database["database"][0]["version"]
 
-        for mineral, data in database.items():
-            for feature in data:
-                name = feature.pop("piezometer")
+    for mineral, data in database.items():
+        # Skip the version entry in the YAML
+        if mineral == "database":
+            continue
+        
+        cls = mineral_class_map.get(mineral.lower())
+        if cls is None:
+            print(f"Unknown mineral type: {mineral}")
+            continue
 
-                # Create and Store Piezometer Instances
-                if mineral == "quartz":
-                    piezo = quartz(name=name, **feature)
-                    quartz.piezometers[name] = piezo
-                    setattr(quartz, name, piezo)
+        for feature in data:
+            name = feature.pop("piezometer")
+            piezo = cls(name=name, **feature)
+            cls.add_piezometer(piezo)
+            setattr(cls, name, piezo)
 
-                elif mineral == "olivine":
-                    piezo = olivine(name=name, **feature)
-                    olivine.piezometers[name] = piezo
-                    setattr(olivine, name, piezo)
-
-                elif mineral == "calcite":
-                    piezo = calcite(name=name, **feature)
-                    calcite.piezometers[name] = piezo
-                    setattr(calcite, name, piezo)
-
-                elif mineral == "feldspar":
-                    piezo = feldspar(name=name, **feature)
-                    feldspar.piezometers[name] = piezo
-                    setattr(feldspar, name, piezo)
-    
     return version
 
 
 if __name__ == "__main__":
     version = load_piezometers_from_yaml("piezometric_database.yaml")
     print(f"piezometric database v{version} loaded")
-
