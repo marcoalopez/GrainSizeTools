@@ -75,24 +75,26 @@ def calc_diffstress(grain_size, piezometer, correction=False):
     -------
     The differential stress in MPa (a float)
     """
+    # comvert dict to SimpleNamespace
+    piezometer = SimpleNamespace(**piezometer)
 
-    # Special cases (convert from ECD to linear intercepts)
+    # Special cases (convert from ECD to linear intercepts if apply)
     if piezometer.linear_interceps is True:
         grain_size = (piezometer.correction_factor / (np.sqrt(4 / np.pi))) * grain_size
-        print('diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction...')
+        print('Diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction...')
 
     # Estimate differential stress
     if piezometer == 'Shimizu':
         T = float(input("Please, enter the temperature [in C degrees] during deformation: "))
         diff_stress = piezometer.B * grain_size**(-piezometer.m) * np.exp(698 / (T + 273.15))
         if correction is True:
-            print('Differential stress corrected for plane stress (Paterson and Olgaard, 2000)')
+            print('Differential stress corrected for plane stress using Paterson and Olgaard (2000)')
             diff_stress = diff_stress * 2 / np.sqrt(3)
 
     else:
         diff_stress = piezometer.B * grain_size**-piezometer.m
         if correction is True:
-            print('Differential stress corrected for plane stress (Paterson and Olgaard, 2000)')
+            print('Differential stress corrected for plane stress using Paterson and Olgaard (2000)')
             diff_stress = diff_stress * 2 / np.sqrt(3)
 
     print('============================================================================')
@@ -125,17 +127,18 @@ def summary(database) -> None:
 
 
 def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
-    """_summary_
+    """Load the piezometric database
 
     Parameters
     ----------
     filepath : str
-        _description_
+        the absolute or relative filepath to database
 
     Returns
     -------
     str, SimpleNamespace
-        _description_
+        version of the database,
+        SimpleNamespace dataclass with the piezometric relations
     """
 
     # read YALM database
@@ -145,7 +148,7 @@ def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
     # get database version
     version = database["database"]["version"]
 
-    # construct dime dataclases for all mineral phases
+    # construct simple dataclasses for all mineral phases
     quartz = SimpleNamespace(**database["database"]["mineral_phases"]["quartz"])
     olivine = SimpleNamespace(**database["database"]["mineral_phases"]["olivine"])
     calcite = SimpleNamespace(**database["database"]["mineral_phases"]["calcite"])
