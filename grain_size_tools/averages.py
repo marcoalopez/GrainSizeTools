@@ -18,14 +18,14 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the "License".                                          #
 #                                                                              #
-#    Version 3.1.0                                                             #
+#    Version 3.2.0                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
 # ============================================================================ #
 
 # Imports
-from scipy.stats import bayes_mvs, gaussian_kde, iqr, t, norm
+from scipy.stats import sem, bayes_mvs, gaussian_kde, iqr, t, norm
 import numpy as np
 
 # ============================================================================ #
@@ -288,9 +288,100 @@ def weighted_mean_with_error(values, variances):
     return weighted_mean, error
 
 
+def weighted_mean_and_se(means, standard_errors):
+    """
+    Calculate the weighted mean and standard error of averages
+    using the Mantel-Haenszel method.
+
+    Parameters
+    ----------
+    means : numpy.ndarray
+        1-D array containing the averages.
+    standard_errors : numpy.ndarray
+        1-D array containing the standard errors associated
+        with each average.
+
+    Returns
+    -------
+    float
+        The weighted mean of averages.
+    float
+        The standard error of the weighted mean.
+
+    Raises
+    ------
+    ValueError
+        If input arrays have different shapes.
+
+    Notes
+    -----
+    The function uses the Mantel-Haenszel method to calculate
+    the weighted mean, where each average is weighted by the
+    inverse of its squared standard error. The standard error
+    of the weighted mean is also calculated.
+    """
+    # Ensure the input arrays have the same shape
+    if means.shape != standard_errors.shape:
+        raise ValueError("Input arrays must have the same shape")
+
+    # Calculate the weights based on the inverse of squared standard errors
+    weights = 1 / standard_errors**2
+
+    # Calculate the weighted mean
+    weighted_mean = np.sum(means * weights) / np.sum(weights)
+
+    # Calculate the standard error of the weighted mean
+    se_weighted_mean = 1 / np.sqrt(np.sum(1 / standard_errors**2))
+
+    return weighted_mean, se_weighted_mean
+
+
 # ============================================================================ #
 # CONFIDENCE INTERVAL METHODS                                                  #
 # ============================================================================ #
+
+
+def conf_interval(data, confidence=0.95):
+    """Estimate the confidence interval using the t-distribution with n-1
+    degrees of freedom t(n-1). This is the way to go when sample size is
+    small (n < 30) and the standard deviation cannot be estimated accurately.
+    For large datasets, the t-distribution approaches the normal distribution.
+
+    Parameters
+    ----------
+    data : array-like
+        the dataset
+
+    confidence : float between 0 and 1, optional
+        the confidence interval, default = 0.95
+
+    Assumptions
+    -----------
+    the data follows a normal or symmetric distrubution (when sample size
+    is large)
+
+    call_function(s)
+    ----------------
+    Scipy's t.interval
+
+    Returns
+    -------
+    the arithmetic mean, the error, and the limits of the confidence interval
+    """
+
+    dof = len(data) - 1
+    amean = np.mean(data)
+    std_err = sem(data)  # Standard error of the mean SD / sqrt(n)
+    low, high = t.interval(confidence, dof, amean, std_err)
+    err = high - amean
+
+    print(' ')
+    print(f'Mean = {amean:0.2f} ± {err:0.2f}')
+    print(f'Confidence set at {confidence * 100} %')
+    print(f'Max / min = {high:0.2f} / {low:0.2f}')
+    print(f'Coefficient of variation = ±{100 * err / amean:0.1f} %')
+
+    return amean, err, (low, high)
 
 
 def CLT_ci(amean, std, n, ci=0.95):
