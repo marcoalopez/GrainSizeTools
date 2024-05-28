@@ -17,120 +17,26 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.1.0                                                             #
+#    Version 3.2.0                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
 # ============================================================================ #
 
-# import grain_size_tools modules
-import plot
-import averages
-import stereology
-import piezometers
-import template
-import get
-
 # import neccesary Python scientific modules
 import numpy as np
 import pandas as pd
-from scipy.stats import sem, t, shapiro
+from scipy.stats import shapiro
 
 
-def conf_interval(data, confidence=0.95):
-    """Estimate the confidence interval using the t-distribution with n-1
-    degrees of freedom t(n-1). This is the way to go when sample size is
-    small (n < 30) and the standard deviation cannot be estimated accurately.
-    For large datasets, the t-distribution approaches the normal distribution.
-
-    Parameters
-    ----------
-    data : array-like
-        the dataset
-
-    confidence : float between 0 and 1, optional
-        the confidence interval, default = 0.95
-
-    Assumptions
-    -----------
-    the data follows a normal or symmetric distrubution (when sample size
-    is large)
-
-    call_function(s)
-    ----------------
-    Scipy's t.interval
-
-    Returns
-    -------
-    the arithmetic mean, the error, and the limits of the confidence interval
-    """
-
-    dof = len(data) - 1
-    amean = np.mean(data)
-    std_err = sem(data)  # Standard error of the mean SD / sqrt(n)
-    low, high = t.interval(confidence, dof, amean, std_err)
-    err = high - amean
-
-    print(' ')
-    print(f'Mean = {amean:0.2f} ± {err:0.2f}')
-    print(f'Confidence set at {confidence * 100} %')
-    print(f'Max / min = {high:0.2f} / {low:0.2f}')
-    print(f'Coefficient of variation = ±{100 * err / amean:0.1f} %')
-
-    return amean, err, (low, high)
-
-
-def weighted_mean_and_se(means, standard_errors):
-    """
-    Calculate the weighted mean and standard error of averages
-    using the Mantel-Haenszel method.
-
-    Parameters
-    ----------
-    means : numpy.ndarray
-        1-D array containing the averages.
-    standard_errors : numpy.ndarray
-        1-D array containing the standard errors associated
-        with each average.
-
-    Returns
-    -------
-    float
-        The weighted mean of averages.
-    float
-        The standard error of the weighted mean.
-
-    Raises
-    ------
-    ValueError
-        If input arrays have different shapes.
-
-    Notes
-    -----
-    The function uses the Mantel-Haenszel method to calculate
-    the weighted mean, where each average is weighted by the
-    inverse of its squared standard error. The standard error
-    of the weighted mean is also calculated.
-    """
-    # Ensure the input arrays have the same shape
-    if means.shape != standard_errors.shape:
-        raise ValueError("Input arrays must have the same shape")
-
-    # Calculate the weights based on the inverse of squared standard errors
-    weights = 1 / standard_errors**2
-
-    # Calculate the weighted mean
-    weighted_mean = np.sum(means * weights) / np.sum(weights)
-
-    # Calculate the standard error of the weighted mean
-    se_weighted_mean = 1 / np.sqrt(np.sum(1 / standard_errors**2))
-
-    return weighted_mean, se_weighted_mean
-
-
-def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
-              bandwidth='silverman', precision=0.1):
-    """ Estimate different grain size statistics. This includes different means,
+def summarize(
+    data,
+    avg=("amean", "gmean", "median", "mode"),
+    ci_level=0.95,
+    bandwidth="silverman",
+    precision=0.1,
+):
+    """Estimate different grain size statistics. This includes different means,
     the median, the frequency peak grain size via KDE, the confidence intervals
     using different methods, and the distribution features.
 
@@ -146,7 +52,7 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
         | 'amean' - arithmetic mean
         | 'gmean' - geometric mean
         | 'median' - median
-        | 'mode' - the kernel-based frequency peak of the distribution
+        | 'mode' - the kde-based frequency peak of the distribution
 
     ci_level : scalar between 0 and 1; optional
         the certainty of the confidence interval (default = 0.95)
@@ -283,111 +189,6 @@ def summarize(data, avg=('amean', 'gmean', 'median', 'mode'), ci_level=0.95,
     return None
 
 
-def calc_diffstress(grain_size, phase, piezometer, correction=False):
-    """ Apply different piezometric relations to estimate the differential
-    stress from average apparent grain sizes. The piezometric relation has
-    the following general form:
-
-    df = B * grain_size**-m
-
-    where df is the differential stress in [MPa], B is an experimentally
-    derived parameter in [MPa micron**m], grain_size is the aparent grain
-    size in [microns], and m is an experimentally derived exponent.
-
-    Parameters
-    ----------
-    grain_size : positive scalar or array-like
-        the apparent grain size in microns
-
-    phase : string {'quartz', 'olivine', 'calcite', or 'feldspar'}
-        the mineral phase
-
-    piezometer : string
-        the piezometric relation
-
-    correction : bool, default False
-        correct the stress values for plane stress (Paterson and Olgaard, 2000)
-
-     References
-    -----------
-    Paterson and Olgaard (2000) https://doi.org/10.1016/S0191-8141(00)00042-0
-    de Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
-
-    Call functions
-    --------------
-    piezometers.quartz
-    piezometers.olivine
-    piezometers.calcite
-    piezometers.albite
-
-    Assumptions
-    -----------
-    - Independence of temperature (excepting Shimizu piezometer), total strain,
-    flow stress, and water content.
-    - Recrystallized grains are equidimensional or close to equidimensional when
-    using a single section.
-    - The piezometer relations requires entering the grain size as "average"
-    apparent grain size values calculated using equivalent circular diameters
-    (ECD) with no stereological correction. See documentation for more details.
-    - When required, the grain size value will be converted from ECD to linear
-    intercept (LI) using a correction factor based on de Hoff and Rhines (1968):
-    LI = (correction factor / sqrt(4/pi)) * ECD
-    - Stress estimates can be corrected from uniaxial compression (experiments)
-    to plane strain (nature) multiplying the paleopiezometer by 2/sqrt(3)
-    (Paterson and Olgaard, 2000)
-
-    Returns
-    -------
-    The differential stress in MPa (a float)
-    """
-
-    if phase == 'quartz':
-        B, m, warn, linear_interceps, correction_factor = piezometers.quartz(piezometer)
-    elif phase == 'olivine':
-        B, m, warn, linear_interceps, correction_factor = piezometers.olivine(piezometer)
-    elif phase == 'calcite':
-        B, m, warn, linear_interceps, correction_factor = piezometers.calcite(piezometer)
-    elif phase == 'feldspar':
-        B, m, warn, linear_interceps, correction_factor = piezometers.feldspar(piezometer)
-    else:
-        raise ValueError('Phase name misspelled. Please choose between valid mineral names')
-
-    # Special cases (convert from ECD to linear intercepts)
-    if linear_interceps is True:
-        grain_size = (correction_factor / (np.sqrt(4 / np.pi))) * grain_size
-
-    # Estimate differential stress
-    if piezometer == 'Shimizu':
-        T = float(input("Please, enter the temperature [in C degrees] during deformation: "))
-        diff_stress = B * grain_size**(-m) * np.exp(698 / (T + 273.15))
-        if correction is True:
-            diff_stress = diff_stress * 2 / np.sqrt(3)
-
-    else:
-        diff_stress = B * grain_size**-m
-        if correction is True:
-            diff_stress = diff_stress * 2 / np.sqrt(3)
-
-    print('============================================================================')
-    if isinstance(diff_stress, (int, float)):
-        print(f'differential stress = {diff_stress:0.2f} MPa')
-        print('')
-        print('INFO:')
-        print(warn)
-        if linear_interceps is True:
-            print('ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction')
-        print('============================================================================')
-        return None
-    else:
-        print('INFO:')
-        print(warn)
-        if linear_interceps is True:
-            print('ECD was converted to linear intercepts using de Hoff and Rhines (1968) correction')
-        print('Differential stresses in MPa')
-
-        return np.around(diff_stress, 2)
-
-
 def get_filepath():
     """ Get a file path through a file selection dialog."""
 
@@ -401,6 +202,7 @@ def get_filepath():
         file_path = filedialog.askopenfilename(initialdir=os.getcwd(),
                                                title="Select file",
                                                filetypes=[('Text files', '*.txt'),
+                                                          ('Text files', '*.tsv'),
                                                           ('Text files', '*.csv'),
                                                           ('Excel files', '*.xlsx')])
     except ImportError:
@@ -409,6 +211,10 @@ def get_filepath():
     return file_path
 
 
-if float(np.__version__[0:4]) < 1.11:
-    print('The installed Numpy version', np.__version__, 'is too old.')
-    print('Please upgrade to v1.11 or higher')
+if __name__ == "__main__":
+    # import grain_size_tools modules
+    import plot
+    import averages
+    import stereology
+    import template
+    import get
