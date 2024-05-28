@@ -26,10 +26,9 @@
 import yaml
 from types import SimpleNamespace
 import numpy as np
-import get
 
 
-def calc_diffstress(grain_size, piezometer, correction=False) -> tuple(float, np.array):
+def calc_diffstress(grain_size, piezometer, correction=False):
     """ Apply different piezometric relation to estimate differential stress
     based on average apparent grain sizes. The piezometric relation has
     the following general form:
@@ -150,7 +149,7 @@ def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
     quartz = SimpleNamespace(**database["database"]["mineral_phases"]["quartz"])
     olivine = SimpleNamespace(**database["database"]["mineral_phases"]["olivine"])
     calcite = SimpleNamespace(**database["database"]["mineral_phases"]["calcite"])
-    feldspar = SimpleNamespace(**database["database"]["mineral_phases"]["olivine"])
+    feldspar = SimpleNamespace(**database["database"]["mineral_phases"]["feldspar"])
 
     piezometers = SimpleNamespace(
         quartz=quartz, olivine=olivine, calcite=calcite, feldspar=feldspar
@@ -160,5 +159,9 @@ def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
 
 
 if __name__ == "__main__":
+    print('Welcome to the GrainSizetool piezometers module')
     version, piezometers = load_piezometers_from_yaml("piezometric_database.yaml")
     print(f"piezometric database v{version} loaded")
+    print('')
+    print("Piezometric relations avalilable:")
+    list_piezometers(piezometers)
