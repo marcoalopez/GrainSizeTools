@@ -124,7 +124,7 @@ database:
         reference: https://doi.org/10.1016/j.jsg.2008.03.004
         B: 352.0
         m: 0.8
-        warn: Ensure that you entered the apparent grain size as the median in log(e) scale
+        warn: Ensure that you entered the apparent grain size as the median in log (base e) scale
         linear_intercepts: false
         correction_factor: false
         notes: |
