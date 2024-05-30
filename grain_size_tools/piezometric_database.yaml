@@ -155,11 +155,11 @@ database:
         reference: https://doi.org/10.1029/93GL01382
         B: 1355.4
         m: 0.75
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
         linear_intercepts: true
         correction_factor: 1.5
         notes: |
-          The Van de Wal (1993) piezometer was calibrated using the linear intercept (LI) grain size
+          The Van der Wal (1993) piezometer was calibrated using the linear intercept (LI) grain size
           multiplied by 1.5 (correction factor). ECDs without stereological correction will be converted
           to LIs using the empirical equation of De Hoff and Rhines (1968) LI = (1.5 / sqrt(4/pi)) * ECD
 
@@ -168,7 +168,7 @@ database:
         reference: https://doi.org/10.1016/S0191-8141(01)00005-0
         B: 5461.03
         m: 0.85
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
         linear_intercepts: true
         correction_factor: 1.5 
         notes: |
