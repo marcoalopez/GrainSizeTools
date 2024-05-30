@@ -28,7 +28,7 @@ from types import SimpleNamespace
 import numpy as np
 
 
-def calc_diffstress(grain_size, piezometer, correction=False):
+def calc_diffstress(piezometer, grain_size, correction=False):
     """Apply different piezometric relation to estimate differential stress
     based on average apparent grain sizes. The piezometric relation has
     the following general form:
@@ -41,11 +41,11 @@ def calc_diffstress(grain_size, piezometer, correction=False):
 
     Parameters
     ----------
-    grain_size : positive scalar or array-like
-        the apparent grain size in microns
-
     piezometer : SimpleNamespace
         the piezometric relation
+
+    grain_size : positive scalar or array-like
+        the apparent grain size in microns
 
     correction : bool, default False
         correct the stress values for plane stress (Paterson and Olgaard, 2000)
@@ -81,9 +81,6 @@ def calc_diffstress(grain_size, piezometer, correction=False):
     # Special cases (convert from ECD to linear intercepts if apply)
     if piezometer.linear_intercepts is True:
         grain_size = (piezometer.correction_factor / (np.sqrt(4 / np.pi))) * grain_size
-        print(
-            "Diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction."
-        )
 
     # Estimate differential stress
     # Shimizu case (T dependent piezometers)
@@ -95,17 +92,11 @@ def calc_diffstress(grain_size, piezometer, correction=False):
             piezometer.B * grain_size ** (-piezometer.m) * np.exp(698 / (T + 273.15))
         )
         if correction is True:
-            print(
-                "Differential stress corrected for plane stress using Paterson and Olgaard (2000)"
-            )
             diff_stress = diff_stress * 2 / np.sqrt(3)
 
     else:
         diff_stress = piezometer.B * grain_size**-piezometer.m
         if correction is True:
-            print(
-                "Differential stress corrected for plane stress using Paterson and Olgaard (2000)"
-            )
             diff_stress = diff_stress * 2 / np.sqrt(3)
 
     if isinstance(diff_stress, (int, float)):
@@ -113,12 +104,22 @@ def calc_diffstress(grain_size, piezometer, correction=False):
         print("")
         print("INFO:")
         print(piezometer.warn)
+        if piezometer.linear_intercepts is True:
+            print("Diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction.")
+        if correction is True:
+            print("Differential stress corrected for plane stress using Paterson and Olgaard (2000)")
+
         return None
 
     else:
+        print("Differential stresses in MPa")
+        print("")
         print("INFO:")
         print(piezometer.warn)
-        print("Differential stresses in MPa")
+        if piezometer.linear_intercepts is True:
+            print("Diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction.")
+        if correction is True:
+            print("Differential stress corrected for plane stress using Paterson and Olgaard (2000)")
 
         return np.around(diff_stress, 2)
 
@@ -172,9 +173,15 @@ def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
 
 
 if __name__ == "__main__":
-    print('Welcome to the GrainSizetool piezometers module')
+    print("===================================================")
+    print("Welcome to the GrainSizetool piezometers module")
+    print("===================================================")
+
     version, piezometers = load_piezometers_from_yaml("piezometric_database.yaml")
-    print(f"piezometric database v{version} loaded")
-    print('')
-    print("Piezometric relations avalilable:")
+    print(f"Piezometric database v{version} loaded.")
+    print("To get the pizometric properties use:")
+    print(">>> piezometers.<mineral>.<piezometer>")
+    print("")
+    print("Available piezometric relationships:")
     list_piezometers(piezometers)
+    print("===================================================")
