@@ -102,6 +102,7 @@ def summarize(
         W2, p_value2 = shapiro(np.log(data))
 
     if 'amean' in avg:
+        # choose optimal method to estimate confidence intervals
         if p_value2 < 0.05:
             amean, __, ci, length = averages.amean(data, ci_level, method='ASTM')
         else:
@@ -129,7 +130,8 @@ def summarize(
                 print(f'GCI method: {low_ci:0.2f} - {high_ci:0.2f} (-{lower_cvar:0.1f}%, +{upper_cvar:0.1f}%), length = {length2:0.3f}')
 
     if 'gmean' in avg:
-        m = 'CLT' if len(data) > 99 else 'bayes'  # choose optimal method to estimate confidence intervals
+        # choose optimal method to estimate confidence intervals
+        m = 'CLT' if len(data) > 99 else 'bayes'
         gmean, msd, (low_ci, high_ci), length = averages.gmean(data, ci_level, method=m)
 
         # estimate coefficients of variation
@@ -160,7 +162,7 @@ def summarize(
         print(f'Mode (KDE-based) = {mode:0.2f} microns')
         print(f'Maximum precision set to {precision}')
 
-        if type(bandwidth) is str:
+        if isinstance(bandwidth, str):
             print(f'KDE bandwidth = {bw} ({bandwidth} rule)')
         else:
             print(f'KDE bandwidth = {bandwidth}')
@@ -189,23 +191,36 @@ def summarize(
 
 
 def get_filepath():
-    """ Get a file path through a file selection dialog."""
+    """Opens a file selection dialog and returns the chosen file path."""
 
     try:
         import os
         import tkinter as tk
         from tkinter import filedialog
+
         root = tk.Tk()
-        root.withdraw()
+        root.withdraw()  # Hide the main window
         root.attributes("-topmost", True)
-        file_path = filedialog.askopenfilename(initialdir=os.getcwd(),
-                                               title="Select file",
-                                               filetypes=[('Text files', '*.txt'),
-                                                          ('Text files', '*.tsv'),
-                                                          ('Text files', '*.csv'),
-                                                          ('Excel files', '*.xlsx')])
+
+        file_path = filedialog.askopenfilename(
+            initialdir=os.getcwd(),
+            title="Select file",
+            filetypes=[
+                ("Text files", "*.txt"),
+                ("TSV filess", "*.tsv"),
+                ("CSV files", "*.csv"),
+                ("Excel files", "*.xlsx"),
+                ("All Files", "*.*"),
+            ],
+        )
+
+        root.destroy()
+
     except ImportError:
-        print('Requires Python 3.6+')
+        print("Requires Python 3.6+")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
+        return None
 
     return file_path
 
