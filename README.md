@@ -1,8 +1,8 @@
 ![](https://raw.githubusercontent.com/marcoalopez/GrainSizeTools/master/FIGURES/new_header.webp)
 
-_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2024-05-24_
+_Maintained by [Marco A. Lopez-Sanchez](https://marcoalopez.github.io/) - This website was last modified: 2024-06-03_
 
-[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides tools for (1) quantifying and visualising grain size populations, (2) applying stereological methods to approximate the true grain size distribution from 2D sections and (3) estimating differential stress for different mineral phases using paleopizometers. The script **does not require any previous experience with the Python programming language** (see the documentation below and [FAQ](https://github.com/marcoalopez/GrainSizeTools/blob/master/DOCS/FAQ.md)). For users with programming skills, the script is organized in a modular (and functional) way to facilitate reuse and code extension.
+[GrainSizeTools](https://doi.org/10.21105/joss.00863) is a free, open-source, cross-platform script written in [Python](https://www.python.org/) that provides tools for (1) quantifying and visualising grain size populations, (2) applying stereological methods to approximate the true grain size distribution from 2D sections and (3) estimating differential stress for different mineral phases via paleopiezometry. The script has been designed to be **accessible to users with no previous experience of the Python programming language** and focuses on scientific reproducibility by including **several ready-made templates for the different use cases**. For users with programming skills, the script is organised in a modular (functional) way to facilitate reuse and code extension.
 
 **Latest release: v3.1.0**  
 **Date: 2024-05-24**  
@@ -12,7 +12,7 @@ See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.1.0
 
 ## Features at a glance
 
-- Import and manipulate tabular data sets including text, CSV, or Excel formats.
+- Import and manipulate tabular data sets including text, CSV, or Excel formats via Pandas.
 
 - Fully automated descriptive statistics of grain size populations including:
 
@@ -21,7 +21,7 @@ See notes at https://github.com/marcoalopez/GrainSizeTools/releases/tag/v3.1.0
   - Measures of dispersion and population shape
   - Normality and lognormality tests
 
-- Estimation of differential stress using palaeopiezometers. Includes several piezometric relations for quartz, olivine, calcite and feldspar (more to come!)
+- Estimation of differential stress using palaeopiezometers. It includes piezometric relations for quartz, olivine, calcite and feldspar (more to come!)
 
 - Ready-to-publish plots in bitmap or vector format (see screenshots below), including:
 
@@ -52,7 +52,7 @@ https://github.com/marcoalopez/GrainSizeTools/wiki
 
 If you have used the script, please consider citing the following paper:
 
-> Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software*, 3(30), 863, https://doi.org/10.21105/joss.00863
+> Lopez-Sanchez, Marco A. (2018). GrainSizeTools: a Python script for grain size analysis and paleopiezometry based on grain size. *Journal of Open Source Software* 3, 863, https://doi.org/10.21105/joss.00863
 
 By citing this paper, you are giving proper credit to the author and acknowledging his work.
 
@@ -77,7 +77,7 @@ The GitHub site where the project is hosted offers several options (you'll need 
 *Copyright © 2017-2024 Marco A. Lopez-Sanchez*  
 
 > [!WARNING]
-> The information on this website and in the script documentation is provided without any warranty of any kind, either expressed or implied, and may include technical inaccuracies or typographical errors; the author reserves the right to make changes or improvements to the content of this website and the script documentation at any time without notice. This website and its documentation are not responsible for the content of external links. 
+> Please note that the information on this website and in the script documentation is provided without any warranty of any kind, either expressed or implied. It may therefore include technical inaccuracies or typographical errors. The author reserves the right to make changes or improvements to the content of this website and the script documentation at any time without notice. This website and its documentation are not responsible for the content of external links. 
 
 *Hosted on GitHub Pages — This website was created with [Typora](https://typora.io/)*
 
