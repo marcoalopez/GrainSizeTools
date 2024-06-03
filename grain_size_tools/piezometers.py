@@ -105,9 +105,9 @@ def calc_diffstress(piezometer, grain_size, correction=False):
         print("INFO:")
         print(piezometer.warn)
         if piezometer.linear_intercepts is True:
-            print("Diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction.")
+            print("The diameters have been converted to linear intercepts using the de Hoff and Rhines (1968) correction.")
         if correction is True:
-            print("Differential stress corrected for plane stress using Paterson and Olgaard (2000)")
+            print("The differential stress was corrected for plane stress using the methodology outlined in Paterson and Olgaard (2000).")
 
         return None
 
@@ -117,9 +117,9 @@ def calc_diffstress(piezometer, grain_size, correction=False):
         print("INFO:")
         print(piezometer.warn)
         if piezometer.linear_intercepts is True:
-            print("Diameters were converted to linear intercepts using de Hoff and Rhines (1968) correction.")
+            print("The diameters have been converted to linear intercepts using the de Hoff and Rhines (1968) correction.")
         if correction is True:
-            print("Differential stress corrected for plane stress using Paterson and Olgaard (2000)")
+            print("The differential stress was corrected for plane stress using the methodology outlined in Paterson and Olgaard (2000).")
 
         return np.around(diff_stress, 2)
 

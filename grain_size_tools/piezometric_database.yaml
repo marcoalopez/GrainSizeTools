@@ -64,7 +64,7 @@ database:
         reference: https://doi.org/10.1029/2003GL018444
         B: 669.0
         m: 0.79
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
         linear_intercepts: false
         correction_factor: false
         notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
@@ -74,7 +74,7 @@ database:
         reference: https://doi.org/10.1029/2003GL018444
         B: 1264.1
         m: 1.64
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
         linear_intercepts: false
         correction_factor: false
         notes: Only applies to recrystallization regime 1 (BLG)      
@@ -84,7 +84,7 @@ database:
         reference: https://doi.org/10.1016/j.tecto.2010.08.001
         B: 490.3
         m: 0.79
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
         linear_intercepts: false
         correction_factor: false
         notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
@@ -94,7 +94,7 @@ database:
         reference: https://doi.org/10.1016/j.tecto.2010.08.001
         B: 883.9
         m: 1.85
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
         linear_intercepts: false
         correction_factor: false
         notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
@@ -104,7 +104,7 @@ database:
         reference: https://doi.org/10.1002/2017GL073836
         B: 593.0
         m: 0.71
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
         linear_intercepts: false
         correction_factor: false
         notes: None
@@ -114,7 +114,7 @@ database:
         reference: https://doi.org/10.1002/2017GL073836
         B: 450.9
         m: 0.63
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS)
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
         linear_intercepts: false
         correction_factor: false
         notes: None
@@ -124,7 +124,7 @@ database:
         reference: https://doi.org/10.1016/j.jsg.2008.03.004
         B: 352.0
         m: 0.8
-        warn: Ensure that you entered the apparent grain size as the median in log (base e) scale
+        warn: Please ensure that you have entered the apparent grain size as the median in log (base e) scale.
         linear_intercepts: false
         correction_factor: false
         notes: |
@@ -139,7 +139,7 @@ database:
         reference: https://www.doi.org/10.1007/BF01637105
         B: 550.0
         m: 0.68
-        warn: Ensure that you entered the apparent grain size as the arithmetic mean grain size
+        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean grain size.
         linear_intercepts: false
         correction_factor: 1.5
         notes: |
@@ -155,7 +155,7 @@ database:
         reference: https://doi.org/10.1029/93GL01382
         B: 1355.4
         m: 0.75
-        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
         linear_intercepts: true
         correction_factor: 1.5
         notes: |
@@ -168,7 +168,7 @@ database:
         reference: https://doi.org/10.1016/S0191-8141(01)00005-0
         B: 5461.03
         m: 0.85
-        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
         linear_intercepts: true
         correction_factor: 1.5 
         notes: |
@@ -183,7 +183,7 @@ database:
         reference: https://doi.org/10.1029/95JB02500
         B: 812.83
         m: 0.88
-        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
         linear_intercepts: false
         correction_factor: false
         notes: Only applies to subgrain rotation recrystallization
@@ -193,7 +193,7 @@ database:
         reference: https://doi.org/10.1029/95JB02500
         B: 2691.53
         m: 0.89
-        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
         linear_intercepts: false
         correction_factor: false
         notes: Only applies to grain boundary migration recrystallization
@@ -203,7 +203,7 @@ database:
         reference: https://doi.org/10.1016/j.jsg.2003.11.024
         B: 537.03
         m: 0.82
-        warn: Ensure that you entered the apparent grain size as the arithmetic mean in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
         linear_intercepts: false
         correction_factor: false
         notes: None
@@ -213,7 +213,7 @@ database:
         reference: https://doi.org/10.1016/j.jsg.2017.10.012
         B: 538.40
         m: 0.82
-        warn: Ensure that you entered the apparent grain size as the root mean square (RMS) in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS) in linear scale.
         linear_intercepts: false
         correction_factor: false
         notes: |
@@ -225,7 +225,7 @@ database:
         reference: https://doi.org/10.1144/SP409.4
         B: 1467.92
         m: 1.67
-        warn: Ensure that you entered the apparent grain size the arithmetic mean in linear scale
+        warn: Please ensure that you have entered the apparent grain size the arithmetic mean in linear scale.
         linear_intercepts: false
         correction_factor: false
         notes: None
@@ -237,7 +237,7 @@ database:
         reference: https://doi.org/10.1016/S0040-1951(98)00260-1
         B: 433.4
         m: 1.52
-        warn: Ensure that you entered the apparent grain size as the median in linear scale
+        warn: Please ensure that you have entered the apparent grain size as the median in linear scale.
         linear_intercepts: true
         correction_factor: false
         notes: |
