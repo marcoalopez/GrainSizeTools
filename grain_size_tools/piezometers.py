@@ -157,19 +157,22 @@ def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
         database = yaml.safe_load(file)
 
     # get database version
-    version = database["database"]["version"]
+    version = database["database_version"]
+
+    # get database metadata
+    metadata = database["metadata"]
 
     # construct simple dataclasses for all mineral phases
-    quartz = SimpleNamespace(**database["database"]["mineral_phases"]["quartz"])
-    olivine = SimpleNamespace(**database["database"]["mineral_phases"]["olivine"])
-    calcite = SimpleNamespace(**database["database"]["mineral_phases"]["calcite"])
-    feldspar = SimpleNamespace(**database["database"]["mineral_phases"]["feldspar"])
+    quartz = SimpleNamespace(**database["data"]["quartz"])
+    olivine = SimpleNamespace(**database["data"]["olivine"])
+    calcite = SimpleNamespace(**database["data"]["calcite"])
+    feldspar = SimpleNamespace(**database["data"]["feldspar"])
 
     piezometers = SimpleNamespace(
         quartz=quartz, olivine=olivine, calcite=calcite, feldspar=feldspar
     )
 
-    return version, piezometers
+    return version, metadata, piezometers
 
 
 if __name__ == "__main__":
@@ -177,7 +180,7 @@ if __name__ == "__main__":
     print("Welcome to the GrainSizetool piezometers module")
     print("===================================================")
 
-    version, piezometers = load_piezometers_from_yaml("piezometric_database.yaml")
+    version, metadata, piezometers = load_piezometers_from_yaml("piezometric_database.yaml")
     print(f"Piezometric database v{version} loaded.")
     print("")
     print("To get or display piezometric properties use:")
