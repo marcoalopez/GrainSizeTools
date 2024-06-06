@@ -1,248 +1,215 @@
-# This file is part of the Open Database License (ODbL) - version 1.0
-#
-# Preamble:
-# The Piezometric Database is an open database provided as part
-# of the "GrainSizeTools Script" and it  is licensed under the Open
-# Database License (ODbL) version 1.0.
-#
-# License:
-# Copyright (c) 2014-present, Marco A. Lopez-Sanchez
-#
-# You are free:
-# 1. To Share: To copy, distribute, and use the database.
-# 2. To Create: To produce works from the database.
-# 3. To Adapt: To modify, transform, and build upon the database.
-#
-# As long as you:
-# 1. Attribute: You must attribute any public use of the database,
-# or works produced from the database, in the manner specified in
-# the attribution section below.
-# 2. Share-Alike: If you publicly use any adapted version of this
-# database or works produced from it, you must also offer that
-# adapted database under the ODbL license.
-# 3. Keep open: If you redistribute the database, you must make
-# the original data available to the public at no cost, without
-# any restrictions on the use of the database.
-#
-# Attribution:
-# The attribution requirement under this license is satisfied by
-# including the following notice:
-# "Piezometric Database by GrainSizeTools Script is licensed
-# under the Open Database License (ODbL) version 1.0."
-# If you make any changes or adaptations to this database, you must
-# indicate so and not imply that the original database is endorsed
-# by the GrainSizeTools script.
-#
-# License Text:
-# The full text of the Open Database License (ODbL) version 1.0 is
-# available at: https://opendatacommons.org/licenses/odbl/1.0/
-# For the avoidance of doubt, this summary is not a license and it
-# has no legal value. You should refer to the full text of the ODbL
-# for the complete terms and conditions that apply.
-#
-# Contact:
-# If you have any questions or need further clarifications regarding
-# this license or the Piezometric Database, you can contact
-# Marco A. Lopez-Sanchez at lopezmarco [to be found at] uniovi.es.
-#
-# End of License.
+# ============================================================================ #
+#                                                                              #
+#    This is part of the "GrainSizeTools Script"                               #
+#    A Python script for characterizing grain size from thin sections          #
+#    and paleopiezometry.                                                      #
+#                                                                              #
+#    Copyright (c) 2014-present   Marco A. Lopez-Sanchez                       #
+#    Database licensed under the Open Database License (ODbL) - version 1.0    #
+#    Usage terms: https://opendatacommons.org/licenses/odbl/                   #
+#                                                                              #
+#    Save this file in the same directory as GrainSizeTools                    #
+#                                                                              #
+# ============================================================================ #
 
-# =================================================================== #
-# Save this file in the same directory as GrainSizeTools              #
-# =================================================================== #
+---
+database_version: 2024.06.06
 
+metadata:
+  author: Marco A. Lopez-Sanchez
+  contact_email: marcoalopez [to be found at] outlook [dot] com
+  description: Piezometric database from GrainSizeTools script
+  created_at: 2024-06-06
+  license: Open Database License (ODbL) - version 1.0
+  usage_terms: https://opendatacommons.org/licenses/odbl/summary/
+  contributors:
 
-##### version #############################################################################
-database:
-  version: 2024.05.21
-
-###########################################################################################
-  mineral_phases:
-    quartz: # quartz piezometers
-      Stipp_Tullis:
-        year: 2003
-        reference: https://doi.org/10.1029/2003GL018444
-        B: 669.0
-        m: 0.79
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
-        linear_intercepts: false
-        correction_factor: false
-        notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
+data:
+## quartz piezometers ######################################################################
+  quartz:
+    Stipp_Tullis:
+      year: 2003
+      reference: https://doi.org/10.1029/2003GL018444
+      B: 669.0
+      m: 0.79
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
+      linear_intercepts: false
+      correction_factor: false
+      notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
     
-      Stipp_Tullis_BLG:
-        year: 2003
-        reference: https://doi.org/10.1029/2003GL018444
-        B: 1264.1
-        m: 1.64
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
-        linear_intercepts: false
-        correction_factor: false
-        notes: Only applies to recrystallization regime 1 (BLG)      
+    Stipp_Tullis_BLG:
+      year: 2003
+      reference: https://doi.org/10.1029/2003GL018444
+      B: 1264.1
+      m: 1.64
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
+      linear_intercepts: false
+      correction_factor: false
+      notes: Only applies to recrystallization regime 1 (BLG)      
 
-      Holyoke:
-        year: 2010
-        reference: https://doi.org/10.1016/j.tecto.2010.08.001
-        B: 490.3
-        m: 0.79
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
-        linear_intercepts: false
-        correction_factor: false
-        notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
+    Holyoke:
+      year: 2010
+      reference: https://doi.org/10.1016/j.tecto.2010.08.001
+      B: 490.3
+      m: 0.79
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
+      linear_intercepts: false
+      correction_factor: false
+      notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
   
-      Holyoke_BLG:
-        year: 2010
-        reference: https://doi.org/10.1016/j.tecto.2010.08.001
-        B: 883.9
-        m: 1.85
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
-        linear_intercepts: false
-        correction_factor: false
-        notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
+    Holyoke_BLG:
+      year: 2010
+      reference: https://doi.org/10.1016/j.tecto.2010.08.001
+      B: 883.9
+      m: 1.85
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
+      linear_intercepts: false
+      correction_factor: false
+      notes: Only applies to recrystallization regimes 2 and 3 (SGR, GBM)
   
-      Cross:
-        year: 2017
-        reference: https://doi.org/10.1002/2017GL073836
-        B: 593.0
-        m: 0.71
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
-        linear_intercepts: false
-        correction_factor: false
-        notes: None
+    Cross:
+      year: 2017
+      reference: https://doi.org/10.1002/2017GL073836
+      B: 593.0
+      m: 0.71
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
+      linear_intercepts: false
+      correction_factor: false
+      notes: None
   
-      Cross_HR:
-        year: 2017
-        reference: https://doi.org/10.1002/2017GL073836
-        B: 450.9
-        m: 0.63
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
-        linear_intercepts: false
-        correction_factor: false
-        notes: None
+    Cross_HR:
+      year: 2017
+      reference: https://doi.org/10.1002/2017GL073836
+      B: 450.9
+      m: 0.63
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS).
+      linear_intercepts: false
+      correction_factor: false
+      notes: None
   
-      Shimizu:
-        year: 2008
-        reference: https://doi.org/10.1016/j.jsg.2008.03.004
-        B: 352.0
-        m: 0.8
-        warn: Please ensure that you have entered the apparent grain size as the median in log (base e) scale.
-        linear_intercepts: false
-        correction_factor: false
-        notes: |
-          The Shimizu (2008) piezometer requires entering the grain size as the
-          logarithm of the median apparent grain size calculated using equivalent
-          circular diameters with no stereological correction. It uses a different
-          piezometer model to the Twiss model in which the stress estimation is
-          temperature-dependent.
+    Shimizu:
+      year: 2008
+      reference: https://doi.org/10.1016/j.jsg.2008.03.004
+      B: 352.0
+      m: 0.8
+      warn: Please ensure that you have entered the apparent grain size as the median in log (base e) scale.
+      linear_intercepts: false
+      correction_factor: false
+      notes: |
+        The Shimizu (2008) piezometer requires entering the grain size as the
+        logarithm of the median apparent grain size calculated using equivalent
+        circular diameters with no stereological correction. It uses a different
+        piezometer model to the Twiss model in which the stress estimation is
+        temperature-dependent.
   
-      Twiss:
-        year: 1977
-        reference: https://www.doi.org/10.1007/BF01637105
-        B: 550.0
-        m: 0.68
-        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean grain size.
-        linear_intercepts: false
-        correction_factor: 1.5
-        notes: |
-          Twiss (1977) piezometer was calibrated using the linear intercepts (LI) multiplied
-          by 1.5 (correction factor). Equivalent circular diameters (ECD) without stereological
-          correction must be converted to LIs using the empirical equation of De Hoff and
-          Rhines (1968) as follows LI = (1.5 / sqrt(4/pi)) * ECD
+    Twiss:
+      year: 1977
+      reference: https://www.doi.org/10.1007/BF01637105
+      B: 550.0
+      m: 0.68
+      warn: Please ensure that you have entered the apparent grain size as the arithmetic mean grain size.
+      linear_intercepts: false
+      correction_factor: 1.5
+      notes: |
+        Twiss (1977) piezometer was calibrated using the linear intercepts (LI) multiplied
+        by 1.5 (correction factor). Equivalent circular diameters (ECD) without stereological
+        correction must be converted to LIs using the empirical equation of De Hoff and
+        Rhines (1968) as follows LI = (1.5 / sqrt(4/pi)) * ECD
 
-###########################################################################################
-    olivine:  # olivine piezometers
-      VanderWal_wet:
-        year: 1993
-        reference: https://doi.org/10.1029/93GL01382
-        B: 1355.4
-        m: 0.75
-        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
-        linear_intercepts: true
-        correction_factor: 1.5
-        notes: |
-          The Van der Wal (1993) piezometer was calibrated using the linear intercept (LI) grain size
-          multiplied by 1.5 (correction factor). ECDs without stereological correction will be converted
-          to LIs using the empirical equation of De Hoff and Rhines (1968) LI = (1.5 / sqrt(4/pi)) * ECD
+## olivine piezometers ######################################################################
+  olivine:
+    VanderWal_wet:
+      year: 1993
+      reference: https://doi.org/10.1029/93GL01382
+      B: 1355.4
+      m: 0.75
+      warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
+      linear_intercepts: true
+      correction_factor: 1.5
+      notes: |
+        The Van der Wal (1993) piezometer was calibrated using the linear intercept (LI) grain size
+        multiplied by 1.5 (correction factor). ECDs without stereological correction will be converted
+        to LIs using the empirical equation of De Hoff and Rhines (1968) LI = (1.5 / sqrt(4/pi)) * ECD
 
-      Jung_Karato:
-        year: 2001
-        reference: https://doi.org/10.1016/S0191-8141(01)00005-0
-        B: 5461.03
-        m: 0.85
-        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
-        linear_intercepts: true
-        correction_factor: 1.5 
-        notes: |
-          The Jung & Karato (2001) piezometer was calibrated using the linear intercept (LI) grain size
-          multiplied by 1.5 (correction factor). ECDs without stereological correction will be converted
-          to LIs using the empirical equation of De Hoff and Rhines (1968) LI = (1.5 / sqrt(4/pi)) * ECD
+    Jung_Karato:
+      year: 2001
+      reference: https://doi.org/10.1016/S0191-8141(01)00005-0
+      B: 5461.03
+      m: 0.85
+      warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
+      linear_intercepts: true
+      correction_factor: 1.5 
+      notes: |
+        The Jung & Karato (2001) piezometer was calibrated using the linear intercept (LI) grain size
+        multiplied by 1.5 (correction factor). ECDs without stereological correction will be converted
+        to LIs using the empirical equation of De Hoff and Rhines (1968) LI = (1.5 / sqrt(4/pi)) * ECD
 
-###########################################################################################
-    calcite:  # calcite piezometers
-      Rutter_SGR:
-        year: 1995
-        reference: https://doi.org/10.1029/95JB02500
-        B: 812.83
-        m: 0.88
-        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
-        linear_intercepts: false
-        correction_factor: false
-        notes: Only applies to subgrain rotation recrystallization
+## calcite piezometers ######################################################################
+  calcite:
+    Rutter_SGR:
+      year: 1995
+      reference: https://doi.org/10.1029/95JB02500
+      B: 812.83
+      m: 0.88
+      warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
+      linear_intercepts: false
+      correction_factor: false
+      notes: Only applies to subgrain rotation recrystallization
   
-      Rutter_GBM:    
-        year: 1995
-        reference: https://doi.org/10.1029/95JB02500
-        B: 2691.53
-        m: 0.89
-        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
-        linear_intercepts: false
-        correction_factor: false
-        notes: Only applies to grain boundary migration recrystallization
+    Rutter_GBM:    
+      year: 1995
+      reference: https://doi.org/10.1029/95JB02500
+      B: 2691.53
+      m: 0.89
+      warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
+      linear_intercepts: false
+      correction_factor: false
+      notes: Only applies to grain boundary migration recrystallization
   
-      Barnhoorn:
-        year: 2003
-        reference: https://doi.org/10.1016/j.jsg.2003.11.024
-        B: 537.03
-        m: 0.82
-        warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
-        linear_intercepts: false
-        correction_factor: false
-        notes: None
+    Barnhoorn:
+      year: 2003
+      reference: https://doi.org/10.1016/j.jsg.2003.11.024
+      B: 537.03
+      m: 0.82
+      warn: Please ensure that you have entered the apparent grain size as the arithmetic mean in linear scale.
+      linear_intercepts: false
+      correction_factor: false
+      notes: None
   
-      Platt_Bresser:
-        year: 2017
-        reference: https://doi.org/10.1016/j.jsg.2017.10.012
-        B: 538.40
-        m: 0.82
-        warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS) in linear scale.
-        linear_intercepts: false
-        correction_factor: false
-        notes: |
-          Contrary to other calcite piezometers, this one was calibrated using the RMS mean
-          instead of the arithmetic mean.
+    Platt_Bresser:
+      year: 2017
+      reference: https://doi.org/10.1016/j.jsg.2017.10.012
+      B: 538.40
+      m: 0.82
+      warn: Please ensure that you have entered the apparent grain size as the root mean square (RMS) in linear scale.
+      linear_intercepts: false
+      correction_factor: false
+      notes: |
+        Contrary to other calcite piezometers, this one was calibrated using the RMS mean
+        instead of the arithmetic mean.
   
-      Valcke:
-        year: 2015
-        reference: https://doi.org/10.1144/SP409.4
-        B: 1467.92
-        m: 1.67
-        warn: Please ensure that you have entered the apparent grain size the arithmetic mean in linear scale.
-        linear_intercepts: false
-        correction_factor: false
-        notes: None
+    Valcke:
+      year: 2015
+      reference: https://doi.org/10.1144/SP409.4
+      B: 1467.92
+      m: 1.67
+      warn: Please ensure that you have entered the apparent grain size the arithmetic mean in linear scale.
+      linear_intercepts: false
+      correction_factor: false
+      notes: None
 
-###########################################################################################
-    feldspar:  # feldspar piezometers
-      Post_Tullis_BLG:
-        year: 1999
-        reference: https://doi.org/10.1016/S0040-1951(98)00260-1
-        B: 433.4
-        m: 1.52
-        warn: Please ensure that you have entered the apparent grain size as the median in linear scale.
-        linear_intercepts: true
-        correction_factor: false
-        notes: |
-          The Post and Tullis (1999) piezometer was calibrated using the median of the
-          equivalent circular diameters (ECD) grain size with no stereological correction.
+## feldspar piezometers #####################################################################
+  feldspar:  # feldspar piezometers
+    Post_Tullis_BLG:
+      year: 1999
+      reference: https://doi.org/10.1016/S0040-1951(98)00260-1
+      B: 433.4
+      m: 1.52
+      warn: Please ensure that you have entered the apparent grain size as the median in linear scale.
+      linear_intercepts: true
+      correction_factor: false
+      notes: |
+        The Post and Tullis (1999) piezometer was calibrated using the median of the
+        equivalent circular diameters (ECD) grain size with no stereological correction.
 
-# End of file
-###########################################################################################
+## End of file ##############################################################################
