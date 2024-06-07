@@ -168,11 +168,11 @@ def load_piezometers_from_yaml(filepath: str) -> tuple[str, SimpleNamespace]:
     calcite = SimpleNamespace(**database["data"]["calcite"])
     feldspar = SimpleNamespace(**database["data"]["feldspar"])
 
-    piezometers = SimpleNamespace(
+    database = SimpleNamespace(
         quartz=quartz, olivine=olivine, calcite=calcite, feldspar=feldspar
     )
 
-    return version, metadata, piezometers
+    return version, metadata, database
 
 
 if __name__ == "__main__":
@@ -180,12 +180,12 @@ if __name__ == "__main__":
     print("Welcome to the GrainSizetool piezometers module")
     print("===================================================")
 
-    version, metadata, piezometers = load_piezometers_from_yaml("piezometric_database.yaml")
+    version, metadata, database = load_piezometers_from_yaml("piezometric_database.yaml")
     print(f"Piezometric database v{version} loaded.")
     print("")
     print("To get or display piezometric properties use:")
-    print(">>> piezometers.<mineral>.<piezometer>")
+    print(">>> database.<mineral>.<piezometer>")
     print("")
     print("Available piezometric relationships:")
-    list_piezometers(piezometers)
+    list_piezometers(database)
     print("===================================================")
