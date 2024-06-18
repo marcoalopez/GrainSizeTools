@@ -48,9 +48,11 @@ def calc_diffstress(piezometer, grain_size, correction=False):
         the apparent grain size in microns
 
     correction : bool, default False
-        correct the stress values for plane stress (Paterson and Olgaard, 2000)
+        correct the stress values from uniaxial compression (experiments) 
+        to plane stress (nature) using the Paterson and Olgaard (2000)
+        approach; i.e. multiplying the paleopiezometer by 2/sqrt(3)
 
-     References
+    References
     -----------
     Paterson and Olgaard (2000) https://doi.org/10.1016/S0191-8141(00)00042-0
     de Hoff and Rhines (1968) Quantitative Microscopy. Mcgraw-Hill. New York.
@@ -59,21 +61,17 @@ def calc_diffstress(piezometer, grain_size, correction=False):
     -----------
     - Independence of temperature (excepting Shimizu piezometer), total strain,
     flow stress, and water content.
-    - Recrystallized grains are equidimensional or close to equidimensional when
-    using a single section.
+    - Recrystallized grains are equidimensional or close to equidimensional.
     - The piezometer relations requires entering the grain size as "average"
     apparent grain size values calculated using equivalent circular diameters
     (ECD) with no stereological correction. See documentation for more details.
     - When required, the grain size value will be converted from ECD to linear
     intercept (LI) using a correction factor based on de Hoff and Rhines (1968):
     LI = (correction factor / sqrt(4/pi)) * ECD
-    - Stress estimates can be corrected from uniaxial compression (experiments)
-    to plane strain (nature) multiplying the paleopiezometer by 2/sqrt(3)
-    (Paterson and Olgaard, 2000)
 
     Returns
     -------
-    The differential stress in MPa (a float)
+    The differential stress in MPa (a float or array-like)
     """
     # convert dict to SimpleNamespace
     piezometer = SimpleNamespace(**piezometer)
