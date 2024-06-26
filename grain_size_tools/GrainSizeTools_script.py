@@ -236,6 +236,9 @@ Version: 3.2.0
 Documentation: https://github.com/marcoalopez/GrainSizeTools/wiki
 
 Type function_list() to get a list of the main methods
+
+To access the piezometry module and the piezometer database, enter the following
+command: %run piezometers.py
 """
 
 info = """
@@ -244,7 +247,6 @@ List of main functions
 ======================================================================================
 summarize              -> get the properties of the data population
 conf_interval          -> estimate a robust confidence interval using the t-distribution
-calc_diffstress        -> estimate diff. stress from grain size using piezometers
 
 plot.distribution      -> visualize the distribution of grain sizes and locate the averages
 plot.qq_plot           -> test the lognormality of the dataset (q-q plot + Shapiro-Wilk test)
@@ -263,7 +265,6 @@ You can get more information about the methods using the following ways:
 
 def function_list():
     print(info)
-    return None
 
 
 if __name__ == "__main__":
@@ -271,5 +272,6 @@ if __name__ == "__main__":
     # import grain_size_tools modules
     import plot
     import averages
+    from averages import conf_interval
     import stereology
     import template
