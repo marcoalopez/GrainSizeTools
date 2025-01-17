@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.2.0                                                             #
+#    Version 3.3.0                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -92,7 +92,7 @@ def Saltykov(diameters,
     if isinstance(numbins, int) is False:
         raise ValueError("Numbins must be a positive integer")
     if numbins <= 0:
-        raise ValueError("Numbins must be higher than zero")
+        raise ValueError("Numbins must be a positive integer")
     if isinstance(left_edge, (int, float)):
         if left_edge < 0:
             raise ValueError("left_edge must be a positive scalar or 'min'")
@@ -719,7 +719,7 @@ def create_tabular_file(text_file, binsize, bin_midpoints, freq3D, cdf_norm):
 
     if isinstance(text_file, str) is False:
         raise TypeError("text_file must be a string type")
-    
+
     from pandas import DataFrame
 
     df = DataFrame(
