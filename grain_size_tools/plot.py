@@ -17,7 +17,7 @@
 #    See the License for the specific language governing permissions and       #
 #    limitations under the License.                                            #
 #                                                                              #
-#    Version 3.2.0                                                             #
+#    Version 3.3.0                                                             #
 #    For details see: http://marcoalopez.github.io/GrainSizeTools/             #
 #    download at https://github.com/marcoalopez/GrainSizeTools/releases        #
 #                                                                              #
@@ -40,7 +40,7 @@ def distribution(
     data,
     plot=("hist", "kde"),
     avg=("amean", "gmean", "median", "mode"),
-    binsize="auto",
+    bins="auto",
     bandwidth="silverman",
     **fig_kw,
 ):
@@ -54,19 +54,17 @@ def distribution(
 
     plot : string, tuple or list; optional
         the type of plot, either histogram ('hist'), kernel density estimate
-        ('kde') or both ('hist', 'kde'). Default is both.
+        ('kde') or both ('hist', 'kde'). Default to both.
 
     avg : string, tuple or list; optional
         the central tendency measures o show, either the arithmetic ('amean')
         or geometric ('gmean') means, the median ('median'), and/or the
-        KDE-based mode ('mode'). Default all averages.
+        KDE-based mode ('mode'). Default to all averages.
 
-    binsize : string or positive scalar; optional
-        If 'auto', it defines the plug-in method to calculate the bin size.
-        When integer or float, it directly specifies the bin size.
-        Default: the 'auto' method.
-
-        | Available plug-in methods:
+    bins : int or sequence or str; optional, defaults to "auto"
+        If string, it defines the plug-in method to calculate
+        the bin size. The following are available:
+        
         | 'auto' (fd if sample_size > 1000 or Sturges otherwise)
         | 'doane' (Doane's rule)
         | 'fd' (Freedman-Diaconis rule)
@@ -74,6 +72,10 @@ def distribution(
         | 'scott' (Scott rule)
         | 'sqrt' (square-root rule)
         | 'sturges' (Sturge's rule)
+
+        If integer, it defines the number of equal-width bins in the range.
+        If a sequence, it defines the bin edges, including the left edge
+        of the first bin and the right edge of the last bin.
 
     bandwidth : string {'silverman' or 'scott'} or positive scalar; optional
         the method to estimate the bandwidth or a scalar directly defining the
@@ -96,20 +98,17 @@ def distribution(
     fig, ax = plt.subplots(**fig_kw)
 
     if 'hist' in plot:
-        if isinstance(binsize, (int, float)):
-            binsize = int(np.ceil((data.max() - data.min()) / binsize))
-        y_values, bins, __ = ax.hist(data,
-                                     bins=binsize,
-                                     range=(data.min(), data.max()),
-                                     density=True,
-                                     color='#80419d',
-                                     edgecolor='#C59fd7',
-                                     alpha=0.7)
+        y_values, bin_edges, __ = ax.hist(data,
+                                          bins=bins,
+                                          range=(data.min(), data.max()),
+                                          density=True,
+                                          color='#80419d',
+                                          edgecolor='#C59fd7',
+                                          alpha=0.7)
         print('=======================================')
         print('Histogram features:')
-        print('Number of classes = ', len(bins) - 1)
-        print('binsize = ', round(bins[1] - bins[0], 2))
-        # print('method...')
+        print('Number of classes = ', len(bin_edges) - 1)
+        print('binsize = ', round(bin_edges[1] - bin_edges[0], 2))
         print('=======================================')
 
     if 'kde' in plot:
@@ -183,7 +182,7 @@ def distribution(
     return fig, ax
 
 
-def area_weighted(diameters, areas, binsize='auto', **fig_kw):
+def area_weighted(diameters, areas, bins='auto', **fig_kw):
     """ Generate an area-weighted histogram and returns different
     area-weighted statistics.
 
@@ -195,12 +194,10 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     areas : array_like
         the sectional areas of the grains
 
-    binsize : string or positive scalar, optional
-        If 'auto', it defines the plug-in method to calculate the bin size.
-        When integer or float, it directly specifies the bin size.
-        Default: the 'auto' method.
-
-        | Available plug-in methods:
+    bins : int or sequence or str; optional, defaults to "auto"
+        If string, it defines the plug-in method to calculate
+        the bin size. The following are available:
+        
         | 'auto' (fd if sample_size > 1000 or Sturges otherwise)
         | 'doane' (Doane's rule)
         | 'fd' (Freedman-Diaconis rule)
@@ -208,6 +205,10 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
         | 'scott' (Scott rule)
         | 'sqrt' (square-root rule)
         | 'sturges' (Sturge's rule)
+
+        If integer, it defines the number of equal-width bins in the range.
+        If a sequence, it defines the bin edges, including the left edge
+        of the first bin and the right edge of the last bin.
 
     **fig_kw :
         additional keyword arguments to control the size (figsize) and
@@ -218,7 +219,7 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     Examples
     --------
     >>> area_weighted(data['diameters'], data['Areas'])
-    >>> area_weighted(data['diameters'], data['Areas'], binsize='doane', dpi=300)
+    >>> area_weighted(data['diameters'], data['Areas'], bins='doane', dpi=300)
     """
 
     # estimate weighted mean
@@ -226,16 +227,12 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     weighted_areas = areas / area_total
     weighted_mean = np.sum(diameters * weighted_areas)
 
-    # estimate mode interval
-    if isinstance(binsize, str):
-        histogram, bin_edges = np.histogram(diameters, bins=binsize, range=(0.0, diameters.max()))
-        h = bin_edges[1]
-    else:
-        bin_edges = np.arange(0.0, diameters.max() + binsize, binsize)
-        h = binsize
+    # estimate histogram
+    histogram, bin_edges = np.histogram(diameters, bins=bins, range=(0.0, diameters.max()))
+    h = bin_edges[1]
 
-    # estimate the cumulative areas of each grain size interval
-    cumulativeAreas = np.zeros(len(bin_edges))
+    # estimate the cumulative areas of each class
+    cumulativeAreas = np.zeros_like(bin_edges)
     for index, values in enumerate(bin_edges):
         mask = np.logical_and(diameters >= values, diameters < (values + h))
         area_sum = np.sum(areas[mask])
@@ -250,9 +247,9 @@ def area_weighted(diameters, areas, binsize='auto', **fig_kw):
     print('=======================================')
     print('HISTOGRAM FEATURES')
     print(f'The modal interval is {bin_edges[getIndex]:0.2f} - {bin_edges[getIndex] + h:0.2f} microns')
-    if isinstance(binsize, str):
+    if isinstance(bins, str):
         print(f'The number of classes are {len(histogram)}')
-        print(f'The bin size is {h:0.2f} according to the {binsize} rule')
+        print(f'The bin size is {h:0.2f} according to the {bins} rule')
     print('=======================================')
 
     # normalize the y-axis values to percentage of the total area
